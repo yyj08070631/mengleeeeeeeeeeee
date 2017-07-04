@@ -19,15 +19,15 @@ export default {
         left: 0
         top: 0
         width: 100%
-        height: 2.1875rem
+        height: 40px
         z-index: 450
         background: #f9f9f9
         overflow: hidden
         .header-content
             position: relative
             width: 100%
-            height: 2.1875rem
-            line-height: 2.1875rem
+            height: 2.5rem
+            line-height: 2.5rem
             border-bottom-1px(#c6c6c6)
             .search
                 position: absolute

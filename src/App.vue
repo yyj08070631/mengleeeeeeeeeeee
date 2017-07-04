@@ -43,7 +43,7 @@ export default {
     .menu-tag
       display: flex
       width: 100%
-      height: 2.375rem
+      height: 43px
       font-size: 0
       border-top-1px(#b2b2b2)
       background: rgba(255,255,255,0.95)
@@ -54,7 +54,7 @@ export default {
         .active
           color: #ea68a2
       .home,.goods,.myCenter,.orderFrom      
-        margin: 0.1875rem auto 0.0625rem auto
+        margin: 0.1875rem auto 0.3125rem auto
         width: 1.375rem
         height: 1.375rem
         background: #dd0
