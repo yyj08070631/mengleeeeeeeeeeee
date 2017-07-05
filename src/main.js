@@ -5,6 +5,9 @@ import goods from './components/goods/goods';
 import home from './components/home/home';
 import myCenter from './components/myCenter/myCenter';
 import orderFrom from './components/orderFrom/orderFrom';
+import goodDetail from './components/goodDetail/goodDetail';
+
+
 Vue.use(vueRouter);
 
 const routes = [{
@@ -22,6 +25,10 @@ const routes = [{
     {
         path: '/orderFrom',
         component: orderFrom
+    },
+    {
+        path: '/goodDetail',
+        component: goodDetail
     }
 ];
 const router = new vueRouter({
