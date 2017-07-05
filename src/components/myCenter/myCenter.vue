@@ -10,18 +10,18 @@
           </div>
 
           <div class="more-link">
-              <img class="qr-code" width=12 height=12 src="./QR_code.png"/>
+              <img class="qr-code" width=16 height=16 src="./QR_code.png"/>
               <a href="#">
-                  <img width=12 height=12 src="./more.png">
+                  <img width=16 height=16 src="./more.png">
               </a>
           </div>
       </div>
       <!--个人资料-->
       <!--账单积分-->
       <div class="notecase-wrapper">
-          <a href="#" class="notecase-item item-cls">我的账单<img class="more" width=12 height=12 src="./__more.png"/></a>
-          <a href="#" class="notecase-item item-cls">我的积分<img class="more" width=12 height=12 src="./__more.png"/></a>
-          <a href="#" class="notecase-item item-cls">我的钱包<img class="more" width=12 height=12 src="./__more.png"/></a> 
+          <a href="#" class="notecase-item item-cls">我的账单<img class="more" width=16 height=16 src="./__more.png"/></a>
+          <a href="#" class="notecase-item item-cls">我的积分<img class="more" width=16 height=16 src="./__more.png"/></a>
+          <a href="#" class="notecase-item item-cls">我的钱包<img class="more" width=16 height=16 src="./__more.png"/></a> 
       </div>
       <!--账单积分-->
   </div>
@@ -56,6 +56,7 @@
           display: inline-block
           margin: 0.9375rem 0 0.375rem 0
           font-size: 0.875rem
+          color: #000
         .mobile
           display: block
           font-size: 0.5625rem
@@ -91,6 +92,7 @@
           right: 1rem
           top: 50%
           margin-top: -6px
+          margin-right: 0.75rem 
 
      
 </style>
