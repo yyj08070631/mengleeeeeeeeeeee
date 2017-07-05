@@ -72,32 +72,32 @@
 
   .home-wrapper
     position: absolute
-    top: 50px
+    top: 3.125rem
     left: 0
-    padding-bottom: 50px
+    padding-bottom: 3.125rem
     width: 100%
     hieght: 100%
     overflow: hidden
     .activity-wrapper
       width: 100%
       height: auto
-      padding: 48px 0 50px 0
+      padding: 3rem 0 3.125rem 0
       .activity-title
         border: 0
       .buy
         display: inline-block
         width: widths()
         width: 100%
-        font-size: 16px
+        font-size: 1rem
         text-align: center
         color: #ea68a2  
   
   &.more-activity
     display: inline-block
     width: 100%
-    height: 80px
-    line-height: 80px
-    font-size: 15px
+    height: 5rem
+    line-height: 80rem
+    font-size: 0.9375rem
     text-align: center
     border-top-1px(rgba(0,0,0,0.1))
     color: #ea68a2

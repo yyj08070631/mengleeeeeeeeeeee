@@ -19,11 +19,25 @@
       <!--个人资料-->
       <!--账单积分-->
       <div class="notecase-wrapper">
-          <a href="#" class="notecase-item item-cls">我的账单<img class="more" width=16 height=16 src="./__more.png"/></a>
-          <a href="#" class="notecase-item item-cls">我的积分<img class="more" width=16 height=16 src="./__more.png"/></a>
-          <a href="#" class="notecase-item item-cls">我的钱包<img class="more" width=16 height=16 src="./__more.png"/></a> 
+          <a href="#" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"/></a>
+          <a href="#" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"/></a>
+          <a href="#" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"/></a> 
       </div>
       <!--账单积分-->
+      <!--我的预约-->
+      <div class="order-wrapper">
+          <a href="#" class="item-cls">我的预约<img class="more" width=16 height=16 src="./more.png"/></a>
+      </div>
+      <!--我的预约-->
+      <div class="team-wrapper">
+          <a href="#" class="item-cls">我的团队<img class="more" width=16 height=16 src="./more.png"/></a>
+          <a href="#" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"/></a>
+          <a href="#" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"/></a>
+          <a href="#" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"/></a>
+      </div>
+      <div class="helper">
+          <a href="#" class="item-cls">获得帮助<img class="more" width=16 height=16 src="./more.png"/></a>
+      </div>
   </div>
 </template>
 <script type="ecmascript-6">
@@ -31,69 +45,86 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
+  width = 100%
+  color = #fff
   .myCenter-wrapper
     position: absolute
     top: 1.875rem
     left: 0
-    width: 100%
-    hieght: 100%
+    width: width
     font-size: 0
     overflow: hidden
-    background: #ddd
+    background: #f6f6f6
     .personal-wrapper
       position: relative
       margin-bottom: 0.625rem
-      width: 100%
+      width: width
       height: 5.125rem
-      background: #fff
+      background: color
       .avator
-        margin: 15px 10px 15px 15px
+        margin: 1.25rem 0.625rem 0.9375rem 0.9375rem
         float: left
       .personal
         width: 12.5rem
         float: left
         .name
           display: inline-block
-          margin: 0.9375rem 0 0.375rem 0
+          margin: 1.25rem 0 0.375rem 0
           font-size: 0.875rem
           color: #000
         .mobile
           display: block
           font-size: 0.5625rem
           color: #909090
-          margin-bottom: 0.6875rem
-        .rank
-          vertical-align: top
+          margin-bottom: 0.5625rem
       .more-link
         position: absolute
         right: 1rem
         top: 50%
         margin-top: -0.375rem
         .qr-code
-          margin-right: 0.75rem    
-    .notecase-wrapper
-      width: 100%
-      height: 8.3438rem
-      background: #eef0f8
-      .notecase-item
-        font-size: 0.8125rem
-        margin-left: 15px
-      .item-cls
+          margin-right: 0.75rem
+    .item-cls
         display: block
         position: relative
-        width: 100%
+        margin-left: 0.9375rem
+        width: width
         height: 2.6875rem
         line-height: 2.6875rem
-        border-bottom-1px(#ccc)
+        border-bottom-1px(#e5e5e5)
+        font-size: 0.8125rem
+        color: #333
         &:last-child
           border-bottom-none()
-        .more
-          position: absolute
-          right: 1rem
-          top: 50%
-          margin-top: -6px
-          margin-right: 0.75rem 
-
+    .order-wrapper .item-cls,.team-wrapper .item-cls,.helper .item-cls
+      height: 2.1875rem
+      line-height: 2.1875rem      
+    .notecase-wrapper .more,.order-wrapper .more,.team-wrapper .more,.helper .more
+        position: absolute
+        right: 1rem
+        top: 50%
+        margin-top: -0.5rem
+        margin-right: 0.875rem      
+    .notecase-wrapper
+      width: width
+      height: 8.3438rem
+      background: color
+      .num
+        float: right
+        margin-right: 3.25rem 
+        color: #909090  
+    .order-wrapper
+      margin: 0.5625rem 0
+      width: width
+      font-size: 0.8125rem 
+      background: color
+    .team-wrapper 
+      width: width
+      background: color
+    .helper
+      width: width
+      background: color
+      margin: 0.5625rem 0 2.6875rem 0          
      
 </style>
 

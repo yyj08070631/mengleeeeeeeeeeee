@@ -2,7 +2,7 @@
   <div class="header-wrapper">
       <div class="header-content border-bottom-1px">
         <h1 class="title">美丽搜索</h1>
-        <img class="search" src="./search.png" width="14" height="14"/>
+        <img class="search" src="./search.png" width="16" height="16"/>
       </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
         left: 0
         top: 0
         width: 100%
-        height: 40px
+        height: 2.5rem
         z-index: 450
         background: #f9f9f9
         overflow: hidden
@@ -28,7 +28,7 @@ export default {
             width: 100%
             height: 2.5rem
             line-height: 2.5rem
-            border-bottom-1px(#c6c6c6)
+            border-bottom-1px(#e5e5e5)
             .search
                 position: absolute
                 right: 0.9375rem
@@ -42,7 +42,7 @@ export default {
                 position: absolute
                 right: 0.9375rem
                 top: 50%
-                margin-top: -0.4375rem      
+                margin-top: -0.5rem      
 
 
 </style>
