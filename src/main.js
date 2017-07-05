@@ -6,8 +6,9 @@ import home from './components/home/home';
 import myCenter from './components/myCenter/myCenter';
 import orderFrom from './components/orderFrom/orderFrom';
 import goodDetail from './components/goodDetail/goodDetail';
+import vueResource from 'vue-resource'
 
-
+Vue.use(vueResource)
 Vue.use(vueRouter);
 
 const routes = [{
@@ -32,8 +33,7 @@ const routes = [{
     }
 ];
 const router = new vueRouter({
-    routes,
-    linkActiveClass: 'active'
+    routes
 })
 new Vue({
     el: '#app',
