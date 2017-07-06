@@ -1,5 +1,6 @@
 <template>
 	<div class="goodDetail-wrapper">
+		<!--头部-->
 		<header class="myhead">
 			<div class="goBack">&lt;&nbsp;返回</div>
 			<div class="title">商品详情</div>
@@ -7,12 +8,26 @@
 				<img class="search" src="./images/search.png" width="16" height="16">
 			</div>
 		</header>
+		<!--图片轮播-->
 		<swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
-			<swiper-item class="swiper-demo-img" v-for="(item, index) in bannerImg" :key="index"><img :src="item"></swiper-item>
+			<swiper-item class="swiper-demo-img" v-for="(item, index) in bannerImg" :key="index"><img :src="{item}"/>{{item}}</swiper-item>
 		</swiper>
+		<!--导航按钮-->
 		<div class="detailNav">
 			<p>图文详情</p>
 			<p>商品参数</p>
+		</div>
+		<!--粗分割线-->
+		<hr class="divider">
+		<!--评论详情-->
+		<div class="comment">
+			<div class="titleUp">
+				<div></div>
+				<div></div>
+			</div>
+			<div class="titleDown"></div>
+			<div class="commentDetail"></div>
+			<div class="viewMore"></div>
 		</div>
 	</div>
 </template>
@@ -61,7 +76,7 @@ export default {
 			top: 2.5rem
 			left: 0
 			width: width
-			background: #f6f6f6
+			background: #fff
 			// 详情页header
 			.myhead
 				position fixed
@@ -87,4 +102,22 @@ export default {
 				align-items center
 				width width
 				height 2.3125rem
+				p
+					color #ea68a2
+					width width
+					height 100%
+					display flex
+					align-items center
+					justify-content center
+					border 1px solid #f6f6f6
+					border-right 0
+				p:first-child
+					border-left 0
+			// 分割线
+			.divider
+				margin 0
+				border-left 0
+				border-right 0
+				border-bottom 0
+				border-top 10px solid #f6f6f6
 </style>
