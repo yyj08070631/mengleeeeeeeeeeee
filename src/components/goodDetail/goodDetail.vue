@@ -10,7 +10,7 @@
 		</header>
 		<!--图片轮播-->
 		<swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
-			<swiper-item class="swiper-demo-img" v-for="(item, index) in bannerImg" :key="index"><img :src="{item}"/>{{item}}</swiper-item>
+			<swiper-item class="swiper-demo-img" v-for="(item, index) in bannerImg" :key="index"><img :src="item"></swiper-item>
 		</swiper>
 		<!--导航按钮-->
 		<div class="detailNav">
@@ -22,7 +22,10 @@
 		<!--评论详情-->
 		<div class="comment">
 			<div class="titleUp">
-				<div></div>
+				<div>
+					<div></div>
+					<div></div>
+				</div>
 				<div></div>
 			</div>
 			<div class="titleDown"></div>
