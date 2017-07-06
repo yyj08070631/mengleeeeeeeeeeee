@@ -4,21 +4,21 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <h1 class="title">个人中心</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <img class="search" src="./search.png" width="16" height="16">
             </div>
         </div>
       <!--头部  -->  
       <!--个人资料-->
         <div class="personal-wrapper">
-            <img class="avator" src="./avator.png" width=52 height=52/>
+            <img class="avator" src="./avator.png" width=52 height=52>
             <div class="personal">
                 <h2 class="name">陈宝军</h2>
                 <span class="mobile">13560433216</span>
-                <img class="rank" src="./rank.png" height="12"/>
+                <img class="rank" src="./rank.png" height="12">
             </div>
 
             <div class="more-link">
-                <img class="qr-code" width=16 height=16 src="./QR_code.png"/>
+                <img class="qr-code" width=16 height=16 src="./QR_code.png">
                 <a href="#">
                     <img width=16 height=16 src="./more.png">
                 </a>
@@ -27,24 +27,24 @@
       <!--个人资料-->
       <!--账单积分-->
         <div class="notecase-wrapper">
-                <a href="#home" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"/></a>
-                <a href="#home" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"/></a>
-                <a href="#home" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"/></a> 
+                <a href="#home" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"></a>
+                <a href="#home" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"></a>
+                <a href="#home" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"></a> 
         </div>
       <!--账单积分-->
       <!--我的预约-->
         <div class="order-wrapper">
-            <a href="#home" class="item-cls">我的预约<img class="more" width=16 height=16 src="./more.png"/></a>
+            <a href="#home" class="item-cls">我的预约<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
       <!--我的预约-->
         <div class="team-wrapper">
-            <a href="#home" class="item-cls">我的团队<img class="more" width=16 height=16 src="./more.png"/></a>
-            <a href="#home" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"/></a>
-            <a href="#home" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"/></a>
-            <a href="#home" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"/></a>
+            <a href="#home" class="item-cls">我的团队<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#home" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#home" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#home" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
         <div class="helper">
-            <a href="#home" class="item-cls">获得帮助<img class="more" width=16 height=16 src="./more.png"/></a>
+            <a href="#home" class="item-cls">获得帮助<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
     </div>
 </template>
