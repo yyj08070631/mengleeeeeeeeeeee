@@ -57,7 +57,7 @@
   color = #fff
   .myCenter-wrapper
         position: absolute
-        top: 1.875rem
+        top: 40px
         left: 0
         width: width
         font-size: 0
@@ -93,14 +93,14 @@
         height: 5.125rem
         background: color
         .avator
-            margin: 1.25rem 0.625rem 0.9375rem 0.9375rem
+            margin: 0.9375rem 0.625rem 0.9375rem 0.9375rem
             float: left
         .personal
             width: 12.5rem
             float: left
         .name
             display: inline-block
-            margin: 1.25rem 0 0.375rem 0
+            margin: 0.9375rem 0 0.375rem 0
             font-size: 0.875rem
             color: #000
         .mobile
