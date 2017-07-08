@@ -1,6 +1,6 @@
 	<template>
 		<div id="app">
-			<div class="menu-wrapper">
+			<div class="menu-wrapper" v-if="isShow">
 				<div class="menu-tag border-top-1px"> 
 					<div class="tag-list">
 						<router-link to="/home" active-class="home-link--Active"><div class="home"></div>美丽探索</router-link>
@@ -23,6 +23,11 @@
 	<script type="ecmascript-6"> 
 	import myCenter from './components/myCenter/myCenter';
 	export default {
+		data: function(){
+			return {
+				isShow: true
+			}
+		},
 		components: {
 			myCenter
 		},

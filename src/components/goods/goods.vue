@@ -25,29 +25,6 @@ export default {
     background: #fff
     overflow: hidden
     .header
-        display: block
-        position: fixed
-        left: 0
-        top: 0
-        width: 100%
-        height: 2.5rem
-        z-index: 450
-        background: #f9f9f9
-        overflow: hidden
-        .header-content
-            position: relative
-            width: 100%
-            height: 2.5rem
-            line-height: 2.5rem
-            border-bottom-1px(#e5e5e5)
-            .search
-                position: absolute
-                right: 0.9375rem
-                top: 50%
-                margin-top: -0.5rem
-            .title
-                text-align: center
-                font-size: 0.875rem
-                font-weight: 800
+       headerCss()
 </style>
 

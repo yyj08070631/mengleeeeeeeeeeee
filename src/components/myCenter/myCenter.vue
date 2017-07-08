@@ -9,8 +9,8 @@
         </div>
       <!--头部  -->  
       <!--个人资料-->
-        <div class="personal-wrapper">
-            <img class="avator" src="./avator.png" width=52 height=52>
+        <a class="personal-wrapper" href="#settings">
+            <img class="avator" src="./avatar.png" width=52 height=52>
             <div class="personal">
                 <h2 class="name">陈宝军</h2>
                 <span class="mobile">13560433216</span>
@@ -19,11 +19,9 @@
 
             <div class="more-link">
                 <img class="qr-code" width=16 height=16 src="./QR_code.png">
-                <a href="#">
                     <img width=16 height=16 src="./more.png">
-                </a>
             </div>
-        </div>
+        </a>
       <!--个人资料-->
       <!--账单积分-->
         <div class="notecase-wrapper">
@@ -64,29 +62,9 @@
         overflow: hidden
         background: #f6f6f6
         .header
-            position: fixed
-            left: 0
-            top: 0
-            width: 100%
-            height: 2.5rem
-            z-index: 450
-            background: #f9f9f9
-        .header-content
-            position: relative
-            width: width
-            height: 2.5rem
-            line-height: 2.5rem
-            border-bottom-1px(#e5e5e5)
-            .search
-                position: absolute
-                right: 0.9375rem
-                top: 50%
-                margin-top: -0.5rem
-            .title
-                text-align: center
-                font-size: 0.875rem
-                font-weight: 800
+           headerCss()
     .personal-wrapper
+        display: block
         position: relative
         margin-bottom: 0.625rem
         width: width

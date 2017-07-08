@@ -144,6 +144,7 @@ const baseList = [{
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
 mg-width = 32px
+width100 = 100%
   .orderFrom-wrapper
     position: absolute
     top: 2.5rem
@@ -153,35 +154,12 @@ mg-width = 32px
     background: #fff
     overflow: hidden
     .header
-        display: block
-        position: fixed
-        left: 0
-        top: 0
-        width: 100%
-        height: 2.5rem
-        z-index: 450
-        background: #f9f9f9
-        overflow: hidden
-        .header-content
-            position: relative
-            width: 100%
-            height: 2.5rem
-            line-height: 2.5rem
-            border-bottom-1px(#e5e5e5)
-            .search
-                position: absolute
-                right: 0.9375rem
-                top: 50%
-                margin-top: -0.5rem
-            .title
-                text-align: center
-                font-size: 0.875rem
-                font-weight: 800
+        headerCss()
      .item-cls
        position: relative            
      .content-wrapper
         width: 100%
-        margin-left: 15px
+        margin-left: 0.9375rem
         font-size: 0
         .order-title
             display: block
@@ -200,16 +178,16 @@ mg-width = 32px
                 color: #909090
             .more 
                 position: absolute
-                right: 30px
+                right: 1.875rem
                 top: 50%
                 margin-top: -0.3438rem          
         .order-content
             width: 100%
             border-bottom-1px(#e6e6e6)        
             .content-item-top
-                height: 128px
+                height: 8rem
             .content-item-bottom
-                height: 110px
+                height: 6.875rem
             .content-item
                 position: relative
                 border-bottom-1px(#e6e6e6)           
@@ -230,25 +208,25 @@ mg-width = 32px
                         color: #909090
                 .for-to-paid
                     display: inline-block
-                    margin: 18px mg-width 0 0 
+                    margin: 1.125rem mg-width 0 0 
                     vertical-align: top
                     float: right
-                    height: 22px
-                    line-height: 22px
+                    height: 1.375rem
+                    line-height: 1.375rem
                     text-align: center
-                    font-size: 11px
+                    font-size: 0.6875rem
                     color: #ea6aa2        
                 .handle
                     display: block
                     position: absolute
                     right: mg-width
-                    bottom: 11px
-                    width: 59px   
-                    height: 18px
-                    line-height: 18px
-                    font-size: 11px
+                    bottom: 0.6875rem
+                    width: 3.6875rem   
+                    height: 1.125rem
+                    line-height: 1.125rem
+                    font-size: 0.6875rem
                     text-align: center
-                    border-radius: 5px
+                    border-radius: 0.3125rem
                     color: #fff 
                     background: #ea6aa2     
                     .link
@@ -258,9 +236,9 @@ mg-width = 32px
         .more-orderFrom
             display: block
             width: 100%
-            height: 39px
-            line-height: 39px
-            font-size: 11px
+            height: 2.4375rem
+            line-height: 2.4375rem
+            font-size: 0.6875rem
             text-align: center
             color: #ea6aa2
         .line
@@ -273,9 +251,9 @@ mg-width = 32px
             width: 100%
             .slide-container
                 position: relative
-                margin: 15px auto
+                margin: 0.9375rem auto
                 width: 100%
-                height: 190px
+                height: 11.875rem
                 .vux-slider
                     overflow: visible
                     width: 100%
@@ -284,16 +262,16 @@ mg-width = 32px
                         overflow: visible
                         position: relative
                         margin: 0 auto
-                        width: 123px
-                        height: 123px
+                        width: 7.6875rem
+                        height: 7.6875rem
                         .active
                             background: none
                         .vux-img
-                            width: 123px !important
-                            height: 123px !important
+                            width: 7.6875rem !important
+                            height: 7.6875rem !important
                     .vux-swiper-desc
-                        bottom: 36px
-                        width: 123px 
+                        bottom: 2.25rem
+                        width: 7.6875rem 
                         padding: 0
                         height: auto
                         overflow: visible 
@@ -302,21 +280,21 @@ mg-width = 32px
                         white-space: nowrap 
                         text-shadow: none
                         background: #fff
-                        font-size: 11px
+                        font-size: 0.6875rem
                         color: #333               
                 .vux-indicator 
                     display: none
                 .x-item
                     float: left  
                     width: 20%
-                    height: 1.5px 
+                    height: 0.0938rem 
                     margin: 0
                 .shop-desc
-                    margin-top: 11px
-                    font-size: 11px    
+                    margin-top: 0.6875rem
+                    font-size: 0.6875rem    
                 .shop-price
                     display: block
-                    font-size: 11px    
+                    font-size: 0.6875rem    
                 .active
                     background: #606060        
                             

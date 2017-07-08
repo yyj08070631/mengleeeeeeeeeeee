@@ -1,35 +1,34 @@
     <template >
         <div class="home-wrapper ">
-               
-                        <div class="header">
-                        <div class="header-content border-bottom-1px">
-                            <h1 class="title">美丽搜索</h1>
-                            <img class="search" src="./search.png" width="16" height="16"/>
-                        </div>
-                    </div>
-                    <div class="activity-wrapper">
-                        <div class="activity-title">
-                            <a href="#"><img src="./activity01.png" width=100% height=auto></a>
-                        </div>
-                    </div>
-                    <div class="activity-wrapper">
-                         <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange" auto loop></swiper> 
-                         <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
-                                <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
-                        </div>
-                    </div>
-                    <div class="activity-wrapper">
-                        <swiper :list="demo02_list" v-model="demo02_index" @on-index-change="demo02_onIndexChange" auto loop></swiper> 
-                         <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
-                                <x-button @click.native="demo02_index = key" v-for="(val,key) in demo02_list" class="x-item" :class="{active:demo02_index==key}">{{key}}</x-button>
-                        </div>
-                    </div>
-                     <a class="more-activity border-top-1px" href="#orderFrom">查看更多活动</a>
-                     <div class="footer">
-                         <div class="logo"></div>
-                         <p class="Copyright">Copyright © 2017 梦乐商城版权所有</p>
-                     </div>
+            <div class="header">
+                <div class="header-content border-bottom-1px">
+                    <h1 class="title">美丽搜索</h1>
+                    <img class="search" src="./search.png" width="16" height="16"/>
                 </div>
+            </div>
+            <div class="activity-wrapper">
+                <div class="activity-title">
+                    <a href="#"><img src="./activity01.png" width=100% height=auto></a>
+                </div>
+            </div>
+            <div class="activity-wrapper">
+                <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange" auto loop></swiper> 
+                <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
+                    <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
+                </div>
+            </div>
+            <div class="activity-wrapper">
+                <swiper :list="demo02_list" v-model="demo02_index" @on-index-change="demo02_onIndexChange" auto loop></swiper> 
+                <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
+                    <x-button @click.native="demo02_index = key" v-for="(val,key) in demo02_list" class="x-item" :class="{active:demo02_index==key}">{{key}}</x-button>
+                </div>
+            </div>
+            <a class="more-activity border-top-1px" href="#orderFrom">查看更多活动</a>
+            <div class="footer">
+                <div class="logo"></div>
+                    <p class="Copyright">Copyright © 2017 梦乐商城版权所有</p>
+                </div>
+            </div>
         </div>
     </template>
     <script type="ecmascript-6">
@@ -150,30 +149,7 @@ const baseList = [{
         overflow-x: hidden
         background: #f6f6f6
         .header
-            display: block
-            position: fixed
-            left: 0
-            top: 0
-            width: 100%
-            height: 2.5rem
-            z-index: 450
-            background: #f9f9f9
-            overflow: hidden
-            .header-content
-                position: relative
-                width: 100%
-                height: 2.5rem
-                line-height: 2.5rem
-                border-bottom-1px(#e5e5e5)
-                .search
-                    position: absolute
-                    right: 0.9375rem
-                    top: 50%
-                    margin-top: -0.5rem
-                .title
-                    text-align: center
-                    font-size: 0.875rem
-                    font-weight: 800
+            headerCss()
         .activity-wrapper
             position: relative
             margin-bottom: 12px

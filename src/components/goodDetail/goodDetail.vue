@@ -2,10 +2,10 @@
 	<div class="goodDetail-wrapper">
 		<!--头部-->
 		<header class="myhead">
-			<div class="goBack">
+			<a href="javascript:history.back(1)" class="goBack">
 				<img src="./images/arrow_left.png" height="16">
 				<span>返回</span>
-			</div>
+			</a>
 			<div class="title">商品详情</div>
 			<div class="search">
 				<img class="searchImg" src="./images/search.png" width="16" height="16">
@@ -191,7 +191,8 @@ export default {
 	},
 	data() {
 		return {
-			bannerImg: imgList
+			bannerImg: imgList,
+			isShow: false//隐藏底部tab
 		}
 	}
 }
@@ -199,9 +200,6 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 	@import '../../commom/stylus/mixin'
 
-	// 隐藏首页footer
-	.menu-wrapper
-		display none
 
 	width = 100%
 	color = #fff
