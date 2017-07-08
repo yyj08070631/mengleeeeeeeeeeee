@@ -253,7 +253,7 @@ export default {
 				justify-content center
 				align-items center
 				width width
-				height 2.3125rem
+				height 43px
 				a
 					color #ea68a2
 					width width
@@ -262,7 +262,7 @@ export default {
 					align-items center
 					justify-content center
 					border-left 1px solid #e0e0e0
-					font-size 0.6875rem
+					font-size 0.8125rem
 				a:first-child
 					border-left 0
 			// 分割线
@@ -291,7 +291,7 @@ export default {
 							margin-top 5px
 							display flex
 							p
-								font-size 0.6875rem
+								font-size 0.8125rem
 							p:first-child
 								color #ea68a2
 							p:last-child
@@ -325,7 +325,7 @@ export default {
 						p:last-child
 							margin-left 5px
 					.colRight
-						font-size 0.625rem
+						font-size 0.8125rem
 						color #ea68a2
 						margin-right 20px
 				.commentDetail
@@ -345,7 +345,7 @@ export default {
 							p
 								font-size 0.8125rem
 						.rowDown
-							font-size 0.6875rem
+							font-size 0.8125rem
 							margin-top 6px
 							letter-spacing 1px
 							line-height 1rem
@@ -357,8 +357,8 @@ export default {
 					display flex
 					justify-content center
 					align-items center
-					height 37px
-					font-size 0.6875rem
+					height 43px
+					font-size 0.8125rem
 					span
 						display block
 						margin-left 5px
@@ -375,7 +375,7 @@ export default {
 				img
 					display block
 				p
-					font-size 11px
+					font-size 0.75rem
 					margin-left 5px
 			// 脚部
 			.myFooter

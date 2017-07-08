@@ -206,9 +206,9 @@ export default {
                         display block
                         margin-right 30px
                     div
-                        width 100px
                         text-align justify
                         overflow hidden
+                        margin-right 16px
                         h1
                             font-size 0.8125rem
                             color #333
