@@ -6,6 +6,7 @@ import home from './components/home/home';
 import myCenter from './components/myCenter/myCenter';
 import orderFrom from './components/orderFrom/orderFrom';
 import goodDetail from './components/goodDetail/goodDetail';
+import myTeam from './components/myTeam/myTeam';
 import settings from './components/settings/settings';
 import vueResource from 'vue-resource'
 import { AlertPlugin, ToastPlugin } from 'vux'
@@ -34,10 +35,14 @@ const routes = [{
     {
         path: '/goodDetail',
         component: goodDetail
-    }, ,
+    },
     {
         path: '/settings',
         component: settings
+    },
+    {
+        path: '/myTeam',
+        component: myTeam
     }
 ];
 const router = new vueRouter({

@@ -1,7 +1,7 @@
 <template>
 	<div class="goodDetail-wrapper">
 		<!--头部-->
-		<header class="myhead">
+		<header class="header">
 			<a href="javascript:history.back(1)" class="goBack">
 				<img src="./images/arrow_left.png" height="16">
 				<span>返回</span>
@@ -205,221 +205,222 @@ export default {
 	color = #fff
 	// 外层元素
 	.goodDetail-wrapper
-			position absolute
-			top 2.5rem
+		position absolute
+		top 2.5rem
+		left 0
+		width width
+		background #fff
+		// 详情页header
+		.header
+			border-bottom-1px(#e0e0e0)
+			position fixed
+			display flex
+			top 0
 			left 0
+			justify-content space-between
+			align-items center
+			height 2.5rem
 			width width
-			background #fff
-			// 详情页header
-			.myhead
-				position fixed
-				display flex
-				top 0
-				left 0
-				justify-content space-between
-				align-items center
-				height 2.5rem
-				width width
-				background-color #f9f9f9
-				z-index 1
-				.goBack
-					font-size 0.3125rem
-					margin-left 16px
-					flex 1
-					width width
-					display flex
-					align-items center
-					span
-						display block
-						color #ea68a2
-						margin-left 5px
-						font-size 0.8125rem
-					img
-						display block
-				.title
-					font-size 0.8125rem
-					font-weight 800
-					flex 1
-					width width
-					text-align center
-				.search
-					margin-right 16px
-					flex 1
-					width width
-					text-align right
-			// 详情页导航
-			.detailNav
-				display flex
-				justify-content center
-				align-items center
-				width width
-				height 43px
-				a
-					color #ea68a2
-					width width
-					height 100%
-					display flex
-					align-items center
-					justify-content center
-					border-left 1px solid #e0e0e0
-					font-size 0.8125rem
-				a:first-child
-					border-left 0
-			// 分割线
-			.divider
-				margin 0
-				border-left 0
-				border-right 0
-				border-bottom 0
-				border-top 10px solid #f0f0f0
-			// 评论
-			.comment
+			background-color #f9f9f9
+			z-index 1
+			.goBack
+				font-size 0.3125rem
 				margin-left 16px
-				.dividerThin
-					border-width 1px
-					border-color #e0e0e0
-				.titleUp
-					display flex
-					justify-content space-around
-					align-items center
-					margin 16px 0
-					.colLeft
-						.rowUp
-							font-size 0.8125rem
-							font-weight bold
-						.rowDown
-							margin-top 5px
-							display flex
-							p
-								font-size 0.8125rem
-							p:first-child
-								color #ea68a2
-							p:last-child
-								margin-left 0.5rem
-								color #909090
-					.colRight
-						display flex
-						flex-direction column
-						width 4.1875rem
-						justify-content center
-						align-items center
-						span
-							display block
-							font-size 0.6875rem
-							margin-top 3px
-							color #666
-						img
-							display block
-				.titleDown
-					height 37px
-					display flex
-					align-items center
-					justify-content space-between
-					.colLeft
-						display flex
-						align-items center
-						p
-							font-size 0.8125rem
-							color #909090
-							font-weight bold
-						p:last-child
-							margin-left 5px
-					.colRight
-						font-size 0.8125rem
-						color #ea68a2
-						margin-right 20px
-				.commentDetail
-					display flex
-					margin-top 10px
-					margin-bottom 11px
-					.colLeft
-						margin-right 19px
-					.colRight
-						margin-top 5px
-						.rowUp
-							display flex
-							align-items center
-							img
-								display block
-								margin-left 3px
-							p
-								font-size 0.8125rem
-						.rowDown
-							font-size 0.8125rem
-							margin-top 6px
-							letter-spacing 1px
-							line-height 1rem
-							margin-right 20px
-							text-align justify
-							color #909090
-				.viewMore
-					color #ea68a2
-					display flex
-					justify-content center
-					align-items center
-					height 43px
-					font-size 0.8125rem
-					span
-						display block
-						margin-left 5px
-			// 超粗分割线
-			.dividerBig
-				border-width 23px
-			// 继续拖动，查看图文详情
-			.dragToView
+				flex 1
+				width width
 				display flex
-				justify-content center
 				align-items center
-				height 49px
-				margin-bottom 38px
+				span
+					display block
+					color #ea68a2
+					margin-left 5px
+					font-size 0.8125rem
 				img
 					display block
-				p
-					font-size 0.75rem
-					margin-left 5px
-			// 脚部
-			.myFooter
-				position fixed
-				bottom 0
-				right 0
+			.title
+				font-size 0.8125rem
+				font-weight 800
+				flex 1
+				width width
+				text-align center
+			.search
+				margin-right 16px
+				flex 1
+				width width
+				text-align right
+		// 详情页导航
+		.detailNav
+			display flex
+			justify-content center
+			align-items center
+			width width
+			height 43px
+			a
+				color #ea68a2
+				width width
+				height 100%
 				display flex
 				align-items center
-				justify-content flex-end
-				height 38px
-				width width
-				background-color #f9f9f9
-				border-top 1px solid #e0e0e0
-				>a:nth-child(1)
-				>a:nth-child(2)
+				justify-content center
+				border-left 1px solid #e0e0e0
+				font-size 0.8125rem
+			a:first-child
+				border-left 0
+		// 分割线
+		.divider
+			margin 0
+			border-left 0
+			border-right 0
+			border-bottom 0
+			border-top 10px solid #f0f0f0
+		// 评论
+		.comment
+			margin-left 16px
+			.dividerThin
+				border-width 1px
+				border-color #e0e0e0
+			.titleUp
+				display flex
+				justify-content space-around
+				align-items center
+				margin 16px 0
+				.colLeft
+					.rowUp
+						font-size 0.8125rem
+						font-weight bold
+					.rowDown
+						margin-top 5px
+						display flex
+						p
+							font-size 0.8125rem
+						p:first-child
+							color #ea68a2
+						p:last-child
+							margin-left 0.5rem
+							color #909090
+				.colRight
 					display flex
-					justify-content center
-					align-items center
 					flex-direction column
-					border-left 1px solid #e0e0e0
-					flex 1
-					height 100%
-					p
-						color #646464
-						font-size 0.5625rem
+					width 4.1875rem
+					justify-content center
+					align-items center
+					span
+						display block
+						font-size 0.6875rem
 						margin-top 3px
-				>a:nth-child(3)
+						color #666
+					img
+						display block
+			.titleDown
+				height 37px
+				display flex
+				align-items center
+				justify-content space-between
+				.colLeft
 					display flex
-					width 5.875rem
-					justify-content center
 					align-items center
-					font-size 0.875rem
-					font-weight bold
-					color #fff
-					background-color #f19fc2
-					height 100%
-				>a:nth-child(4)
-					display flex
-					width 6.375rem
-					justify-content center
-					align-items center
-					font-size 0.875rem
-					font-weight bold
-					color #fff
-					background-color #ea6aa2
-					height 100%
+					p
+						font-size 0.8125rem
+						color #909090
+						font-weight bold
+					p:last-child
+						margin-left 5px
+				.colRight
+					font-size 0.8125rem
+					color #ea68a2
+					margin-right 20px
+			.commentDetail
+				display flex
+				margin-top 10px
+				margin-bottom 11px
+				.colLeft
+					margin-right 19px
+				.colRight
+					margin-top 5px
+					.rowUp
+						display flex
+						align-items center
+						img
+							display block
+							margin-left 3px
+						p
+							font-size 0.8125rem
+					.rowDown
+						font-size 0.8125rem
+						margin-top 6px
+						letter-spacing 1px
+						line-height 1rem
+						margin-right 20px
+						text-align justify
+						color #909090
+			.viewMore
+				color #ea68a2
+				display flex
+				justify-content center
+				align-items center
+				height 43px
+				font-size 0.8125rem
+				span
+					display block
+					margin-left 5px
+		// 超粗分割线
+		.dividerBig
+			border-width 23px
+		// 继续拖动，查看图文详情
+		.dragToView
+			display flex
+			justify-content center
+			align-items center
+			height 49px
+			margin-bottom 38px
+			img
+				display block
+			p
+				font-size 0.75rem
+				margin-left 5px
+		// 脚部
+		.myFooter
+			position fixed
+			bottom 0
+			right 0
+			display flex
+			align-items center
+			justify-content flex-end
+			height 38px
+			width width
+			background-color #f9f9f9
+			border-top 1px solid #e0e0e0
+			>a:nth-child(1)
+			>a:nth-child(2)
+				display flex
+				justify-content center
+				align-items center
+				flex-direction column
+				border-left 1px solid #e0e0e0
+				flex 1
+				height 100%
+				p
+					color #646464
+					font-size 0.5625rem
+					margin-top 3px
+			>a:nth-child(3)
+				display flex
+				width 5.875rem
+				justify-content center
+				align-items center
+				font-size 0.875rem
+				font-weight bold
+				color #fff
+				background-color #f19fc2
+				height 100%
+			>a:nth-child(4)
+				display flex
+				width 6.375rem
+				justify-content center
+				align-items center
+				font-size 0.875rem
+				font-weight bold
+				color #fff
+				background-color #ea6aa2
+				height 100%
 </style>
