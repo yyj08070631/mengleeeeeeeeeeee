@@ -18,10 +18,15 @@
                 <span class="name">陈军宝</span>
                 <span class="mobile">13560433216</span>
                 <img class="rank" width="36" height="12" src="./rank.png">
-            </div>
-           
-             
+            </div> 
         </div>
+        <a href="#" class="myQRcode">
+                <span class="title">我的二维码</span>
+                <div class="link-wrapper">
+                    <img class="qr-code" width=16 height=16 src="./QR_code.png">
+                    <img width=16 height=16 src="./more.png">
+                </div>
+        </a>    
   </div>
 </template>
 <script type="ecmascript-6">
@@ -65,7 +70,7 @@ export default{
             .avatar
                 position: absolute
                 left: 50%
-                margin: 42.5px 0 5px -44.5px
+                margin: 42.5px 0 10px -44.5px
                 border: 3px solid #fff
             .message
                 position: absolute
@@ -82,7 +87,25 @@ export default{
                     margin: 5px 0 6px 0 
                     font-size: 11px
                     color: #909090
+        .myQRcode
+            display: block
+            position: relative
+            width: 100%
+            height: 43px
+            line-height: 43px
+            background: #fff
+            font-size: 0
+            border-bottom-1px(#e0e0e0)
+            .title
+                margin-left: 16px
+                float: left 
+                font-size: 13px
+                color: #333
+            .link-wrapper
+                position: absolute    
+                right: 0
+                top: 50%
+                margin-top: -16px
 
-                
 
 </style>

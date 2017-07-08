@@ -192,7 +192,7 @@ const baseList = [{
                 background: #606060         
         
     &.more-activity
-        display: inline-block
+        display: block
         width: 100%
         height: 42px
         line-height: 42px
@@ -205,7 +205,7 @@ const baseList = [{
         position: relative
         width: 100%
         height: 61px
-        background: #f6f6f6
+        background: #f0f0f0
         .logo
             margin: 15px auto 5px auto
             width: 85px
