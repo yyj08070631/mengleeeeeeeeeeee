@@ -69,24 +69,24 @@ const imgList = [
 ]
 const baseList = [{ 
    url: 'javascript:', 
-   img: 'https://static.vux.li/demo/1.jpg',
+   img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
    title:"圣雅琦 明眸亮莹眼部精华"
  }, { 
    url: 'javascript:', 
-   img: 'https://static.vux.li/demo/2.jpg',
-   title:"圣雅琦 明眸亮莹眼部精华"
+   img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
+   title:"圣雅琦 送到家里电视机分厘卡"
  }, { 
    url: 'javascript:', 
-   img: 'https://static.vux.li/demo/3.jpg',
-   title:"圣雅琦 明眸亮莹眼部精华"
+   img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
+   title:"圣雅琦 阿斯顿撒旦"
  },{ 
    url: 'javascript:', 
-   img: 'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg',
-   title:"圣雅琦 明眸亮莹眼部精华"
+   img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
+   title:"圣雅琦 似的撒旦"
  },{ 
    url: 'javascript:', 
-   img: 'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
-   title:"圣雅琦 明眸亮莹眼部精华"
+   img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
+   title:"圣雅琦 阿斯顿撒旦撒旦"
  }
  ] 
   
@@ -129,34 +129,12 @@ const baseList = [{
      }, 
      demo01_onIndexChange (index) { 
        this.demo01_index = index 
-     }, 
-     demo05_onIndexChange (index) { 
-       this.demo05_index = index 
-     }, 
-     demo05_onLoad (id) { 
-      this.demo05_list = id === 1 ? baseList : demoList 
-     }, 
-     demo06_onIndexChange (index) { 
-       this.demo06_index = index 
-     }, 
-     demo07_onIndexChange (index) { 
-       this.demo07_index = index 
-     } 
+     }
   }, 
    data () { 
      return { 
-       demo01_list: baseList, 
-       demo02_list: demoList, 
-       demo03_list: demoList, 
-       demo04_list: imgList, 
-       demo05_list: [], 
-       demo06_list: urlList, 
-      demo07_list: only2ClickList, 
+       demo01_list: baseList,  
       demo01_index: 0, 
-      demo02_index: 1, 
-      demo05_index: 0, 
-       demo06_index: 0, 
-      demo07_index: 0, 
        swiperItemIndex: 1 
      } 
    } 

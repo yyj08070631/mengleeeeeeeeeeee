@@ -44,7 +44,7 @@
             <a href="#home" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
         <div class="helper">
-            <a href="#home" class="item-cls">获得帮助<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#goodDetail" class="item-cls">获得帮助<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
     </div>
 </template>

@@ -13,18 +13,22 @@
                         </div>
                     </div>
                     <div class="activity-wrapper">
-                         <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange"></swiper> 
-                         <div class="x-botton" style="position:absolute; bottom: 40px;width: 100%">
+                         <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange" auto loop></swiper> 
+                         <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
                                 <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
                         </div>
                     </div>
-                    <!--<a class="more-activity border-top-1px" href="#">查看更多活动</a>-->
                     <div class="activity-wrapper">
-                        <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange"></swiper> 
-                         <div class="x-botton" style="position:absolute; bottom: 40px;width: 100%">
-                                <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
+                        <swiper :list="demo02_list" v-model="demo02_index" @on-index-change="demo02_onIndexChange" auto loop></swiper> 
+                         <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
+                                <x-button @click.native="demo02_index = key" v-for="(val,key) in demo02_list" class="x-item" :class="{active:demo02_index==key}">{{key}}</x-button>
                         </div>
                     </div>
+                     <a class="more-activity border-top-1px" href="#orderFrom">查看更多活动</a>
+                     <div class="footer">
+                         <div class="logo"></div>
+                         <p class="Copyright">Copyright © 2017 梦乐商城版权所有</p>
+                     </div>
                 </div>
         </div>
     </template>
@@ -39,27 +43,48 @@ const imgList = [
 ]
 const baseList = [{ 
    url: 'javascript:', 
-   img: 'https://static.vux.li/demo/1.jpg',
+   img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
    title:"圣雅琦 明眸亮莹眼部精华"
  }, { 
    url: 'javascript:', 
-   img: 'https://static.vux.li/demo/2.jpg',
+   img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
    title:"圣雅琦 送到家里电视机分厘卡"
  }, { 
    url: 'javascript:', 
-   img: 'https://static.vux.li/demo/3.jpg',
+   img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
    title:"圣雅琦 阿斯顿撒旦"
  },{ 
    url: 'javascript:', 
-   img: 'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg',
+   img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
    title:"圣雅琦 似的撒旦"
  },{ 
    url: 'javascript:', 
-   img: 'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
+   img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
    title:"圣雅琦 阿斯顿撒旦撒旦"
  }
  ] 
-  
+  const baseList2 = [{ 
+   url: 'javascript:', 
+   img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
+   title:"圣雅琦 明眸亮莹眼部精华"
+ }, { 
+   url: 'javascript:', 
+   img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
+   title:"圣雅琦 送到家里电视机分厘卡"
+ }, { 
+   url: 'javascript:', 
+   img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
+   title:"圣雅琦 阿斯顿撒旦"
+ },{ 
+   url: 'javascript:', 
+   img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
+   title:"圣雅琦 似的撒旦"
+ },{ 
+   url: 'javascript:', 
+   img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
+   title:"圣雅琦 阿斯顿撒旦撒旦"
+ }
+ ] 
 
  
  const urlList = baseList.map((item, index) => ({ 
@@ -95,34 +120,17 @@ const baseList = [{
      }, 
      demo01_onIndexChange (index) { 
        this.demo01_index = index 
-     }, 
-     demo05_onIndexChange (index) { 
-       this.demo05_index = index 
-     }, 
-     demo05_onLoad (id) { 
-      this.demo05_list = id === 1 ? baseList : demoList 
-     }, 
-     demo06_onIndexChange (index) { 
-       this.demo06_index = index 
-     }, 
-     demo07_onIndexChange (index) { 
-       this.demo07_index = index 
-     } 
+     },
+    demo02_onIndexChange (index) { 
+    this.demo01_index = index 
+    }
   }, 
    data () { 
      return { 
        demo01_list: baseList, 
-       demo02_list: demoList, 
-       demo03_list: demoList, 
-       demo04_list: imgList, 
-       demo05_list: [], 
-       demo06_list: urlList, 
-      demo07_list: only2ClickList, 
-      demo01_index: 0, 
-      demo02_index: 1, 
-      demo05_index: 0, 
-       demo06_index: 0, 
-      demo07_index: 0, 
+       demo02_list: baseList2,
+      demo01_index: 0,
+      demo02_index: 0, 
        swiperItemIndex: 1 
      } 
    } 
@@ -136,7 +144,7 @@ const baseList = [{
         position: absolute
         top: 3.125rem
         left: 0
-        padding-bottom: 3.125rem
+        padding-bottom: 2.6875rem
         width: 100%
         hieght: 100%
         overflow-x: hidden
@@ -167,8 +175,9 @@ const baseList = [{
                     font-size: 0.875rem
                     font-weight: 800
         .activity-wrapper
+            position: relative
+            margin-bottom: 12px
             width: 100%
-            padding: 10px 0 0 0
             .activity-title
                 border: 0
             .buy
@@ -179,6 +188,7 @@ const baseList = [{
                 text-align: center
                 color: #ea68a2 
             .vux-slider
+                position: relative
                 overflow: visible
                 width: 100%
                 height: 299px
@@ -208,13 +218,27 @@ const baseList = [{
     &.more-activity
         display: inline-block
         width: 100%
-        height: 5rem
-        line-height: 5rem
+        height: 42px
+        line-height: 42px
         font-size: 0.9375rem
         text-align: center
         border-top-1px(rgba(0,0,0,0.1))
         color: #ea68a2
-
-          
+        background: #fff
+    &.footer
+        position: relative
+        width: 100%
+        height: 61px
+        background: #f6f6f6
+        .logo
+            margin: 15px auto 5px auto
+            width: 85px
+            height: 20px
+            background: url("./logo.png")
+            background-size: 85px 20px
+        .Copyright
+            text-align: center
+            font-size: 11px
+            color: #909090
     </style>
 
