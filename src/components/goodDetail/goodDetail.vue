@@ -273,12 +273,13 @@ export default {
 				border-left 0
 				border-right 0
 				border-bottom 0
-				border-top 10px solid #f6f6f6
+				border-top 10px solid #f0f0f0
 			// 评论
 			.comment
 				margin-left 16px
 				.dividerThin
 					border-width 1px
+					border-color #d0d0d0
 				.titleUp
 					display flex
 					justify-content space-around
