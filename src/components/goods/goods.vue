@@ -26,7 +26,7 @@
                     <img src="./images/arrow_right.png" height="10">
                 </div>
             </a>
-            <hr class="divider dividerThin">
+            <hr class="divider dividerThin border-top-1px(#e0e0e0)">
             <!--查找其他项目实体店-->
             <a href="javascript:void(0)" class="storeFind">
                 <div class="colLeft">
@@ -49,7 +49,7 @@
                             <p>美悠斯</p>
                         </div>
                     </div>
-                    <hr class="divider dividerThinNoMargin">
+                    <hr class="divider dividerThinNoMargin border-top-1px(#e0e0e0)">
                 </a>
                 <a href="javascript:void(0)" class="oneKind">
                     <div class="oneKindMain">
@@ -59,7 +59,7 @@
                             <p>圣雅琦、欧结蔓、M2、阿斯蒂芬表达式、是电饭锅电饭锅</p>
                         </div>
                     </div>
-                    <hr class="divider dividerThinNoMargin">
+                    <hr class="divider dividerThinNoMargin border-top-1px(#e0e0e0)">
                 </a>
                 <a href="javascript:void(0)" class="oneKind">
                     <div class="oneKindMain">
