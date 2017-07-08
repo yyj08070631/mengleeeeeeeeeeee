@@ -69,9 +69,9 @@
                             <p>完美尺寸</p>
                         </div>
                     </div>
-                    <hr class="divider dividerThinNoMargin">
                 </a>
             </div>
+            <hr class="divider dividerBig">
         </div>
     </div>
 </template>
@@ -124,7 +124,7 @@ export default {
         border-left 0
         border-right 0
         border-bottom 0
-        border-top 10px solid #d0d0d0
+        border-top 10px solid #e0e0e0
     // 细分割线
     .dividerThin
         border-width 1px
@@ -210,7 +210,7 @@ export default {
                         text-align justify
                         overflow hidden
                         h1
-                            font-size 0.75rem
+                            font-size 0.8125rem
                             color #333
                         p
                             font-size 0.6875rem

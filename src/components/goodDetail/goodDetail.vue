@@ -277,7 +277,7 @@ export default {
 				margin-left 16px
 				.dividerThin
 					border-width 1px
-					border-color #d0d0d0
+					border-color #e0e0e0
 				.titleUp
 					display flex
 					justify-content space-around
