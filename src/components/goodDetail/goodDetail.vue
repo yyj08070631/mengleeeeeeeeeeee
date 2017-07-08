@@ -14,7 +14,7 @@
 		<!--图片轮播-->
 		<swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
 			<swiper-item class="swiper-demo-img" v-for="(item, index) in bannerImg" :key="index">
-				<img :src="item" width="100%">
+				<img :src="item" width="100%" height="100%">
 			</swiper-item>
 		</swiper>
 		<!--导航按钮-->
@@ -261,8 +261,7 @@ export default {
 					display flex
 					align-items center
 					justify-content center
-					border 1px solid #f6f6f6
-					border-right 0
+					border-left 1px solid #e0e0e0
 					font-size 0.6875rem
 				a:first-child
 					border-left 0
@@ -272,12 +271,13 @@ export default {
 				border-left 0
 				border-right 0
 				border-bottom 0
-				border-top 10px solid #f6f6f6
+				border-top 10px solid #f0f0f0
 			// 评论
 			.comment
 				margin-left 16px
 				.dividerThin
 					border-width 1px
+					border-color #d0d0d0
 				.titleUp
 					display flex
 					justify-content space-around
