@@ -9,74 +9,124 @@
                     </div>
                     <div class="activity-wrapper">
                         <div class="activity-title">
-                            <a href="#"><img src="./activity-title01.png" width=100% height=auto></a>
+                            <a href="#"><img src="./activity01.png" width=100% height=auto></a>
                         </div>
-                        <a href="#" class="buy">购买</a> 
-                        <div class="activity-content">
-                            <a href="#"><img src="./activity-content01.png" width=100% height=auto></a>
-                        </div>  
                     </div>
                     <div class="activity-wrapper">
-                        <div class="activity-title">
-                            <a href="#"><img src="./activity-title02.png" width=100% height=auto></a>
+                         <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange"></swiper> 
+                         <div class="x-botton" style="position:absolute; bottom: 40px;width: 100%">
+                                <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
                         </div>
-                        <a href="#" class="buy">购买</a> 
-                        <div class="activity-content">
-                            <a href="#"><img src="./activity-content02.png" width=100% height=auto></a>
-                        </div>  
                     </div>
-                    <a class="more-activity border-top-1px" href="#">查看更多活动</a>
+                    <!--<a class="more-activity border-top-1px" href="#">查看更多活动</a>-->
+                    <div class="activity-wrapper">
+                        <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange"></swiper> 
+                         <div class="x-botton" style="position:absolute; bottom: 40px;width: 100%">
+                                <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
+                        </div>
+                    </div>
                 </div>
         </div>
     </template>
     <script type="ecmascript-6">
-    // import BScroll from 'better-scroll'
-    // export default{
-    //     data() {
-    //             return {
-    //                 listHeight: [],
-    //                 scrollY: 0,
-    //             }
-    //         },
-    //         mounted() {
-    //                     this.$nextTick(() => {
-    //                         this._initScroll();
-    //                         //计算高度
-    //                         this._calculateHeight();
-    //                     })
-    //         },       
-    //         methods: {
-    //             _initScroll() {
-    //                 this.scroll = new BScroll(this.$refs.headerwrapper, {
-    //                     probeType: 3
-    //                 });
-    //                 //设置监听滚动位置
-    //                 this.scroll.on('scroll', (pos) => {
-    //                     //scrollY接收变量
-    //                     this.scrollY = Math.abs(Math.round(pos.y));
-    //                     this.scrollX = Math.abs(Math.round(pos.x));
-    //                     console.log(this.scrollY)
-    //                 })
-    //             },
-    //             _calculateHeight() {
-    //                 let list = this.$refs.headerwrapper.getElementsByClassName('hook');
-                   
-    //                 let height = 0;
-    //                 //把第一个高度送入数组
-    //                 this.listHeight.push(height);
-                     
-    //                 //通过循环foodList下的dom结构，将每一个li的高度依次送入数组
-    //                 for(let i = 0; i < list.length; i++) {
-    //                     let item = list[i]
-    //                     height += item.clientHeight
-    //                     this.listHeight.push(height);
-                       
-    //                 }
-    //                  console.log(this)
-    //             },
-    //         }
-    // }
-            
+    import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
+const imgList = [
+	'http://img.dwstatic.com/www/1707/363289838921/1499336815305.jpg',
+	'http://img.car.mianfeiapp.net/upload/20170527/14958505848030.jpg',
+    'http://img.car.mianfeiapp.net/upload/20170527/14958505847196.jpg',
+    'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
+    'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg'
+]
+const baseList = [{ 
+   url: 'javascript:', 
+   img: 'https://static.vux.li/demo/1.jpg',
+   title:"圣雅琦 明眸亮莹眼部精华"
+ }, { 
+   url: 'javascript:', 
+   img: 'https://static.vux.li/demo/2.jpg',
+   title:"圣雅琦 送到家里电视机分厘卡"
+ }, { 
+   url: 'javascript:', 
+   img: 'https://static.vux.li/demo/3.jpg',
+   title:"圣雅琦 阿斯顿撒旦"
+ },{ 
+   url: 'javascript:', 
+   img: 'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg',
+   title:"圣雅琦 似的撒旦"
+ },{ 
+   url: 'javascript:', 
+   img: 'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
+   title:"圣雅琦 阿斯顿撒旦撒旦"
+ }
+ ] 
+  
+
+ 
+ const urlList = baseList.map((item, index) => ({ 
+   url: 'http://m.baidu.com', 
+   img: item.img, 
+   title: `(可点击)${item.title}` 
+ })) 
+  
+ const demoList = imgList.map((one, index) => ({ 
+   url: 'javascript:', 
+   img: one 
+ })) 
+ 
+ const only2ClickList = baseList.slice(0, 2).map(item => { 
+ item.url = '#' 
+   return item 
+ }) 
+  
+ export default { 
+   components: { 
+    Swiper, 
+     SwiperItem, 
+     GroupTitle, 
+     XButton, 
+     Divider 
+  }, 
+   ready () { 
+  
+   }, 
+   methods: { 
+    onSwiperItemIndexChange (index) { 
+      console.log('demo item change', index) 
+     }, 
+     demo01_onIndexChange (index) { 
+       this.demo01_index = index 
+     }, 
+     demo05_onIndexChange (index) { 
+       this.demo05_index = index 
+     }, 
+     demo05_onLoad (id) { 
+      this.demo05_list = id === 1 ? baseList : demoList 
+     }, 
+     demo06_onIndexChange (index) { 
+       this.demo06_index = index 
+     }, 
+     demo07_onIndexChange (index) { 
+       this.demo07_index = index 
+     } 
+  }, 
+   data () { 
+     return { 
+       demo01_list: baseList, 
+       demo02_list: demoList, 
+       demo03_list: demoList, 
+       demo04_list: imgList, 
+       demo05_list: [], 
+       demo06_list: urlList, 
+      demo07_list: only2ClickList, 
+      demo01_index: 0, 
+      demo02_index: 1, 
+      demo05_index: 0, 
+       demo06_index: 0, 
+      demo07_index: 0, 
+       swiperItemIndex: 1 
+     } 
+   } 
+} 
 
     </script>
     
@@ -89,7 +139,8 @@
         padding-bottom: 3.125rem
         width: 100%
         hieght: 100%
-        overflow: hidden
+        overflow-x: hidden
+        background: #f6f6f6
         .header
             display: block
             position: fixed
@@ -117,7 +168,7 @@
                     font-weight: 800
         .activity-wrapper
             width: 100%
-            padding: 3rem 0 3.125rem 0
+            padding: 10px 0 0 0
             .activity-title
                 border: 0
             .buy
@@ -126,7 +177,33 @@
                 width: 100%
                 font-size: 1rem
                 text-align: center
-                color: #ea68a2  
+                color: #ea68a2 
+            .vux-slider
+                overflow: visible
+                width: 100%
+                height: 299px
+                .vux-swiper
+                    overflow: visible
+                    position: relative
+                    margin: 0 auto
+                    width: 100%
+                    height: 299px
+                    .active
+                        background: none
+                    .vux-img
+                       width: 100%
+                       height: 299px
+                    .vux-swiper-desc
+                        display: none           
+                .vux-indicator 
+                    display: none
+            .x-item
+                float: left  
+                width: 20%
+                height: 1.5px 
+                margin: 0
+            .active
+                background: #606060         
         
     &.more-activity
         display: inline-block
@@ -137,6 +214,7 @@
         text-align: center
         border-top-1px(rgba(0,0,0,0.1))
         color: #ea68a2
-        
+
+          
     </style>
 
