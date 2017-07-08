@@ -245,7 +245,7 @@ width100 = 100%
             margin-left: -15px
             width: 100%
             height: 11px
-            background: #f6f6f6   
+            background: #f0f0f0   
         .slide-wrapper
             margin-left: -15px
             width: 100%

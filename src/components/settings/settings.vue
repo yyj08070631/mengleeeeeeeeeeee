@@ -11,8 +11,16 @@
             </div>
         </div>
         <div class="avatar-wrapper">
+            <img class="avatar-cover" width="100%" height="100%" src="./avatar.png"/>
             <div class="filter"></div>         
-            <div class="avatar"></div>
+            <img class="avatar" width="99" height="99" src="./avatar.png"/>
+            <div class="message">
+                <span class="name">陈军宝</span>
+                <span class="mobile">13560433216</span>
+                <img class="rank" width="36" height="12" src="./rank.png">
+            </div>
+           
+             
         </div>
   </div>
 </template>
@@ -31,20 +39,50 @@ export default{
     .settings-wrapper
         width: 100%
         height: 100%
-        background: #f6f6f6
+        background: #f0f0f0
         .header
             headerCss()
         .avatar-wrapper
+            position: relative
             margin-top: 40px
             width: 100% 
-            height: 210px
-            filter: blur(5px)
-            background: url(./avatar.png)no-repeat   
-            background-size: cover
+            height: 236px
             overflow: hidden
+            font-size: 0
+            .avatar-cover
+                position: absolute
+                left: 0
+                top: 0
+                filter: blur(5px)
             .filter
+                position: absolute
+                left: 0
+                top: 0
                 width: 100%
                 height: 100%
-                background: -webkit-linear-gradient(rgba(0,0,0,0) 60%,rgba(255,255,255,0.3) 30%,rgba(255,255,255,1)); /* Safari 5.1 - 6.0 */
+                filter: blur(5px)
+                background: linear-gradient(rgba(0,0,0,0) 60%,rgba(255,255,255,0.3) 30%,rgba(255,255,255,1))
+            .avatar
+                position: absolute
+                left: 50%
+                margin: 42.5px 0 5px -44.5px
+                border: 3px solid #fff
+            .message
+                position: absolute
+                top: 154px
+                left: 50%
+                margin-left: -50px
+                width: 100px
+                text-align: center
+                .name
+                    display: block
+                    font-size: 14px
+                .mobile
+                    display: block
+                    margin: 5px 0 6px 0 
+                    font-size: 11px
+                    color: #909090
+
+                
 
 </style>

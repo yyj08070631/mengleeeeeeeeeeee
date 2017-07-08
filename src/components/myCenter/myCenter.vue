@@ -60,7 +60,7 @@
         width: width
         font-size: 0
         overflow: hidden
-        background: #f6f6f6
+        background: #f0f0f0
         .header
            headerCss()
     .personal-wrapper
@@ -83,7 +83,7 @@
             color: #000
         .mobile
             display: block
-            font-size: 0.5625rem
+            font-size: 12px
             color: #909090
             margin-bottom: 0.5625rem
         .more-link
@@ -97,8 +97,8 @@
         display: block
         margin-left: 0.9375rem
         width: width
-        height: 2.1875rem
-        line-height: 2.1875rem    
+        height: 2.6875rem
+        line-height: 2.6875rem  
         border-bottom-1px(#e5e5e5)
         font-size: 0.8125rem
         color: #333

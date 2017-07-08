@@ -147,7 +147,7 @@ const baseList = [{
         width: 100%
         hieght: 100%
         overflow-x: hidden
-        background: #f6f6f6
+        background: #f0f0f0
         .header
             headerCss()
         .activity-wrapper
