@@ -91,9 +91,6 @@ export default {
     overflow hidden
     // 头部
     .header
-<<<<<<< HEAD
-       headerCss()
-=======
         display: block
         position: fixed
         left: 0
@@ -216,6 +213,5 @@ export default {
                             font-size 0.6875rem
                             color #909090
                             margin-top 3px
->>>>>>> 207ec4739bb09fd2cce3b7778b29ff6504d0dacc
 </style>
 
