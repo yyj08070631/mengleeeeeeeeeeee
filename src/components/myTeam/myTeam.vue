@@ -20,7 +20,24 @@
                     <p>间接：500</p>
                 </div>
             </div>
-            <div></div>
+            <div class="teammateList">
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="colLeft">
+                        <div class="boxLeft">
+                            <img src="./images/avatar01.png" height="33">
+                        </div>
+                        <div class="boxRight">
+                            <div>
+                                
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="colRight">
+                        <img src="./images/arrow_right.png" height="11">
+                    </div>
+                </a>
+            </div>
         </section>
     </div>
 </template>
@@ -90,6 +107,7 @@ color = #fff
         border-color #f0f0f0
     // 主体
     .main
+        // 总览
         .overview
             display flex
             height 36px
@@ -107,5 +125,6 @@ color = #fff
                 color #909090
                 p
                     margin-left 15px
+        // 团队列表
 </style>
 
