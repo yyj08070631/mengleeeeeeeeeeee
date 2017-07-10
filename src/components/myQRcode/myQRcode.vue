@@ -34,19 +34,19 @@ export default {
     .header
         headerCss()
     .myQRcode-wrapper
-        margin-top: 55px
+        margin-top: 3.4375rem
         width: 100%
         height: 100%
         .fuild-filter
             position: relative
-            margin: 15px auto
-            width: 290px
+            margin: 0.9375rem auto
+            width: 18.125rem
             height: 90%
             z-index: -1
             background: url(./background.png)no-repeat
             background-size: cover
-            box-shadow: 0 0 5px #909090
-            border-radius: 3px
+            box-shadow: 0 0 0.3125rem #909090
+            border-radius: 0.3125rem
             .avator
                 margin: 0.9375rem 0.625rem 0.9375rem 0.9375rem
                 float: left
@@ -60,7 +60,7 @@ export default {
                 color: #000
             .mobile
                 display: block
-                font-size: 12px
+                font-size: 0.75rem
                 color: #909090
                 margin-bottom: 0.5625rem
             .append
@@ -68,15 +68,12 @@ export default {
                 top: 0
                 right: 0
             .QRcode
-                padding: 9px
-                margin: 36px 0 0 25px 
+                padding: 0.5625rem
+                margin: 2.25rem 0 0 1.5625rem 
                 background: #fff
             .desc
-                margin: 76px 0 30px 0
+                margin: 4.75rem 0 1.875rem 0
                 text-align: center
-                font-size: 13px
+                font-size: 0.8125rem
                 color: #909090
-                    
-                
-                
 </style>

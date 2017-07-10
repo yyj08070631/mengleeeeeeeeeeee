@@ -41,6 +41,7 @@
             <a href="#home" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"></a>
             <a href="#home" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
+     <!--我的预约-->       
         <div class="helper">
             <a href="#goodDetail" class="item-cls">获得帮助<img class="more" width=16 height=16 src="./more.png"></a>
         </div>

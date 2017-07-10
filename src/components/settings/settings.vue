@@ -98,8 +98,6 @@ export default{
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
     width = 100%
-    .menu-wrapper
-        display: none
     .settings-wrapper
         width: 100%
         height: 100%
@@ -108,29 +106,29 @@ export default{
             headerCss()
         .avatar-wrapper
             position: relative
-            margin-top: 40px
+            margin-top: 2.5rem
             width: 100% 
-            height: 236px
+            height: 14.75rem
             overflow: hidden
             font-size: 0
             .avatar-cover
                 position: absolute
                 left: 0
                 top: 0
-                filter: blur(5px)
+                filter: blur(0.3125rem)
             .filter
                 position: absolute
                 left: 0
                 top: 0
                 width: width
                 height: width
-                filter: blur(5px)
+                filter: blur(0.3125rem)
                 background: linear-gradient(rgba(0,0,0,0) 60%,rgba(255,255,255,0.3) 30%,rgba(255,255,255,1))
             .avatar
                 position: absolute
                 left: 50%
-                margin: 42.5px 0 10px -44.5px
-                border: 3px solid #fff
+                margin: 2.6563rem 0 0.625rem -2.7813rem
+                border: 0.1875rem solid #fff
             .message
                 position: absolute
                 top: 9.625rem
@@ -140,7 +138,7 @@ export default{
                 text-align: center
                 .name
                     display: block
-                    font-size: 14px
+                    font-size: 0.875rem
                 .mobile
                     display: block
                     margin: 0.3125rem 0 0.375rem 0 
@@ -150,28 +148,28 @@ export default{
             display: block
             position: relative
             width: 100%
-            height: 43px
-            line-height: 43px
+            height: 2.6875rem
+            line-height: 2.6875rem
             background: #fff
             font-size: 0
             border-bottom-1px(#e0e0e0)
             .title
-                margin-left: 16px
+                margin-left: 1rem
                 float: left 
-                font-size: 13px
+                font-size: 0.8125rem
                 color: #333
             .link-wrapper
                 float: right
-                margin: 0 8px 0 0
+                margin: 0 0.5rem 0 0
                 height: 100%
                 .other
-                    margin: 12px 0 0 8px
+                    margin: 0.75rem 0 0 0.5rem
                 .msg
-                    font-size: 11px
+                    font-size: 0.6875rem
                     vertical-align: top    
         .indent
-            margin-bottom: 10px
+            margin-bottom: 0.625rem
             &:last-child
-                margin-bottom: 22px            
+                margin-bottom: 1.375rem            
 
 </style>
