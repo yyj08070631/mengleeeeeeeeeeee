@@ -28,7 +28,7 @@
 		<div class="comment">
 			<div class="titleUp">
 				<div class="colLeft">
-					<div class="rowUp">美悠斯 益生菌固体饮料 蔓越莓味 + 橙味</div>
+					<a href="#goodsData" class="rowUp">美悠斯 益生菌固体饮料 蔓越莓味 + 橙味</a>
 					<div class="rowDown">
 						<p>￥268.00</p>
 						<p>已有 200 人购买</p>
@@ -288,6 +288,7 @@ export default {
 					.rowUp
 						font-size 0.8125rem
 						font-weight bold
+						color: #333
 					.rowDown
 						margin-top 5px
 						display flex

@@ -26,7 +26,7 @@
       <!--账单积分-->
         <div class="notecase-wrapper">
                 <a href="#home" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"></a>
-                <a href="#home" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"></a>
+                <a href="#integral" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"></a>
                 <a href="#home" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"></a> 
         </div>
       <!--账单积分-->
@@ -36,11 +36,12 @@
         </div>
       <!--我的预约-->
         <div class="team-wrapper">
-            <a href="#home" class="item-cls">我的团队<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#myTeam" class="item-cls">我的团队<img class="more" width=16 height=16 src="./more.png"></a>
             <a href="#home" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"></a>
             <a href="#home" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"></a>
             <a href="#home" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
+     <!--我的预约-->       
         <div class="helper">
             <a href="#goodDetail" class="item-cls">获得帮助<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
@@ -55,12 +56,12 @@
   color = #fff
   .myCenter-wrapper
         position: absolute
-        top: 40px
+        top: 2.5rem
         left: 0
         width: width
         font-size: 0
         overflow: hidden
-        background: #f6f6f6
+        background: #f0f0f0
         .header
            headerCss()
     .personal-wrapper
@@ -83,7 +84,7 @@
             color: #000
         .mobile
             display: block
-            font-size: 0.5625rem
+            font-size: 0.75rem
             color: #909090
             margin-bottom: 0.5625rem
         .more-link
@@ -97,8 +98,8 @@
         display: block
         margin-left: 0.9375rem
         width: width
-        height: 2.1875rem
-        line-height: 2.1875rem    
+        height: 2.6875rem
+        line-height: 2.6875rem  
         border-bottom-1px(#e5e5e5)
         font-size: 0.8125rem
         color: #333
