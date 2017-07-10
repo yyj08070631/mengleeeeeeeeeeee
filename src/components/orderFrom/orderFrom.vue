@@ -143,7 +143,7 @@ const baseList = [{
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-mg-width = 32px
+mg-width = 2rem
 width100 = 100%
   .orderFrom-wrapper
     position: absolute
@@ -232,7 +232,7 @@ width100 = 100%
                     .link
                         color: #fff
                 .pos-left
-                    margin-right: 66px                 
+                    margin-right: 4.125rem                 
         .more-orderFrom
             display: block
             width: 100%
@@ -242,12 +242,12 @@ width100 = 100%
             text-align: center
             color: #ea6aa2
         .line
-            margin-left: -15px
+            margin-left: -0.9375rem
             width: 100%
-            height: 11px
+            height: 0.6875rem
             background: #f0f0f0   
         .slide-wrapper
-            margin-left: -15px
+            margin-left: -0.9375rem
             width: 100%
             .slide-container
                 position: relative
@@ -257,7 +257,7 @@ width100 = 100%
                 .vux-slider
                     overflow: visible
                     width: 100%
-                    height: 123px
+                    height: 7.6875rem
                     .vux-swiper
                         overflow: visible
                         position: relative

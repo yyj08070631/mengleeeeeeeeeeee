@@ -128,8 +128,8 @@ const baseList = [{
      return { 
        demo01_list: baseList, 
        demo02_list: baseList2,
-      demo01_index: 0,
-      demo02_index: 0, 
+       demo01_index: 0,
+       demo02_index: 0, 
        swiperItemIndex: 1 
      } 
    } 

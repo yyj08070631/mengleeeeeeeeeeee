@@ -8,6 +8,7 @@ import orderFrom from './components/orderFrom/orderFrom';
 import goodDetail from './components/goodDetail/goodDetail';
 import myTeam from './components/myTeam/myTeam';
 import settings from './components/settings/settings';
+import myQRcode from './components/myQRcode/myQRcode';
 import vueResource from 'vue-resource'
 import { AlertPlugin, ToastPlugin } from 'vux'
 
@@ -43,6 +44,10 @@ const routes = [{
     {
         path: '/myTeam',
         component: myTeam
+    },
+    {
+        path: '/myQRcode',
+        component: myQRcode
     }
 ];
 const router = new vueRouter({

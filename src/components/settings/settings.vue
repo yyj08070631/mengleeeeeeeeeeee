@@ -20,13 +20,70 @@
                 <img class="rank" width="36" height="12" src="./rank.png">
             </div> 
         </div>
-        <a href="#" class="myQRcode">
+        <a href="#myQRcode" class="message-item">
                 <span class="title">我的二维码</span>
                 <div class="link-wrapper">
                     <img class="qr-code" width=16 height=16 src="./QR_code.png">
-                    <img width=16 height=16 src="./more.png">
+                    <img class="other" width=16 height=16 src="./more.png">
                 </div>
-        </a>    
+        </a>  
+        <a href="#" class="message-item">
+                <span class="title">昵称</span>
+                <div class="link-wrapper">
+                    <span class="msg">陈军宝</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a>   
+         <a href="#" class="message-item indent">
+                <span class="title">收件信息</span>
+                <div class="link-wrapper">
+                    <span class="msg">已记录</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a>
+        <a href="#" class="message-item">
+                <span class="title">星座</span>
+                <div class="link-wrapper">
+                    <span class="msg">未填写</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a> 
+        <a href="#" class="message-item">
+                <span class="title">身高</span>
+                <div class="link-wrapper">
+                    <span class="msg">未填写</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a> 
+        <a href="#" class="message-item indent">
+                <span class="title">体重</span>
+                <div class="link-wrapper">
+                    <span class="msg">未填写</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a> 
+        <a href="#" class="message-item">
+                <span class="title">职业</span>
+                <div class="link-wrapper">
+                    <span class="msg">未填写</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a> 
+        <a href="#" class="message-item">
+                <span class="title">收入</span>
+                <div class="link-wrapper">
+                    <span class="msg">未填写</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a> 
+        <a href="#" class="message-item indent">
+                <span class="title">兴趣爱好</span>
+                <div class="link-wrapper">
+                    <span class="msg">未填写</span>
+                    <img class="other" width=16 height=16 src="./more.png">
+                </div>
+        </a> 
+
   </div>
 </template>
 <script type="ecmascript-6">
@@ -35,12 +92,14 @@ export default{
 			return {
 				isShow: false
 			}
-		}
+		},
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
     width = 100%
+    .menu-wrapper
+        display: none
     .settings-wrapper
         width: 100%
         height: 100%
@@ -87,7 +146,7 @@ export default{
                     margin: 5px 0 6px 0 
                     font-size: 11px
                     color: #909090
-        .myQRcode
+        .message-item
             display: block
             position: relative
             width: 100%
@@ -102,10 +161,17 @@ export default{
                 font-size: 13px
                 color: #333
             .link-wrapper
-                position: absolute    
-                right: 0
-                top: 50%
-                margin-top: -16px
-
+                float: right
+                margin: 0 8px 0 0
+                height: 100%
+                .other
+                    margin: 12px 0 0 8px
+                .msg
+                    font-size: 11px
+                    vertical-align: top    
+        .indent
+            margin-bottom: 10px
+            &:last-child
+                margin-bottom: 22px            
 
 </style>
