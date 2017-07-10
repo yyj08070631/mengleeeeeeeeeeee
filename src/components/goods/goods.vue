@@ -26,7 +26,7 @@
                     <img src="./images/arrow_right.png" height="10">
                 </div>
             </a>
-            <hr class="divider dividerThin border-top-1px(#e0e0e0)">
+            <hr class="divider dividerThin">
             <!--查找其他项目实体店-->
             <a href="javascript:void(0)" class="storeFind">
                 <div class="colLeft">
@@ -49,7 +49,7 @@
                             <p>美悠斯</p>
                         </div>
                     </div>
-                    <hr class="divider dividerThinNoMargin border-top-1px(#e0e0e0)">
+                    <hr class="divider dividerThinNoMargin">
                 </a>
                 <a href="javascript:void(0)" class="oneKind">
                     <div class="oneKindMain">
@@ -59,7 +59,7 @@
                             <p>圣雅琦、欧结蔓、M2、阿斯蒂芬表达式、是电饭锅电饭锅</p>
                         </div>
                     </div>
-                    <hr class="divider dividerThinNoMargin border-top-1px(#e0e0e0)">
+                    <hr class="divider dividerThinNoMargin">
                 </a>
                 <a href="javascript:void(0)" class="oneKind">
                     <div class="oneKindMain">
@@ -69,6 +69,7 @@
                             <p>完美尺寸</p>
                         </div>
                     </div>
+                    <hr class="divider dividerThinNoMargin">
                 </a>
             </div>
             <hr class="divider dividerBig">
@@ -194,7 +195,7 @@ export default {
             .oneKind
                 display flex
                 flex-direction column
-                margin-left 16px
+                padding-left 16px
                 .oneKindMain
                     display flex
                     align-items center
@@ -213,5 +214,18 @@ export default {
                             font-size 0.6875rem
                             color #909090
                             margin-top 3px
+            .oneKind:last-child
+                hr
+                    border 0
+        // 所有块的点击效果
+        .storeNearby
+        .storeFind
+        .oneKind
+            // transition background-color 1s
+            background-color #fff
+        .storeNearby:active
+        .storeFind:active
+        .oneKind:active
+            background-color #f0f0f0
 </style>
 
