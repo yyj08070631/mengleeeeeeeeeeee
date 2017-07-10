@@ -56,7 +56,7 @@
   color = #fff
   .myCenter-wrapper
         position: absolute
-        top: 40px
+        top: 2.5rem
         left: 0
         width: width
         font-size: 0

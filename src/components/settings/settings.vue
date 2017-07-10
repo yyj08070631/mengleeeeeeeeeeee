@@ -1,4 +1,4 @@
-<template>   
+<template v-if="$route.path!=='/settings'">   
   <div class="settings-wrapper">
         <div class="header">
             <div class="header-content border-bottom-1px">
@@ -87,12 +87,17 @@
   </div>
 </template>
 <script type="ecmascript-6">
+
 export default{
-    data: function(){
-			return {
-				isShow: false
-			}
-		},
+    data:{
+		isShow: false
+	    },
+    beforeCreate: function () {
+        console.group('beforeCreate 创建前状态===============》');
+        console.log("%c%s", "color:red" , "el     : " + this.$el); //undefined
+        console.log("%c%s", "color:red","data   : " + this.$data); //undefined 
+        console.log("%c%s", "color:red","message: " + this.message)  
+        },    
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
