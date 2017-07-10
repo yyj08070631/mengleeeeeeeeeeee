@@ -1,4 +1,4 @@
-<template>
+<template>   
   <div class="settings-wrapper">
         <div class="header">
             <div class="header-content border-bottom-1px">
@@ -122,8 +122,8 @@ export default{
                 position: absolute
                 left: 0
                 top: 0
-                width: 100%
-                height: 100%
+                width: width
+                height: width
                 filter: blur(5px)
                 background: linear-gradient(rgba(0,0,0,0) 60%,rgba(255,255,255,0.3) 30%,rgba(255,255,255,1))
             .avatar
@@ -133,18 +133,18 @@ export default{
                 border: 3px solid #fff
             .message
                 position: absolute
-                top: 154px
+                top: 9.625rem
                 left: 50%
-                margin-left: -50px
-                width: 100px
+                margin-left: -3.125rem
+                width: 6.25rem
                 text-align: center
                 .name
                     display: block
                     font-size: 14px
                 .mobile
                     display: block
-                    margin: 5px 0 6px 0 
-                    font-size: 11px
+                    margin: 0.3125rem 0 0.375rem 0 
+                    font-size: 0.6875rem
                     color: #909090
         .message-item
             display: block

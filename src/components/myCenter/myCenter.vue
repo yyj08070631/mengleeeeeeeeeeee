@@ -26,7 +26,7 @@
       <!--账单积分-->
         <div class="notecase-wrapper">
                 <a href="#home" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"></a>
-                <a href="#home" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"></a>
+                <a href="#integral" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"></a>
                 <a href="#home" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"></a> 
         </div>
       <!--账单积分-->
@@ -83,7 +83,7 @@
             color: #000
         .mobile
             display: block
-            font-size: 12px
+            font-size: 0.75rem
             color: #909090
             margin-bottom: 0.5625rem
         .more-link

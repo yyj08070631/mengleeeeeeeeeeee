@@ -39,7 +39,7 @@
 
 	<style lang="stylus" rel="stylesheet/stylus">
 	@import './commom/stylus/mixin'
-	active-color = #ea68a2  
+	active-color = #ea68a2 
 	.menu-wrapper
 		position: fixed
 		left: 0
