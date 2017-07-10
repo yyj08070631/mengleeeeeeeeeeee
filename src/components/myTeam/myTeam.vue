@@ -13,6 +13,7 @@
 		</header>
         <!--主体-->
         <section class="main">
+            <!--概览-->
             <div class="overview">
                 <p>概况</p>
                 <div>
@@ -20,25 +21,200 @@
                     <p>间接：500</p>
                 </div>
             </div>
+            <!--团队列表-->
             <div class="teammateList">
                 <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="colLeft">
-                        <div class="boxLeft">
-                            <img src="./images/avatar01.png" height="33">
-                        </div>
-                        <div class="boxRight">
-                            <div>
-                                
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar01.png" width="33">
                             </div>
-                            <div></div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>Duke</p>
+                                    <img src="./images/huangguan.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.14
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
                         </div>
                     </div>
-                    <div class="colRight">
-                        <img src="./images/arrow_right.png" height="11">
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar02.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>友善猪</p>
+                                    <img src="./images/xiaobai.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.12
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar03.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>miley</p>
+                                    <img src="./images/xiaobai.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.12
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar04.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>AAA 拼单平价潮衣物品</p>
+                                    <img src="./images/xingxing.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.12
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar05.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>A 欧阳飞刀</p>
+                                    <img src="./images/xingxing.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.12
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar06.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>许丹璇</p>
+                                    <img src="./images/zuanshi.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.12
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar05.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>陈海浪</p>
+                                    <img src="./images/jinguan.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.11
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar08.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>美带.lucy</p>
+                                    <img src="./images/xingxing.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.11
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="oneTeammate">
+                    <div class="oneTeammateBody">
+                        <div class="colLeft">
+                            <div class="boxLeft">
+                                <img src="./images/avatar09.png" width="33">
+                            </div>
+                            <div class="boxRight">
+                                <div>
+                                    <p>丹丹</p>
+                                    <img src="./images/xingxing.png" height="12">
+                                </div>
+                                <div>
+                                    加入时间-2017.06.11
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <img src="./images/arrow_right.png" height="11">
+                        </div>
                     </div>
                 </a>
             </div>
         </section>
+        <hr class="divider dividerBig">
     </div>
 </template>
 <script type="ecmascript-6">
@@ -50,6 +226,13 @@ export default {
 @import '../../commom/stylus/mixin'
 width = 100%
 color = #fff
+// 初始化样式
+img, span
+    display block
+.menu-wrapper
+    display none
+
+// wrapper
 .myTeam-wrapper
     position absolute
     top 2.5rem
@@ -103,7 +286,7 @@ color = #fff
         border-top 1px solid #e0e0e0
     // 粗分割线
     .dividerBig
-        border-width 10px
+        border-width 25px
         border-color #f0f0f0
     // 主体
     .main
@@ -126,5 +309,37 @@ color = #fff
                 p
                     margin-left 15px
         // 团队列表
+        .teammateList
+            // .oneTeammate:last-child .oneTeammateBody::after
+            //     border 0
+            .oneTeammate
+                .oneTeammateBody
+                    display flex
+                    height 56px
+                    justify-content space-between
+                    align-items center
+                    margin-left 16px
+                    border-bottom-1px(#e0e0e0)
+                    .colLeft
+                        display flex
+                        align-items center
+                        .boxLeft img
+                            border-radius 50%
+                        .boxRight
+                            display flex
+                            flex-direction column
+                            margin-left 18px
+                            div:first-child
+                                display flex
+                                font-size 0.8125rem
+                                color #000
+                                img
+                                    margin-left 3px
+                            div:last-child
+                                font-size 0.6875rem
+                                color #909090
+                                margin-top 5px
+                    .colRight
+                        margin-right 16px
 </style>
 
