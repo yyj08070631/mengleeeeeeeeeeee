@@ -1,5 +1,6 @@
 <template>
     <div class="goods-wrapper">
+          <router-view></router-view>
         <!--头部-->    
         <div class="header">
             <div class="header-content border-bottom-1px">
@@ -28,7 +29,7 @@
             </a>
             <hr class="divider dividerThin">
             <!--查找其他项目实体店-->
-            <a href="javascript:void(0)" class="storeFind">
+            <router-link to="/digest" class="storeFind">
                 <div class="colLeft">
                     <img src="./images/location.png" height="11">
                     <p>查找其他项目实体店</p>
@@ -37,7 +38,7 @@
                     <p>附近有4家</p>
                     <img src="./images/arrow_right.png" height="10">
                 </div>
-            </a>
+            </router-link>
             <hr class="divider dividerBig">
             <!--分类列表-->
             <div class="kindList">
@@ -74,7 +75,9 @@
             </div>
             <hr class="divider dividerBig">
         </div>
+        
     </div>
+  
 </template>
 <script type="ecmascript-6">
 export default {
