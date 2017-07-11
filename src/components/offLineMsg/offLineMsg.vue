@@ -15,7 +15,7 @@
             <div class="content-item">
                 <h2 class="msg-title">完美尺寸 天誉花园店</h2>
                 <div class="share">
-                    <img 
+                    
                 </div>
             </div>
             <div class="content-item"></div>
