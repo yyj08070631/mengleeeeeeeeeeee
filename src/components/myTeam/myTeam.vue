@@ -298,42 +298,44 @@ img, span, a
         border-left 0
         border-right 0
         border-bottom 0
-        border-top 1px solid #e0e0e0
+        border-top 0.0267rem solid #e0e0e0
     // 粗分割线
     .dividerBig
-        border-width 25px
+        border-width 0.6667rem
         border-color #f0f0f0
     // 主体
     .main
         // 总览
         .overview
             display flex
-            height 36px
+            height 0.96rem
             background-color #f0f0f0
             justify-content space-between
             align-items center
             > p
-                padding-left 16px
+                padding-left 0.4267rem
                 color #333
-                font-size 0.8125rem
+                getFontsize(26)
             div
                 display flex
-                margin-right 16px
-                font-size 0.75rem
+                margin-right 0.4267rem
+                getFontsize(24)
                 color #909090
                 p
-                    margin-left 15px
+                    margin-left 0.4rem
         // 团队列表
         .teammateList
             // .oneTeammate:last-child .oneTeammateBody::after
             //     border 0
+            .oneTeammate:active
+                background-color #e0e0e0
             .oneTeammate
                 .oneTeammateBody
                     display flex
-                    height 56px
+                    height 1.4933rem
                     justify-content space-between
                     align-items center
-                    margin-left 16px
+                    margin-left 0.4267rem
                     border-bottom-1px(#e0e0e0)
                     .colLeft
                         display flex
@@ -343,18 +345,18 @@ img, span, a
                         .boxRight
                             display flex
                             flex-direction column
-                            margin-left 18px
+                            margin-left 0.48rem
                             div:first-child
                                 display flex
-                                font-size 0.8125rem
+                                getFontsize(26)
                                 color #000
                                 img
-                                    margin-left 3px
+                                    margin-left 0.08rem
                             div:last-child
-                                font-size 0.6875rem
+                                getFontsize(22)
                                 color #909090
-                                margin-top 5px
+                                margin-top 0.1333rem
                     .colRight
-                        margin-right 16px
+                        margin-right 0.4267rem
 </style>
 
