@@ -12,7 +12,13 @@
                 </div>
             </div>
             <div class="activity-wrapper">
-                <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange" auto loop></swiper> 
+                <swiper v-model="demo01_index" @on-index-change="demo01_onIndexChange" auto loop>
+                    <swiper-item>1</swiper-item>
+                    <swiper-item>2</swiper-item>
+                    <swiper-item>3</swiper-item>
+                    <swiper-item>4</swiper-item>
+                    <swiper-item>5</swiper-item>
+                </swiper> 
                 <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
                     <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
                 </div>
@@ -22,6 +28,7 @@
                 <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
                     <x-button @click.native="demo02_index = key" v-for="(val,key) in demo02_list" class="x-item" :class="{active:demo02_index==key}">{{key}}</x-button>
                 </div>
+                <div class="swiper-scrollbar"></div>
             </div>
             <a class="more-activity border-top-1px" href="#orderFrom">查看更多活动</a>
             <div class="footer">
@@ -40,6 +47,7 @@ const imgList = [
     'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
     'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg'
 ]
+
 const baseList = [{ 
    url: 'javascript:', 
    img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
@@ -169,7 +177,7 @@ const baseList = [{
                 width: 100%
                 height: 299px
                 .vux-swiper
-                    overflow: visible
+                    overflow: visible 
                     position: relative
                     margin: 0 auto
                     width: 100%

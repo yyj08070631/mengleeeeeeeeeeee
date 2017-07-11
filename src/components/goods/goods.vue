@@ -10,7 +10,7 @@
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
-            <a href="javascript:void(0)" class="storeNearby">
+            <a href="#offLineMsg" class="storeNearby">
                 <div class="colLeft">
                     <p>
                         <span>附近的项目实体店</span>
