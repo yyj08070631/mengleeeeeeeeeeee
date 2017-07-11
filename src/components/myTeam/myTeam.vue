@@ -2,14 +2,18 @@
     <div class="myTeam-wrapper">
         <!--头部-->    
         <header class="header">
-			<a href="javascript:history.back(1)" class="goBack">
-				<img src="./images/arrow_left.png" height="16">
-				<span>返回</span>
-			</a>
-			<div class="title">商品详情</div>
-			<div class="search">
-				<img class="searchImg" src="./images/search.png" width="16" height="16">
-			</div>
+            <div class="goBack">
+                <a href="javascript:history.back(1)">
+                    <img src="./images/arrow_left.png" height="16">
+                    <span>返回</span>
+                </a>
+            </div>
+			<div class="title">我的团队</div>
+            <div class="search">
+                <a href="javascript:void(0)">
+                    <img src="./images/search.png" width="16" height="16">
+                </a>
+            </div>
 		</header>
         <!--主体-->
         <section class="main">
@@ -225,9 +229,10 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
 width = 100%
+height = 100%
 color = #fff
 // 初始化样式
-img, span
+img, span, a
     display block
 .menu-wrapper
     display none
@@ -235,7 +240,7 @@ img, span
 // wrapper
 .myTeam-wrapper
     position absolute
-    top 2.5rem
+    top 1.0667rem
     left 0
     width width
     background #fff
@@ -248,77 +253,89 @@ img, span
         left 0
         justify-content space-between
         align-items center
-        height 2.5rem
+        height 1.0667rem
         width width
         background-color #f9f9f9
         z-index 1
         .goBack
-            font-size 0.3125rem
-            margin-left 16px
             flex 1
             width width
+            height height
             display flex
             align-items center
-            span
-                display block
-                color #ea68a2
-                margin-left 5px
-                font-size 0.8125rem
-            img
-                display block
+            a
+                display flex
+                align-items center
+                height height
+                padding 0 0.4267rem
+                span
+                    display block
+                    color #ea68a2
+                    margin-left 0.1333rem
+                    getFontsize(26)
+                img
+                    display block
         .title
-            font-size 0.8125rem
+            getFontsize(26)
             font-weight 800
             flex 1
             width width
             text-align center
         .search
-            margin-right 16px
             flex 1
             width width
-            text-align right
+            height height
+            display flex
+            justify-content flex-end
+            a
+                display flex
+                height height
+                padding 0 0.4267rem
+                align-items center
     // 分割线
     .divider
         margin 0
         border-left 0
         border-right 0
         border-bottom 0
-        border-top 1px solid #e0e0e0
+        border-top 0.0267rem solid #e0e0e0
     // 粗分割线
     .dividerBig
-        border-width 25px
+        border-width 0.6667rem
         border-color #f0f0f0
     // 主体
     .main
         // 总览
         .overview
             display flex
-            height 36px
+            height 0.96rem
             background-color #f0f0f0
             justify-content space-between
             align-items center
             > p
-                padding-left 16px
+                padding-left 0.4267rem
                 color #333
-                font-size 0.8125rem
+                getFontsize(26)
             div
                 display flex
-                margin-right 16px
-                font-size 0.75rem
+                margin-right 0.4267rem
+                getFontsize(24)
                 color #909090
                 p
-                    margin-left 15px
+                    margin-left 0.4rem
         // 团队列表
         .teammateList
             // .oneTeammate:last-child .oneTeammateBody::after
             //     border 0
+            .oneTeammate:active
+                background-color #e0e0e0
             .oneTeammate
                 .oneTeammateBody
                     display flex
-                    height 56px
+                    height 1.4933rem
                     justify-content space-between
                     align-items center
-                    margin-left 16px
+                    margin-left 0.4267rem
                     border-bottom-1px(#e0e0e0)
                     .colLeft
                         display flex
@@ -328,18 +345,18 @@ img, span
                         .boxRight
                             display flex
                             flex-direction column
-                            margin-left 18px
+                            margin-left 0.48rem
                             div:first-child
                                 display flex
-                                font-size 0.8125rem
+                                getFontsize(26)
                                 color #000
                                 img
-                                    margin-left 3px
+                                    margin-left 0.08rem
                             div:last-child
-                                font-size 0.6875rem
+                                getFontsize(22)
                                 color #909090
-                                margin-top 5px
+                                margin-top 0.1333rem
                     .colRight
-                        margin-right 16px
+                        margin-right 0.4267rem
 </style>
 

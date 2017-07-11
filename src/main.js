@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import vueRouter from 'vue-router';
 import App from './App';
+import { remInit } from './commom/remInit.js'
 import goods from './components/goods/goods';
 import home from './components/home/home';
 import myCenter from './components/myCenter/myCenter';
