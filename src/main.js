@@ -21,16 +21,20 @@ import teamComputed from './components/teamComputed/teamComputed';
 import nearbyStores from './components/nearbyStores/nearbyStores';
 import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
-import vueResource from 'vue-resource'
+import vueResource from 'vue-resource';
+import jsonp from 'jsonp';
 
-import { AlertPlugin, ToastPlugin } from 'vux'
+
+import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
+Vue.use(AjaxPlugin)
+
+
 
 
 Vue.use(vueResource)
 Vue.use(vueRouter)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
-
 const routes = [{
         path: '/goods',
         component: goods

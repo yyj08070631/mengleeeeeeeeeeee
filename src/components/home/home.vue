@@ -8,7 +8,7 @@
             </div>
             <div class="activity-wrapper">
                 <div class="activity-title">
-                    <a href="#imageText"><img src="./activity01.png" width=100% height=auto></a>
+                    <a href="#imageText"><img :src="dataApp.banneritem.banner[0].src" width=100% height=auto></a>
                 </div>
             </div>
             <div class="activity-wrapper">
@@ -33,13 +33,14 @@
             <a class="more-activity border-top-1px" href="#orderFrom">查看更多活动</a>
             <div class="footer">
                 <div class="logo"></div>
-                    <p class="Copyright">Copyright © 2017 梦乐商城版权所有</p>
+                    <p class="Copyright">Copyright © 2017 梦乐商城版权所有{{dataApp.banneritem.banner[0].src}}</p>
                 </div>
             </div>
         </div>
     </template>
     <script type="ecmascript-6">
     import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
+  
 const imgList = [
 	'http://img.dwstatic.com/www/1707/363289838921/1499336815305.jpg',
 	'http://img.car.mianfeiapp.net/upload/20170527/14958505848030.jpg',
@@ -110,7 +111,21 @@ const baseList = [{
    return item 
  }) 
   
- export default { 
+ export default {
+    props: {
+        dataApp: Object
+    },
+    data: function(){
+            return {
+                 dataApp: []
+            }
+        },
+        // created(){
+        //    this.$http.get('http://dde.dgxinn.cn/dream/index.php/Home/index/index').then(function(data){
+        //     console.log(data)
+        //     })
+            
+        // }, 
    components: { 
     Swiper, 
      SwiperItem, 
@@ -118,8 +133,11 @@ const baseList = [{
      XButton, 
      Divider 
   }, 
-   ready () { 
-  
+   created () { 
+        this.$http.get('http://dde.dgxinn.cn/dream/index.php/Home/index/index').then(function(res){
+            this.dataApp = res.body
+            
+        })
    }, 
    methods: { 
     onSwiperItemIndexChange (index) { 
