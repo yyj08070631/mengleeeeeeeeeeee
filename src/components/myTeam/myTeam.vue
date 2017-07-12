@@ -31,12 +31,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar01.png" width="33">
+                                <img src="./images/avatar01.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>Duke</p>
-                                    <img src="./images/huangguan.png" height="12">
+                                    <img src="./images/huangguan.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.14
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -52,12 +52,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar02.png" width="33">
+                                <img src="./images/avatar02.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>友善猪</p>
-                                    <img src="./images/xiaobai.png" height="12">
+                                    <img src="./images/xiaobai.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.12
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -73,12 +73,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar03.png" width="33">
+                                <img src="./images/avatar03.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>miley</p>
-                                    <img src="./images/xiaobai.png" height="12">
+                                    <img src="./images/xiaobai.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.12
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -94,12 +94,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar04.png" width="33">
+                                <img src="./images/avatar04.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>AAA 拼单平价潮衣物品</p>
-                                    <img src="./images/xingxing.png" height="12">
+                                    <img src="./images/xingxing.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.12
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -115,12 +115,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar05.png" width="33">
+                                <img src="./images/avatar05.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>A 欧阳飞刀</p>
-                                    <img src="./images/xingxing.png" height="12">
+                                    <img src="./images/xingxing.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.12
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -136,12 +136,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar06.png" width="33">
+                                <img src="./images/avatar06.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>许丹璇</p>
-                                    <img src="./images/zuanshi.png" height="12">
+                                    <img src="./images/zuanshi.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.12
@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -157,12 +157,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar05.png" width="33">
+                                <img src="./images/avatar05.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>陈海浪</p>
-                                    <img src="./images/jinguan.png" height="12">
+                                    <img src="./images/jinguan.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.11
@@ -170,7 +170,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -178,12 +178,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar08.png" width="33">
+                                <img src="./images/avatar08.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>美带.lucy</p>
-                                    <img src="./images/xingxing.png" height="12">
+                                    <img src="./images/xingxing.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.11
@@ -191,7 +191,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -199,12 +199,12 @@
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar09.png" width="33">
+                                <img src="./images/avatar09.png">
                             </div>
                             <div class="boxRight">
                                 <div>
                                     <p>丹丹</p>
-                                    <img src="./images/xingxing.png" height="12">
+                                    <img src="./images/xingxing.png">
                                 </div>
                                 <div>
                                     加入时间-2017.06.11
@@ -212,7 +212,7 @@
                             </div>
                         </div>
                         <div class="colRight">
-                            <img src="./images/arrow_right.png" height="11">
+                            <img src="./images/arrow_right.png">
                         </div>
                     </div>
                 </a>
@@ -240,7 +240,7 @@ img, span, a
 // wrapper
 .myTeam-wrapper
     position absolute
-    top 1.0667rem
+    top 1.25rem
     left 0
     width width
     background #fff
@@ -253,7 +253,7 @@ img, span, a
         left 0
         justify-content space-between
         align-items center
-        height 1.0667rem
+        height 1.25rem
         width width
         background-color #f9f9f9
         z-index 1
@@ -267,11 +267,11 @@ img, span, a
                 display flex
                 align-items center
                 height height
-                padding 0 0.4267rem
+                padding 0 0.5rem
                 span
                     display block
                     color #ea68a2
-                    margin-left 0.1333rem
+                    margin-left 0.1563rem
                     getFontsize(26)
                 img
                     display block
@@ -290,7 +290,7 @@ img, span, a
             a
                 display flex
                 height height
-                padding 0 0.4267rem
+                padding 0 0.5rem
                 align-items center
     // 分割线
     .divider
@@ -298,31 +298,31 @@ img, span, a
         border-left 0
         border-right 0
         border-bottom 0
-        border-top 0.0267rem solid #e0e0e0
+        border-top 0.0313rem solid #e0e0e0
     // 粗分割线
     .dividerBig
-        border-width 0.6667rem
+        border-width 0.7813rem
         border-color #f0f0f0
     // 主体
     .main
         // 总览
         .overview
             display flex
-            height 0.96rem
+            height 1.125rem
             background-color #f0f0f0
             justify-content space-between
             align-items center
             > p
-                padding-left 0.4267rem
+                padding-left 0.5rem
                 color #333
                 getFontsize(26)
             div
                 display flex
-                margin-right 0.4267rem
+                margin-right 0.5rem
                 getFontsize(24)
                 color #909090
                 p
-                    margin-left 0.4rem
+                    margin-left 0.4688rem
         // 团队列表
         .teammateList
             // .oneTeammate:last-child .oneTeammateBody::after
@@ -332,10 +332,10 @@ img, span, a
             .oneTeammate
                 .oneTeammateBody
                     display flex
-                    height 1.4933rem
+                    height 1.75rem
                     justify-content space-between
                     align-items center
-                    margin-left 0.4267rem
+                    margin-left 0.5rem
                     border-bottom-1px(#e0e0e0)
                     .colLeft
                         display flex
@@ -345,18 +345,18 @@ img, span, a
                         .boxRight
                             display flex
                             flex-direction column
-                            margin-left 0.48rem
+                            margin-left 0.5625rem
                             div:first-child
                                 display flex
                                 getFontsize(26)
                                 color #000
                                 img
-                                    margin-left 0.08rem
+                                    margin-left 0.0938rem
                             div:last-child
                                 getFontsize(22)
                                 color #909090
-                                margin-top 0.1333rem
+                                margin-top 0.1563rem
                     .colRight
-                        margin-right 0.4267rem
+                        margin-right 0.5rem
 </style>
 
