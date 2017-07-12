@@ -12,18 +12,38 @@ import settings from './components/settings/settings';
 import myQRcode from './components/myQRcode/myQRcode';
 import integral from './components/integral/integral';
 import goodsData from './components/goodsData/goodsData';
+<<<<<<< HEAD
 import offlineInfo from './components/offlineInfo/offlineInfo';
 import vueResource from 'vue-resource'
 import { AlertPlugin, ToastPlugin } from 'vux'
+=======
+import offLineMsg from './components/offLineMsg/offLineMsg';
+import digest from './components/digest/digest';
+import bill from './components/bill/bill';
+import titleComputed from './components/titleComputed/titleComputed';
+import expandComputed from './components/expandComputed/expandComputed';
+import teamComputed from './components/teamComputed/teamComputed';
+import nearbyStores from './components/nearbyStores/nearbyStores';
+import imageText from './components/imageText/imageText';
+import goodsClassify from './components/goodsClassify/goodsClassify';
+import vueResource from 'vue-resource';
+import jsonp from 'jsonp';
+
+
+import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
+Vue.use(AjaxPlugin)
+
+
+
+>>>>>>> eb98f9ffbecf833994283dec337284ddc4969b44
 
 Vue.use(vueResource)
 Vue.use(vueRouter)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
-
 const routes = [{
         path: '/goods',
-        component: goods,
+        component: goods
     },
     {
         path: '/home',
@@ -62,10 +82,49 @@ const routes = [{
         component: goodsData
     },
     {
+<<<<<<< HEAD
         path: '/offlineInfo',
         component: offlineInfo
+=======
+        path: '/offLineMsg',
+        component: offLineMsg
+    },
+    {
+        path: '/digest',
+        component: digest
+    },
+    {
+        path: '/bill',
+        component: bill
+    },
+    {
+        path: '/titleComputed',
+        component: titleComputed
+    },
+    {
+        path: '/expandComputed',
+        component: expandComputed
+    },
+    {
+        path: '/imageText',
+        component: imageText
+    },
+    {
+        path: '/nearbyStores',
+        component: nearbyStores
+    },
+    {
+        path: '/goodsClassify',
+        component: goodsClassify
+    },
+    {
+        path: '/teamComputed',
+        component: teamComputed
+>>>>>>> eb98f9ffbecf833994283dec337284ddc4969b44
     }
 ];
+
+
 const router = new vueRouter({
     routes
 })
