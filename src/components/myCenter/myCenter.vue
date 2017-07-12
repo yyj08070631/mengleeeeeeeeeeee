@@ -37,7 +37,7 @@
       <!--我的预约-->
         <div class="team-wrapper">
             <a href="#myTeam" class="item-cls">我的团队<img class="more" width=16 height=16 src="./more.png"></a>
-            <a href="#home" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#offlineInfo" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"></a>
             <a href="#home" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"></a>
             <a href="#home" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"></a>
         </div>

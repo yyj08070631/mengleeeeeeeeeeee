@@ -12,6 +12,7 @@ import settings from './components/settings/settings';
 import myQRcode from './components/myQRcode/myQRcode';
 import integral from './components/integral/integral';
 import goodsData from './components/goodsData/goodsData';
+import offlineInfo from './components/offlineInfo/offlineInfo';
 import vueResource from 'vue-resource'
 import { AlertPlugin, ToastPlugin } from 'vux'
 
@@ -59,6 +60,10 @@ const routes = [{
     {
         path: '/goodsData',
         component: goodsData
+    },
+    {
+        path: '/offlineInfo',
+        component: offlineInfo
     }
 ];
 const router = new vueRouter({

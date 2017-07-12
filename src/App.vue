@@ -49,13 +49,16 @@
 		.menu-tag
 			display: flex
 			width: 100%
-			height: 2.6875rem
+			height: 1.3438rem
 			font-size: 0
 			border-top-1px(#e5e5e5)
 			background: rgba(255,255,255,0.95)
 		.tag-list
+			display flex
+			justify-content center
+			align-items center
 			flex: 1
-			font-size: 0.625rem
+			getFontsize(20)
 			text-align: center
 			.home-link--Active
 				color: active-color
@@ -74,12 +77,12 @@
 				.orderFrom
 					bg-change(orderFrom)             
 		.home,.goods,.myCenter,.orderFrom      
-			margin: 0.1875rem auto 0.3125rem auto
-			width: 1.375rem
-			height: 1.375rem
+			margin: 0 auto 0.0313rem auto
+			width: 0.6875rem
+			height: 0.6875rem
 			background: #909090
 		.home
-			background:url('../resource/home.png')       
+			background:url('../resource/home.png')
 		.goods
 			background:url('../resource/goods.png')
 		.myCenter
@@ -87,7 +90,7 @@
 		.orderFrom 
 			background:url('../resource/orderFrom.png')
 		.home,.goods,.myCenter,.orderFrom     
-			background-size: 1.375rem 1.375rem
+			background-size 0.6875rem
 		a
 			display: inline-block 
 			

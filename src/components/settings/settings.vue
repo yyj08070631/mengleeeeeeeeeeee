@@ -41,7 +41,7 @@
                     <img class="other" width=16 height=16 src="./more.png">
                 </div>
         </a>
-        <a href="#" class="message-item">
+        <a href="#offlineInfo" class="message-item">
                 <span class="title">星座</span>
                 <div class="link-wrapper">
                     <span class="msg">未填写</span>

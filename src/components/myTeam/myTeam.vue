@@ -4,14 +4,14 @@
         <header class="header">
             <div class="goBack">
                 <a href="javascript:history.back(1)">
-                    <img src="./images/arrow_left.png" height="16">
+                    <img src="./images/arrow_left.png">
                     <span>返回</span>
                 </a>
             </div>
 			<div class="title">我的团队</div>
             <div class="search">
                 <a href="javascript:void(0)">
-                    <img src="./images/search.png" width="16" height="16">
+                    <img src="./images/search.png">
                 </a>
             </div>
 		</header>
