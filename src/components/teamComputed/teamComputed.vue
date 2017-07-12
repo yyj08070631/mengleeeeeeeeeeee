@@ -1,63 +1,63 @@
 <template>
-    <div class="expand-wrapper">
+    <div class="title-wrapper">
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
 				    <img src="./arrow_left.png" height="16">
 				    <span>返回</span>
 			    </a>
-                <h1 class="title">拓展统计</h1>
+                <h1 class="title">团队统计</h1>
                 <img class="search" src="./search.png" width="16" height="16"/>
              </div>
         </div>     
-        <div class="expand-board">
-            <span class="rank-title">拓展总收益（元）</span>
-            <h1 class="myExpand">38,366.20</h1>
+        <div class="title-board">
+            <span class="rank-title">团队总收益（元）</span>
+            <h1 class="myTitle">0.00</h1>
         </div>
-        <a href="#" class="get-expand indent">
+        <a href="#" class="get-title indent">
                 <span class="title">我的团队</span>
                 <div class="link-wrapper">
                     <img class="more" width=16 height=16 src="./more.png">
                 </div>
         </a>
-        <a href="#" class="expand-computed border-bottom-1px">
+        <a href="#" class="title-computed border-bottom-1px">
                 <span class="computed">本月</span>
                 <div class="link-wrapper">
-                    <span>获得：</span><span class="number">6880.00</span>
-                    <span>已到账</span>
+                    <span>获得：</span><span class="number">1500500.00</span>
+                    <span class="state">未激活</span>
                 </div>
         </a>
-        <a href="#" class="expand-item">
-                <div class="expand-msg">
-                    <span class="from">Duke消费-直属</span>
-                    <span class="date">2017-6-14</span>
+        <a href="#" class="title-item">
+                <div class="title-msg">
+                    <span class="from">Duke团队业绩</span>
+                    <span class="date">团队人数：134人</span>
                 </div>
-                <span class="get-number">+2000.00</span>
+                <span class="get-number">530020.00</span>
         </a>  
-        <a href="#" class="expand-item">
-                <div class="expand-msg">
-                    <span class="from">时光鸡消费-间接</span>
-                    <span class="date">2017-6-14</span>
+        <a href="#" class="title-item">
+                <div class="title-msg">
+                    <span class="from">友善猪团队业绩</span>
+                    <span class="date">团队人数：0人</span>
                 </div>
-                <span class="get-number">+1000.00</span>
+                <span class="get-number">269.00</span>
         </a>  
-        <a href="#" class="expand-item">
-                <div class="expand-msg">
-                    <span class="from">鼎茗茶行消费-间接</span>
-                    <span class="date">2017-6-14</span>
+        <a href="#" class="title-item">
+                <div class="title-msg">
+                    <span class="from">miley团队业绩</span>
+                    <span class="date">团队人数：0人</span>
                 </div>
-                <span class="get-number">+400.00</span>
+                <span class="get-number">369.00</span>
         </a>  
-        <a href="#" class="expand-item">
-                <div class="expand-msg">
-                    <span class="from">陈志洪消费-间接</span>
-                    <span class="date">2017-6-14</span>
+        <a href="#" class="title-item">
+                <div class="title-msg">
+                    <span class="from">AAA拼单平价潮衣物品团队业绩</span>
+                    <span class="date">团队人数：3人</span>
                 </div>
-                <span class="get-number">+80.00</span>
+                <span class="get-number">1360.00</span>
         </a>  
-        <a href="#" class="expand-item">
-                <div class="expand-msg">
-                    <span class="from">友善猪消费-直属</span>
+        <a href="#" class="title-item">
+                <div class="title-msg">
+                    <span class="from">A欧阳飞刀团队业绩</span>
                     <span class="date">2017-6-14</span>
                 </div>
                 <span class="get-number">+80.00</span>
@@ -72,7 +72,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
     width = 100%
-    .expand-wrapper
+    .title-wrapper
         margin-top: 40px
         width: 100%
         height: 100%
@@ -81,7 +81,7 @@ export default {
         background: #f0f0f0
         .header
             headerCss()
-        .expand-board
+        .title-board
             padding: 27px 0 0 18px
             width: width
             height: 113px
@@ -90,10 +90,10 @@ export default {
             .rank-title
                 font-size: 13px
                 vertical-align: top
-            .myExpand
+            .myTitle
                 margin-top: 24px
                 font-size: 54px
-        .get-expand
+        .get-title
             display: block
             position: relative
             width: 100%
@@ -106,16 +106,16 @@ export default {
                 margin-left: 1rem
                 float: left 
                 font-size: 0.8125rem
-                color: #333
+                color: #333   
             .link-wrapper
                 float: right
                 margin: 0 0.5rem 0 0
-                height: 100%
+                height: 100% 
                 .more
-                    margin: 0.75rem 0 0 0.5rem     
+                    margin: 0.75rem 0 0 0.5rem        
         .indent
             margin-bottom: 0.625rem
-    .expand-computed
+    .title-computed
         display: block
         width: 100%
         height: 2.3125rem
@@ -140,7 +140,16 @@ export default {
                 color: #333
             .number
                 color: #ea68a2
-    .expand-item
+            .state
+                display: inline-block
+                padding: 0 2px
+                height: 20px
+                line-height: 20px
+                font-size: 12px
+                color: #fff
+                background: #909090
+                border-radius: 3px 
+    .title-item
             display: block
             position: relative
             width: 100%
@@ -149,7 +158,7 @@ export default {
             background: #fff
             font-size: 0
             border-bottom-1px(#e0e0e0)
-            .expand-msg
+            .title-msg
                 display: inline-block
                 width: 120px
                 height: 100%

@@ -17,8 +17,14 @@ import digest from './components/digest/digest';
 import bill from './components/bill/bill';
 import titleComputed from './components/titleComputed/titleComputed';
 import expandComputed from './components/expandComputed/expandComputed';
+import teamComputed from './components/teamComputed/teamComputed';
+import nearbyStores from './components/nearbyStores/nearbyStores';
+import imageText from './components/imageText/imageText';
+import goodsClassify from './components/goodsClassify/goodsClassify';
 import vueResource from 'vue-resource'
+
 import { AlertPlugin, ToastPlugin } from 'vux'
+
 
 Vue.use(vueResource)
 Vue.use(vueRouter)
@@ -84,8 +90,26 @@ const routes = [{
     {
         path: '/expandComputed',
         component: expandComputed
+    },
+    {
+        path: '/imageText',
+        component: imageText
+    },
+    {
+        path: '/nearbyStores',
+        component: nearbyStores
+    },
+    {
+        path: '/goodsClassify',
+        component: goodsClassify
+    },
+    {
+        path: '/teamComputed',
+        component: teamComputed
     }
 ];
+
+
 const router = new vueRouter({
     routes
 })

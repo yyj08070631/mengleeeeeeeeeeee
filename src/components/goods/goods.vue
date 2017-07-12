@@ -11,7 +11,7 @@
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
-            <a href="#offLineMsg" class="storeNearby">
+            <a href="#digest" class="storeNearby">
                 <div class="colLeft">
                     <p>
                         <span>附近的项目实体店</span>
@@ -29,7 +29,7 @@
             </a>
             <hr class="divider dividerThin">
             <!--查找其他项目实体店-->
-            <router-link to="/digest" class="storeFind">
+            <router-link to="/nearbyStores" class="storeFind">
                 <div class="colLeft">
                     <img src="./images/location.png" height="11">
                     <p>查找其他项目实体店</p>
@@ -42,7 +42,7 @@
             <hr class="divider dividerBig">
             <!--分类列表-->
             <div class="kindList">
-                <a href="javascript:void(0)" class="oneKind">
+                <a href="#goodsClassify" class="oneKind">
                     <div class="oneKindMain">
                         <img src="./images/kind01.png" width="148" height="100">
                         <div>

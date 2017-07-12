@@ -8,7 +8,7 @@
             </div>
             <div class="activity-wrapper">
                 <div class="activity-title">
-                    <a href="#"><img src="./activity01.png" width=100% height=auto></a>
+                    <a href="#imageText"><img src="./activity01.png" width=100% height=auto></a>
                 </div>
             </div>
             <div class="activity-wrapper">
