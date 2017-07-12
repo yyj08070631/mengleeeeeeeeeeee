@@ -257,13 +257,13 @@ width100 = 100%
                 .vux-slider
                     overflow: visible
                     width: 100%
-                    height: 7.6875rem
                     .vux-swiper
-                        overflow: visible
+                        overflow: hidden
                         position: relative
                         margin: 0 auto
                         width: 7.6875rem
                         height: 7.6875rem
+                        background-size: 123px 123px
                         .active
                             background: none
                         .vux-img

@@ -14,6 +14,9 @@ import integral from './components/integral/integral';
 import goodsData from './components/goodsData/goodsData';
 import offLineMsg from './components/offLineMsg/offLineMsg';
 import digest from './components/digest/digest';
+import bill from './components/bill/bill';
+import titleComputed from './components/titleComputed/titleComputed';
+import expandComputed from './components/expandComputed/expandComputed';
 import vueResource from 'vue-resource'
 import { AlertPlugin, ToastPlugin } from 'vux'
 
@@ -69,6 +72,18 @@ const routes = [{
     {
         path: '/digest',
         component: digest
+    },
+    {
+        path: '/bill',
+        component: bill
+    },
+    {
+        path: '/titleComputed',
+        component: titleComputed
+    },
+    {
+        path: '/expandComputed',
+        component: expandComputed
     }
 ];
 const router = new vueRouter({

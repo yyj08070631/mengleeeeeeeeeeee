@@ -20,13 +20,13 @@
                     <swiper-item>5</swiper-item>
                 </swiper> 
                 <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
-                    <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
+                    <x-button  v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
                 </div>
             </div>
             <div class="activity-wrapper">
                 <swiper :list="demo02_list" v-model="demo02_index" @on-index-change="demo02_onIndexChange" auto loop></swiper> 
                 <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
-                    <x-button @click.native="demo02_index = key" v-for="(val,key) in demo02_list" class="x-item" :class="{active:demo02_index==key}">{{key}}</x-button>
+                    <x-button  v-for="(val,key) in demo02_list" class="x-item" :class="{active:demo02_index==key}">{{key}}</x-button>
                 </div>
                 <div class="swiper-scrollbar"></div>
             </div>

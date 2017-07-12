@@ -25,7 +25,7 @@
       <!--个人资料-->
       <!--账单积分-->
         <div class="notecase-wrapper">
-                <a href="#home" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"></a>
+                <a href="#bill" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"></a>
                 <a href="#integral" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"></a>
                 <a href="#home" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"></a> 
         </div>
@@ -37,8 +37,8 @@
       <!--我的预约-->
         <div class="team-wrapper">
             <a href="#myTeam" class="item-cls">我的团队<img class="more" width=16 height=16 src="./more.png"></a>
-            <a href="#home" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"></a>
-            <a href="#home" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#titleComputed" class="item-cls">头衔统计<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="#expandComputed" class="item-cls">拓展统计<img class="more" width=16 height=16 src="./more.png"></a>
             <a href="#home" class="item-cls">团队统计<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
      <!--我的预约-->       
