@@ -32,14 +32,43 @@
                         <span>分享</span>
                     </a>
                 </div>
-                <div class="rowMiddle"></div>
-                <a class="rowDown" href="javascript:void(0)"></a>
+                <hr class="divider">
+                <div class="rowMiddle">
+                    <p class="tel">020-38845959</p>
+                    <p class="time">
+                        营业时间：周一至周日，上午9:30-下午10:00
+                    </p>
+                </div>
+                <hr class="divider">
+                <a class="rowDown" href="javascript:void(0)">
+                    <div class="colLeft">
+                        <p class="loc">广州市天河区林和中路139号天誉花园2期101铺</p>
+                        <p class="dis">
+                            <span>1.1公里</span>
+                            <span class="verticalLine">|</span>
+                            <span>14分钟</span>
+                        </p>
+                    </div>
+                    <div class="colRight">
+                        <img src="./images/arrow_right.png">
+                    </div>
+                </a>
             </div>
             <!--粗分割线-->
-            <hr class="divider">
+            <hr class="divider dividerBig">
+            <!-- 线下服务 -->
+            <div>
+                <h1>
+                    <span class="verticalLine"></span>
+                    <span></span>
+                </h1>
+                <hr class="divider">
+                <p></p>
+            </div>
+            <!--粗分割线-->
+            <hr class="divider dividerBig">
             <!--评论详情-->
             <div class="comment">
-                <hr class="divider dividerThin">
                 <div class="titleDown">
                     <div class="colLeft">
                         <p>|</p>
@@ -49,7 +78,7 @@
                         共172个评论
                     </div>
                 </div>
-                <hr class="divider dividerThin">
+                <hr class="divider">
                 <div class="commentDetailContainer">
                     <div class="commentDetail">
                         <div class="colLeft">
@@ -65,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="divider dividerThin">
+                    <hr class="divider">
                 </div>
                 <div class="commentDetailContainer">
                     <div class="commentDetail">
@@ -82,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="divider dividerThin">
+                    <hr class="divider">
                 </div>
                 <div class="commentDetailContainer">
                     <div class="commentDetail">
@@ -99,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="divider dividerThin">
+                    <hr class="divider">
                 </div>
                 <div class="commentDetailContainer">
                     <div class="commentDetail">
@@ -116,7 +145,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="divider dividerThin">
+                    <hr class="divider">
                 </div>
                 <div class="commentDetailContainer">
                     <div class="commentDetail">
@@ -133,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="divider dividerThin">
+                    <hr class="divider">
                 </div>
                 <div class="viewMore">
                     <spinner type="bubbles" slot="value" size=""></spinner>
@@ -246,16 +275,10 @@ img, span, a
         // 分割线
         .divider
             margin 0
-            border-left 0
-            border-right 0
-            border-bottom 0
-            border-top 0.3125rem solid #f0f0f0
+            border-top-1px(#f0f0f0)
         // 评论
         .comment
             margin-left 0.5rem
-            .dividerThin
-                border-width 0.0313rem
-                border-color #e0e0e0
             .titleDown
                 height 1.1563rem
                 display flex
@@ -314,19 +337,66 @@ img, span, a
                 span
                     display block
                     margin-left 0.1563rem
-        // 超粗分割线
+        // 粗分割线
         .dividerBig
-            border-width 0.7188rem
+            margin-bottom 0.3125rem
+            &:after
+                border-width 0.3125rem
+                border-color #e0e0e0
         // 线下信息
         .offlineInfo
             .rowUp
                 display flex
+                height 1.6875rem
                 justify-content space-between
                 align-items center
                 p
+                    padding-left 0.5rem
                     getFontsize(32)
                     color #333
                 a
+                    display flex
+                    width 1.875rem
+                    justify-content center
+                    align-items center
+                    flex-direction column
+                    img
+                        margin-bottom 0.0938rem
                     span
                         getFontsize(20)
+            .rowMiddle
+                display flex
+                height 1.6875rem
+                flex-direction column
+                justify-content center
+                margin-left 0.5rem
+                .tel
+                    color #ea68a2
+                    getFontsize(26)
+                .time
+                    margin-top 0.2813rem
+                    color #909090
+                    getFontsize(22)
+            .rowDown
+                display flex
+                height 1.6875rem
+                justify-content space-between
+                align-items center
+                .colLeft
+                    display flex
+                    flex-direction column
+                    justify-content center
+                    margin-left 0.5rem
+                    .loc
+                        color #333
+                        getFontsize(26)
+                    .dis
+                        display flex
+                        margin-top 0.2813rem
+                        color #909090
+                        getFontsize(22)
+                .colRight
+                    padding-right 0.5rem
+            .rowDown:active
+                background-color #f0f0f0
 </style>

@@ -12,11 +12,6 @@ import settings from './components/settings/settings';
 import myQRcode from './components/myQRcode/myQRcode';
 import integral from './components/integral/integral';
 import goodsData from './components/goodsData/goodsData';
-<<<<<<< HEAD
-import offlineInfo from './components/offlineInfo/offlineInfo';
-import vueResource from 'vue-resource'
-import { AlertPlugin, ToastPlugin } from 'vux'
-=======
 import offLineMsg from './components/offLineMsg/offLineMsg';
 import digest from './components/digest/digest';
 import bill from './components/bill/bill';
@@ -26,6 +21,7 @@ import teamComputed from './components/teamComputed/teamComputed';
 import nearbyStores from './components/nearbyStores/nearbyStores';
 import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
+import offlineInfo from './components/offlineInfo/offlineInfo';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 
@@ -35,7 +31,6 @@ Vue.use(AjaxPlugin)
 
 
 
->>>>>>> eb98f9ffbecf833994283dec337284ddc4969b44
 
 Vue.use(vueResource)
 Vue.use(vueRouter)
@@ -82,12 +77,8 @@ const routes = [{
         component: goodsData
     },
     {
-<<<<<<< HEAD
         path: '/offlineInfo',
         component: offlineInfo
-=======
-        path: '/offLineMsg',
-        component: offLineMsg
     },
     {
         path: '/digest',
@@ -120,7 +111,6 @@ const routes = [{
     {
         path: '/teamComputed',
         component: teamComputed
->>>>>>> eb98f9ffbecf833994283dec337284ddc4969b44
     }
 ];
 
