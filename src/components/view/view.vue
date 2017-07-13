@@ -4,7 +4,7 @@
                 <router-link to="/home" active-class="home-link--Active"><div class="home"></div>美丽探索</router-link>
             </div>
             <div class="tag-list">
-                <router-link to="/goods" active-class="goods-link--Active"><div class="goods"></div>商品分类</router-link>
+                <router-link to="/goods" active-class="goods-link--Active" :class="{'goods-link--Active':$route.path=='/nearbyStores' || $route.path=='/digest' || $route.path=='/goodsClassify'}"><div class="goods"></div>商品分类</router-link>
             </div>
             <div class="tag-list">
                 <router-link to="/myCenter" active-class="myCenter-link--Active"><div class="myCenter"></div>个人中心</router-link>

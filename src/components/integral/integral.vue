@@ -15,47 +15,47 @@
             <span class="rank-question">等级特权?</span>
             <h1 class="myIntegral">58000</h1>
         </div>
-        <a href="#" class="get-integral indent">
+        <a href="javascript:void(0)" class="get-integral indent">
                 <span class="title">我要赚积分</span>
                 <div class="link-wrapper">
                     <img class="more" width=16 height=16 src="./more.png">
                 </div>
         </a>
-        <a href="#" class="integral-computed border-bottom-1px">
+        <a href="javascript:void(0)" class="integral-computed border-bottom-1px">
                 <span class="computed">本月</span>
                 <div class="link-wrapper">
                     <span>获得：</span><span class="number">18360</span>
                 </div>
         </a>
-        <a href="#" class="integral-item">
+        <a href="javascript:void(0)" class="integral-item">
                 <div class="integral-msg">
                     <span class="from">团队积分</span>
                     <span class="date">2017-6-14</span>
                 </div>
                 <span class="get-number">+17800</span>
         </a>  
-        <a href="#" class="integral-item">
+        <a href="javascript:void(0)" class="integral-item">
                 <div class="integral-msg">
                     <span class="from">商城消费</span>
                     <span class="date">2017-6-14</span>
                 </div>
                 <span class="get-number">+17800</span>
         </a>  
-        <a href="#" class="integral-item">
+        <a href="javascript:void(0)" class="integral-item">
                 <div class="integral-msg">
                     <span class="from">商城消费</span>
                     <span class="date">2017-6-14</span>
                 </div>
                 <span class="get-number">+17800</span>
         </a>  
-        <a href="#" class="integral-item">
+        <a href="javascript:void(0)" class="integral-item">
                 <div class="integral-msg">
                     <span class="from">团队积分</span>
                     <span class="date">2017-6-14</span>
                 </div>
                 <span class="get-number">+17800</span>
         </a>  
-        <a href="#" class="integral-item">
+        <a href="javascript:void(0)" class="integral-item">
                 <div class="integral-msg">
                     <span class="from">团队积分</span>
                     <span class="date">2017-6-14</span>
@@ -74,6 +74,7 @@ export default {
     width = 100%
     .integral-wrapper
         margin-top: 40px
+        padding-bottom: 100px
         width: 100%
         height: 100%
         font-size: 0

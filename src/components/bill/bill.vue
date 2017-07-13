@@ -106,6 +106,7 @@ export default {
         margin-top: 40px
         width: 100%
         height: 100%
+        overflow: hidden
         .header
             headerCss()
         .title-wrapper
@@ -160,7 +161,7 @@ export default {
                     color: #909090
         .bottom-line
             width: 100%
-            height: 25px
+            height: 100px
             background: #f0f0f0        
 
              

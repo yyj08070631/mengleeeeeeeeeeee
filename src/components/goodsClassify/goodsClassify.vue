@@ -1,5 +1,6 @@
 <template>
     <div class="goodsClassify-wrapper">
+         <v-view class="route-item"></v-view>
          <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
@@ -11,8 +12,8 @@
             </div>
         </div>
         <div class="select-type">
-            <a href="#">筛选</a>
-            <a href="#">排列方式</a>
+            <a href="javascript:void(0)">筛选</a>
+            <a href="javascript:void(0)">排列方式</a>
         </div>
         <div class="goods-wrapper">
             <div class="goods-item">
@@ -51,8 +52,11 @@
     </div>
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 export default {
-  
+    components :{
+        'v-view': view
+    } 
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -60,7 +64,9 @@ export default {
 .menu-wrapper
     display: none
 .goodsClassify-wrapper
-    margin-top: 40px
+    margin-top: 40px 
+    .route-item
+        footerCss()
     .header
         headerCss()
     .select-type
@@ -81,11 +87,11 @@ export default {
         margin: 31px auto 0 auto
         width: 100%
         .goods-item:nth-child(odd)
+             border-right: 1px solid #e0e0e0  
         .goods-item
             float: left
-            width: 159px
-            border-top-1px(#e0e0e0)     
-            border-right: 1px solid #e0e0e0    
+            width: 49.6%
+            border-top-1px(#e0e0e0)                
             .collect
                 margin: 9px 14px 0 0 
                 float: right

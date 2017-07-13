@@ -14,48 +14,48 @@
             <span class="rank-title">团队总收益（元）</span>
             <h1 class="myTitle">0.00</h1>
         </div>
-        <a href="#" class="get-title indent">
+        <a href="javascript:void(0)" class="get-title indent">
                 <span class="title">我的团队</span>
                 <div class="link-wrapper">
                     <img class="more" width=16 height=16 src="./more.png">
                 </div>
         </a>
-        <a href="#" class="title-computed border-bottom-1px">
+        <a href="javascript:void(0)" class="title-computed border-bottom-1px">
                 <span class="computed">本月</span>
                 <div class="link-wrapper">
                     <span>获得：</span><span class="number">1500500.00</span>
                     <span class="state">未激活</span>
                 </div>
         </a>
-        <a href="#" class="title-item">
+        <a href="javascript:void(0)" class="title-item">
                 <div class="title-msg">
                     <span class="from">Duke团队业绩</span>
                     <span class="date">团队人数：134人</span>
                 </div>
                 <span class="get-number">530020.00</span>
         </a>  
-        <a href="#" class="title-item">
+        <a href="javascript:void(0)" class="title-item">
                 <div class="title-msg">
                     <span class="from">友善猪团队业绩</span>
                     <span class="date">团队人数：0人</span>
                 </div>
                 <span class="get-number">269.00</span>
         </a>  
-        <a href="#" class="title-item">
+        <a href="javascript:void(0)" class="title-item">
                 <div class="title-msg">
                     <span class="from">miley团队业绩</span>
                     <span class="date">团队人数：0人</span>
                 </div>
                 <span class="get-number">369.00</span>
         </a>  
-        <a href="#" class="title-item">
+        <a href="javascript:void(0)" class="title-item">
                 <div class="title-msg">
                     <span class="from">AAA拼单平价潮衣物品团队业绩</span>
                     <span class="date">团队人数：3人</span>
                 </div>
                 <span class="get-number">1360.00</span>
         </a>  
-        <a href="#" class="title-item">
+        <a href="javascript:void(0)" class="title-item">
                 <div class="title-msg">
                     <span class="from">A欧阳飞刀团队业绩</span>
                     <span class="date">2017-6-14</span>

@@ -1,6 +1,6 @@
 <template>
     <div class="goods-wrapper">
-          <v-view class="route-item"></v-view>
+        <v-view class="route-item"></v-view>
         <!--头部-->    
         <div class="header">
             <div class="header-content border-bottom-1px">

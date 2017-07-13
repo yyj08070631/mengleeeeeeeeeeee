@@ -1,5 +1,6 @@
 <template>
     <div class="digest-wrapper">
+        <v-view class="route-item"></v-view>
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
@@ -35,12 +36,15 @@
             </div>
         </div>
         <div class="line"></div>
-        <a href="#" class="link">我要预约</a>
+        <a href="javascript:void(0)" class="link">我要预约</a>
     </div>
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 export default {
-  
+    components :{
+        'v-view': view
+    } 
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -48,6 +52,9 @@ export default {
     .digest-wrapper
         width: 100%
         height: 100%
+        overflow: hidden
+        .route-item
+            footerCss()
         .header
             headerCss()
         .serve

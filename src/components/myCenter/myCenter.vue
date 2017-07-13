@@ -28,12 +28,12 @@
         <div class="notecase-wrapper">
                 <a href="#bill" class="item-cls">我的账单<img class="more" width=16 height=16 src="./more.png"></a>
                 <a href="#integral" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=16 height=16 src="./more.png"></a>
-                <a href="#home" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"></a> 
+                <a href="javascript:void(0)" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=16 height=16 src="./more.png"></a> 
         </div>
       <!--账单积分-->
       <!--我的预约-->
         <div class="order-wrapper">
-            <a href="#home" class="item-cls">我的预约<img class="more" width=16 height=16 src="./more.png"></a>
+            <a href="javascript:void(0)" class="item-cls">我的预约<img class="more" width=16 height=16 src="./more.png"></a>
         </div>
       <!--我的预约-->
         <div class="team-wrapper">
@@ -102,6 +102,8 @@ export default {
             margin-top: -0.375rem
             .qr-code
                 margin-right: 0.75rem
+            img
+                float: left
     .item-cls
         display: block
         margin-left: 0.9375rem

@@ -1,5 +1,6 @@
 <template>
     <div class="store-wrapper">
+        <v-view class="route-item"></v-view>
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
@@ -11,31 +12,31 @@
              </div>
         </div>
         <div class="store-message">
-            <a href="#" class="store-computed border-bottom-1px">
+            <a href="javascript:void(0)" class="store-computed border-bottom-1px">
                 <span class="computed">附近的项目实体店</span>
             </a>
-            <a href="#" class="store-item">
+            <a href="javascript:void(0)" class="store-item">
                 <img width="52" height="52" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
                 <img class="more" width="16" height="16" src="./more.png">
             </a>  
-            <a href="#" class="store-item">
+            <a href="javascript:void(0)" class="store-item">
                 <img width="52" height="52" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
                 <img class="more" width="16" height="16" src="./more.png">
             </a> 
-            <a href="#" class="store-item">
+            <a href="javascript:void(0)" class="store-item">
                 <img width="52" height="52" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
                 <img class="more" width="16" height="16" src="./more.png">
             </a> 
-            <a href="#" class="store-item">
+            <a href="javascript:void(0)" class="store-item">
                 <img width="52" height="52" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
@@ -52,8 +53,16 @@
     </div>
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 export default {
-  
+    data(){
+        return {
+            showClass: true
+        }
+    },
+    components :{
+        'v-view': view
+    } 
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -66,6 +75,8 @@ export default {
         font-size: 0
         overflow-x: hidden
         background: #f0f0f0
+        .route-item
+            footerCss()
         .header
             headerCss()
     .store-computed

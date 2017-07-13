@@ -20,69 +20,73 @@
                 <img class="rank" width="36" height="12" src="./rank.png">
             </div> 
         </div>
-        <a href="#myQRcode" class="message-item">
-                <span class="title">我的二维码</span>
-                <div class="link-wrapper">
-                    <img class="qr-code" width=16 height=16 src="./QR_code.png">
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a>  
-        <a href="#" class="message-item">
-                <span class="title">昵称</span>
-                <div class="link-wrapper">
-                    <span class="msg">陈军宝</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a>   
-         <a href="#" class="message-item indent">
-                <span class="title">收件信息</span>
-                <div class="link-wrapper">
-                    <span class="msg">已记录</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a>
-        <a href="#" class="message-item">
-                <span class="title">星座</span>
-                <div class="link-wrapper">
-                    <span class="msg">未填写</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a> 
-        <a href="#" class="message-item">
-                <span class="title">身高</span>
-                <div class="link-wrapper">
-                    <span class="msg">未填写</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a> 
-        <a href="#" class="message-item indent">
-                <span class="title">体重</span>
-                <div class="link-wrapper">
-                    <span class="msg">未填写</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a> 
-        <a href="#" class="message-item">
-                <span class="title">职业</span>
-                <div class="link-wrapper">
-                    <span class="msg">未填写</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a> 
-        <a href="#" class="message-item">
-                <span class="title">收入</span>
-                <div class="link-wrapper">
-                    <span class="msg">未填写</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a> 
-        <a href="#" class="message-item indent">
-                <span class="title">兴趣爱好</span>
-                <div class="link-wrapper">
-                    <span class="msg">未填写</span>
-                    <img class="other" width=16 height=16 src="./more.png">
-                </div>
-        </a> 
+        <div class="content-wrapper">
+            <a href="#myQRcode" class="message-item">
+                    <span class="title">我的二维码</span>
+                    <div class="link-wrapper">
+                        <img class="qr-code" width=16 height=16 src="./QR_code.png">
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a>  
+            <a href="javascript:void(0)" class="message-item">
+                    <span class="title">昵称</span>
+                    <div class="link-wrapper">
+                        <span class="msg">陈军宝</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a>   
+            <a href="javascript:void(0)" class="message-item indent">
+                    <span class="title">收件信息</span>
+                    <div class="link-wrapper">
+                        <span class="msg">已记录</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a>
+            <div class="line"></div>
+            <a href="javascript:void(0)offlineInfo" class="message-item">
+                    <span class="title">星座</span>
+                    <div class="link-wrapper">
+                        <span class="msg">未填写</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a> 
+            <a href="javascript:void(0)" class="message-item">
+                    <span class="title">身高</span>
+                    <div class="link-wrapper">
+                        <span class="msg">未填写</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a> 
+            <a href="javascript:void(0)" class="message-item indent">
+                    <span class="title">体重</span>
+                    <div class="link-wrapper">
+                        <span class="msg">未填写</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a> 
+            <div class="line"></div>
+            <a href="javascript:void(0)" class="message-item">
+                    <span class="title">职业</span>
+                    <div class="link-wrapper">
+                        <span class="msg">未填写</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a> 
+            <a href="javascript:void(0)" class="message-item">
+                    <span class="title">收入</span>
+                    <div class="link-wrapper">
+                        <span class="msg">未填写</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a> 
+            <a href="javascript:void(0)" class="message-item">
+                    <span class="title">兴趣爱好</span>
+                    <div class="link-wrapper">
+                        <span class="msg">未填写</span>
+                        <img class="other" width=16 height=16 src="./more.png">
+                    </div>
+            </a> 
+        </div>
 
   </div>
 </template>
@@ -113,6 +117,7 @@ export default{
         width: 100%
         height: 100%
         background: #f0f0f0
+        padding-bottom: 22px
         .header
             headerCss()
         .avatar-wrapper
@@ -155,32 +160,45 @@ export default{
                     margin: 0.3125rem 0 0.375rem 0 
                     font-size: 0.6875rem
                     color: #909090
-        .message-item
-            display: block
-            position: relative
+        .content-wrapper
             width: 100%
-            height: 2.6875rem
-            line-height: 2.6875rem
+            height: 100%
             background: #fff
-            font-size: 0
-            border-bottom-1px(#e0e0e0)
-            .title
-                margin-left: 1rem
-                float: left 
-                font-size: 0.8125rem
-                color: #333
-            .link-wrapper
-                float: right
-                margin: 0 0.5rem 0 0
-                height: 100%
-                .other
-                    margin: 0.75rem 0 0 0.5rem
-                .msg
-                    font-size: 0.6875rem
-                    vertical-align: top    
-        .indent
-            margin-bottom: 0.625rem
-            &:last-child
-                margin-bottom: 1.375rem            
+            overflow: hidden
+            .message-item
+                display: block
+                position: relative
+                margin-left: 16px   
+                width: 100%
+                height: 2.6875rem
+                line-height: 2.6875rem
+                background: #fff
+                font-size: 0
+                border-bottom-1px(#e0e0e0)
+                .title
+                    float: left 
+                    font-size: 0.8125rem
+                    color: #333
+                .link-wrapper
+                    float: right
+                    margin: 0 32px 0 0
+                    height: 100%
+                    .other
+                        margin: 0.75rem 0 0 0.5rem
+                    .msg
+                        float: left
+                        font-size: 0.6875rem
+                        vertical-align: top
+                    img        
+                        display: inline-block
+                        float: left
+                    .qr-code
+                        margin-top: 12px 
+            .indent
+                border-bottom-none()               
+            .line
+                width: 100%
+                height: 10px
+                background: #f0f0f0            
 
 </style>

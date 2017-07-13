@@ -20,6 +20,7 @@ import teamComputed from './components/teamComputed/teamComputed';
 import nearbyStores from './components/nearbyStores/nearbyStores';
 import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
+import offlineInfo from './components/offlineInfo/offlineInfo';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 
@@ -73,6 +74,10 @@ const routes = [{
     {
         path: '/goodsData',
         component: goodsData
+    },
+    {
+        path: '/offlineInfo',
+        component: offlineInfo
     },
     {
         path: '/digest',
