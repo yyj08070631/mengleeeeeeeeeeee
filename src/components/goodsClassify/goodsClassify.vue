@@ -89,6 +89,9 @@ export default {
             .collect
                 margin: 9px 14px 0 0 
                 float: right
+            .goods
+                width: 159px 
+                height: 121px    
             p
                 margin: 9px 0
                 font-size: 11px

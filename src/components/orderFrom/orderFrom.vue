@@ -1,5 +1,6 @@
 <template>
   <div class="orderFrom-wrapper">
+      <v-view class="route-item"></v-view>
   <!--头部  -->    
       <div class="header">
         <div class="header-content border-bottom-1px">
@@ -59,6 +60,7 @@
   </div>
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
 const imgList = [
 	'http://img.dwstatic.com/www/1707/363289838921/1499336815305.jpg',
@@ -118,7 +120,8 @@ const baseList = [{
      SwiperItem, 
      GroupTitle, 
      XButton, 
-     Divider 
+     Divider,
+     'v-view': view 
   }, 
    ready () { 
   
@@ -153,6 +156,8 @@ width100 = 100%
     height: 100%
     background: #fff
     overflow: hidden
+    .route-item
+        footerCss()
     .header
         headerCss()
      .item-cls

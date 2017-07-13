@@ -12,7 +12,6 @@ import settings from './components/settings/settings';
 import myQRcode from './components/myQRcode/myQRcode';
 import integral from './components/integral/integral';
 import goodsData from './components/goodsData/goodsData';
-import offLineMsg from './components/offLineMsg/offLineMsg';
 import digest from './components/digest/digest';
 import bill from './components/bill/bill';
 import titleComputed from './components/titleComputed/titleComputed';
@@ -74,10 +73,6 @@ const routes = [{
     {
         path: '/goodsData',
         component: goodsData
-    },
-    {
-        path: '/offLineMsg',
-        component: offLineMsg
     },
     {
         path: '/digest',

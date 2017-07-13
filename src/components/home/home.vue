@@ -1,5 +1,6 @@
     <template >
         <div class="home-wrapper ">
+            <v-view class="route-item"></v-view>
             <div class="header">
                 <div class="header-content border-bottom-1px">
                     <h1 class="title">美丽搜索</h1>
@@ -12,153 +13,53 @@
                 </div>
             </div>
             <div class="activity-wrapper">
-                <swiper v-model="demo01_index" @on-index-change="demo01_onIndexChange" auto loop>
-                    <swiper-item>1</swiper-item>
-                    <swiper-item>2</swiper-item>
-                    <swiper-item>3</swiper-item>
-                    <swiper-item>4</swiper-item>
-                    <swiper-item>5</swiper-item>
+                <swiper  auto loop>
+                    <swiper-item v-for="(val,key) in dataApp.banneritem.banner"><img :src="val.src" width="100%" heigh="100%"></swiper-item>
                 </swiper> 
                 <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
-                    <x-button  v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
+                    <x-button  v-for="(val,key) in dataApp.banneritem.banner" class="x-item"></x-button>
                 </div>
             </div>
             <div class="activity-wrapper">
-                <swiper :list="demo02_list" v-model="demo02_index" @on-index-change="demo02_onIndexChange" auto loop></swiper> 
+                <swiper  auto loop>
+                    <swiper-item v-for="(val,key) in dataApp.banneritem.banner"><img :src="val.src" width="100%" heigh="100%"></swiper-item>
+                </swiper> 
                 <div class="x-botton" style="position:absolute; bottom: -2px;width: 100%">
-                    <x-button  v-for="(val,key) in demo02_list" class="x-item" :class="{active:demo02_index==key}">{{key}}</x-button>
+                    <x-button  v-for="(val,key) in dataApp.banneritem.banner" class="x-item" :class="{active: dataApp.banneritem.banner == key}"></x-button>
                 </div>
-                <div class="swiper-scrollbar"></div>
             </div>
             <a class="more-activity border-top-1px" href="#orderFrom">查看更多活动</a>
             <div class="footer">
                 <div class="logo"></div>
-                    <p class="Copyright">Copyright © 2017 梦乐商城版权所有{{dataApp.banneritem.banner[0].src}}</p>
+                    <p class="Copyright">Copyright © 2017 梦乐商城版权所有</p>
                 </div>
             </div>
         </div>
     </template>
     <script type="ecmascript-6">
-    import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
-  
-const imgList = [
-	'http://img.dwstatic.com/www/1707/363289838921/1499336815305.jpg',
-	'http://img.car.mianfeiapp.net/upload/20170527/14958505848030.jpg',
-    'http://img.car.mianfeiapp.net/upload/20170527/14958505847196.jpg',
-    'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
-    'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg'
-]
-
-const baseList = [{ 
-   url: 'javascript:', 
-   img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
-   title:"圣雅琦 明眸亮莹眼部精华"
- }, { 
-   url: 'javascript:', 
-   img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
-   title:"圣雅琦 送到家里电视机分厘卡"
- }, { 
-   url: 'javascript:', 
-   img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
-   title:"圣雅琦 阿斯顿撒旦"
- },{ 
-   url: 'javascript:', 
-   img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
-   title:"圣雅琦 似的撒旦"
- },{ 
-   url: 'javascript:', 
-   img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
-   title:"圣雅琦 阿斯顿撒旦撒旦"
- }
- ] 
-  const baseList2 = [{ 
-   url: 'javascript:', 
-   img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
-   title:"圣雅琦 明眸亮莹眼部精华"
- }, { 
-   url: 'javascript:', 
-   img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
-   title:"圣雅琦 送到家里电视机分厘卡"
- }, { 
-   url: 'javascript:', 
-   img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
-   title:"圣雅琦 阿斯顿撒旦"
- },{ 
-   url: 'javascript:', 
-   img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
-   title:"圣雅琦 似的撒旦"
- },{ 
-   url: 'javascript:', 
-   img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
-   title:"圣雅琦 阿斯顿撒旦撒旦"
- }
- ] 
-
- 
- const urlList = baseList.map((item, index) => ({ 
-   url: 'http://m.baidu.com', 
-   img: item.img, 
-   title: `(可点击)${item.title}` 
- })) 
-  
- const demoList = imgList.map((one, index) => ({ 
-   url: 'javascript:', 
-   img: one 
- })) 
- 
- const only2ClickList = baseList.slice(0, 2).map(item => { 
- item.url = '#' 
-   return item 
- }) 
+    import view from '../../components/view/view';
+    import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux'; 
   
  export default {
-    props: {
-        dataApp: Object
-    },
     data: function(){
             return {
                  dataApp: []
             }
-        },
-        // created(){
-        //    this.$http.get('http://dde.dgxinn.cn/dream/index.php/Home/index/index').then(function(data){
-        //     console.log(data)
-        //     })
-            
-        // }, 
-   components: { 
-    Swiper, 
-     SwiperItem, 
-     GroupTitle, 
-     XButton, 
-     Divider 
-  }, 
+        },  
    created () { 
         this.$http.get('http://dde.dgxinn.cn/dream/index.php/Home/index/index').then(function(res){
             this.dataApp = res.body
             
         })
-   }, 
-   methods: { 
-    onSwiperItemIndexChange (index) { 
-      console.log('demo item change', index) 
-     }, 
-     demo01_onIndexChange (index) { 
-       this.demo01_index = index 
-     },
-    demo02_onIndexChange (index) { 
-    this.demo01_index = index 
-    }
+   },
+    components: { 
+     Swiper, 
+     SwiperItem, 
+     GroupTitle, 
+     XButton, 
+     Divider,
+     'v-view': view 
   }, 
-   data () { 
-     return { 
-       demo01_list: baseList, 
-       demo02_list: baseList2,
-       demo01_index: 0,
-       demo02_index: 0, 
-       swiperItemIndex: 1 
-     } 
-   } 
 } 
 
     </script>
@@ -167,18 +68,20 @@ const baseList = [{
     @import '../../commom/stylus/mixin'
     .home-wrapper
         position: absolute
-        top: 3.125rem
+        top: 50px
         left: 0
-        padding-bottom: 2.6875rem
+        padding-bottom: 43px
         width: 100%
         hieght: 100%
         overflow-x: hidden
         background: #f0f0f0
+        .route-item
+            footerCss()
         .header
             headerCss()
         .activity-wrapper
             position: relative
-            margin-bottom: 12px
+            margin-bottom: 0.75rem
             width: 100%
             .activity-title
                 border: 0
@@ -186,7 +89,7 @@ const baseList = [{
                 display: inline-block
                 width: widths()
                 width: 100%
-                font-size: 1rem
+                font-size: 16px
                 text-align: center
                 color: #ea68a2 
             .vux-slider
@@ -222,7 +125,7 @@ const baseList = [{
         width: 100%
         height: 42px
         line-height: 42px
-        font-size: 0.9375rem
+        font-size: 15px
         text-align: center
         border-top-1px(rgba(0,0,0,0.1))
         color: #ea68a2

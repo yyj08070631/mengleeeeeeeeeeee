@@ -1,5 +1,6 @@
 <template>
     <div class="myCenter-wrapper">
+        <v-view class="route-item"></v-view>
       <!--头部  -->
         <div class="header">
             <div class="header-content border-bottom-1px">
@@ -48,7 +49,12 @@
     </div>
 </template>
 <script type="ecmascript-6">
-
+import view from '../../components/view/view';
+export default {
+    components :{
+        'v-view': view
+    } 
+}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
@@ -62,6 +68,8 @@
         font-size: 0
         overflow: hidden
         background: #f0f0f0
+        .route-item
+            footerCss()
         .header
            headerCss()
     .personal-wrapper

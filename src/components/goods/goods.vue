@@ -1,6 +1,6 @@
 <template>
     <div class="goods-wrapper">
-          <router-view></router-view>
+          <v-view class="route-item"></v-view>
         <!--头部-->    
         <div class="header">
             <div class="header-content border-bottom-1px">
@@ -80,8 +80,11 @@
   
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 export default {
-
+    components :{
+        'v-view': view
+    } 
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -94,31 +97,10 @@ export default {
     background #fff
     overflow hidden
     // 头部
+    .route-item
+        footerCss()
     .header
-        display: block
-        position: fixed
-        left: 0
-        top: 0
-        width: 100%
-        height: 2.5rem
-        z-index: 450
-        background: #f9f9f9
-        overflow: hidden
-        .header-content
-            position: relative
-            width: 100%
-            height: 2.5rem
-            line-height: 2.5rem
-            border-bottom-1px(#e5e5e5)
-            .search
-                position: absolute
-                right: 0.9375rem
-                top: 50%
-                margin-top: -0.5rem
-            .title
-                text-align: center
-                font-size: 0.875rem
-                font-weight: 800
+        headerCss()
     // 分割线
     .divider
         margin 0

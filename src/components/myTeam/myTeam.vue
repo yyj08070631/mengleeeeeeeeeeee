@@ -234,9 +234,6 @@ color = #fff
 // 初始化样式
 img, span, a
     display block
-.menu-wrapper
-    display none
-
 // wrapper
 .myTeam-wrapper
     position absolute
@@ -272,11 +269,11 @@ img, span, a
                     display block
                     color #ea68a2
                     margin-left 0.1563rem
-                    getFontsize(26)
+                    font-size: 0.4063rem
                 img
                     display block
         .title
-            getFontsize(26)
+            font-size: 0.4063rem
             font-weight 800
             flex 1
             width width
@@ -315,11 +312,11 @@ img, span, a
             > p
                 padding-left 0.5rem
                 color #333
-                getFontsize(26)
+                font-size: 0.4063rem
             div
                 display flex
                 margin-right 0.5rem
-                getFontsize(24)
+                font-size: 0.375rem
                 color #909090
                 p
                     margin-left 0.4688rem
@@ -348,12 +345,12 @@ img, span, a
                             margin-left 0.5625rem
                             div:first-child
                                 display flex
-                                getFontsize(26)
+                                font-size: 0.4063rem
                                 color #000
                                 img
                                     margin-left 0.0938rem
                             div:last-child
-                                getFontsize(22)
+                                font-size: 0.3438rem
                                 color #909090
                                 margin-top 0.1563rem
                     .colRight
