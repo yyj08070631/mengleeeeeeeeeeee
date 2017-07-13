@@ -10,7 +10,7 @@
                 <img class="search" src="./search.png" width="16" height="16"/>
             </div>
         </div>
-        <div class="title-wrapper">
+        <div class="tag-wrapper">
             <span class="title">本月</span>
             <img class="more" width="16" height="16" src="./__more.png"/>
             <span class="checkBill">查看本月账单</span>
@@ -109,7 +109,7 @@ export default {
         overflow: hidden
         .header
             headerCss()
-        .title-wrapper
+        .tag-wrapper
             width: 100%
             height: 36px
             line-height: 36px
@@ -119,10 +119,11 @@ export default {
                 font-size: 13px
                 color: #333
             .more
+                display: block
                 margin: 8px 13px 0 0
                 float: right   
             .checkBill
-                margin-right: 5px
+                margin-right: 5px 
                 float: right 
                 font-size: 12px
                 color: #909090 

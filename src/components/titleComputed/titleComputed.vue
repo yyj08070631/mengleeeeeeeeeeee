@@ -111,10 +111,8 @@ export default {
                 color: #333
             .link-wrapper
                 float: right
-                margin: 0 16px 0 0
-                height: 100%
                 .more
-                    margin: 12px 0px 0 0.5rem     
+                    margin: 12px 12px 0 0.5rem     
         .indent
             margin-bottom: 0.625rem
     .title-computed
@@ -134,7 +132,7 @@ export default {
             color: #909090
         .link-wrapper
             float: right
-            margin: 0 1rem 0 0
+            margin: 0 16px 0 0
             height: 100%
             line-height: 2.3125rem
             font-size: 0.8125rem

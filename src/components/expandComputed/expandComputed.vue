@@ -148,9 +148,11 @@ export default {
                 height: 100%
                 line-height: 2.3125rem
                 font-size: 0.8125rem
-                span
+                span 
+                    float: left
                     color: #333
                 .number
+                    float: left
                     color: #ea68a2
         .expand-item
                 display: block
