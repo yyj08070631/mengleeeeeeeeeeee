@@ -32,14 +32,14 @@
                         <span>分享</span>
                     </a>
                 </div>
-                <hr class="divider">
+                <hr class="divider dividerMargin">
                 <div class="rowMiddle">
                     <p class="tel">020-38845959</p>
                     <p class="time">
                         营业时间：周一至周日，上午9:30-下午10:00
                     </p>
                 </div>
-                <hr class="divider">
+                <hr class="divider dividerMargin">
                 <a class="rowDown" href="javascript:void(0)">
                     <div class="colLeft">
                         <p class="loc">广州市天河区林和中路139号天誉花园2期101铺</p>
@@ -57,13 +57,16 @@
             <!--粗分割线-->
             <hr class="divider dividerBig">
             <!-- 线下服务 -->
-            <div>
+            <div class="offlineServer">
                 <h1>
-                    <span class="verticalLine"></span>
-                    <span></span>
+                    <span>|</span>
+                    <span>线下服务</span>
                 </h1>
-                <hr class="divider">
-                <p></p>
+                <hr class="divider dividerMargin">
+                <p>
+                    <span>单人泡澡 + 臀部疗保养 + 面部补水三项套餐</span>
+                    <span>￥199.00</span>
+                </p>
             </div>
             <!--粗分割线-->
             <hr class="divider dividerBig">
@@ -251,9 +254,9 @@ img, span, a
                     display block
                     color #ea68a2
                     margin-left 0.1563rem
-                    getFontsize(26)
+                    font-size 0.4063rem
         .title
-            getFontsize(26)
+            font-size 0.4063rem
             font-weight 800
             flex 1
             width width
@@ -288,13 +291,13 @@ img, span, a
                     display flex
                     align-items center
                     p
-                        getFontsize(26)
+                        font-size 0.4063rem
                         color #909090
                         font-weight bold
                     p:last-child
                         margin-left 0.1563rem
                 .colRight
-                    getFontsize(26)
+                    font-size 0.4063rem
                     color #ea68a2
                     margin-right 0.625rem
             .commentDetail
@@ -318,9 +321,9 @@ img, span, a
                             display block
                             margin-left 0.0938rem
                         p
-                            getFontsize(26)
+                            font-size 0.4063rem
                     .rowDown
-                        getFontsize(26)
+                        font-size 0.4063rem
                         margin-top 0.1875rem
                         letter-spacing 0.0313rem
                         line-height 0.5rem
@@ -333,7 +336,7 @@ img, span, a
                 justify-content center
                 align-items center
                 height 1.3438rem
-                getFontsize(26)
+                font-size 0.4063rem
                 span
                     display block
                     margin-left 0.1563rem
@@ -343,6 +346,9 @@ img, span, a
             &:after
                 border-width 0.3125rem
                 border-color #e0e0e0
+        // 分割线margin
+        .dividerMargin
+            margin-left 0.5rem
         // 线下信息
         .offlineInfo
             .rowUp
@@ -352,7 +358,7 @@ img, span, a
                 align-items center
                 p
                     padding-left 0.5rem
-                    getFontsize(32)
+                    font-size 0.5rem
                     color #333
                 a
                     display flex
@@ -363,7 +369,7 @@ img, span, a
                     img
                         margin-bottom 0.0938rem
                     span
-                        getFontsize(20)
+                        font-size 0.3125rem
             .rowMiddle
                 display flex
                 height 1.6875rem
@@ -372,11 +378,11 @@ img, span, a
                 margin-left 0.5rem
                 .tel
                     color #ea68a2
-                    getFontsize(26)
+                    font-size 0.4063rem
                 .time
                     margin-top 0.2813rem
                     color #909090
-                    getFontsize(22)
+                    font-size 0.3438rem
             .rowDown
                 display flex
                 height 1.6875rem
@@ -389,14 +395,44 @@ img, span, a
                     margin-left 0.5rem
                     .loc
                         color #333
-                        getFontsize(26)
+                        font-size 0.4063rem
                     .dis
                         display flex
                         margin-top 0.2813rem
                         color #909090
-                        getFontsize(22)
+                        font-size 0.3438rem
                 .colRight
                     padding-right 0.5rem
             .rowDown:active
                 background-color #f0f0f0
+        // 线下服务
+        .offlineServer
+            display flex
+            flex-direction column
+            h1
+                display flex
+                align-items center
+                height 1.1875rem
+                margin-left 0.5rem
+                font-size 0.4063rem
+                color #909090
+                span
+                    font-weight bold
+                span:first-child
+                    margin-right 0.1563rem
+            p
+                display flex
+                justify-content space-between
+                align-items center
+                height 1.6875rem
+                margin-left 0.5rem
+                font-size 0.3438rem
+                span:first-child
+                    width 6.9375rem
+                    color #333
+                span:last-child
+                    display flex
+                    justify-content center
+                    width 2.5625rem
+                    color #ea68a2
 </style>
