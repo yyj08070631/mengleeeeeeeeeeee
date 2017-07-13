@@ -23,14 +23,11 @@ import goodsClassify from './components/goodsClassify/goodsClassify';
 import offlineInfo from './components/offlineInfo/offlineInfo';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
-
-
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
-
-
-
-
 Vue.use(vueResource)
 Vue.use(vueRouter)
 Vue.use(AlertPlugin)

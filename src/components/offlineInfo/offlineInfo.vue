@@ -8,7 +8,7 @@
                     <span>返回</span>
                 </a>
             </div>
-            <div class="title">我的团队</div>
+            <div class="title">线下信息</div>
             <div class="search">
                 <a href="javascript:void(0)">
                     <img src="./images/search.png">
@@ -18,11 +18,7 @@
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
-            <swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
-                <swiper-item class="swiper-demo-img" v-for="(item, index) in bannerImg" :key="index">
-                    <img :src="item" width="100%" height="100%">
-                </swiper-item>
-            </swiper>
+            <mySwiper class="mySwiper"></mySwiper>
             <!-- 线下信息 -->
             <div class="offlineInfo">
                 <div class="rowUp">
@@ -177,9 +173,8 @@
     </div>
 </template>
 <script type="ecmascript-6">
-import { Swiper, SwiperItem, Divider } from 'vux'
-import { Icon } from 'vux'
 import { Spinner } from 'vux'
+import mySwiper from '../mySwiper/mySwiper'
 
 const imgList = [
     'http://www.pptbz.com/d/file/p/201701/smallffd423a3ab9e735686ff2f099adfe309.jpg',
@@ -189,25 +184,8 @@ const imgList = [
 
 export default {
     components: {
-        Swiper,
-        SwiperItem,
-        Divider,
-        Icon,
-        Spinner
-    },
-    created() {
-
-    },
-    methods: {
-        onIndexChange(index) {
-            this.bannerIndex = index
-        },
-    },
-    data() {
-        return {
-            bannerImg: imgList,
-            isShow: false//隐藏底部tab
-        }
+        Spinner,
+        'mySwiper': mySwiper
     }
 }
 </script>
@@ -218,6 +196,21 @@ color = #fff
 // 初始化样式
 img, span, a
     display block
+// 分页器
+.swiper-slide
+    img
+        width 100%
+        height 100%
+.swiper-pagination
+    display flex
+    left 5% !important
+    width 90% !important
+    .swiper-pagination-bullet
+        height 0.0938rem
+        background-color #fff
+        border-radius 0
+    .swiper-pagination-bullet-active
+        background #606060
 
 // 外层元素
 .offlineInfo-wrapper
@@ -238,7 +231,7 @@ img, span, a
         height 1.25rem
         width width
         background-color #f9f9f9
-        z-index 1
+        z-index 500
         .goBack
             flex 1
             width width
