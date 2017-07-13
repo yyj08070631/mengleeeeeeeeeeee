@@ -111,10 +111,10 @@ export default {
                 color: #333
             .link-wrapper
                 float: right
-                margin: 0 0.5rem 0 0
+                margin: 0 16px 0 0
                 height: 100%
                 .more
-                    margin: 0.75rem 0 0 0.5rem     
+                    margin: 12px 0px 0 0.5rem     
         .indent
             margin-bottom: 0.625rem
     .title-computed
@@ -139,8 +139,10 @@ export default {
             line-height: 2.3125rem
             font-size: 0.8125rem
             span
+                float: left
                 color: #333
             .number
+                float: left
                 color: #ea68a2
     .title-item
             display: block

@@ -132,16 +132,20 @@ export default {
             color: #909090
         .link-wrapper
             float: right
-            margin: 0 1rem 0 0
+            margin: 0 -8px 0 0
+            width: 180px
             height: 100%
             line-height: 2.3125rem
             font-size: 0.8125rem
             span
+                float: left
                 color: #333
             .number
+                float: left
                 color: #ea68a2
             .state
                 display: inline-block
+                margin: 8px 0 0 6px
                 padding: 0 2px
                 height: 20px
                 line-height: 20px

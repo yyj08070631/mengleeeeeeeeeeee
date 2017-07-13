@@ -61,10 +61,8 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-.menu-wrapper
-    display: none
 .goodsClassify-wrapper
-    margin-top: 40px 
+    margin-top: 40px
     .route-item
         footerCss()
     .header
@@ -84,7 +82,7 @@ export default {
             margin-right: 16px
             float: right    
     .goods-wrapper
-        margin: 31px auto 0 auto
+        margin: 31px auto 43px auto
         width: 100%
         .goods-item:nth-child(odd)
              border-right: 1px solid #e0e0e0  
