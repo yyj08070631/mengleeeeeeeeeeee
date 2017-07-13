@@ -8,7 +8,7 @@
                     <span>返回</span>
                 </a>
             </div>
-            <div class="title">我的团队</div>
+            <div class="title">线下信息</div>
             <div class="search">
                 <a href="javascript:void(0)">
                     <img src="./images/search.png">
@@ -21,8 +21,8 @@
             <swiper :options="swiperOption" ref="mySwiper">
                 <!-- 这部分放你要渲染的那些内容 -->
                 <!-- <swiper-slide v-for="(img, index) in imgList">
-                        <img :src=imgList[index] alt="">
-                    </swiper-slide> -->
+                            <img :src=imgList[index] alt="">
+                        </swiper-slide> -->
                 <swiper-slide>
                     <img src="http://www.pptbz.com/d/file/p/201701/smallffd423a3ab9e735686ff2f099adfe309.jpg" alt="">
                 </swiper-slide>
@@ -219,25 +219,33 @@ export default {
                 notNextTick: true,
                 // swiper configs 所有的配置同swiper官方api配置
                 autoplay: 3000,
-                direction: 'vertical',
-                grabCursor: true,
-                setWrapperSize: true,
-                autoHeight: true,
+                // direction: 'vertical',
+                // effect:"coverflow",
+                // grabCursor : true,
+                // setWrapperSize :true,
+                // autoHeight: true,
+                // loop : true,
+                paginationType: "bullets",
                 pagination: '.swiper-pagination',
-                paginationClickable: true,
-                prevButton: '.swiper-button-prev',
-                nextButton: '.swiper-button-next',
-                scrollbar: '.swiper-scrollbar',
-                mousewheelControl: true,
-                observeParents: true,
+                paginationBulletRender: function (swiper, index, className) {
+                    let width = (100/swiper.imagesLoaded) + '%';
+                    console.log(width);
+                    return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
+                }
+                // paginationClickable :true,
+                // prevButton:'.swiper-button-prev',
+                // nextButton:'.swiper-button-next',
+                // scrollbar:'.swiper-scrollbar',
+                // mousewheelControl : true,
+                // observeParents:true,
                 // if you need use plugins in the swiper, you can config in here like this
                 // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下debugger
-                debugger: true,
+                // debugger: true,
                 // swiper callbacks
                 // swiper的各种回调函数也可以出现在这个对象中，和swiper官方一样
-                onTransitionStart(swiper) {
-                    console.log(swiper)
-                },
+                // onTransitionStart(swiper){
+                //   console.log(swiper)
+                // },
                 // more Swiper configs and callbacks...
                 // ...
             }
@@ -262,6 +270,21 @@ color = #fff
 // 初始化样式
 img, span, a
     display block
+// 分页器
+.swiper-slide
+    img
+        width 100%
+        height 100%
+.swiper-pagination
+    display flex
+    left 5% !important
+    width 90% !important
+    .swiper-pagination-bullet
+        height 0.0938rem
+        background-color #fff
+        border-radius 0
+    .swiper-pagination-bullet-active
+        background #606060
 
 // 外层元素
 .offlineInfo-wrapper
@@ -282,7 +305,7 @@ img, span, a
         height 1.25rem
         width width
         background-color #f9f9f9
-        z-index 1
+        z-index 500
         .goBack
             flex 1
             width width
@@ -319,11 +342,6 @@ img, span, a
     // 主体
     .main
         margin-bottom 1.3438rem
-        // swiper
-        .swiper-wrapper
-            img
-            width 100%
-            display block
         // 分割线
         .divider
             margin 0
