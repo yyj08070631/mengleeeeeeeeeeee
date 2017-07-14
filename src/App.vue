@@ -1,25 +1,25 @@
-	<template>
-		<div id="app">			
-			<router-view></router-view>
-		</div>
-	</template>
+<template>
+	<div id="app">			
+		<router-view></router-view>
+	</div>
+</template>
 
-	<script type="ecmascript-6"> 
-	
-	export default {
-		data: function(){
-		},	
-		created: function(){
-			this.$router.push('home')
-		},
-		 mounted() {
+<script type="ecmascript-6"> 
 
-    	}
+export default {
+	data: function(){
+	},	
+	created: function(){
+		this.$router.push('home')
+	},
+		mounted() {
+
 	}
-	</script>
+}
+</script>
 
-	<style lang="stylus" rel="stylesheet/stylus">
- 
+<style lang="stylus" rel="stylesheet/stylus">
+
+		
+</style>
 			
-	</style>
-				

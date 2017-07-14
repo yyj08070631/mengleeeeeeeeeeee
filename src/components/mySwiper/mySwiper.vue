@@ -1,13 +1,7 @@
 <template>
     <swiper :options="swiperOption" ref="mySwiper">
-        <swiper-slide>
-            <img src="http://www.pptbz.com/d/file/p/201701/smallffd423a3ab9e735686ff2f099adfe309.jpg" alt="">
-        </swiper-slide>
-        <swiper-slide>
-            <img src="http://img1.gamedog.cn/2011/11/22/14-111122102315-50.jpg" alt="">
-        </swiper-slide>
-        <swiper-slide>
-            <img src="http://www.pptbz.com/d/file/p/201701/small70188852ba4be2e23b26ddb7b14df6f3.jpg" alt="">
+        <swiper-slide v-for="(val,key) in dataApp.banner">
+            <img :src="val.src" width="100%" heigh="100%">
         </swiper-slide>
         <!-- 这是轮播的小圆点 -->
         <div class="swiper-pagination" slot="pagination"></div>
@@ -22,6 +16,9 @@ export default {
         swiperSlide,
     },
     props: {
+        dataApp: []
+    },
+    created() {
     },
     data() {
         return {
@@ -40,8 +37,8 @@ export default {
                 paginationType: "bullets",
                 pagination: '.swiper-pagination',
                 paginationBulletRender: function (swiper, index, className) {
-                    let width = (100/(swiper.imagesLoaded / 2 + 0.5)) + '%';
-                    console.log(swiper.bullets);
+                    let width = ( isFinite(100/(parseInt(swiper.imagesLoaded / 2))) ? 100/(parseInt(swiper.imagesLoaded / 2)) : 100 ) + '%';
+                    // console.log(width);
                     return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
                 }
                 // paginationClickable :true,

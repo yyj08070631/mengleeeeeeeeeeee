@@ -118,6 +118,8 @@ const router = new vueRouter({
     }
 });
 
+// 定义全局变量
+global.Domain = 'http://dde.dgxinn.cn/dream/index.php/Home'
 
 new Vue({
     el: '#app',
