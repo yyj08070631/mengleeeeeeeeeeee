@@ -25,13 +25,13 @@ export default {
 		.menu-tag
 			display: flex
 			width: 100%
-			height: 2.6875rem
+			height: 1.3438rem
 			font-size: 0
 			border-top-1px(#e5e5e5)
 			background: rgba(255,255,255,0.95)
 		.tag-list
 			flex: 1
-			font-size: 0.625rem
+			font-size: 0.25rem
 			text-align: center
 			.home-link--Active
 				color: active-color
@@ -50,9 +50,9 @@ export default {
 				.orderFrom
 					bg-change(orderFrom)             
 		.home,.goods,.myCenter,.orderFrom      
-			margin: 0.1875rem auto 0.3125rem auto
-			width: 1.375rem
-			height: 1.375rem
+			margin: 0.1563rem auto 0.1563rem auto
+			width: 0.625rem
+			height: 0.625rem
 			background: #909090
 		.home
 			background:url('./home.png')       
@@ -63,7 +63,7 @@ export default {
 		.orderFrom 
 			background:url('./orderFrom.png')
 		.home,.goods,.myCenter,.orderFrom     
-			background-size: 1.375rem 1.375rem
+			background-size: 0.625rem 0.625rem
 		a
 			display: inline-block
 
