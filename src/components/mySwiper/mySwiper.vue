@@ -47,12 +47,12 @@ export default {
                 // grabCursor : true,
                 // setWrapperSize :true,
                 // autoHeight: true,
-                // loop : true,
+                loop : true,
                 paginationType: "bullets",
                 pagination: '.swiper-pagination',
                 paginationBulletRender: function (swiper, index, className) {
-                    let width = (100/swiper.imagesLoaded) + '%';
-                    console.log(width);
+                    let width = (100/(swiper.imagesLoaded / 2 + 0.5)) + '%';
+                    console.log(swiper.bullets);
                     return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
                 }
                 // paginationClickable :true,
@@ -104,6 +104,7 @@ img, span, a
     width 90% !important
     .swiper-pagination-bullet
         height 0.0938rem
+        margin 0 !important
         background-color #fff
         border-radius 0
     .swiper-pagination-bullet-active
