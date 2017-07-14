@@ -89,6 +89,7 @@ export default {
             background: #ea6aa2
             color: #fff
             .rank-title
+                float: left    
                 font-size: 13px
                 vertical-align: top
             .rank-question
@@ -123,7 +124,7 @@ export default {
                 margin: 0 0.5rem 0 0
                 height: 100%
                 .more
-                    margin: 0.75rem 0 0 0.5rem   
+                    margin: 0.75rem 0 0 0
         .indent
             margin-bottom: 0.625rem
     .integral-computed

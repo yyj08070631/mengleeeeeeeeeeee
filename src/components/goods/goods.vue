@@ -138,6 +138,8 @@ export default {
                     color #333
                     font-size 0.75rem
                 p:first-child
+                    display: inline-block
+                    width: 130px
                     margin-bottom 7px
                 p:last-child
                     margin-top 7px

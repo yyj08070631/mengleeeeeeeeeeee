@@ -16,23 +16,12 @@
 <script type="ecmascript-6">
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
-const imgList = [
-    'http://www.pptbz.com/d/file/p/201701/smallffd423a3ab9e735686ff2f099adfe309.jpg',
-    'http://img1.gamedog.cn/2011/11/22/14-111122102315-50.jpg',
-    'http://www.pptbz.com/d/file/p/201701/small70188852ba4be2e23b26ddb7b14df6f3.jpg'
-]
-
 export default {
     components: {
         swiper,
         swiperSlide,
     },
     props: {
-        imgList: [
-            'http://www.pptbz.com/d/file/p/201701/smallffd423a3ab9e735686ff2f099adfe309.jpg',
-            'http://img1.gamedog.cn/2011/11/22/14-111122102315-50.jpg',
-            'http://www.pptbz.com/d/file/p/201701/small70188852ba4be2e23b26ddb7b14df6f3.jpg'
-        ]
     },
     data() {
         return {
@@ -90,6 +79,8 @@ export default {
 @import '../../commom/stylus/mixin'
 width = 100%
 color = #fff
+changeHeight($height)
+    height $height
 // 初始化样式
 img, span, a
     display block
@@ -103,10 +94,15 @@ img, span, a
     left 5% !important
     width 90% !important
     .swiper-pagination-bullet
+<<<<<<< HEAD
         height 0.0938rem
         margin 0 !important
+=======
+        changeHeight(0.0938rem)
+>>>>>>> 2f634aa8a86860e2503c4c44a2e8df0770879733
         background-color #fff
         border-radius 0
+        margin 0 !important
     .swiper-pagination-bullet-active
         background #606060
 </style>
