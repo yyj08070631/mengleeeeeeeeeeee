@@ -69,7 +69,7 @@ export default {
         // 处理原始数据方法
         getDataResult(){
             for(var key in this.dataApp){
-                if(key){console.log(0)}
+                
             }
         }
     }
