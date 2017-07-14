@@ -6,7 +6,7 @@ border-bottom-1px($color)
     width:100%
     left:0
     bottom:0
-    border-top:1px solid $color
+    border-top:0.0625rem solid $color
     content:''
 border-top-1px($color)
   position:relative
@@ -16,7 +16,7 @@ border-top-1px($color)
     width:100%
     left:0
     top:0
-    border-top:1px solid $color
+    border-top:0.0625rem solid $color
     content:''    
  border-top-none()
    &:after
@@ -32,7 +32,7 @@ bg-image($url)
     background-image: url($url+"$3x.png")
 bg-change($url)
   background-image: url("./"+$url+"-active.png")
-  background-size: 1.375rem 1.375rem 
+  background-size: 44px 44px 
   background-repeat: no-repeat
 headerCss()
   display: block
@@ -40,15 +40,15 @@ headerCss()
   left: 0
   top: 0
   width: 100%
-  height: 2.5rem
+  height: 80px
   z-index: 450
   background: #f9f9f9
   overflow: hidden
   .header-content
       position: relative
       width: 100%
-      height: 2.5rem
-      line-height: 2.5rem
+      height: 84px
+      line-height: 84px
       border-bottom-1px(#e5e5e5)
       .goBack
           margin-left 16px
@@ -61,17 +61,19 @@ headerCss()
           span
             margin-left: 15px
             vertical-align: top
-            font-size: 13px
+            font-size: 26px
             color: #ea68a2
           
       .search
           position: absolute
           right: 0.9375rem
           top: 50%
-          margin-top: -0.5rem
+          margin-top: -16px
+          width: 32px
+          height: 32px
       .title
           text-align: center
-          font-size: 0.875rem
+          font-size: 28px
           font-weight: 800
 // 字体适配mixin
 footerCss()
@@ -79,7 +81,7 @@ footerCss()
     bottom: 0
     left: 0
     width: 100%
-    height: 43px
+    height: 86px
     z-index: 1000
 getFontsize($px)
     font-size round($px / 2) * 1px

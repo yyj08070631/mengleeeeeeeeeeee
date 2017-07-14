@@ -4,7 +4,7 @@
             <div class="header">
                 <div class="header-content border-bottom-1px">
                     <h1 class="title">美丽搜索</h1>
-                    <img class="search" src="./search.png" width="16" height="16"/>
+                    <img class="search" src="./search.png" />
                 </div>
             </div>
             <div class="activity-wrapper">

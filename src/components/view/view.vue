@@ -31,7 +31,7 @@ export default {
 			background: rgba(255,255,255,0.95)
 		.tag-list
 			flex: 1
-			font-size: 0.625rem
+			font-size: 1.25rem
 			text-align: center
 			.home-link--Active
 				color: active-color
