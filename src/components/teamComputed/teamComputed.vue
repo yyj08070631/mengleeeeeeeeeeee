@@ -132,7 +132,7 @@ export default {
             color: #909090
         .link-wrapper
             float: right
-            margin: 0 -8px 0 0
+            margin: 0 -10px 0 0
             width: 180px
             height: 100%
             line-height: 2.3125rem

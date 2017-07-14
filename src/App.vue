@@ -13,11 +13,6 @@
 			this.$router.push('home')
 		},
 		 mounted() {
-		// if(this.$route.to != '/home'){
-		// this.$refs.isShow.style.cssText="display: none"
-		// }else{
-		// this.$refs.isShow.style.cssText="display: block"	
-		// }
 
     	}
 	}
