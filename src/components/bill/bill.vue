@@ -12,7 +12,7 @@
         </div>
         <div class="tag-wrapper">
             <span class="title">本月</span>
-            <img class="more" width="16" height="16" src="./__more.png"/>
+            <img class="more" src="./__more.png"/>
             <span class="checkBill">查看本月账单</span>
         </div>
         <div class="bill-item">
@@ -20,7 +20,7 @@
                 <span>今天</span>
                 <span>08:00</span>
             </div>
-            <img class="icon" width="37" height="37" src="./add.png"/>
+            <img class="icon" src="./add.png"/>
             <div class="details">
                 <span class="money">+2000.00</span>
                 <span>头衔奖-2017.06.14-收益发放</span>
@@ -31,7 +31,7 @@
                 <span>今天</span>
                 <span>08:00</span>
             </div>
-            <img class="icon" width="37" height="37" src="./add.png"/>
+            <img class="icon" src="./add.png"/>
             <div class="details">
                 <span class="money">+2000.00</span>
                 <span>头衔奖-2017.06.14-收益发放</span>
@@ -42,7 +42,7 @@
                 <span>今天</span>
                 <span>08:00</span>
             </div>
-            <img class="icon" width="37" height="37" src="./add.png"/>
+            <img class="icon" src="./add.png"/>
             <div class="details">
                 <span class="money">+2000.00</span>
                 <span>头衔奖-2017.06.14-收益发放</span>
@@ -53,7 +53,7 @@
                 <span>今天</span>
                 <span>08:00</span>
             </div>
-            <img class="icon" width="37" height="37" src="./add.png"/>
+            <img class="icon" src="./add.png"/>
             <div class="details">
                 <span class="money">+2000.00</span>
                 <span>头衔奖-2017.06.14-收益发放</span>
@@ -64,7 +64,7 @@
                 <span>今天</span>
                 <span>08:00</span>
             </div>
-            <img class="icon" width="37" height="37" src="./add.png"/>
+            <img class="icon" src="./add.png"/>
             <div class="details">
                 <span class="money">+2000.00</span>
                 <span>头衔奖-2017.06.14-收益发放</span>
@@ -75,7 +75,7 @@
                 <span>今天</span>
                 <span>08:00</span>
             </div>
-            <img class="icon" width="37" height="37" src="./minus.png"/>
+            <img class="icon" src="./minus.png"/>
             <div class="details">
                 <span class="money">+2000.00</span>
                 <span>头衔奖-2017.06.14-收益发放</span>
@@ -86,7 +86,51 @@
                 <span>今天</span>
                 <span>08:00</span>
             </div>
-            <img class="icon" width="37" height="37" src="./minus.png"/>
+            <img class="icon" src="./minus.png"/>
+            <div class="details">
+                <span class="money">+2000.00</span>
+                <span>头衔奖-2017.06.14-收益发放</span>
+            </div>
+        </div>
+        <div class="bill-item">
+            <div class="date">
+                <span>今天</span>
+                <span>08:00</span>
+            </div>
+            <img class="icon" src="./add.png"/>
+            <div class="details">
+                <span class="money">+2000.00</span>
+                <span>头衔奖-2017.06.14-收益发放</span>
+            </div>
+        </div>
+        <div class="bill-item">
+            <div class="date">
+                <span>今天</span>
+                <span>08:00</span>
+            </div>
+            <img class="icon" src="./add.png"/>
+            <div class="details">
+                <span class="money">+2000.00</span>
+                <span>头衔奖-2017.06.14-收益发放</span>
+            </div>
+        </div>
+        <div class="bill-item">
+            <div class="date">
+                <span>今天</span>
+                <span>08:00</span>
+            </div>
+            <img class="icon" src="./add.png"/>
+            <div class="details">
+                <span class="money">+2000.00</span>
+                <span>头衔奖-2017.06.14-收益发放</span>
+            </div>
+        </div>
+        <div class="bill-item">
+            <div class="date">
+                <span>今天</span>
+                <span>08:00</span>
+            </div>
+            <img class="icon" src="./add.png"/>
             <div class="details">
                 <span class="money">+2000.00</span>
                 <span>头衔奖-2017.06.14-收益发放</span>
@@ -103,7 +147,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
     @import '../../commom/stylus/mixin'
     .bill-wrapper
-        margin-top: 40px
+        margin-top: 1.0938rem
         width: 100%
         height: 100%
         overflow: hidden
@@ -111,54 +155,59 @@ export default {
             headerCss()
         .tag-wrapper
             width: 100%
-            height: 36px
-            line-height: 36px
+            height: 1rem
+            line-height: 1rem
             background: #f0f0f0
             .title
-                margin-left: 16px
-                font-size: 13px
+                margin-left: 0.5rem
+                float: left
+                font-size: 0.4063rem
                 color: #333
             .more
                 display: block
-                margin: 8px 13px 0 0
+                margin: 0.3125rem 0.5rem 0 0
+                width: 0.375rem 
+                height: 0.375rem
                 float: right   
             .checkBill
-                margin-right: 5px 
+                margin-right: 0.1563rem 
                 float: right 
-                font-size: 12px
+                font-size: 0.375rem
                 color: #909090 
         .bill-item
-            margin: 0 16px
+            margin: 0 0.5rem
             width: 100%
-            height: 64px 
+            height: 1.25rem 
             border-bottom-1px(#e0e0e0)
             .date
                 float: left
-                width: 32px
                 height: 100%
                 text-align:center
                 span:first-child
-                    margin-top: 13px
+                    margin-top: 0.2031rem
                 span:last-child
-                    margin-top: 6px    
+                    margin-top: 0.0938rem 
+                    font-size: 0.3438rem   
                 span
                     display: block
-                    font-size: 13px
+                    font-size: 0.4063rem
                     color: #909090
             .icon
                 float: left
-                margin: 13px  20px 0  16px
+                margin: 0.2891rem  0.3125rem 0  0.25rem
+                width: 0.5781rem
+                height: 0.5781rem
             .details
                 float: left
                 height: 100%    
                 .money
-                    margin-top: 13px
-                    font-size: 13px
+                    margin-top: 0.2031rem
+                    font-size: 0.4063rem
                     color: #333
                 span                      
                     display: block
-                    margin-top: 6px
-                    font-size: 13px
+                    margin-top: 0.0938rem
+                    font-size: 0.3438rem
                     color: #909090
         .bottom-line
             width: 100%

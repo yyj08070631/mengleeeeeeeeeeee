@@ -7,7 +7,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">头衔统计</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <img class="search" src="./search.png"/>
              </div>
         </div>     
         <div class="title-board">
@@ -74,8 +74,8 @@ export default {
 @import '../../commom/stylus/mixin'
     width = 100%
     .title-wrapper
-        margin-top: 40px
-        padding-bottom: 100px
+        margin-top: 1.0938rem
+        padding-bottom: 3.125rem
         width: 100%
         height: 100%
         font-size: 0
@@ -84,58 +84,60 @@ export default {
         .header
             headerCss()
         .title-board
-            padding: 27px 0 0 18px
+            padding: 0.8438rem 0 0 0.3375rem
             width: width
-            height: 113px
+            height: 3.5313rem
             background: #ea6aa2
             color: #fff
             .rank-title
-                font-size: 13px
+                font-size: 0.4063rem
                 vertical-align: top
             .myTitle
-                margin-top: 24px
-                font-size: 54px
+                margin-top: 0.75rem
+                font-size: 1.6875rem
         .get-title
             display: block
             position: relative
             width: 100%
-            height: 2.6875rem
-            line-height: 2.6875rem
+            height: 1.3438rem
+            line-height: 1.3438rem
             background: #fff
             font-size: 0
             border-bottom-1px(#e0e0e0)
             .title
-                margin-left: 1rem
+                margin-left: 0.5rem
                 float: left 
-                font-size: 0.8125rem
+                font-size: 0.4063rem
                 color: #333
             .link-wrapper
                 float: right
                 .more
-                    margin: 12px 12px 0 0.5rem     
+                    margin: 0.375rem 0.375rem 0 0.25rem   
+                    width: 0.375rem
+                    height: 0.375rem  
         .indent
-            margin-bottom: 0.625rem
+            margin-bottom: 0.3125rem
     .title-computed
         display: block
         width: 100%
-        height: 2.3125rem
+        height: 1.1563rem
         background: #fff
         border-bottom-1px(#e0e0e0)
         .computed
             display: inline-block
-            margin: 0.75rem 0 0 1rem
-            height: 0.875rem
-            border-left: 0.1875rem solid #909090
-            font-size: 0.8125rem
+            margin: 0.375rem 0 0 0.5rem
+            height: 0.4375rem
+            border-left: 0.0938rem solid #909090
+            font-size: 0.4063rem
             font-weight: bold
-            text-indent: 5px
+            text-indent: 0.1563rem
             color: #909090
         .link-wrapper
             float: right
-            margin: 0 16px 0 0
+            margin: 0 0.5rem 0 0
             height: 100%
-            line-height: 2.3125rem
-            font-size: 0.8125rem
+            line-height: 1.1563rem
+            font-size: 0.4063rem
             span
                 float: left
                 color: #333
@@ -146,31 +148,31 @@ export default {
             display: block
             position: relative
             width: 100%
-            height: 3.375rem
-            line-height: 2.6875rem
+            height: 1.6875rem
+            line-height: 1.3438rem
             background: #fff
             font-size: 0
             border-bottom-1px(#e0e0e0)
             .title-msg
                 display: inline-block
-                width: 120px
+                width: 3.75rem
                 height: 100%
                 overflow: hidden
                 .from
-                    margin: -3px 0 0 16px
+                    margin: -0.0938rem 0 0 0.5rem
                     float: left 
-                    height: 13px
-                    font-size: 0.8125rem
+                    height: 0.4063rem
+                    font-size: 0.4063rem
                     color: #333
                 .date
-                    margin: 6px 0 0 16px
+                    margin: 0.1875rem 0 0 0.5rem
                     float: left
-                    font-size: 11px
+                    font-size: 0.3438rem
             .get-number
-                margin-right: 16px
+                margin-right: 0.5rem
                 float: right
-                line-height: 3.375rem 
-                font-size: 13px    
+                line-height: 1.6875rem 
+                font-size: 0.4063rem    
                 color: #333    
               
 </style>

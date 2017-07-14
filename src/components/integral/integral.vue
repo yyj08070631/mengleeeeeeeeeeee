@@ -15,53 +15,57 @@
             <span class="rank-question">等级特权?</span>
             <h1 class="myIntegral">58000</h1>
         </div>
-        <a href="javascript:void(0)" class="get-integral indent">
-                <span class="title">我要赚积分</span>
-                <div class="link-wrapper">
-                    <img class="more" width=16 height=16 src="./more.png">
-                </div>
-        </a>
-        <a href="javascript:void(0)" class="integral-computed border-bottom-1px">
-                <span class="computed">本月</span>
-                <div class="link-wrapper">
-                    <span>获得：</span><span class="number">18360</span>
-                </div>
-        </a>
-        <a href="javascript:void(0)" class="integral-item">
-                <div class="integral-msg">
-                    <span class="from">团队积分</span>
-                    <span class="date">2017-6-14</span>
-                </div>
-                <span class="get-number">+17800</span>
-        </a>  
-        <a href="javascript:void(0)" class="integral-item">
-                <div class="integral-msg">
-                    <span class="from">商城消费</span>
-                    <span class="date">2017-6-14</span>
-                </div>
-                <span class="get-number">+17800</span>
-        </a>  
-        <a href="javascript:void(0)" class="integral-item">
-                <div class="integral-msg">
-                    <span class="from">商城消费</span>
-                    <span class="date">2017-6-14</span>
-                </div>
-                <span class="get-number">+17800</span>
-        </a>  
-        <a href="javascript:void(0)" class="integral-item">
-                <div class="integral-msg">
-                    <span class="from">团队积分</span>
-                    <span class="date">2017-6-14</span>
-                </div>
-                <span class="get-number">+17800</span>
-        </a>  
-        <a href="javascript:void(0)" class="integral-item">
-                <div class="integral-msg">
-                    <span class="from">团队积分</span>
-                    <span class="date">2017-6-14</span>
-                </div>
-                <span class="get-number">+17800</span>
-        </a>  
+         <div class="content-wrapper">
+            <a href="javascript:void(0)" class="get-expand">
+                    <span class="title">我的团队</span>
+                    <div class="link-wrapper">
+                        <img class="more" width=16 height=16 src="./more.png">
+                    </div>
+            </a>
+            <div class="line"></div>
+            <a href="javascript:void(0)" class="expand-computed border-bottom-1px">
+                    <span class="computed">本月</span>
+                    <div class="link-wrapper">
+                        <span>获得：</span><span class="number">6880.00</span>
+                        <span>已到账</span>
+                    </div>
+            </a>
+            <a href="javascript:void(0)" class="expand-item">
+                    <div class="expand-msg">
+                        <span class="from">Duke消费-直属</span>
+                        <span class="date">2017-6-14</span>
+                    </div>
+                    <span class="get-number">+2000.00</span>
+            </a>  
+            <a href="javascript:void(0)" class="expand-item">
+                    <div class="expand-msg">
+                        <span class="from">时光鸡消费-间接</span>
+                        <span class="date">2017-6-14</span>
+                    </div>
+                    <span class="get-number">+1000.00</span>
+            </a>  
+            <a href="javascript:void(0)" class="expand-item">
+                    <div class="expand-msg">
+                        <span class="from">鼎茗茶行消费-间接</span>
+                        <span class="date">2017-6-14</span>
+                    </div>
+                    <span class="get-number">+400.00</span>
+            </a>  
+            <a href="javascript:void(0)" class="expand-item">
+                    <div class="expand-msg">
+                        <span class="from">陈志洪消费-间接</span>
+                        <span class="date">2017-6-14</span>
+                    </div>
+                    <span class="get-number">+80.00</span>
+            </a>  
+            <a href="javascript:void(0)" class="expand-item">
+                    <div class="expand-msg">
+                        <span class="from">友善猪消费-直属</span>
+                        <span class="date">2017-6-14</span>
+                    </div>
+                    <span class="get-number">+80.00</span>
+            </a>      
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -73,8 +77,8 @@ export default {
 @import '../../commom/stylus/mixin'
     width = 100%
     .integral-wrapper
-        margin-top: 40px
-        padding-bottom: 100px
+        margin-top: 1.0938rem
+        padding-bottom: 1.5625rem
         width: 100%
         height: 100%
         font-size: 0
@@ -83,102 +87,141 @@ export default {
         .header
             headerCss()
         .integral-board
-            padding: 27px 0 0 18px
+            padding: 0.75rem 0 0 0.5rem
             width: width
-            height: 113px
+            height: 3.5rem
             background: #ea6aa2
             color: #fff
             .rank-title
                 float: left    
-                font-size: 13px
+                font-size: 0.4063rem
                 vertical-align: top
             .rank-question
                 display: inline-block
-                margin-left: 10px
+                margin-left: 5px
                 margin-top: -1.5px
-                width: 66.5px
-                font-size: 11px
+                padding: 2px
+                width: 1.75rem
+                font-size: 0.3438rem
                 text-align: center
                 border: 1px solid #fff
-                border-radius: 10px   
+                border-radius: 0.3125rem   
                 vertical-align: top
             .myIntegral
-                margin-top: 24px
-                font-size: 54px
+                margin-top: 0.75rem
+                font-size: 1.6875rem
         .get-integral
             display: block
             position: relative
             width: 100%
-            height: 2.6875rem
-            line-height: 2.6875rem
+            height: 1.3438rem
+            line-height: 1.3438rem
             background: #fff
             font-size: 0
             border-bottom-1px(#e0e0e0)
             .title
-                margin-left: 1rem
+                margin-left: 0.5rem
                 float: left 
-                font-size: 0.8125rem
+                font-size: 0.4063rem
                 color: #333
             .link-wrapper
                 float: right
                 margin: 0 0.5rem 0 0
                 height: 100%
                 .more
-                    margin: 0.75rem 0 0 0
+                    margin: 12px 0 0 0
         .indent
-            margin-bottom: 0.625rem
-    .integral-computed
-        display: block
-        width: 100%
-        height: 2.3125rem
-        background: #fff
-        border-bottom-1px(#e0e0e0)
-        .computed
-            display: inline-block
-            margin: 0.75rem 0 0 1rem
-            height: 0.875rem
-            border-left: 0.1875rem solid #909090
-            font-size: 0.8125rem
-            font-weight: bold
-            text-indent: 5px
-            color: #909090
-        .link-wrapper
-            float: right
-            margin: 0 1rem 0 0
-            height: 100%
-            line-height: 2.3125rem
-            font-size: 0.8125rem
-            .number
-                color: #ea68a2
-    .integral-item
-            display: block
-            position: relative
+            margin-bottom: 10px
+    .content-wrapper
             width: 100%
-            height: 3.375rem
-            line-height: 2.6875rem
+            height: 100%
             background: #fff
-            font-size: 0
-            border-bottom-1px(#e0e0e0)
-            .integral-msg
-                display: inline-block
-                width: 120px
-                height: 100%
-                overflow: hidden
-                .from
-                    margin: -3px 0 0 16px
+            overflow-x: hidden        
+            .get-expand
+                display: block
+                position: relative
+                margin-left: 0.5rem
+                width: 100%
+                height: 1.3438rem
+                line-height: 1.3438rem
+                background: #fff
+                font-size: 0
+                border-bottom-1px(#e0e0e0)
+                .title
                     float: left 
-                    height: 13px
-                    font-size: 0.8125rem
+                    font-size: 0.4063rem
                     color: #333
-                .date
-                    margin: 6px 0 0 16px
-                    float: left
-                    font-size: 11px
-            .get-number
-                margin-right: 16px
+                .link-wrapper
+                    float: right
+                    margin: 0 0.875rem 0 0
+                    height: 100%
+                    .more
+                        margin: 0.375rem 0 0 0.25rem
+                        width: 0.375rem
+                        height: 0.375rem
+        .line                     
+            width: 100%
+            height: 0.3125rem
+            background: #f0f0f0
+        .expand-computed
+            display: block
+            margin-left: 0.5rem
+            width: 100%
+            height: 1.1563rem
+            background: #fff
+            border-bottom-1px(#e0e0e0)
+            .computed
+                display: inline-block
+                margin: 0.375rem 0 0 0
+                height: 0.4375rem
+                border-left: 0.0938rem solid #909090
+                font-size: 0.4063rem
+                font-weight: bold
+                text-indent: 0.1563rem
+                color: #909090
+            .link-wrapper
                 float: right
-                line-height: 3.375rem 
-                font-size: 13px    
+                margin: 0 1rem 0 0
+                height: 100%
+                line-height: 1.1563rem
+                font-size: 0.4063rem
+                span 
+                    float: left
+                    color: #333
+                .number
+                    float: left
+                    color: #ea68a2
+        .expand-item
+                display: block
+                position: relative
+                margin-left: 0.5rem
+                width: 100%
+                height: 1.6875rem
+                line-height: 1.3438rem
+                background: #fff
+                font-size: 0
+                border-bottom-1px(#e0e0e0)
+                .expand-msg
+                    display: inline-block
+                    width: 3.75rem
+                    height: 100%
+                    overflow: hidden
+                    .from
+                        margin: -0.1875rem 0 0 0
+                        float: left 
+                        height: 0.4063rem
+                        font-size: 0.4063rem
+                        color: #333
+                    .date
+                        margin: 0.1875rem 0 0 0
+                        float: left
+                        font-size: 0.3438rem
+                .get-number
+                    margin-right: 1.125rem
+                    float: right
+                    line-height: 1.6875rem 
+                    font-size: 0.4063rem    
+                    color: #333  
 
 </style>
 
