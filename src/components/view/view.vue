@@ -31,7 +31,7 @@ export default {
 			background: rgba(255,255,255,0.95)
 		.tag-list
 			flex: 1
-			font-size: 0.3125rem
+			font-size: 0.25rem
 			text-align: center
 			.home-link--Active
 				color: active-color
@@ -50,7 +50,7 @@ export default {
 				.orderFrom
 					bg-change(orderFrom)             
 		.home,.goods,.myCenter,.orderFrom      
-			margin: 0.0938rem auto 0.1563rem auto
+			margin: 0.1563rem auto 0.1563rem auto
 			width: 0.625rem
 			height: 0.625rem
 			background: #909090
