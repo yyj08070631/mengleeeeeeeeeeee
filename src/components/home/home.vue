@@ -2,18 +2,28 @@
     <div class="home-wrapper">
         <v-view class="route-item"></v-view>
         <div class="header">
-            <div class="header-content border-bottom-1px">
+            <div class="header-content">
                 <h1 class="title">美丽搜索</h1>
                 <img class="search" src="./search.png">
             </div>
         </div>
         <!-- banner轮播 -->
-        <div class="bannerTitle">banner1</div>
-        <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
-        <div class="bannerTitle">banner2</div>
-        <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
-        <div class="bannerTitle">banner3</div>
-        <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
+        <div v-for="(val,key) in dataApp">
+            <div class="bannerTitle">{{key}}</div>
+            <mySwiper class="mySwiper" :dataApp="val"></mySwiper>
+        </div>
+        <!-- <div class="bannerTitle">banner1</div>
+            <mySwiper class="mySwiper" :dataApp="banner1"></mySwiper>
+            <div class="bannerTitle">banner2</div>
+            <mySwiper class="mySwiper" :dataApp="banner2"></mySwiper>
+             <div class="bannerTitle">banner3</div>
+            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
+            <div class="bannerTitle">banner4</div>
+            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
+            <div class="bannerTitle">banner5</div>
+            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
+            <div class="bannerTitle">banner6</div>
+            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>  -->
         <!-- 查看更多活动 -->
         <a class="more-activity" href="#orderFrom">查看更多活动</a>
         <!-- logo & copyright -->
@@ -30,7 +40,8 @@ import mySwiper from '../mySwiper/mySwiper'
 export default {
     data() {
         return {
-            dataApp: []
+            dataApp: [],
+            dataResult: []
         }
     },
     created() {
@@ -41,6 +52,7 @@ export default {
         'mySwiper': mySwiper
     },
     methods: {
+        // 获取数据方法
         getDataFromBackend() {
             let that = this
             this.$http({
@@ -48,13 +60,19 @@ export default {
                 url: global.Domain + '/index/index',
                 emulateJSON: true
             }).then(function (response) {
-                let res = response.data
-                that.dataApp = res.banneritem
+                let res = response.body
+                that.dataApp = res // .banneritem.banner
                 // console.log(that.dataApp.banner[0].src)
-                console.log(res)
+                console.log(response)
             })
+        },
+        // 处理原始数据方法
+        getDataResult(){
+            for(var key in this.dataApp){
+                if(key){console.log(0)}
+            }
         }
-    },
+    }
 }
 
 </script>

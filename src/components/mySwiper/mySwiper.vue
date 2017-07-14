@@ -1,7 +1,7 @@
 <template>
     <swiper :options="swiperOption" ref="mySwiper">
-        <swiper-slide v-for="(val,key) in dataApp.banner">
-            <img :src="val.src" width="100%" heigh="100%">
+        <swiper-slide v-for="(val,key) in dataApp">
+            <img :src="val.banner.src" width="100%" heigh="100%">
         </swiper-slide>
         <!-- 这是轮播的小圆点 -->
         <div class="swiper-pagination" slot="pagination"></div>
