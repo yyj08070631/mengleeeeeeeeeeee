@@ -8,22 +8,10 @@
             </div>
         </div>
         <!-- banner轮播 -->
-        <!-- <div v-for="(val,key) in dataApp">
-            <div class="bannerTitle">{{key}}</div>
-            <mySwiper class="mySwiper" :dataApp="val"></mySwiper>
-        </div> -->
-        <!-- <div class="bannerTitle">banner1</div>
-            <mySwiper class="mySwiper" :dataApp="banner1"></mySwiper>
-            <div class="bannerTitle">banner2</div>
-            <mySwiper class="mySwiper" :dataApp="banner2"></mySwiper>
-             <div class="bannerTitle">banner3</div>
-            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
-            <div class="bannerTitle">banner4</div>
-            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
-            <div class="bannerTitle">banner5</div>
-            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>
-            <div class="bannerTitle">banner6</div>
-            <mySwiper class="mySwiper" :dataApp="dataApp"></mySwiper>  -->
+        <div v-for="(val,key) in dataApp">
+            <div class="bannerTitle">{{val.name}}</div>
+            <mySwiper class="mySwiper" :dataApp="val.src"></mySwiper>
+        </div>
         <!-- 查看更多活动 -->
         <a class="more-activity" href="#orderFrom">查看更多活动</a>
         <!-- logo & copyright -->
@@ -63,40 +51,45 @@ export default {
                 let res = response.body
                 // console.log(res)
                 // console.log(response)
-                for(var key in res){
-                    if(res[key].banner){
+                for (var key in res) {
+                    if (res[key].banner) {
                         result.push({
                             id: key,
                             name: 'banner图',
-                            src: (function(){
+                            src: (function () {
                                 let arr = [];
-                                for(let i = 0; i < res[key].banner.length; i++){
+                                for (let i = 0; i < res[key].banner.length; i++) {
                                     arr.push(res[key].banner[i].src);
                                 }
                                 // console.log(arr);
                                 return arr
                             })()
                         });
-                    } else if(res[key].good){
+                    } else if (res[key].good) {
                         result.push({
                             id: key,
                             name: res[key].title,
-                            src: (function(){
+                            src: (function () {
                                 let arr = [];
-                                for(let i = 0; i < res[key].good.length; i++){
+                                for (let i = 0; i < res[key].good.length; i++) {
                                     arr.push(res[key].good[i].mainmap);
                                 }
                                 // console.log(arr);
                                 return arr
                             })()
                         });
-                    } else if(res[key].src){
-                        // console.log(1)
+                    } else if (res[key].src) {
+                        result.push({
+                            id: key,
+                            name: 'App下载组',
+                            src: [res[key].src]
+                        });
                     } else {
                         console.log('获取了无效的数据！')
                     }
                 }
-                console.log(result)
+                // console.log(result)
+                this.dataApp = result
             })
         }
     }
@@ -108,7 +101,7 @@ export default {
     @import '../../commom/stylus/mixin'
     .home-wrapper
         position: absolute
-        top: 1.25rem
+        top: 1.0938rem
         left: 0
         padding-bottom: 1.3438rem
         width: 100%
