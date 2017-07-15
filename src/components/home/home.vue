@@ -49,13 +49,13 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                // console.log(res)
+                console.log(res)
                 // console.log(response)
                 for (var key in res) {
                     if (res[key].banner) {
                         result.push({
                             id: key,
-                            name: 'banner图',
+                            name: '-',
                             src: (function () {
                                 let arr = [];
                                 for (let i = 0; i < res[key].banner.length; i++) {
@@ -81,9 +81,11 @@ export default {
                     } else if (res[key].src) {
                         result.push({
                             id: key,
-                            name: 'App下载组',
+                            name: '-',
                             src: [res[key].src]
                         });
+                    } else if (res[key].copyright) {
+                        console.log('获取了一个copyright！');
                     } else {
                         console.log('获取了无效的数据！')
                     }
