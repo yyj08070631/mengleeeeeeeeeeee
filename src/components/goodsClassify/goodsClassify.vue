@@ -18,7 +18,7 @@
         <div class="goods-wrapper">
             <div class="goods-item">
                 <img class="collect" width="42" height="42" src="./collect.png"/>
-                <img class="goods" width="159" height="121" src="./goods.png"/>
+                <a href="#imageText"><img class="goods" width="159" height="121" src="./goods.png"/></a>
                 <p>美悠斯 益生菌固体饮料</p>
                 <p>蔓越莓味+橙味</p>
                 <span>¥ 268.00</span>
@@ -26,7 +26,7 @@
             </div>
             <div class="goods-item">
                 <img class="collect"  width="42" height="42" src="./collect.png"/>
-                <img class="goods" width="159" height="121" src="./goods.png"/>
+                <a href="#imageText"><img class="goods" width="159" height="121" src="./goods.png"/></a>
                 <p>美悠斯 益生菌固体饮料</p>
                 <p>蔓越莓味+橙味</p>
                 <span>¥ 268.00</span>
@@ -34,7 +34,7 @@
             </div>
             <div class="goods-item">
                 <img class="collect"  width="42" height="42" src="./collect.png"/>
-                <img class="goods" width="159" height="121" src="./goods.png"/>
+                <a href="#imageText"><img class="goods" width="159" height="121" src="./goods.png"/></a>
                 <p>美悠斯 益生菌固体饮料</p>
                 <p>蔓越莓味+橙味</p>
                 <span>¥ 268.00</span>
@@ -42,7 +42,7 @@
             </div>
             <div class="goods-item">
                 <img class="collect" width="42" height="42" src="./collect.png"/>
-                <img class="goods" width="159" height="121" src="./goods.png"/>
+                <a href="#imageText"><img class="goods" width="159" height="121" src="./goods.png"/></a>
                 <p>美悠斯 益生菌固体饮料</p>
                 <p>蔓越莓味+橙味</p>
                 <span>¥ 268.00</span>
