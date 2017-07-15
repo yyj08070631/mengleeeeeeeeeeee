@@ -24,7 +24,7 @@
                     </p>
                 </div>
                 <div class="colRight">
-                    <img src="./images/arrow_right.png" height="10">
+                    <img src="./images/arrow_right.png" height="24">
                 </div>
             </a>
             <hr class="divider dividerThin">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="colRight">
                     <p>附近有4家</p>
-                    <img src="./images/arrow_right.png" height="10">
+                    <img src="./images/arrow_right.png" height="24">
                 </div>
             </router-link>
             <hr class="divider dividerBig">

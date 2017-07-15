@@ -33,7 +33,7 @@
       <!--账单积分-->
       <!--我的预约-->
         <div class="order-wrapper">
-            <a href="#offlineInfo" class="item-cls">我的预约<img class="more" width=32 height=32 src="./more.png"></a>
+            <a href="javascript:void(0)" class="item-cls">我的预约<img class="more" width=32 height=32 src="./more.png"></a>
         </div>
       <!--我的预约-->
         <div class="team-wrapper">
@@ -44,7 +44,7 @@
         </div>
      <!--我的预约-->       
         <div class="helper">
-            <a href="#goodDetail" class="item-cls">获得帮助<img class="more" width=32 height=32 src="./more.png"></a>
+            <a href="javascript:void(0)" class="item-cls">获得帮助<img class="more" width=32 height=32 src="./more.png"></a>
         </div>
     </div>
 </template>

@@ -19,8 +19,8 @@
 		</swiper>
 		<!--导航按钮-->
 		<div class="detailNav">
-			<a href="javascript:void(0)">图文详情</a>
-			<a href="#imageText">商品参数</a>
+			<a href="#imageText">图文详情</a>
+			<a href="#goodsData">商品参数</a>
 		</div>
 		<!--粗分割线-->
 		<hr class="divider">
@@ -28,7 +28,7 @@
 		<div class="comment">
 			<div class="titleUp">
 				<div class="colLeft">
-					<a href="#goodsData" class="rowUp">美悠斯 益生菌固体饮料 蔓越莓味 + 橙味</a>
+					<a href="javascript:void(0)" class="rowUp">美悠斯 益生菌固体饮料 蔓越莓味 + 橙味</a>
 					<div class="rowDown">
 						<p>￥268.00</p>
 						<p>已有 200 人购买</p>

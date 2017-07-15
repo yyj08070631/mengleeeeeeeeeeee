@@ -15,28 +15,28 @@
             <a href="javascript:void(0)" class="store-computed border-bottom-1px">
                 <span class="computed">附近的项目实体店</span>
             </a>
-            <a href="javascript:void(0)" class="store-item">
+            <a href="#offlineInfo" class="store-item">
                 <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
                 <img class="more" width="32" height="32" src="./more.png">
             </a>  
-            <a href="javascript:void(0)" class="store-item">
+            <a href="#offlineInfo" class="store-item">
                 <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
                 <img class="more" width="32" height="32" src="./more.png">
             </a> 
-            <a href="javascript:void(0)" class="store-item">
+            <a href="#offlineInfo" class="store-item">
                 <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
                 <img class="more" width="32" height="32" src="./more.png">
             </a> 
-            <a href="javascript:void(0)" class="store-item">
+            <a href="#offlineInfo" class="store-item">
                 <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
