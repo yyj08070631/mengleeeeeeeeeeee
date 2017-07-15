@@ -201,7 +201,7 @@ width100 = 100%
                 border-bottom-1px(#e6e6e6)           
                 .product
                     float: left
-                    margin: 1.125rem 0.5625rem 0 0    
+                    margin: 0.5625rem 0.5625rem 0 0    
                 .product-message
                     margin-top: 9px
                     float: left
@@ -228,7 +228,7 @@ width100 = 100%
                     display: block
                     position: absolute
                     right: mg-width
-                    bottom: 0.3438rem
+                    bottom: 0.5rem
                     width: 1.8438rem   
                     height: 0.5625rem
                     line-height: 0.5625rem
@@ -244,13 +244,13 @@ width100 = 100%
         .more-orderFrom
             display: block
             width: 100%
-            height: 39px
-            line-height: 39px
-            font-size: 11px
+            height: 1.2188rem
+            line-height: 1.2188rem
+            font-size: 0.3438rem
             text-align: center
             color: #ea6aa2
         .line
-            margin-left: -15px
+            margin-left: -0.4688rem
             width: 100%
             height: 11px
             background: #f0f0f0   

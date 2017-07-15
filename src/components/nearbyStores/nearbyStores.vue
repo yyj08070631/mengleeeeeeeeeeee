@@ -16,37 +16,37 @@
                 <span class="computed">附近的项目实体店</span>
             </a>
             <a href="javascript:void(0)" class="store-item">
-                <img width="52" height="52" src="./stores.png">
+                <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
-                <img class="more" width="16" height="16" src="./more.png">
+                <img class="more" width="32" height="32" src="./more.png">
             </a>  
             <a href="javascript:void(0)" class="store-item">
-                <img width="52" height="52" src="./stores.png">
+                <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
-                <img class="more" width="16" height="16" src="./more.png">
+                <img class="more" width="32" height="32" src="./more.png">
             </a> 
             <a href="javascript:void(0)" class="store-item">
-                <img width="52" height="52" src="./stores.png">
+                <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
-                <img class="more" width="16" height="16" src="./more.png">
+                <img class="more" width="32" height="32" src="./more.png">
             </a> 
             <a href="javascript:void(0)" class="store-item">
-                <img width="52" height="52" src="./stores.png">
+                <img width="104" height="104" src="./stores.png">
                 <span class="title">完美尺寸 天誉花园</span>
                 <span>周一至周日，上午9:30-下午10:00</span>
                 <span>1.1公里 | 14分钟</span>
-                <img class="more" width="16" height="16" src="./more.png">
+                <img class="more" width="32" height="32" src="./more.png">
             </a> 
             <div class="line"></div>
             <div class="all-stores">
                 浏览所有线下项目实体店
-                <img class="more" width="16" height="16" src="./more.png">
+                <img class="more" width="32" height="32" src="./more.png">
             </div>
         </div>     
         
@@ -68,7 +68,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
     .store-wrapper
-        margin-top: 40px
+        margin-top: 1.25rem
         padding-bottom: 20%
         width: 100%
         height: 100%
@@ -82,17 +82,17 @@ export default {
     .store-computed
         display: block
         width: 100%
-        height: 2.3125rem
+        height: 1.1563rem
         background: #fff
         border-bottom-1px(#e0e0e0)
         .computed
             display: inline-block
-            margin: 0.75rem 0 0 1rem
-            height: 0.875rem
-            border-left: 0.1875rem solid #909090
-            font-size: 0.8125rem
+            margin: 24px 0 0 32px
+            height: 28px
+            border-left: 6px solid #909090
+            font-size: 0.4063rem
             font-weight: bold
-            text-indent: 5px
+            text-indent: 0.1875rem
             color: #909090 
     .store-message
         width: 100%
@@ -101,48 +101,49 @@ export default {
         .store-item
                 display: block
                 position: relative
-                margin-left: 16px
+                margin-left: 0.5rem
                 width: 100%
-                height: 5.25rem
-                line-height: 2.6875rem
+                height: 2.625rem
+                line-height: 1.3438rem
                 background: #fff
                 font-size: 0
                 border-bottom-1px(#e0e0e0)
                 img
                     float: left
-                    margin-top: 15px
+                    margin-top: 0.4688rem
                 .title
-                    font-size: 12px
+                    float: left
+                    font-size: 0.375rem
                     color: #333
                     vertical-align: top
                 span
                     display: inline-block
-                    margin-left: 10px
-                    height: 20px
-                    font-size: 11px
+                    margin-left: 0.3125rem
+                    height: 0.625rem
+                    font-size: 0.3438rem
                     color: #909090
                     float: left
                 .more
                     position: absolute
-                    right: 32px
+                    right: 0.875rem
                     top: 50%
-                    margin-top: -8px
+                    margin-top: -0.25rem
         .line
             width: 100%
             height: 10px
             background: #f0f0f0
         .all-stores
             position: relative
-            margin-left: 16px
-            height: 43px
-            line-height: 43px
-            font-size: 12px
+            margin-left: 0.5rem
+            height: 1.3438rem
+            line-height: 1.3438rem
+            font-size: 0.375rem
             color: #333
             .more
                 position: absolute
-                right: 16px
+                right: 0.375rem
                 top: 50%
-                margin-top: -8px
+                margin-top: -0.25rem
                         
 
 </style>

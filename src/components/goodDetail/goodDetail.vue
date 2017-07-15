@@ -20,7 +20,7 @@
 		<!--导航按钮-->
 		<div class="detailNav">
 			<a href="javascript:void(0)">图文详情</a>
-			<a href="javascript:void(0)">商品参数</a>
+			<a href="#imageText">商品参数</a>
 		</div>
 		<!--粗分割线-->
 		<hr class="divider">

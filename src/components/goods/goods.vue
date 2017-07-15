@@ -31,7 +31,7 @@
             <!--查找其他项目实体店-->
             <router-link to="/nearbyStores" class="storeFind">
                 <div class="colLeft">
-                    <img src="./images/location.png" height="11">
+                    <img src="./images/location.png" width="22" height="22">
                     <p>查找其他项目实体店</p>
                 </div>
                 <div class="colRight">

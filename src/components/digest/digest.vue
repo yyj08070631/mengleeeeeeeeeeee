@@ -50,65 +50,66 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
     @import '../../commom/stylus/mixin'
     .digest-wrapper
+        margin-bottom: 3.125rem
         width: 100%
         height: 100%
-        overflow: hidden
+        overflow-x: hidden
         .route-item
             footerCss()
         .header
             headerCss()
         .serve
             width: 100%
-            height: 214px
+            height: 6.6875rem
             background: url(./serve.png)
-            background-size: 100% 214px
+            background-size: 100% 6.6875rem
         .serve-desc
             width: 100%
             .desc-title
-                line-height: 30px
-                text-indent: 16px
-                font-size: 12px
+                line-height: 0.9375rem
+                text-indent: 0.5rem
+                font-size: 0.375rem
                 color: #333               
             .desc-content
                 display: inline-block
-                margin: 0 16px 0 16px
-                line-height: 20px
-                font-size: 11px
+                margin: 0 0.5rem 0 0.5rem
+                line-height: 0.625rem
+                font-size: 0.3438rem
                 color: #909090 
         .line     
-            margin: 13px 0    
+            margin: 0.4063rem 0    
             width: 100%
-            margin-left: 16px
+            margin-left: 0.5rem
             border-bottom-1px(#e0e0e0)
         .serve-address
-            margin-top: -9px    
+            margin-top: -0.2813rem    
         .serve-date,.serve-address
             width: 100%
-            height: 64px
+            height: 2rem
             .date  
                 display: inline-block
-                margin: 13px  0 0 16px
-                font-size: 13px        
+                margin: 0.4063rem  0 0 0.5rem
+                font-size: 0.4063rem        
                 color: #909090
             .details
-                padding: 13px 0
+                padding: 0.4063rem 0
                 float: right
-                width: 197px
-                font-size: 11px
-                letter-spacing: 2px
+                width: 6.1563rem
+                font-size: 0.3438rem
+                letter-spacing: 0.0625rem
                 border-bottom-1px(#e0e0e0)
                 color: #333
                 .mg-top
                     display: block
-                    margin-top: 5px
-                    font-size: 11px
+                    margin-top: 0.1563rem
+                    font-size: 0.3438rem
             .none-line
                 border-bottom-none()    
         .link
             display: block
-            margin-top: 23px 
+            margin-top: 0.7188rem 
             width: 100%
-            font-size: 13px
+            font-size: 0.4063rem
             text-align: center
             color: #ea6aa2           
                     
