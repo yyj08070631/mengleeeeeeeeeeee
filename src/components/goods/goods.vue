@@ -5,7 +5,7 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <h1 class="title">商品分类</h1>
-                <img class="search" src="./images/search.png" width="16" height="16">
+                <img class="search" src="./images/search.png">
             </div>
         </div>
         <!--主体-->
@@ -24,50 +24,30 @@
                     </p>
                 </div>
                 <div class="colRight">
-                    <img src="./images/arrow_right.png" height="10">
+                    <img src="./images/arrow_right.png">
                 </div>
             </a>
             <hr class="divider dividerThin">
             <!--查找其他项目实体店-->
             <router-link to="/nearbyStores" class="storeFind">
                 <div class="colLeft">
-                    <img src="./images/location.png" width="22" height="22">
+                    <img src="./images/location.png">
                     <p>查找其他项目实体店</p>
                 </div>
                 <div class="colRight">
                     <p>附近有4家</p>
-                    <img src="./images/arrow_right.png" height="10">
+                    <img src="./images/arrow_right.png">
                 </div>
             </router-link>
             <hr class="divider dividerBig">
             <!--分类列表-->
             <div class="kindList">
-                <a href="#goodsClassify" class="oneKind">
+                <a href="#goodsClassify" class="oneKind" v-for="(val,key) in cateItemList">
                     <div class="oneKindMain">
-                        <img src="./images/kind01.png" width="148" height="100">
+                        <img :src="val.src">
                         <div>
-                            <h1>营养食品</h1>
-                            <p>美悠斯</p>
-                        </div>
-                    </div>
-                    <hr class="divider dividerThinNoMargin">
-                </a>
-                <a href="javascript:void(0)" class="oneKind">
-                    <div class="oneKindMain">
-                        <img src="./images/kind02.png" width="148" height="100">
-                        <div>
-                            <h1>美容护肤</h1>
-                            <p>圣雅琦、欧结蔓、M2、阿斯蒂芬表达式、是电饭锅电饭锅</p>
-                        </div>
-                    </div>
-                    <hr class="divider dividerThinNoMargin">
-                </a>
-                <a href="javascript:void(0)" class="oneKind">
-                    <div class="oneKindMain">
-                        <img src="./images/kind03.png" width="148" height="100">
-                        <div>
-                            <h1>塑身美体</h1>
-                            <p>完美尺寸</p>
+                            <h1>{{val.name}}</h1>
+                            <p>{{val.item}}</p>
                         </div>
                     </div>
                     <hr class="divider dividerThinNoMargin">
@@ -84,7 +64,31 @@ import view from '../../components/view/view';
 export default {
     components :{
         'v-view': view
-    } 
+    },
+    data() {
+        return {
+            cateItemList: []
+        }
+    },
+    created () {
+        this.getDataFromBackend()
+    },
+    methods: {
+        // 获取数据方法
+        getDataFromBackend() {
+            let that = this;
+            let result = [];
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/cate/category',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log(res.cateitem);
+                this.cateItemList = res.cateitem
+            })
+        }
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -190,6 +194,8 @@ export default {
                     img
                         display block
                         margin-right 0.9375rem
+                        width 4.625rem
+                        height 3.125rem
                     div
                         text-align justify
                         overflow hidden
