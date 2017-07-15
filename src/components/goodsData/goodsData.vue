@@ -120,20 +120,20 @@ export default {
             padding: 0.2031rem 0.25rem 0.2031rem 0
             border-bottom-1px(#e0e0e0)
             .title
-                font-size: 0.2031rem
-                line-height: 0.3125rem
+                font-size: 0.4063rem
+                line-height: 0.625rem
                 font-weight: bold
                 color: #333
             .desc   
-                font-size: 0.1719rem
-                line-height: 0.3125rem
+                font-size: 0.3438rem
+                line-height: 0.625rem
                 color: #909090
             ul
                 margin-left: 0.3125rem
                 li
                     list-style: disc 
-                    font-size: 0.1719rem
-                    line-height: 0.3125rem
+                    font-size: 0.3438rem
+                    line-height: 0.4688rem
                     color: #909090    
     .myFooter
         position fixed
