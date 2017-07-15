@@ -15,7 +15,7 @@
             <a href="javascript:void(0)">筛选</a>
             <select class="screen" v-show="false">
                 <option>时间</option>
-                <option>类型</option>
+                <option>上架时间</option>
                 <option>价格</option>
             </select>
             <a href="javascript:void(0)" @click="changeClass">排列方式</a>
@@ -89,8 +89,8 @@ export default {
     methods: {
         changeClass: function(){
             
-            if(this.changeStyle=='goods-item1'){
-                this.changeStyle='goods-item2'
+            if(this.changeStyle == 'goods-item1'){
+                this.changeStyle = 'goods-item2'
             }else{
                 this.changeStyle='goods-item1'
             }

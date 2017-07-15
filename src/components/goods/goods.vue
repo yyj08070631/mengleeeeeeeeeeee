@@ -5,7 +5,7 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <h1 class="title">商品分类</h1>
-                <img class="search" src="./images/search.png" width="16" height="16">
+                <img class="search" src="./images/search.png">
             </div>
         </div>
         <!--主体-->
@@ -24,19 +24,19 @@
                     </p>
                 </div>
                 <div class="colRight">
-                    <img src="./images/arrow_right.png" height="24">
+                    <img src="./images/arrow_right.png" height="42">
                 </div>
             </a>
             <hr class="divider dividerThin">
             <!--查找其他项目实体店-->
             <router-link to="/nearbyStores" class="storeFind">
                 <div class="colLeft">
-                    <img src="./images/location.png" width="22" height="22">
+                    <img src="./images/location.png" width="44" height="44">
                     <p>查找其他项目实体店</p>
                 </div>
                 <div class="colRight">
                     <p>附近有4家</p>
-                    <img src="./images/arrow_right.png" height="24">
+                    <img src="./images/arrow_right.png" height="42">
                 </div>
             </router-link>
             <hr class="divider dividerBig">
@@ -44,7 +44,7 @@
             <div class="kindList">
                 <a href="#goodsClassify" class="oneKind">
                     <div class="oneKindMain">
-                        <img src="./images/kind01.png" width="148" height="100">
+                        <img src="./images/kind01.png" width="296" height="200">
                         <div>
                             <h1>营养食品</h1>
                             <p>美悠斯</p>
@@ -54,7 +54,7 @@
                 </a>
                 <a href="javascript:void(0)" class="oneKind">
                     <div class="oneKindMain">
-                        <img src="./images/kind02.png" width="148" height="100">
+                        <img src="./images/kind02.png" width="296" height="200">
                         <div>
                             <h1>美容护肤</h1>
                             <p>圣雅琦、欧结蔓、M2、阿斯蒂芬表达式、是电饭锅电饭锅</p>
@@ -64,7 +64,7 @@
                 </a>
                 <a href="javascript:void(0)" class="oneKind">
                     <div class="oneKindMain">
-                        <img src="./images/kind03.png" width="148" height="100">
+                        <img src="./images/kind03.png" width="296" height="200">
                         <div>
                             <h1>塑身美体</h1>
                             <p>完美尺寸</p>
@@ -166,15 +166,21 @@ export default {
                 margin-left 0.5rem
                 p
                     margin-left 0.0938rem
+                    line-height 1.3125rem 
                     color #333
                     font-size 0.3438rem
+                img 
+                    margin-top: 0.4063rem   
             .colRight
                 display flex
                 margin-right 0.5rem
                 p
                     font-size 0.3438rem
                     margin-right 0.1875rem
+                    line-height 1.3125rem 
                     color #909090
+                img 
+                    margin-top: 0.4063rem      
         // 分类列表
         .kindList
             display flex
