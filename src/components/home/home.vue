@@ -8,10 +8,10 @@
             </div>
         </div>
         <!-- banner轮播 -->
-        <div v-for="(val,key) in dataApp">
+        <!-- <div v-for="(val,key) in dataApp">
             <div class="bannerTitle">{{key}}</div>
             <mySwiper class="mySwiper" :dataApp="val"></mySwiper>
-        </div>
+        </div> -->
         <!-- <div class="bannerTitle">banner1</div>
             <mySwiper class="mySwiper" :dataApp="banner1"></mySwiper>
             <div class="bannerTitle">banner2</div>
@@ -40,8 +40,7 @@ import mySwiper from '../mySwiper/mySwiper'
 export default {
     data() {
         return {
-            dataApp: [],
-            dataResult: []
+            dataApp: []
         }
     },
     created() {
@@ -54,23 +53,51 @@ export default {
     methods: {
         // 获取数据方法
         getDataFromBackend() {
-            let that = this
+            let that = this;
+            let result = [];
             this.$http({
                 method: 'get',
                 url: global.Domain + '/index/index',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                that.dataApp = res // .banneritem.banner
-                // console.log(that.dataApp.banner[0].src)
-                console.log(response)
+                // console.log(res)
+                // console.log(response)
+                for(var key in res){
+                    if(res[key].banner){
+                        result.push({
+                            id: key,
+                            name: 'banner图',
+                            src: (function(){
+                                let arr = [];
+                                for(let i = 0; i < res[key].banner.length; i++){
+                                    arr.push(res[key].banner[i].src);
+                                }
+                                // console.log(arr);
+                                return arr
+                            })()
+                        });
+                    } else if(res[key].good){
+                        result.push({
+                            id: key,
+                            name: res[key].title,
+                            src: (function(){
+                                let arr = [];
+                                for(let i = 0; i < res[key].good.length; i++){
+                                    arr.push(res[key].good[i].mainmap);
+                                }
+                                // console.log(arr);
+                                return arr
+                            })()
+                        });
+                    } else if(res[key].src){
+                        // console.log(1)
+                    } else {
+                        console.log('获取了无效的数据！')
+                    }
+                }
+                console.log(result)
             })
-        },
-        // 处理原始数据方法
-        getDataResult(){
-            for(var key in this.dataApp){
-                
-            }
         }
     }
 }
