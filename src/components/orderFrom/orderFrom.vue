@@ -16,7 +16,7 @@
             </a>
             <div class="order-content">
                 <div class="content-item content-item-top">
-                    <img class="product" width=52 height=52 src="./product01.png"/>
+                    <img class="product" width=104 height=104 src="./product01.png"/>
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华圣雅琦 明眸亮莹眼部精华</span>
                         <p class="num">数量:1</p>
@@ -26,7 +26,7 @@
                     <div class="handle"><a class="link" href="#">立即结账</a></div>
                 </div>
                 <div class="content-item content-item-bottom">
-                    <img class="product" width=52 height=52 src="./product01.png"/>
+                    <img class="product" width=104 height=104 src="./product01.png"/>
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华</span>
                         <p class="num">数量:1</p>
@@ -146,11 +146,11 @@ const baseList = [{
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-mg-width = 2rem
+mg-width = 1.125rem
 width100 = 100%
   .orderFrom-wrapper
     position: absolute
-    top: 2.5rem
+    top: 1.0938rem
     left: 0
     width: 100%
     height: 100%
@@ -164,35 +164,38 @@ width100 = 100%
        position: relative            
      .content-wrapper
         width: 100%
-        margin-left: 0.9375rem
+        margin-left: 0.5rem
         font-size: 0
         .order-title
             display: block
             width: 100%
-            height: 2.25rem
-            line-height: 2.25rem
+            height: 1.125rem
+            line-height: 1.125rem
             border-bottom-1px(#e6e6e6)
             .title 
-                font-size: 0.6875rem   
+                float: left
+                font-size: 0.3438rem   
                 color: #333
             .content
                 display: inline-block    
                 float: right
-                margin-right: 3.25rem
-                font-size: 0.6875rem
+                margin-right: 1.625rem
+                font-size: 0.3438rem
                 color: #909090
             .more 
                 position: absolute
-                right: 1.875rem
+                right: 0.7813rem
                 top: 50%
-                margin-top: -0.3438rem          
+                margin-top: -0.1875rem  
+                width: 0.375rem
+                height: 0.375rem        
         .order-content
             width: 100%
             border-bottom-1px(#e6e6e6)        
             .content-item-top
-                height: 8rem
+                height: 4rem
             .content-item-bottom
-                height: 6.875rem
+                height: 3.4375rem
             .content-item
                 position: relative
                 border-bottom-1px(#e6e6e6)           
@@ -200,11 +203,11 @@ width100 = 100%
                     float: left
                     margin: 1.125rem 0.5625rem 0 0    
                 .product-message
-                    margin-top: 1.125rem
+                    margin-top: 9px
                     float: left
-                    width: 10.5rem
-                    line-height: 1.25rem
-                    font-size: 0.6875rem 
+                    width: 5.25rem
+                    line-height: 0.625rem
+                    font-size: 0.3438rem 
                     .desc
                         color: #333
                     .num
@@ -213,52 +216,52 @@ width100 = 100%
                         color: #909090
                 .for-to-paid
                     display: inline-block
-                    margin: 1.125rem mg-width 0 0 
+                    margin: 0.1406rem mg-width 0 0 
                     vertical-align: top
                     float: right
-                    height: 1.375rem
-                    line-height: 1.375rem
+                    height: 0.6875rem
+                    line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.6875rem
+                    font-size: 0.3438rem
                     color: #ea6aa2        
                 .handle
                     display: block
                     position: absolute
                     right: mg-width
-                    bottom: 0.6875rem
-                    width: 3.6875rem   
-                    height: 1.125rem
-                    line-height: 1.125rem
-                    font-size: 0.6875rem
+                    bottom: 0.3438rem
+                    width: 1.8438rem   
+                    height: 0.5625rem
+                    line-height: 0.5625rem
+                    font-size: 0.3438rem
                     text-align: center
-                    border-radius: 0.3125rem
+                    border-radius: 0.1563rem
                     color: #fff 
                     background: #ea6aa2     
                     .link
                         color: #fff
                 .pos-left
-                    margin-right: 4.125rem                 
+                    margin-right: 2.0625rem                 
         .more-orderFrom
             display: block
             width: 100%
-            height: 2.4375rem
-            line-height: 2.4375rem
-            font-size: 0.6875rem
+            height: 39px
+            line-height: 39px
+            font-size: 11px
             text-align: center
             color: #ea6aa2
         .line
-            margin-left: -0.9375rem
+            margin-left: -15px
             width: 100%
-            height: 0.6875rem
+            height: 11px
             background: #f0f0f0   
         .slide-wrapper
-            margin-left: -0.9375rem
+            margin-left: -15px
             width: 100%
             .slide-container
                 position: relative
-                margin: 0.9375rem auto
+                margin: 15px auto
                 width: 100%
-                height: 11.875rem
+                height: 190px
                 .vux-slider
                     overflow: visible
                     width: 100%
@@ -266,17 +269,17 @@ width100 = 100%
                         overflow: hidden
                         position: relative
                         margin: 0 auto
-                        width: 7.6875rem
-                        height: 7.6875rem
+                        width: 123px
+                        height: 123px
                         background-size: 123px 123px
                         .active
                             background: none
                         .vux-img
-                            width: 7.6875rem !important
-                            height: 7.6875rem !important
+                            width: 123px !important
+                            height: 123px !important
                     .vux-swiper-desc
-                        bottom: 2.25rem
-                        width: 7.6875rem 
+                        bottom: 36px
+                        width: 123px 
                         padding: 0
                         height: auto
                         overflow: visible 
@@ -285,21 +288,21 @@ width100 = 100%
                         white-space: nowrap 
                         text-shadow: none
                         background: #fff
-                        font-size: 0.6875rem
+                        font-size: 11px
                         color: #333               
                 .vux-indicator 
                     display: none
                 .x-item
                     float: left  
                     width: 20%
-                    height: 0.0938rem 
+                    height: 1.5008px 
                     margin: 0
                 .shop-desc
-                    margin-top: 0.6875rem
-                    font-size: 0.6875rem    
+                    margin-top: 11px
+                    font-size: 11px    
                 .shop-price
                     display: block
-                    font-size: 0.6875rem    
+                    font-size: 11px    
                 .active
                     background: #606060        
                             
