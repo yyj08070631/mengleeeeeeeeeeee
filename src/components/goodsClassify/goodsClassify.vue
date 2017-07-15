@@ -4,7 +4,7 @@
          <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="32">
+				    <img src="./arrow_left.png">
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">营养食品</h1>
@@ -13,7 +13,18 @@
         </div>
         <div class="select-type">
             <a href="javascript:void(0)">筛选</a>
+            <select class="screen" v-show="false">
+                <option>时间</option>
+                <option>类型</option>
+                <option>价格</option>
+            </select>
+            <select class="sort" v-show="false">
+                <option>时间</option>
+                <option>类型</option>
+                <option>价格</option>
+            </select>
             <a href="javascript:void(0)">排列方式</a>
+            
         </div>
         <div class="goods-wrapper">
             <div class="goods-item">
@@ -68,6 +79,7 @@ export default {
     .header
         headerCss()
     .select-type
+        position: relative
         width: 100%
         height: 0.9688rem
         line-height: 0.9688rem
@@ -77,10 +89,24 @@ export default {
             color: #ea68a2
             margin-left: 0.5rem
             float: left
+        .screen
+            position: absolute
+            left: 0.4688rem
+            bottom: -55px  
+            height: 50px     
+            font-size: 42px
+            color: #ea68a2     
         a:last-child
             color: #ea68a2
             margin-right: 0.5rem
-            float: right    
+            float: right
+        .sort
+            position: absolute
+            right: 0.4688rem
+            bottom: -55px  
+            height: 50px     
+            font-size: 42px
+            color: #ea68a2     
     .goods-wrapper
         margin: 0.9688rem auto 1.3438rem auto
         width: 100%
