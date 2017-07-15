@@ -3,7 +3,7 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
+				    <img src="./arrow_left.png">
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">我的账单</h1>

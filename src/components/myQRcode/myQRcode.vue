@@ -18,7 +18,7 @@
                 <span class="mobile">13560433216</span>
                 <img class="rank" src="./rank.png">
             </div>
-                <img class="append" width="42" height="42" src="./append.png"/>
+                <img class="append" width="84" height="84" src="./append.png"/>
             <img class="QRcode" width="446" height="446" src="./QRcode.png"/>
             <p class="desc">识别二维码，加入我的女神行列</p>
         </div>

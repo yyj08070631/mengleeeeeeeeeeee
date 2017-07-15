@@ -81,7 +81,7 @@ export default {
         height: 2.5625rem
         background: color
         .avator
-            margin: 0.4688rem 0.3125rem 0.4688rem 0.3125rem
+            margin: 0.4688rem 0.3125rem 0.4688rem 0.5rem
             float: left
             width: 1.625rem
             height: 1.625rem
@@ -114,7 +114,7 @@ export default {
                 height: 0.375rem
     .item-cls
         display: block
-        margin-left: 0.25rem
+        margin-left: 0.5rem
         width: width
         height: 1.3438rem
         line-height: 1.3438rem  
@@ -128,7 +128,7 @@ export default {
         right: 32px
         top: 50%
         margin-top: -0.1875rem
-        margin-right: 28px
+        margin-right: 0.5rem
         width: 0.375rem
         height: 0.375rem      
     .notecase-wrapper
@@ -136,7 +136,7 @@ export default {
         background: color
         .num
             float: right
-            margin-right: 104px 
+            margin-right: 1.625rem 
             color: #909090  
     .order-wrapper
         margin: 18px 0

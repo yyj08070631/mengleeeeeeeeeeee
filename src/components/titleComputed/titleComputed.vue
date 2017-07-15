@@ -3,7 +3,7 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
+				    <img src="./arrow_left.png">
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">头衔统计</h1>
@@ -119,7 +119,6 @@ export default {
             margin-bottom: 0.3125rem
     .title-computed
         display: block
-        width: 100%
         height: 1.1563rem
         background: #fff
         border-bottom-1px(#e0e0e0)

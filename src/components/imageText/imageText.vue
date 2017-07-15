@@ -17,11 +17,11 @@
         </div>
         <footer class="myFooter">
 			<a href="javascript:void(0)">
-				<img src="./share.png" height="16">
+				<img src="./share.png" height="32">
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img src="./collect.png" height="16">
+				<img src="./collect.png" height="32">
 				<p>加入收藏</p>
 			</a>
 			<a href="javascript:void(0)">加购物袋</a>
@@ -42,25 +42,25 @@ export default {
     .header
         headerCss()
     .content-wrapper
-        margin: 40px 0 38px 16px
+        margin: 0.625rem 0 0.5938rem 0.25rem
         .content-item
-            padding: 13px 16px 13px 0
+            padding: 0.2031rem 0.25rem 0.2031rem 0
             border-bottom-1px(#e0e0e0)
             .title
-                font-size: 13px
-                line-height: 20px
+                font-size: 0.2031rem
+                line-height: 0.3125rem
                 font-weight: bold
                 color: #333
             .desc   
-                font-size: 11px
-                line-height: 20px
+                font-size: 0.1719rem
+                line-height: 0.3125rem
                 color: #909090
             ul
-                margin-left: 16px
+                margin-left: 0.25rem
                 li
                     list-style: disc 
-                    font-size: 11px
-                    line-height: 20px
+                    font-size: 0.1719rem
+                    line-height: 0.3125rem
                     color: #909090    
     .myFooter
         position fixed
@@ -69,39 +69,39 @@ export default {
         display flex
         align-items center
         justify-content flex-end
-        height 38px
+        height 1.1875rem
         width width
         background-color #f9f9f9
-        border-top 1px solid #e0e0e0
+        border-top 0.0156rem solid #e0e0e0
         >a:nth-child(1)
         >a:nth-child(2)
             display flex
             justify-content center
             align-items center
             flex-direction column
-            border-left 1px solid #e0e0e0
+            border-left 0.0156rem solid #e0e0e0
             flex 1
             height 100%
             p
                 color #646464
-                font-size 0.5625rem
-                margin-top 3px
+                font-size 0.2813rem
+                margin-top 0.0938rem
         >a:nth-child(3)
             display flex
-            width 5.875rem
+            width 2.9375rem
             justify-content center
             align-items center
-            font-size 0.875rem
+            font-size 0.4375rem
             font-weight bold
             color #fff
             background-color #f19fc2
             height 100%
         >a:nth-child(4)
             display flex
-            width 6.375rem
+            width 3.1875rem
             justify-content center
             align-items center
-            font-size 0.875rem
+            font-size 0.4375rem
             font-weight bold
             color #fff
             background-color #ea6aa2
