@@ -120,7 +120,7 @@ export default {
             }else{
                 this.timeKey = 0
             }
-            this.getDataFromBackend()//在收藏ID修改成功的时候调用AJAX使传递的参数发生修改
+            this.getDataFromBackend()//ajax
         },
         postPrice: function(){
             this.timeKey = 0
@@ -130,7 +130,7 @@ export default {
             }else{
                 this.priceKey = 0
             }
-            this.getDataFromBackend()//在收藏ID修改成功的时候调用AJAX使传递的参数发生修改
+            this.getDataFromBackend()//ajax
         },
         postNumber: function(){
             this.timeKey = 0
@@ -140,68 +140,21 @@ export default {
             }else{
                 this.numberKey = 0
             }
-            this.getDataFromBackend()//在收藏ID修改成功的时候调用AJAX使传递的参数发生修改
+            this.getDataFromBackend()//ajax
         },
         
         //ajax
          getDataFromBackend: function() {
-            let that = this;
-            let result = [];
             this.$http({
                 method: 'get',
                 url: global.Domain + '/index/index?time_key='+this.timeKey+'&&price_key='+this.priceKey+'&&num_key='+this.numberKey,
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                // console.log(res)
-                console.log(res)
-                for (var key in res) {
-                    if (res[key].banner) {
-                        result.push({
-                            id: key,
-                            name: '-',
-                            src: (function () {
-                                let arr = [];
-                                for (let i = 0; i < res[key].banner.length; i++) {
-                                    arr.push(res[key].banner[i].src);
-                                }
-                                // console.log(arr);
-                                return arr
-                            })()
-                        });
-                    } else if (res[key].good) {
-                        result.push({
-                            id: key,
-                            name: res[key].title,
-                            src: (function () {
-                                let arr = [];
-                                for (let i = 0; i < res[key].good.length; i++) {
-                                    arr.push(res[key].good[i].mainmap);
-                                }
-                                // console.log(arr);
-                                return arr
-                            })()
-                        });
-                    } else if (res[key].src) {
-                        result.push({
-                            id: key,
-                            name: '-',
-                            src: [res[key].src]
-                        });
-                    } else if (res[key].copyright) {
-                        console.log('获取了一个copyright！');
-                    } else {
-                        console.log('获取了无效的数据！')
-                    }
-                }
-                // console.log(result)
-                this.dataApp = result
             })
         }
 
         //ajax
-        
-        
         
         },
         mounted () {
