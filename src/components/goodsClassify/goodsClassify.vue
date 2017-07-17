@@ -22,7 +22,7 @@
         </div>
         <div class="goods-wrapper">
             <div :class="changeStyle">
-                <img class="collect" width="42" height="42" src="./collect.png"/>
+                <img class="collect" width="42" height="42" :src="file"  @click="changSrc"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
                 <div class="text-wrapper">                    
                     <p>美悠斯 益生菌固体饮料</p>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div :class="changeStyle" href="#goodDetail">
-                <img class="collect"  width="42" height="42" src="./collect.png"/>
+                <img class="collect"  width="42" height="42" :src="file"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
                 <div class="text-wrapper">                    
                     <p>美悠斯 益生菌固体饮料</p>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div :class="changeStyle" href="#goodDetail">
-                <img class="collect"  width="42" height="42" src="./collect.png"/>
+                <img class="collect"  width="42" height="42" :src="file"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
                 <div class="text-wrapper">                  
                     <p>美悠斯 益生菌固体饮料</p>
@@ -81,7 +81,8 @@ export default {
         {
             return {
                 changeStyle: 'goods-item1',
-                isShow: false
+                isShow: false,
+                file: require('./collect.png')
             }
         },
     components :{
@@ -90,7 +91,7 @@ export default {
     methods: {
         changeClass: function(){
             
-            if(this.changeStyle == 'goods-item1'){
+            if(this.changeStyle ===  'goods-item1'){
                 this.changeStyle = 'goods-item2'
             }else{
                 this.changeStyle='goods-item1'
@@ -106,6 +107,17 @@ export default {
         isHidden: function(){
             if(this.isShow === true){
                 this.isShow = false
+            }
+        },
+        changSrc: function(){
+            let file = require('./collect.png');
+            let file2 = require('./collect-active.png');
+            if(this.file == file){
+                this.file = file2
+                // alert('收藏成功')
+            }else{
+                this.file = file
+                // alert('已取消收藏')
             }
         }
     } 
@@ -216,6 +228,7 @@ class2()
             border-bottom: 0.0313rem solid #e0e0e0
             a
                 flex: 1
+                font-size: 0.3438rem
                 color: #ea68a2
  
     .goods-wrapper
