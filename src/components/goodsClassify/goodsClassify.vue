@@ -12,15 +12,15 @@
             </div>
         </div>
         <div class="select-type">
-            <a href="javascript:void(0)">筛选</a>
-            <select class="screen" v-show="false">
-                <option>时间</option>
-                <option>上架时间</option>
-                <option>价格</option>
-            </select>
-            <a href="javascript:void(0)" @click="changeClass">排列方式</a>
+            <a href="javascript:" @click="showList" class="screen">筛选</a>
+            <a href="javascript:" @click="changeClass" class="sort">排列方式</a>
+            <div id="screenType" v-show="isShow">
+                <a href="javascript:" @click="isHidden">时间</a>
+                <a href="javascript:" @click="isHidden">上架时间</a>
+                <a href="javascript:" @click="isHidden">销量</a>
+            </div>
         </div>
-        <a class="goods-wrapper" href="#goodDetail">
+        <div class="goods-wrapper">
             <div :class="changeStyle">
                 <img class="collect" width="42" height="42" src="./collect.png"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
@@ -31,7 +31,7 @@
                     <span>免费送货 | 送达日期：有现货</span>
                 </div>
             </div>
-            <a :class="changeStyle" href="#goodDetail">
+            <div :class="changeStyle" href="#goodDetail">
                 <img class="collect"  width="42" height="42" src="./collect.png"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
                 <div class="text-wrapper">                    
@@ -40,8 +40,8 @@
                     <span>¥ 268.00</span>
                     <span>免费送货 | 送达日期：有现货</span>
                 </div>
-            </a>
-            <a :class="changeStyle" href="#goodDetail">
+            </div>
+            <div :class="changeStyle" href="#goodDetail">
                 <img class="collect"  width="42" height="42" src="./collect.png"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
                 <div class="text-wrapper">                  
@@ -50,8 +50,8 @@
                     <span>¥ 268.00</span>
                     <span>免费送货 | 送达日期：有现货</span>
                 </div>
-            </a>
-            <a :class="changeStyle" href="#goodDetail">
+            </div>
+            <div :class="changeStyle" href="#goodDetail">
                 <img class="collect" width="42" height="42" src="./collect.png"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
                 <div class="text-wrapper">       
@@ -60,8 +60,8 @@
                     <span>¥ 268.00</span>
                     <span>免费送货 | 送达日期：有现货</span>
                 </div>
-            </a>
-            <a :class="changeStyle" href="#goodDetail">
+            </div>
+            <div :class="changeStyle" href="#goodDetail">
                 <img class="collect" width="42" height="42" src="./collect.png"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
                 <div class="text-wrapper">       
@@ -70,8 +70,8 @@
                     <span>¥ 268.00</span>
                     <span>免费送货 | 送达日期：有现货</span>
                 </div>
-            </a>
-        </a>
+            </div>
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -80,7 +80,8 @@ export default {
     data()
         {
             return {
-                changeStyle: 'goods-item1'
+                changeStyle: 'goods-item1',
+                isShow: false
             }
         },
     components :{
@@ -93,6 +94,18 @@ export default {
                 this.changeStyle = 'goods-item2'
             }else{
                 this.changeStyle='goods-item1'
+            }    
+        },
+        showList: function(){
+            if(this.isShow === false){
+                this.isShow = true
+            }else{
+                this.isShow = false
+            }
+        },
+        isHidden: function(){
+            if(this.isShow === true){
+                this.isShow = false
             }
         }
     } 
@@ -182,29 +195,29 @@ class2()
         line-height: 0.9688rem
         font-size: 0.4063rem
         z-index: 1000
-        border-bottom-1px(#e0e0e0)
-        a:first-child
+        border-bottom-1px(#e0e0e0)  
+        .screen
             color: #ea68a2
             margin-left: 0.5rem
             float: left
-        .screen
-            position: absolute
-            left: 0.4688rem
-            bottom: -55px  
-            height: 50px     
-            font-size: 42px
-            color: #ea68a2     
-        a:last-child
+        .sort
             color: #ea68a2
             margin-right: 0.5rem
             float: right
-        .sort
+        #screenType
+            display: flex
             position: absolute
-            right: 0.4688rem
-            bottom: -55px  
-            height: 50px     
-            font-size: 42px
-            color: #ea68a2     
+            top: 0.9375rem
+            width: 100%
+            height: 0.9375rem
+            line-height: 0.9375rem
+            text-align: center
+            background: #fff
+            border-bottom: 0.0313rem solid #e0e0e0
+            a
+                flex: 1
+                color: #ea68a2
+ 
     .goods-wrapper
         margin: 0.9688rem auto 1.3438rem auto
         width: 100%
