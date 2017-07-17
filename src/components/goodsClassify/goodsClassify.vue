@@ -218,7 +218,6 @@ class1()
      margin-top: -0.0313rem   
      float: left
      width: 49.6%
-     border-top-1px(#e0e0e0)
      border-bottom-1px(#e0e0e0)                  
      .collect
         margin: 0.2813rem 0.4375rem 0 0 
