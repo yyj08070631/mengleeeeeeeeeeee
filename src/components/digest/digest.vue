@@ -19,23 +19,23 @@
 开始，让时间稍作休息。
             </span>
         </div>
-        <div class="line"></div>
-        <div class="serve-date">
+        <div class="divider"></div>
+        <div class="serve-date-address">
             <span class="date">时间</span>
             <div class="details">
                 <span>2017年6月28日 星期三</span>
                 <span class="mg-top">提前一天</span>
             </div>
         </div>
-        <div class="serve-address">
+        <div class="divider"></div>
+        <div class="serve-date-address">
             <span class="date">地址</span>
-            <div class="details  none-line">
+            <div class="details">
                 <span>完美尺寸 天誉花园店</span>
-                <span class="mg-top">广州市天河区林和中路136号</span>
-                <span class="mg-top">广州市天河区林和中路136号</span>
+                <span class="mg-top">广州市天河区林和中路136号 天誉花园2期 101铺</span>
             </div>
         </div>
-        <div class="line"></div>
+        <div class="divider"></div>
         <a href="javascript:void(0)" class="link">我要预约</a>
     </div>
 </template>
@@ -49,11 +49,23 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
     @import '../../commom/stylus/mixin'
+    // init
+    *
+        letter-spacing 0.0313rem
+    img, span, a
+        display block
+    changeDividerMargin($n)
+        margin-left $n
+
     .digest-wrapper
-        margin-bottom: 3.125rem
+        margin-bottom: 1.3438rem
         width: 100%
         height: 100%
-        overflow-x: hidden
+        .divider
+            border-top-1px(#e0e0e0)
+        .dividerMargin16px
+            changeDividerMargin(0.5rem)
+        .dividerMarginpx
         .route-item
             footerCss()
         .header
@@ -61,59 +73,46 @@ export default {
         .serve
             width: 100%
             height: 6.6875rem
+            margin-top 1.0938rem
             background: url(./serve.png)
             background-size: 100% 6.6875rem
         .serve-desc
-            width: 100%
+            display flex
+            flex-direction column
+            justify-content center
+            margin 0 0.5rem
             .desc-title
-                line-height: 0.9375rem
-                text-indent: 0.5rem
-                font-size: 0.375rem
-                color: #333               
+                margin 0.5625rem 0 0.4375rem 0
+                font-size 0.3438rem
+                color #333
             .desc-content
-                display: inline-block
-                margin: 0 0.5rem 0 0.5rem
-                line-height: 0.625rem
-                font-size: 0.3438rem
-                color: #909090 
-        .line     
-            margin: 0.4063rem 0    
-            width: 100%
-            margin-left: 0.5rem
-            border-bottom-1px(#e0e0e0)
-        .serve-address
-            margin-top: -0.2813rem    
-        .serve-date,.serve-address
-            width: 100%
-            height: 2rem
-            .date  
-                display: inline-block
-                margin: 0.4063rem  0 0 0.5rem
-                font-size: 0.4063rem        
-                color: #909090
+                margin-bottom 0.4688rem
+                font-size 0.3438rem
+                color #909090
+                line-height 0.4688rem
+                text-align justify
+        .serve-date-address
+            display flex
+            .date
+                width 3.3125rem
+                margin 0.5313rem 0 0 0.5rem
+                font-size 0.3438rem
+                color #909090
             .details
-                padding: 0.4063rem 0
-                float: right
-                width: 6.1563rem
-                font-size: 0.3438rem
-                letter-spacing: 0.0625rem
-                border-bottom-1px(#e0e0e0)
-                color: #333
+                height 1.9688rem
+                width 5.6875rem
+                margin-top 0.5313rem
+                font-size 0.3438rem
+                color #333
                 .mg-top
-                    display: block
-                    margin-top: 0.1563rem
-                    font-size: 0.3438rem
-            .none-line
-                border-bottom-none()    
+                    margin-top 0.3125rem
+                    line-height 0.4688rem
+                    text-align justify
         .link
-            display: block
-            margin-top: 0.7188rem 
-            width: 100%
-            font-size: 0.4063rem
-            text-align: center
-            color: #ea6aa2           
-                    
-
-
-             
+            display flex
+            justify-content center
+            height 1.875rem
+            padding-top 0.4375rem
+            font-size 0.4063rem
+            color #ea68a2
 </style>

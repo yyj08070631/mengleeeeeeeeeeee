@@ -349,6 +349,8 @@ img, span, a
                                 color #000
                                 img
                                     margin-left 0.0938rem
+                                    width 1.125rem
+                                    height 0.3594rem
                             div:last-child
                                 font-size: 0.3438rem
                                 color #909090
