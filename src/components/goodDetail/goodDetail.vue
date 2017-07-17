@@ -244,10 +244,11 @@ export default {
 				width width
 				text-align center
 			.search
+				display flex
+				justify-content flex-end
 				margin-right 0.5rem
 				flex 1
 				width width
-				text-align right
 		// 详情页导航
 		.detailNav
 			display flex

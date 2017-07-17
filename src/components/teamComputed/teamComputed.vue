@@ -6,10 +6,10 @@
 				    <img src="./arrow_left.png">
 				    <span>返回</span>
 			    </a>
-                <h1 class="title">团队统计</h1>
+                <h1 class="title">头衔统计</h1>
                 <img class="search" src="./search.png"/>
              </div>
-        </div>     
+        </div>
         <div class="title-board">
             <span class="rank-title">团队总收益（元）</span>
             <h1 class="myTitle">0.00</h1>
@@ -17,10 +17,10 @@
         <a href="javascript:void(0)" class="get-title indent">
                 <span class="title">我的团队</span>
                 <div class="link-wrapper">
-                    <img class="more" width=16 height=16 src="./more.png">
+                    <img class="more" src="./more.png">
                 </div>
         </a>
-        <a href="javascript:void(0)" class="title-computed border-bottom-1px">
+        <a href="javascript:void(0)" class="title-computed">
                 <span class="computed">本月</span>
                 <div class="link-wrapper">
                     <span>获得：</span><span class="number">1500500.00</span>
