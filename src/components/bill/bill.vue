@@ -177,16 +177,16 @@ export default {
         .bill-item
             margin: 0 0.5rem
             width: 100%
-            height: 1.25rem 
+            height: 1.6875rem 
             border-bottom-1px(#e0e0e0)
             .date
                 float: left
                 height: 100%
                 text-align:center
                 span:first-child
-                    margin-top: 0.2031rem
+                    margin-top: 0.4063rem
                 span:last-child
-                    margin-top: 0.0938rem 
+                    margin-top: 0.1875rem 
                     font-size: 0.3438rem   
                 span
                     display: block
@@ -195,18 +195,18 @@ export default {
             .icon
                 float: left
                 margin: 0.2891rem  0.3125rem 0  0.25rem
-                width: 0.5781rem
-                height: 0.5781rem
+                width: 1.1406rem
+                height: 1.1406rem
             .details
                 float: left
                 height: 100%    
                 .money
-                    margin-top: 0.2031rem
+                    margin-top: 0.4063rem
                     font-size: 0.4063rem
                     color: #333
                 span                      
                     display: block
-                    margin-top: 0.0938rem
+                    margin-top: 0.1875rem
                     font-size: 0.3438rem
                     color: #909090
         .bottom-line
