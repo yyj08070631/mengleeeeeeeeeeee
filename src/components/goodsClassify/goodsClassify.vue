@@ -15,60 +15,20 @@
             <a href="javascript:" @click="showList" class="screen">筛选</a>
             <a href="javascript:" @click="changeClass" class="sort">排列方式</a>
             <div id="screenType" v-show="isShow">
-                <a href="javascript:" @click="isHidden">时间</a>
-                <a href="javascript:" @click="isHidden">上架时间</a>
-                <a href="javascript:" @click="isHidden">销量</a>
+                <a href="javascript:" @click="isHidden();postTime()">价格</a>   
+                <a href="javascript:" @click="isHidden();postPrice()">上架时间</a>
+                <a href="javascript:" @click="isHidden();postNumber()">销量</a>
             </div>
         </div>
         <div class="goods-wrapper">
-            <div :class="changeStyle">
-                <img class="collect" width="42" height="42" :src="file"  @click="changSrc"/>
-                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
+            <div :class="changeStyle" v-for="(item,key) in goodsData">
+                <img class="collect hook" width="42" height="42" :src="file"  ref="menuItem" @click="changSrc(key)"/>
+                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" :src="item.goodsImg"/></a>
                 <div class="text-wrapper">                    
-                    <p>美悠斯 益生菌固体饮料</p>
-                    <p>蔓越莓味+橙味</p>
-                    <span>¥ 268.00</span>
-                    <span>免费送货 | 送达日期：有现货</span>
-                </div>
-            </div>
-            <div :class="changeStyle" href="#goodDetail">
-                <img class="collect"  width="42" height="42" :src="file"/>
-                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
-                <div class="text-wrapper">                    
-                    <p>美悠斯 益生菌固体饮料</p>
-                    <p>蔓越莓味+橙味</p>
-                    <span>¥ 268.00</span>
-                    <span>免费送货 | 送达日期：有现货</span>
-                </div>
-            </div>
-            <div :class="changeStyle" href="#goodDetail">
-                <img class="collect"  width="42" height="42" :src="file"/>
-                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
-                <div class="text-wrapper">                  
-                    <p>美悠斯 益生菌固体饮料</p>
-                    <p>蔓越莓味+橙味</p>
-                    <span>¥ 268.00</span>
-                    <span>免费送货 | 送达日期：有现货</span>
-                </div>
-            </div>
-            <div :class="changeStyle" href="#goodDetail">
-                <img class="collect" width="42" height="42" src="./collect.png"/>
-                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
-                <div class="text-wrapper">       
-                    <p>美悠斯 益生菌固体饮料</p>
-                    <p>蔓越莓味+橙味</p>
-                    <span>¥ 268.00</span>
-                    <span>免费送货 | 送达日期：有现货</span>
-                </div>
-            </div>
-            <div :class="changeStyle" href="#goodDetail">
-                <img class="collect" width="42" height="42" src="./collect.png"/>
-                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" src="./goods.png"/></a>
-                <div class="text-wrapper">       
-                    <p>美悠斯 益生菌固体饮料</p>
-                    <p>蔓越莓味+橙味</p>
-                    <span>¥ 268.00</span>
-                    <span>免费送货 | 送达日期：有现货</span>
+                    <p>{{item.goodsName}}</p>
+                    <p>{{item.goodsType}}</p>
+                    <span>{{item.goodsPrice}}</span>
+                    <span>{{item.goodsDesc}}</span>
                 </div>
             </div>
         </div>
@@ -82,7 +42,34 @@ export default {
             return {
                 changeStyle: 'goods-item1',
                 isShow: false,
-                file: require('./collect.png')
+                timeKey: 0,//传给服务器的字段
+                priceKey: 0,//传给服务器的字段
+                numberKey: 0,//传给服务器的字段
+                file: require('./collect.png'),//收藏图片
+                goodsData: [{
+                    goodsName: '美悠斯 益生菌固体饮料',
+                    goodsType: '蔓越莓味+橙味',
+                    goodsPrice: '¥ 268.00',
+                    goodsDesc: '免费送货 | 送达日期：有现货',
+                    goodsImg: require('./goods.png'),
+
+                },
+                {
+                    goodsName: '美悠斯 益生菌固体饮料',
+                    goodsType: '蔓越莓味+葡萄味',
+                    goodsPrice: '¥ 228.00',
+                    goodsDesc: '运费10元 | 送达日期：有现货',
+                    goodsImg: require('./goods.png'),
+
+                },
+                {
+                    goodsName: '美悠斯 益生菌固体饮料',
+                    goodsType: '蔓越莓味+菠萝味',
+                    goodsPrice: '¥ 238.00',
+                    goodsDesc: '免费送货 | 送达日期：有现货',
+                    goodsImg: require('./goods.png'),
+
+                }]
             }
         },
     components :{
@@ -109,18 +96,119 @@ export default {
                 this.isShow = false
             }
         },
-        changSrc: function(){
+        changSrc: function(index){
             let file = require('./collect.png');
             let file2 = require('./collect-active.png');
-            if(this.file == file){
-                this.file = file2
-                // alert('收藏成功')
+            let obj = this.$refs.menuItem
+            if(obj[index].src == file){
+                obj[index].src = file2
+                setTimeout(function(){
+                    alert('收藏成功')
+                },1000)
             }else{
-                this.file = file
-                // alert('已取消收藏')
+                obj[index].src = file
+                setTimeout(function(){
+                    alert('已取消收藏')
+                 },1000)
+                 }
+            },
+        postTime: function(){
+            this.priceKey = 0
+            this.numberKey = 0
+            if(this.timeKey == 0){
+                this.timeKey = 1
+            }else{
+                this.timeKey = 0
             }
+            this.getDataFromBackend()//在收藏ID修改成功的时候调用AJAX使传递的参数发生修改
+        },
+        postPrice: function(){
+            this.timeKey = 0
+            this.numberKey = 0
+            if(this.priceKey == 0){
+                this.priceKey = 1
+            }else{
+                this.priceKey = 0
+            }
+            this.getDataFromBackend()//在收藏ID修改成功的时候调用AJAX使传递的参数发生修改
+        },
+        postNumber: function(){
+            this.timeKey = 0
+            this.priceKey = 0
+            if(this.numberKey == 0){
+                this.numberKey = 1
+            }else{
+                this.numberKey = 0
+            }
+            this.getDataFromBackend()//在收藏ID修改成功的时候调用AJAX使传递的参数发生修改
+        },
+        
+        //ajax
+         getDataFromBackend: function() {
+            let that = this;
+            let result = [];
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/index/index?time_key='+this.timeKey+'&&price_key='+this.priceKey+'&&num_key='+this.numberKey,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body
+                // console.log(res)
+                console.log(res)
+                for (var key in res) {
+                    if (res[key].banner) {
+                        result.push({
+                            id: key,
+                            name: '-',
+                            src: (function () {
+                                let arr = [];
+                                for (let i = 0; i < res[key].banner.length; i++) {
+                                    arr.push(res[key].banner[i].src);
+                                }
+                                // console.log(arr);
+                                return arr
+                            })()
+                        });
+                    } else if (res[key].good) {
+                        result.push({
+                            id: key,
+                            name: res[key].title,
+                            src: (function () {
+                                let arr = [];
+                                for (let i = 0; i < res[key].good.length; i++) {
+                                    arr.push(res[key].good[i].mainmap);
+                                }
+                                // console.log(arr);
+                                return arr
+                            })()
+                        });
+                    } else if (res[key].src) {
+                        result.push({
+                            id: key,
+                            name: '-',
+                            src: [res[key].src]
+                        });
+                    } else if (res[key].copyright) {
+                        console.log('获取了一个copyright！');
+                    } else {
+                        console.log('获取了无效的数据！')
+                    }
+                }
+                // console.log(result)
+                this.dataApp = result
+            })
         }
-    } 
+
+        //ajax
+        
+        
+        
+        },
+        mounted () {
+            this.$nextTick(function(){
+                this.getDataFromBackend()
+            })
+        }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -158,15 +246,13 @@ class1()
             color: #909090   
 class2()
      position: relative
-     margin-top: -0.0313rem
      width: 100%
      height: 3.7813rem
-     border-top-1px(#e0e0e0) 
      border-bottom-1px(#e0e0e0)                 
      .collect
         position: absolute
-        right: 0.25rem
-        top: 0.25rem
+        right: 0.375rem
+        top: 0.375rem
     .goodsMsg
         float: left
         width: 4.9688rem 
@@ -176,15 +262,15 @@ class2()
         width: 50%
         height: 100%     
         p
-            margin: 0.2813rem  0.625rem  0.2813rem 0
+            margin: 0.2813rem  1.25rem  0.2813rem 0
             font-size: 0.3438rem
             color: #333
             text-align: center
         p:first-child
-            margin: 0.625rem 0.625rem 0 0    
+            margin: 0.625rem 1.25rem 0 0    
         span
             display: block
-            margin-right: 0.625rem
+            margin-right: 1.25rem
             text-align: center
             font-size: 0.3438rem
         span:last-child
@@ -232,7 +318,7 @@ class2()
                 color: #ea68a2
  
     .goods-wrapper
-        margin: 0.9688rem auto 1.3438rem auto
+        margin: 0.9531rem auto 1.3438rem auto
         width: 100%
         .goods-item1:nth-child(odd),.goods-item2:nth-child(odd)
              border-right: 0.0313rem solid #e0e0e0  
