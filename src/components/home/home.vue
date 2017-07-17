@@ -10,7 +10,8 @@
         <!-- banner轮播 -->
         <div v-for="(val,key) in dataApp">
             <div class="bannerTitle">{{val.name}}</div>
-            <mySwiper class="mySwiper" :dataApp="val.src"></mySwiper>
+            <img :src="val.src" v-if="val.src.length == 1" width="100%" height="100%">
+            <mySwiper class="mySwiper" :dataApp="val.src" v-else></mySwiper>
         </div>
         <!-- 查看更多活动 -->
         <a class="more-activity" href="#orderFrom">查看更多活动</a>
@@ -21,7 +22,7 @@
         </div>
     </div>
 </template>
-    <script type="ecmascript-6">
+<script type="ecmascript-6">
 import view from '../../components/view/view';
 import mySwiper from '../mySwiper/mySwiper'
 
@@ -49,7 +50,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                console.log(res)
+                // console.log(res)
                 // console.log(response)
                 for (var key in res) {
                     if (res[key].banner) {
