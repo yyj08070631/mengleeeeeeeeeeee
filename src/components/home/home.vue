@@ -119,8 +119,10 @@ export default {
             display flex
             justify-content center
             align-items center
-            height 1.25rem
-            font-size 0.5rem
+            padding 0.625rem 0
+            font-size 0.8125rem
+            color #000
+            background-color #fff
     &.more-activity
         display: block
         width: 100%
