@@ -3,7 +3,7 @@
         <v-view class="route-item"></v-view>
       <!--头部  -->
         <div class="header">
-            <div class="header-content border-bottom-1px">
+            <div class="header-content">
                 <h1 class="title">个人中心</h1>
                 <img class="search" src="./search.png">
             </div>
@@ -11,40 +11,40 @@
       <!--头部  -->  
       <!--个人资料-->
         <a class="personal-wrapper" href="#settings">
-            <img class="avator" src="./avatar.png">
+            <img class="avator" :src="data.headimg">
             <div class="personal">
-                <h2 class="name">陈宝军</h2>
-                <span class="mobile">13560433216</span>
-                <img class="rank" src="./rank.png">
+                <h2 class="name">{{data.username}}</h2>
+                <span class="mobile">{{data.phone}}</span>
+                <img class="rank" :src="computeImg">
             </div>
 
             <div class="more-link">
-                <img class="qr-code" width=32 height=32 src="./QR_code.png">
-                    <img width=32 height=32 src="./more.png">
+                <img class="qr-code" src="./QR_code.png">
+                    <img src="./more.png">
             </div>
         </a>
       <!--个人资料-->
       <!--账单积分-->
         <div class="notecase-wrapper">
-                <a href="#bill" class="item-cls">我的账单<img class="more" width=32 height=32 src="./more.png"></a>
-                <a href="#integral" class="item-cls"><span class="num">58,000积分</span>我的积分<img class="more" width=32 height=32 src="./more.png"></a>
-                <a href="javascript:void(0)" class="item-cls"><span class="num">3,480元</span>我的钱包<img class="more" width=32 height=32 src="./more.png"></a> 
+                <a href="#bill" class="item-cls">我的账单<img class="more" src="./more.png"></a>
+                <a href="#integral" class="item-cls"><span class="num">{{data.integral|num}}&nbsp;积分</span>我的积分<img class="more" src="./more.png"></a>
+                <a href="javascript:void(0)" class="item-cls"><span class="num">{{data.wallet|num}}&nbsp;元</span>我的钱包<img class="more" src="./more.png"></a> 
         </div>
       <!--账单积分-->
       <!--我的预约-->
         <div class="order-wrapper">
-            <a href="javascript:void(0)" class="item-cls">我的预约<img class="more" width=32 height=32 src="./more.png"></a>
+            <a href="javascript:void(0)" class="item-cls">我的预约<img class="more" src="./more.png"></a>
         </div>
       <!--我的预约-->
         <div class="team-wrapper">
-            <a href="#myTeam" class="item-cls">我的团队<img class="more" width=32 height=32 src="./more.png"></a>
-            <a href="#titleComputed" class="item-cls">头衔统计<img class="more" width=32 height=32 src="./more.png"></a>
-            <a href="#expandComputed" class="item-cls">拓展统计<img class="more" width=32 height=32 src="./more.png"></a>
-            <a href="#teamComputed" class="item-cls">团队统计<img class="more" width=32 height=32 src="./more.png"></a>
+            <a href="#myTeam" class="item-cls">我的团队<img class="more" src="./more.png"></a>
+            <a href="#titleComputed" class="item-cls">头衔统计<img class="more" src="./more.png"></a>
+            <a href="#expandComputed" class="item-cls">拓展统计<img class="more" src="./more.png"></a>
+            <a href="#teamComputed" class="item-cls">团队统计<img class="more" src="./more.png"></a>
         </div>
      <!--我的预约-->       
         <div class="helper">
-            <a href="javascript:void(0)" class="item-cls">获得帮助<img class="more" width=32 height=32 src="./more.png"></a>
+            <a href="javascript:void(0)" class="item-cls">获得帮助<img class="more" src="./more.png"></a>
         </div>
     </div>
 </template>
@@ -53,7 +53,63 @@ import view from '../../components/view/view';
 export default {
     components :{
         'v-view': view
-    } 
+    },
+    data() {
+        return {
+            data: []
+        }
+    },
+    created () {
+        this.getDataFromBackend()
+    },
+    methods: {
+        // 获取数据方法
+        getDataFromBackend() {
+            let that = this;
+            let result = [];
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/userInfo?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data;
+            })
+        }
+    },
+    filters: {
+        num: function(value){
+            // console.log(value)
+            value = String(value);
+            let result = '';
+            let i = 0;
+            for(i = 3; i < value.length; i+=3){
+                result = ',' + value.slice(-i) + result;
+            }
+            result = value.slice(0, value.length % 3) + result;
+            return result
+        }
+    },
+    computed: {
+        computeImg: function () {
+            // console.log(this.data.level)
+            if(this.data.level == 1){
+                return require('./images/xiaobai.png')
+            } else if (this.data.level == 2){
+                return require('./images/xingxing.png')
+            } else if (this.data.level == 3){
+                return require('./images/zuanshi.png')
+            } else if (this.data.level == 4){
+                return require('./images/jinguan.png')
+            } else if (this.data.level == 5){
+                return require('./images/huangguan.png')
+            } else {
+                console.log('获取了无效的等级数据！');
+                return '#'
+            }
+        }
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

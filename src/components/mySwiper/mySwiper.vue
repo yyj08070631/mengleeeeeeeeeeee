@@ -1,7 +1,12 @@
 <template>
     <swiper :options="swiperOption" ref="mySwiper">
-        <swiper-slide v-for="(val,key) in dataApp">
-            <img :src="val" width="100%" heigh="100%">
+        <swiper-slide v-for="(val,key) in dataApp.product">
+            <router-link to="/goodDetail" v-if="dataApp.linkType == 'gid'"> 
+                <img :src="val.src" width="100%" heigh="100%">
+            </router-link>
+            <router-link to="/offlineInfo" v-else-if="dataApp.linkType == 'aid'"> 
+                <img :src="val.src" width="100%" heigh="100%">
+            </router-link>
         </swiper-slide>
         <!-- 这是轮播的小圆点 -->
         <div class="swiper-pagination" slot="pagination"></div>

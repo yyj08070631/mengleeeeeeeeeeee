@@ -24,6 +24,7 @@
                     </div>
                     <span class="for-to-paid">待付款</span>
                     <div class="handle"><a class="link" href="#">立即结账</a></div>
+                    <div class="handle pos-left"><a class="link" href="#">取消订单</a></div>
                 </div>
                 <div class="content-item content-item-bottom">
                     <img class="product" width=104 height=104 src="./product01.png"/>
