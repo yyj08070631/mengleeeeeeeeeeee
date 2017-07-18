@@ -10,12 +10,12 @@
                 <img class="search" src="./search.png" width="16" height="16"/>
              </div>
         </div>     
-        <div class="integral-board">
-            <span class="rank-title">皇冠会员</span>
+        <div class="integral-board" v-for="dataItem in appData">
+            <span class="rank-title">{{dataItem.rank}}</span>
             <span class="rank-question">等级特权?</span>
-            <h1 class="myIntegral">58000</h1>
+            <h1 class="myIntegral">{{dataItem.integral}}</h1>
         </div>
-         <div class="content-wrapper">
+         <div class="content-wrapper" v-for="dataItem in appData">
             <a href="javascript:void(0)" class="get-expand">
                     <span class="title">我的团队</span>
                     <div class="link-wrapper">
@@ -26,51 +26,68 @@
             <a href="javascript:void(0)" class="expand-computed border-bottom-1px">
                     <span class="computed">本月</span>
                     <div class="link-wrapper">
-                        <span>获得：</span><span class="number">6880.00</span>
+                        <span>获得：</span><span class="number">{{dataItem.countIntegral}}</span>
                         <span>已到账</span>
                     </div>
             </a>
-            <a href="javascript:void(0)" class="expand-item">
+            <a href="javascript:void(0)" class="expand-item" v-for="item in dataItem.userMsg">
                     <div class="expand-msg">
-                        <span class="from">Duke消费-直属</span>
-                        <span class="date">2017-6-14</span>
+                        <span class="from">{{item.expense}}</span>
+                        <span class="date">{{item.date}}</span>
                     </div>
-                    <span class="get-number">+2000.00</span>
+                    <span class="get-number">{{item.getMoney}}</span>
             </a>  
-            <a href="javascript:void(0)" class="expand-item">
-                    <div class="expand-msg">
-                        <span class="from">时光鸡消费-间接</span>
-                        <span class="date">2017-6-14</span>
-                    </div>
-                    <span class="get-number">+1000.00</span>
-            </a>  
-            <a href="javascript:void(0)" class="expand-item">
-                    <div class="expand-msg">
-                        <span class="from">鼎茗茶行消费-间接</span>
-                        <span class="date">2017-6-14</span>
-                    </div>
-                    <span class="get-number">+400.00</span>
-            </a>  
-            <a href="javascript:void(0)" class="expand-item">
-                    <div class="expand-msg">
-                        <span class="from">陈志洪消费-间接</span>
-                        <span class="date">2017-6-14</span>
-                    </div>
-                    <span class="get-number">+80.00</span>
-            </a>  
-            <a href="javascript:void(0)" class="expand-item">
-                    <div class="expand-msg">
-                        <span class="from">友善猪消费-直属</span>
-                        <span class="date">2017-6-14</span>
-                    </div>
-                    <span class="get-number">+80.00</span>
-            </a>      
         </div>
     </div>
 </template>
 <script type="ecmascript-6">
 export default {
-  
+  data(){
+      return {
+          appData: [
+              {
+                  rank: '皇冠会员',
+                  integral: 58000,
+                  countIntegral: 6880.00,
+                  userMsg: [{
+                      expense: '友善猪消费-直属',
+                      date: '2017-6-14',
+                      getMoney: '+80.00'   
+                  },
+                  {
+                      expense: '友善猪消费-直属',
+                      date: '2017-6-14',
+                      getMoney: '+80.00'   
+                  },
+                  {
+                      expense: '友善猪消费-直属',
+                      date: '2017-6-14',
+                      getMoney: '+80.00'   
+                  },
+                  {
+                      expense: '友善猪消费-直属',
+                      date: '2017-6-14',
+                      getMoney: '+80.00'   
+                  },
+                  {
+                      expense: '友善猪消费-直属',
+                      date: '2017-6-14',
+                      getMoney: '+80.00'   
+                  },
+                  {
+                      expense: '友善猪消费-直属',
+                      date: '2017-6-14',
+                      getMoney: '+80.00'   
+                  },
+                  {
+                      expense: '友善猪消费-直属',
+                      date: '2017-6-14',
+                      getMoney: '+80.00'   
+                  }] 
+              }
+          ]
+      }
+  }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

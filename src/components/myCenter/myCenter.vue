@@ -33,7 +33,7 @@
       <!--账单积分-->
       <!--我的预约-->
         <div class="order-wrapper">
-            <a href="javascript:void(0)" class="item-cls">我的预约<img class="more" src="./more.png"></a>
+            <a href="#subscribe" class="item-cls">我的预约<img class="more" src="./more.png"></a>
         </div>
       <!--我的预约-->
         <div class="team-wrapper">
