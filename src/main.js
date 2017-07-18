@@ -21,6 +21,7 @@ import nearbyStores from './components/nearbyStores/nearbyStores';
 import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
 import offlineInfo from './components/offlineInfo/offlineInfo';
+import subscribe from './components/subscribe/subscribe';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
@@ -107,6 +108,10 @@ const routes = [{
     {
         path: '/teamComputed',
         component: teamComputed
+    },
+    {
+        path: '/subscribe',
+        component: subscribe
     }
 ];
 

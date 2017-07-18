@@ -102,7 +102,23 @@
 </template>
 <script type="ecmascript-6">
 export default {
-  
+  methods: {
+      getDataFromBackend: function() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Cate/detail?cid=1',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body
+                console.log(res)
+            })
+        }
+  },
+  mounted(){
+      this.$nextTick(function(){
+          this.getDataFromBackend()
+      })
+  }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

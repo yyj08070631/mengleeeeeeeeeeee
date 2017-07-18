@@ -81,7 +81,7 @@ export default {
         width: 100%
         height: 100%
         overflow: hidden
-        background: #f0f0f0
+        background: #fff
         .header
             headerCss()
         .tag-wrapper
@@ -105,14 +105,12 @@ export default {
                 float: right 
                 font-size: 0.375rem
                 color: #909090 
-<<<<<<< HEAD
-        .content-wrapper
-=======
         .bill-item
             margin: 0 0.5rem
             width: 100%
             height: 1.6875rem 
             border-bottom-1px(#e0e0e0)
+
             .date
                 float: left
                 height: 100%
@@ -144,7 +142,6 @@ export default {
                     font-size: 0.3438rem
                     color: #909090
         .bottom-line
->>>>>>> 3b8910b51a887ff32172afc16f4a9dd720096c4a
             width: 100%
             height: 100%
             background: #fff        

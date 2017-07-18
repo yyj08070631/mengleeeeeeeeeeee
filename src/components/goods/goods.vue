@@ -42,7 +42,7 @@
             <hr class="divider dividerBig">
             <!--分类列表-->
             <div class="kindList">
-                <a href="#goodsClassify" class="oneKind" v-for="(val,key) in cateItemList">
+                <a href="#goodsClassify" class="oneKind" v-for="(val,key) in cateItemList" @click="changeId(key),eve()">
                     <div class="oneKindMain">
                         <img :src="val.src">
                         <div>
@@ -67,24 +67,38 @@ export default {
     },
     data() {
         return {
-            cateItemList: []
+            cateItemList: [],
+            id: 0
         }
     },
     created () {
         this.getDataFromBackend()
     },
     methods: {
+        
+        eve() {
+            let Hub = new Vue();
+            Hub.$emit('change','hehe'); //Hub触发事件
+        },
+
+
+
+
+
+        changeId(index){
+            this.id=index
+            this.getDataFromBackend()
+        },
         // 获取数据方法
         getDataFromBackend() {
             let that = this;
             let result = [];
             this.$http({
                 method: 'get',
-                url: global.Domain + '/cate/category',
+                url: global.Domain + '/cate/category?id='+this.id,
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                // console.log(res.cateitem);
                 this.cateItemList = res.cateitem
             })
         }

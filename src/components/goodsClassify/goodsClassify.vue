@@ -21,14 +21,13 @@
             </div>
         </div>
         <div class="goods-wrapper">
-            <div :class="changeStyle" v-for="(item,key) in goodsData">
+            <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
                 <img class="collect hook" width="42" height="42" :src="file"  ref="menuItem" @click="changSrc(key)"/>
-                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" :src="item.goodsImg"/></a>
+                <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" :src="item.mainmap"/></a>
                 <div class="text-wrapper">                    
-                    <p>{{item.goodsName}}</p>
-                    <p>{{item.goodsType}}</p>
-                    <span>{{item.goodsPrice}}</span>
-                    <span>{{item.goodsDesc}}</span>
+                    <p>{{item.name}}</p>
+                    <span>¥{{item.price}}</span>
+                    <span>运费{{item.freight}}元 | 库存{{item.stock}}件</span>
                 </div>
             </div>
         </div>
@@ -45,33 +44,12 @@ export default {
                 timeKey: 0,//传给服务器的字段
                 priceKey: 0,//传给服务器的字段
                 numberKey: 0,//传给服务器的字段
+                getId: '',
+                goodsItemList: [],
                 file: require('./collect.png'),//收藏图片
-                goodsData: [{
-                    goodsName: '美悠斯 益生菌固体饮料',
-                    goodsType: '蔓越莓味+橙味',
-                    goodsPrice: '¥ 268.00',
-                    goodsDesc: '免费送货 | 送达日期：有现货',
-                    goodsImg: require('./goods.png'),
-
-                },
-                {
-                    goodsName: '美悠斯 益生菌固体饮料',
-                    goodsType: '蔓越莓味+葡萄味',
-                    goodsPrice: '¥ 228.00',
-                    goodsDesc: '运费10元 | 送达日期：有现货',
-                    goodsImg: require('./goods.png'),
-
-                },
-                {
-                    goodsName: '美悠斯 益生菌固体饮料',
-                    goodsType: '蔓越莓味+菠萝味',
-                    goodsPrice: '¥ 238.00',
-                    goodsDesc: '免费送货 | 送达日期：有现货',
-                    goodsImg: require('./goods.png'),
-
-                }]
             }
         },
+        props: ['id'],
     components :{
         'v-view': view
     },
@@ -147,10 +125,11 @@ export default {
          getDataFromBackend: function() {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/index/index?time_key='+this.timeKey+'&&price_key='+this.priceKey+'&&num_key='+this.numberKey,
+                url: global.Domain + '/cate/goods?cid=1&&time_key='+this.timeKey+'&&price_key='+this.priceKey+'&&num_key='+this.numberKey,
                 emulateJSON: true
             }).then(function (response) {
-                let res = response.body
+                this.goodsItemList = response.body
+                // console.log(this.goodsItemList)
             })
         }
 
@@ -219,14 +198,14 @@ class2()
             color: #333
             text-align: center
         p:first-child
-            margin: 0.625rem 1.25rem 0 0    
+            margin: 0.625rem 0 0 0    
         span
             display: block
-            margin-right: 1.25rem
+            margin: 0.3125rem
             text-align: center
             font-size: 0.3438rem
         span:last-child
-            margin: 0.9375rem 0 0.4063rem 0
+            margin: 0.3125rem 0.4688rem 0 0
             font-size: 0.3125rem
             color: #909090              
 
