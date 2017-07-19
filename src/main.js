@@ -22,6 +22,7 @@ import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
 import offlineInfo from './components/offlineInfo/offlineInfo';
 import subscribe from './components/subscribe/subscribe';
+import myCollect from './components/myCollect/myCollect';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
@@ -112,6 +113,10 @@ const routes = [{
     {
         path: '/subscribe',
         component: subscribe
+    },
+    {
+        path: '/myCollect',
+        component: myCollect
     }
 ];
 

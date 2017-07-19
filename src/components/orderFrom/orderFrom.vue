@@ -1,148 +1,158 @@
 <template>
-  <div class="orderFrom-wrapper">
-      <v-view class="route-item"></v-view>
-  <!--头部  -->    
-      <div class="header">
-        <div class="header-content border-bottom-1px">
-            <h1 class="title">查看订单</h1>
-            <img class="search" src="./search.png" width="16" height="16"/>
+    <div class="orderFrom-wrapper">
+        <v-view class="route-item"></v-view>
+        <!--头部  -->
+        <div class="header">
+            <div class="header-content border-bottom-1px">
+                <h1 class="title">查看订单</h1>
+                <img class="search" src="./search.png" width="16" height="16" />
+            </div>
         </div>
-      </div>
-      <div class="content-wrapper item-cls">
+        <div class="content-wrapper item-cls">
             <a href="#home" class="order-title">
-                  <span class="title">我的订单</span>
-                  <span class="content">查看全部订单</span>
-                  <img class="more" width=11 height=11 src="./more.png"/>
+                <span class="title">我的订单</span>
+                <span class="content">查看全部订单</span>
+                <img class="more" width=11 height=11 src="./more.png" />
             </a>
             <div class="order-content">
                 <div class="content-item content-item-top">
-                    <img class="product" width=104 height=104 src="./product01.png"/>
+                    <img class="product" width=104 height=104 src="./product01.png" />
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华圣雅琦 明眸亮莹眼部精华</span>
                         <p class="num">数量:1</p>
                         <p class="price">总价:￥39.00</p>
                     </div>
                     <span class="for-to-paid">待付款</span>
-                    <div class="handle"><a class="link" href="#">立即结账</a></div>
-                    <div class="handle pos-left"><a class="link" href="#">取消订单</a></div>
+                    <div class="handle">
+                        <a class="link" href="#">立即结账</a>
+                    </div>
+                    <div class="handle pos-left">
+                        <a class="link" href="#">取消订单</a>
+                    </div>
                 </div>
                 <div class="content-item content-item-bottom">
-                    <img class="product" width=104 height=104 src="./product01.png"/>
+                    <img class="product" width=104 height=104 src="./product01.png" />
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华</span>
                         <p class="num">数量:1</p>
                         <p class="price">总价:￥39000.00</p>
                     </div>
                     <span class="for-to-paid">待评价</span>
-                    <div class="handle"><a class="link" href="#">再次购买</a></div>
-                    <div class="handle pos-left"><a class="link" href="#">待评价</a></div>
-                </div>          
+                    <div class="handle">
+                        <a class="link" href="#">再次购买</a>
+                    </div>
+                    <div class="handle pos-left">
+                        <a class="link" href="#">待评价</a>
+                    </div>
+                </div>
             </div>
             <a class="more-orderFrom" href="#">查看更多订单</a>
             <div class="line"></div>
             <a href="#home" class="order-title">
-                  <span class="title">我的收藏</span>
-                  <span class="content">查看所有收藏</span>
-                  <img class="more" width=11 height=11 src="./more.png"/>
+                <span class="title">我的收藏</span>
+                <router-link to="/myCollect">
+                    <span class="content">查看所有收藏</span>
+                </router-link>
+                <img class="more" width=11 height=11 src="./more.png" />
             </a>
             <div class="slide-wrapper">
-                <div class="slide-container">   
+                <div class="slide-container">
                     <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange">
-
-                    </swiper> 
+    
+                    </swiper>
                     <div class="x-botton" style="position:absolute; bottom: 40px;width: 100%">
                         <x-button @click.native="demo01_index = key" v-for="(val,key) in demo01_list" class="x-item" :class="{active:demo01_index==key}">{{key}}</x-button>
                     </div>
                 </div>
                 <p style="font-size:12px" v-for="(val,key) in demo01_list"></p>
             </div>
-      </div>
- <!--头部  -->     
-  </div>
+        </div>
+        <!--头部  -->
+    </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
 const imgList = [
-	'http://img.dwstatic.com/www/1707/363289838921/1499336815305.jpg',
-	'http://img.car.mianfeiapp.net/upload/20170527/14958505848030.jpg',
+    'http://img.dwstatic.com/www/1707/363289838921/1499336815305.jpg',
+    'http://img.car.mianfeiapp.net/upload/20170527/14958505848030.jpg',
     'http://img.car.mianfeiapp.net/upload/20170527/14958505847196.jpg',
     'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
     'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg'
 ]
-const baseList = [{ 
-   url: 'javascript:', 
-   img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
-   title:"圣雅琦 明眸亮莹眼部精华"
- }, { 
-   url: 'javascript:', 
-   img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
-   title:"圣雅琦 送到家里电视机分厘卡"
- }, { 
-   url: 'javascript:', 
-   img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
-   title:"圣雅琦 阿斯顿撒旦"
- },{ 
-   url: 'javascript:', 
-   img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
-   title:"圣雅琦 似的撒旦"
- },{ 
-   url: 'javascript:', 
-   img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
-   title:"圣雅琦 阿斯顿撒旦撒旦"
- }
- ] 
-  
+const baseList = [{
+    url: 'javascript:',
+    img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
+    title: "圣雅琦 明眸亮莹眼部精华"
+}, {
+    url: 'javascript:',
+    img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
+    title: "圣雅琦 送到家里电视机分厘卡"
+}, {
+    url: 'javascript:',
+    img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
+    title: "圣雅琦 阿斯顿撒旦"
+}, {
+    url: 'javascript:',
+    img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
+    title: "圣雅琦 似的撒旦"
+}, {
+    url: 'javascript:',
+    img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
+    title: "圣雅琦 阿斯顿撒旦撒旦"
+}
+]
+
 //  const imgList = [ 
 //    'http://placeholder.qiniudn.com/800x300/FF3B3B/ffffff', 
 //    'http://placeholder.qiniudn.com/800x300/FFEF7D/ffffff', 
 //    'http://placeholder.qiniudn.com/800x300/8AEEB1/ffffff' 
 //  ] 
- 
- const urlList = baseList.map((item, index) => ({ 
-   url: 'http://m.baidu.com', 
-   img: item.img, 
-   title: `(可点击)${item.title}` 
- })) 
-  
- const demoList = imgList.map((one, index) => ({ 
-   url: 'javascript:', 
-   img: one 
- })) 
- 
- const only2ClickList = baseList.slice(0, 2).map(item => { 
- item.url = '#' 
-   return item 
- }) 
-  
- export default { 
-   components: { 
-    Swiper, 
-     SwiperItem, 
-     GroupTitle, 
-     XButton, 
-     Divider,
-     'v-view': view 
-  }, 
-   ready () { 
-  
-   }, 
-   methods: { 
-    onSwiperItemIndexChange (index) { 
-      console.log('demo item change', index) 
-     }, 
-     demo01_onIndexChange (index) { 
-       this.demo01_index = index 
-     }
-  }, 
-   data () { 
-     return { 
-       demo01_list: baseList,  
-      demo01_index: 0, 
-       swiperItemIndex: 1 
-     } 
-   } 
-} 
+
+const urlList = baseList.map((item, index) => ({
+    url: 'http://m.baidu.com',
+    img: item.img,
+    title: `(可点击)${item.title}`
+}))
+
+const demoList = imgList.map((one, index) => ({
+    url: 'javascript:',
+    img: one
+}))
+
+const only2ClickList = baseList.slice(0, 2).map(item => {
+    item.url = '#'
+    return item
+})
+
+export default {
+    components: {
+        Swiper,
+        SwiperItem,
+        GroupTitle,
+        XButton,
+        Divider,
+        'v-view': view
+    },
+    ready() {
+
+    },
+    methods: {
+        onSwiperItemIndexChange(index) {
+            console.log('demo item change', index)
+        },
+        demo01_onIndexChange(index) {
+            this.demo01_index = index
+        }
+    },
+    data() {
+        return {
+            demo01_list: baseList,
+            demo01_index: 0,
+            swiperItemIndex: 1
+        }
+    }
+}
 
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
