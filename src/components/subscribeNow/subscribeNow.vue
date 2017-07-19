@@ -7,38 +7,39 @@
 				    <img src="./arrow_left.png" height="16">
 				    <span>返回</span>
 			    </a>
-                <h1 class="title">我的预约</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <h1 class="title">我要预约</h1>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div> 
         <div class="activity-wrapper">
-            <a class="activity-item">
-                <div class="picture">
-                    <img src="./activity.png"/>
+            <div class="subscribe-item">
+                <div class="pullLeft">服务</div>
+                <div class="pullRight"><P>单人泡澡+臀部疗保养+面部补水三项套餐</P></div>
+            </div>
+             <div class="subscribe-item">
+                <div class="pullLeft noLine">预约人信息</div>
+                <div class="pullRight">
+                    <div class="userinfo">
+                        <div class="msg">
+                            <span>陈军宝</span>
+                            <span>13560433216</span>
+                        </div>
+                        <a href="#" class="write">编辑</a>
+                    </div>
                 </div>
-                <div class="content">
-                    <p>单人泡澡+臀部疗保养+面部补水三项套餐</p>
-                    <p>2017年6月28日 星期三</p>
-                    <p>完美尺寸 天誉花园店</p>
-                </div>
-                <div class="info">
-                    <p>查看详细信息</p>
-                </div>       
-            </a>
-            <a class="activity-item">
-                <div class="picture">
-                    <img src="./activity.png"/>
-                </div>
-                <div class="content">
-                    <p>单人泡澡+臀部疗保养+面部补水三项套餐</p>
-                    <p>2017年6月28日 星期三</p>
-                    <p>完美尺寸 天誉花园店</p>
-                </div>
-                <div class="info">
-                    <div>再次预约</div>
-                    <div>去评价</div>
-                </div>       
-            </a>
+            </div>
+             <div class="subscribe-item">
+                <div class="pullLeft noLine">时间</div>
+                <div class="pullRight"><P>单人泡澡+臀部疗保养+面部补水三项套餐</P></div>
+            </div>
+             <div class="subscribe-item">
+                <div class="pullLeft noLine">地点</div>
+                <div class="pullRight noLine"><P>单人泡澡+臀部疗保养+面部补水三项套餐</P></div>
+            </div>
+        </div>
+        <div class="subscribe">
+                <div>确定预约</div>
+                <div>取消预约</div>
         </div>
     </div>
 </template>
@@ -71,50 +72,58 @@ export default {
             width: width
             height: 100%
             background: #fff
-            .activity-item
+            .subscribe-item
                 display: flex
-                position: relative
                 margin-left: 0.5rem
-                width: width
-                height: 2.625rem
-                border-bottom-1px(#e0e0e0)
-                .picture
-                    margin: 0.4688rem 0.3125rem 0.4688rem 0
-                    img
-                        width: 1.625rem
-                        height: 1.625rem
-                .content
-                    margin-top: 0.4688rem
-                    p:first-child
-                        font-size: 0.375rem
-                        color: #333
-                    p
-                        line-height: 0.5625rem
-                        font-size: 0.375rem
-                        color: #909090        
-                .info 
-                    display: flex
-                    position: absolute
-                    right: 1rem
-                    bottom: 0.5rem
-                    p
-                        margin-top: 0.0938rem
-                        text-align: right
-                        font-size: 0.3438rem
-                        color: #ea68a2
-                        line-height: 0.625rem
-                    div:first-child
-                        margin-right: 0.1563rem                        
-                    div
-                        margin-bottom:  -0.0781rem
-                        width: 1.5625rem
-                        height: 0.4688rem
-                        line-height: 0.4688rem
-                        font-size: 0.3438rem
-                        background: #ea68a2
-                        border-radius: 0.0781rem
-                        color: #fff
-                        text-align: center
-                        
+                width: 100%
+                height: 1.625rem
+                line-height: 1.625rem
+                div
+                    font-size: 0.3125rem
+                    border-bottom-1px(#e0e0e0)
+                .noLine
+                    border-bottom-none()
+                .pullLeft
+                    width: 204px
+                    color: #909090
+                .pullRight
+                    flex: 1
+                    margin-right: 0.5rem
+                    p    
+                        margin-right: 0.5rem
+                    .userinfo
+                        width: 100%
+                        margin-bottom: 16px
+                        .msg
+                            float: left
+                            width: 2.3438rem
+                            height: 1.25rem
+                            margin-top: 0.3125rem
+                            border-bottom-none()
+                            span   
+                                height: 0.4688rem
+                                display: inline-block
+                                float: left   
+                                line-height: 0.4688rem !important
+                         .write
+                            margin-right: 0.5rem
+                            float: right       
+                            color: #ea6aa2
+        .subscribe
+            display: flex
+            width: 100%
+            height: 1.0938rem  
+            line-height: 1.0938rem  
+            background: #fff 
+            border-top-1px(#e0e0e0)
+            div:first-child
+                color: #ea6aa2
+                border-right: 1px solid #e0e0e0 
+            div:last-child
+                color: #909090  
+            div
+                flex: 1
+                font-size: 0.375rem 
+                text-align: center
 </style>
 

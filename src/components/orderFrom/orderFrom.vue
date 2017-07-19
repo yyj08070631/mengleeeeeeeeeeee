@@ -5,7 +5,7 @@
       <div class="header">
         <div class="header-content border-bottom-1px">
             <h1 class="title">查看订单</h1>
-            <img class="search" src="./search.png" width="16" height="16"/>
+            <a href="#search"><img class="search" src="./search.png"/></a>
         </div>
       </div>
       <div class="content-wrapper item-cls">

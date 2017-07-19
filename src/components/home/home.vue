@@ -4,7 +4,7 @@
         <div class="header">
             <div class="header-content">
                 <h1 class="title">美丽搜索</h1>
-                <img class="search" src="./search.png">
+                <a href="#search"><img class="search" src="./search.png"></a>
             </div>
         </div>
         <!-- banner轮播 -->

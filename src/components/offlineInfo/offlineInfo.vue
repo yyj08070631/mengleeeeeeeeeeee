@@ -10,7 +10,7 @@
             </div>
             <div class="title">线下信息</div>
             <div class="search">
-                <a href="javascript:void(0)">
+                <a href="#search">
                     <img src="./images/search.png">
                 </a>
             </div>

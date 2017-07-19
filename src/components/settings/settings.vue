@@ -7,7 +7,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title" @click="change">个人设置</h1>
-                <img class="search" src="./search.png"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
         <div class="avatar-wrapper">

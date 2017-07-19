@@ -22,6 +22,9 @@ import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
 import offlineInfo from './components/offlineInfo/offlineInfo';
 import subscribe from './components/subscribe/subscribe';
+import subscribeNow from './components/subscribeNow/subscribeNow';
+import search from './components/search/search';
+import buyGoods from './components/buyGoods/buyGoods';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
@@ -112,6 +115,18 @@ const routes = [{
     {
         path: '/subscribe',
         component: subscribe
+    },
+    {
+        path: '/subscribeNow',
+        component: subscribeNow
+    },
+    {
+        path: '/search',
+        component: search
+    },
+    {
+        path: '/buyGoods',
+        component: buyGoods
     }
 ];
 

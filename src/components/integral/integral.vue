@@ -7,7 +7,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">我的积分</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
              </div>
         </div>     
         <div class="integral-board" v-for="dataItem in appData">
@@ -94,8 +94,8 @@ export default {
 @import '../../commom/stylus/mixin'
     width = 100%
     .integral-wrapper
-        margin-top: 1.0938rem
-        padding-bottom: 1.5625rem
+        position: absolute
+        top: 1.0938rem
         width: 100%
         height: 100%
         font-size: 0
@@ -151,7 +151,6 @@ export default {
             margin-bottom: 10px
     .content-wrapper
             width: 100%
-            height: 100%
             background: #fff
             overflow-x: hidden        
             .get-expand
