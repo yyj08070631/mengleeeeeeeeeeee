@@ -8,7 +8,7 @@
 			</a>
 			<div class="title">商品详情</div>
 			<div class="search">
-				<img class="searchImg" src="./images/search.png">
+				<a href="#search"><img class="searchImg" src="./images/search.png"></a>
 			</div>
 		</header>
 		<!--图片轮播-->
@@ -154,11 +154,11 @@
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img src="./images/collect.png">
+				<img src="./images/collect.png" ref="menuItem" @click="changSrc(key)">
 				<p>加入收藏</p>
 			</a>
 			<a href="javascript:void(0)">加购物袋</a>
-			<a href="javascript:void(0)">立即购买</a>
+			<a href="#buyGoods">立即购买</a>
 		</footer>
 	</div>
 </template>
@@ -191,6 +191,22 @@ export default {
 		onIndexChange(index) {
 			this.bannerIndex = index
 		},
+		changSrc: function(index){
+            let file = require('./images/collect.png');
+            let file2 = require('./images/collect-active.png');
+            let obj = this.$refs.menuItem
+            if(obj.src == file){
+                obj.src = file2
+                setTimeout(function(){
+                    alert('收藏成功')
+                },1000)
+            }else{
+                obj.src = file
+                setTimeout(function(){
+                    alert('已取消收藏')
+                 },1000)
+				 }
+		},		 
 		
 		getDataFromBackend: function() {
             this.$http({

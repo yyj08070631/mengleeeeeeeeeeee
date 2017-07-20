@@ -8,11 +8,11 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">我的预约</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div> 
         <div class="activity-wrapper">
-            <a class="activity-item">
+            <a href="#subscribeNow" class="activity-item">
                 <div class="picture">
                     <img src="./activity.png"/>
                 </div>
@@ -25,7 +25,7 @@
                     <p>查看详细信息</p>
                 </div>       
             </a>
-            <a class="activity-item">
+            <a href="#subscribeNow" class="activity-item">
                 <div class="picture">
                     <img src="./activity.png"/>
                 </div>

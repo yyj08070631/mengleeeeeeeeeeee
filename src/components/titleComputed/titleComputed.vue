@@ -7,7 +7,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">头衔统计</h1>
-                <img class="search" src="./search.png"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
              </div>
         </div>     
         <div class="title-board">

@@ -5,7 +5,7 @@
         <div class="header">
             <div class="header-content">
                 <h1 class="title">个人中心</h1>
-                <img class="search" src="./search.png">
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
         <!--头部  -->

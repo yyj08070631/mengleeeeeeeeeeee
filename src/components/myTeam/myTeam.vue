@@ -11,7 +11,7 @@
 			<div class="title">我的团队</div>
             <div class="search">
                 <a href="javascript:void(0)">
-                    <img src="./images/search.png">
+                    <a href="#search"><img src="./images/search.png"></a>
                 </a>
             </div>
 		</header>

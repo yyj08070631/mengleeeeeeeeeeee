@@ -8,7 +8,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">营养食品</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
         <div class="select-type">
@@ -22,7 +22,7 @@
         </div>
         <div class="goods-wrapper">
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
-                <img class="collect hook" width="42" height="42" :src="file"  ref="menuItem" @click="changSrc(key)"/>
+                <img class="collect" width="42" height="42" :src="file"  ref="menuItem" @click="changSrc(key)"/>
                 <a href="#goodDetail"><img class="goodsMsg" width="159" height="121" :src="item.mainmap"/></a>
                 <div class="text-wrapper">                    
                     <p>{{item.name}}</p>

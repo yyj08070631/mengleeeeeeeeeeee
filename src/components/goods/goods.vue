@@ -5,7 +5,7 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <h1 class="title">商品分类</h1>
-                <img class="search" src="./images/search.png">
+                <a href="#search"><img class="search" src="./images/search.png"></a>
             </div>
         </div>
         <!--主体-->

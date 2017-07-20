@@ -8,7 +8,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">我的二维码</h1>
-                <img class="search" src="./search.png" width="32" height="32"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div> 
         <div class="fuild-filter">

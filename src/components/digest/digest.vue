@@ -8,7 +8,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">摘要</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
         <div class="serve"></div>

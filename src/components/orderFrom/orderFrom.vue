@@ -1,4 +1,13 @@
 <template>
+<<<<<<< HEAD
+  <div class="orderFrom-wrapper">
+      <v-view class="route-item"></v-view>
+  <!--头部  -->    
+      <div class="header">
+        <div class="header-content border-bottom-1px">
+            <h1 class="title">查看订单</h1>
+            <a href="#search"><img class="search" src="./search.png"/></a>
+=======
     <div class="orderFrom-wrapper">
         <v-view class="route-item"></v-view>
         <!--头部  -->
@@ -7,6 +16,7 @@
                 <h1 class="title">查看订单</h1>
                 <img class="search" src="./search.png" width="16" height="16" />
             </div>
+>>>>>>> 3b9bfa30033d32baf010faeaa5ab8cb04265215f
         </div>
         <div class="content-wrapper item-cls">
             <a href="#home" class="order-title">

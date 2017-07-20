@@ -7,7 +7,7 @@
 				    <span>返回</span>
 			    </a>
                 <h1 class="title">我的账单</h1>
-                <img class="search" src="./search.png" width="16" height="16"/>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
         <div class="tag-wrapper">
@@ -77,11 +77,14 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
     @import '../../commom/stylus/mixin'
     .bill-wrapper
+        position: absolute
+        top: 0
+        left:0
         margin-top: 1.0938rem
         width: 100%
         height: 100%
         overflow: hidden
-        background: #fff
+        background: #f0f0f0
         .header
             headerCss()
         .tag-wrapper
@@ -105,60 +108,22 @@ export default {
                 float: right 
                 font-size: 0.375rem
                 color: #909090 
-        .bill-item
-            margin: 0 0.5rem
-            width: 100%
-            height: 1.6875rem 
-            border-bottom-1px(#e0e0e0)
-
-            .date
-                float: left
-                height: 100%
-                text-align:center
-                span:first-child
-                    margin-top: 0.4063rem
-                span:last-child
-                    margin-top: 0.1875rem 
-                    font-size: 0.3438rem   
-                span
-                    display: block
-                    font-size: 0.4063rem
-                    color: #909090
-            .icon
-                float: left
-                margin: 0.2891rem  0.3125rem 0  0.25rem
-                width: 1.1406rem
-                height: 1.1406rem
-            .details
-                float: left
-                height: 100%    
-                .money
-                    margin-top: 0.4063rem
-                    font-size: 0.4063rem
-                    color: #333
-                span                      
-                    display: block
-                    margin-top: 0.1875rem
-                    font-size: 0.3438rem
-                    color: #909090
-        .bottom-line
-            width: 100%
-            height: 100%
+        .content-wrapper
             background: #fff        
             .bill-item
-                margin: 0 0.5rem 
+                margin: 0 0.5rem
                 width: 100%
-                height: 1.25rem 
+                height: 1.6875rem 
                 border-bottom-1px(#e0e0e0)
-                background: #fff
+
                 .date
                     float: left
                     height: 100%
                     text-align:center
                     span:first-child
-                        margin-top: 0.2031rem
+                        margin-top: 0.4063rem
                     span:last-child
-                        margin-top: 0.0938rem 
+                        margin-top: 0.1875rem 
                         font-size: 0.3438rem   
                     span
                         display: block
@@ -167,20 +132,60 @@ export default {
                 .icon
                     float: left
                     margin: 0.2891rem  0.3125rem 0  0.25rem
-                    width: 0.5781rem
-                    height: 0.5781rem
+                    width: 1.1406rem
+                    height: 1.1406rem
                 .details
                     float: left
                     height: 100%    
                     .money
-                        margin-top: 0.2031rem
+                        margin-top: 0.4063rem
                         font-size: 0.4063rem
                         color: #333
                     span                      
                         display: block
-                        margin-top: 0.0938rem
+                        margin-top: 0.1875rem
                         font-size: 0.3438rem
-                        color: #909090   
+                        color: #909090
+            .bottom-line
+                width: 100%
+                height: 100%
+                background: #fff        
+                .bill-item
+                    margin: 0 0.5rem 
+                    width: 100%
+                    height: 1.25rem 
+                    border-bottom-1px(#e0e0e0)
+                    background: #fff
+                    .date
+                        float: left
+                        height: 100%
+                        text-align:center
+                        span:first-child
+                            margin-top: 0.2031rem
+                        span:last-child
+                            margin-top: 0.0938rem 
+                            font-size: 0.3438rem   
+                        span
+                            display: block
+                            font-size: 0.4063rem
+                            color: #909090
+                    .icon
+                        float: left
+                        margin: 0.2891rem  0.3125rem 0  0.25rem
+                        width: 0.5781rem
+                        height: 0.5781rem
+                    .details
+                        float: left
+                        height: 100%    
+                        .money
+                            margin-top: 0.2031rem
+                            font-size: 0.4063rem
+                            color: #333
+                        span                      
+                            display: block
+                            margin-top: 0.0938rem
+                            font-size: 0.3438rem
+                            color: #909090   
 
              
 </style>
