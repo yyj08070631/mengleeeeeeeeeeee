@@ -33,6 +33,7 @@ import allOrder from './components/allOrder/allOrder';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
+import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 Vue.use(VueAwesomeSwiper)

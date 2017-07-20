@@ -99,7 +99,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                console.log(res);
+                // console.log(res);
                 this.data = res.data;
             })
         }

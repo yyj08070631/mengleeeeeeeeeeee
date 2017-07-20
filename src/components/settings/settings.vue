@@ -1,112 +1,150 @@
-<template>   
-  <div class="settings-wrapper">
+<template>
+    <div class="settings-wrapper">
         <div class="header">
-            <div class="header-content border-bottom-1px">
+            <div class="header-content">
                 <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title" @click="change">个人设置</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
+                    <img src="./arrow_left.png">
+                    <span>返回</span>
+                </a>
+                <h1 class="title">个人设置</h1>
+                <a href="#search">
+                    <img class="search" src="./search.png" />
+                </a>
             </div>
         </div>
         <div class="avatar-wrapper">
-            <img class="avatar-cover" width="100%" height="100%" src="./avatar.png"/>
-            <div class="filter"></div>         
-            <img class="avatar" src="./avatar.png"/>
+            <img class="avatar-cover" width="100%" height="100%" :src="data.headimg" />
+            <div class="filter"></div>
+            <img class="avatar" :src="data.headimg">
             <div class="message">
-                <span class="name">陈军宝</span>
-                <span class="mobile">13560433216</span>
-                <img class="rank" src="./rank.png">
-            </div> 
+                <span class="name">{{data.username}}</span>
+                <span class="mobile">{{data.phone}}</span>
+                <img class="rank" :src="computeImg">
+            </div>
         </div>
         <div class="content-wrapper">
             <a href="#myQRcode" class="message-item">
-                    <span class="title">我的二维码</span>
-                    <div class="link-wrapper">
-                        <img class="qr-code" src="./QR_code.png">
-                        <img class="other" src="./more.png">
-                    </div>
-            </a>  
+                <span class="title">我的二维码</span>
+                <div class="link-wrapper">
+                    <img class="qr-code" src="./QR_code.png">
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
             <a href="javascript:void(0)" class="message-item">
-                    <span class="title">昵称</span>
-                    <div class="link-wrapper">
-                        <span class="msg">陈军宝</span>
-                        <img class="other" src="./more.png">
-                    </div>
-            </a>   
-            <a href="javascript:void(0)" class="message-item indent">
-                    <span class="title">收件信息</span>
-                    <div class="link-wrapper">
-                        <span class="msg">已记录</span>
-                        <img class="other" src="./more.png">
-                    </div>
+                <span class="title">昵称</span>
+                <div class="link-wrapper">
+                    <span class="msg">{{data.username}}</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
+            <a href="#addrManage" class="message-item indent">
+                <span class="title">收件信息</span>
+                <div class="link-wrapper">
+                    <span class="msg">已记录</span>
+                    <img class="other" src="./more.png">
+                </div>
             </a>
             <div class="line"></div>
-            <a href="javascript:void(0)offlineInfo" class="message-item">
-                    <span class="title">星座</span>
-                    <div class="link-wrapper">
-                        <span class="msg">未填写</span>
-                        <img class="other" src="./more.png">
-                    </div>
-            </a> 
             <a href="javascript:void(0)" class="message-item">
-                    <span class="title">身高</span>
-                    <div class="link-wrapper">
-                        <span class="msg">未填写</span>
-                        <img class="other" src="./more.png">
-                    </div>
-            </a> 
+                <span class="title">星座</span>
+                <div class="link-wrapper">
+                    <span class="msg">{{data.constellation}}</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
+            <a href="javascript:void(0)" class="message-item">
+                <span class="title">身高</span>
+                <div class="link-wrapper">
+                    <span class="msg">{{data.height}}</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
             <a href="javascript:void(0)" class="message-item indent">
-                    <span class="title">体重</span>
-                    <div class="link-wrapper">
-                        <span class="msg">未填写</span>
-                        <img class="other" src="./more.png">
-                    </div>
-            </a> 
+                <span class="title">体重</span>
+                <div class="link-wrapper">
+                    <span class="msg">{{data.weight}}</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
             <div class="line"></div>
             <a href="javascript:void(0)" class="message-item">
-                    <span class="title">职业</span>
-                    <div class="link-wrapper">
-                        <span class="msg">未填写</span>
-                        <img class="other" src="./more.png">
-                    </div>
-            </a> 
+                <span class="title">职业</span>
+                <div class="link-wrapper">
+                    <span class="msg">{{data.career}}</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
             <a href="javascript:void(0)" class="message-item">
-                    <span class="title">收入</span>
-                    <div class="link-wrapper">
-                        <span class="msg">未填写</span>
-                        <img class="other" src="./more.png">
-                    </div>
-            </a> 
+                <span class="title">收入</span>
+                <div class="link-wrapper">
+                    <span class="msg">{{data.gain}}</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
             <a href="javascript:void(0)" class="message-item">
-                    <span class="title">兴趣爱好</span>
-                    <div class="link-wrapper">
-                        <span class="msg">未填写</span>
-                        <img class="other" src="./more.png">
-                    </div>
-            </a> 
+                <span class="title">兴趣爱好</span>
+                <div class="link-wrapper">
+                    <span class="msg">未填写</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </a>
         </div>
-
-  </div>
+        <!-- modal -->
+    </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+import { XDialog, TransferDomDirective as TransferDom } from 'vux'
 
-export default{
-    props: {
-        isShow: Boolean
+export default {
+    directives: {
+        TransferDom
+    },
+    components: {
+        XDialog,
+    },
+    data() {
+        return {
+            data: []
+        }
+    },
+    created() {
+        this.getDataFromBackend()
     },
     methods: {
-        change(){
-            this.isShow = false
-            console.log(this.isShow)
+        getDataFromBackend: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/userDetail?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data
+            })
         }
     },
     mounted() {
-        console.log(this.$refs.isShow )
+
     },
-    created () {
-        change()
+    computed: {
+        computeImg: function () {
+            // console.log(this.data.level)
+            let level = parseInt(this.data.level);
+            if (level == 1) {
+                return require('./images/xiaobai.png')
+            } else if (level == 2) {
+                return require('./images/xingxing.png')
+            } else if (level == 3) {
+                return require('./images/zuanshi.png')
+            } else if (level == 4) {
+                return require('./images/jinguan.png')
+            } else if (level == 5) {
+                return require('./images/huangguan.png')
+            } else {
+                console.log('获取了无效的等级数据！');
+                return '#'
+            }
+        }
     }
 }
 </script>
@@ -151,7 +189,7 @@ export default{
                 position: absolute
                 top: 4.8125rem
                 left: 50%
-                margin-left: -3.125rem
+                margin-left: -2.9063rem
                 width: 6.25rem
                 text-align: center
                 .name
@@ -164,7 +202,8 @@ export default{
                     color: #909090
                  .rank
                     width: 1.125rem
-                    height: 0.375rem   
+                    height: 0.375rem
+                    margin 0 auto
         .content-wrapper
             width: 100%
             height: 100%
