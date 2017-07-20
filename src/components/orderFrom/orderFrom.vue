@@ -1,13 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="orderFrom-wrapper">
-      <v-view class="route-item"></v-view>
-  <!--头部  -->    
-      <div class="header">
-        <div class="header-content border-bottom-1px">
-            <h1 class="title">查看订单</h1>
-            <a href="#search"><img class="search" src="./search.png"/></a>
-=======
     <div class="orderFrom-wrapper">
         <v-view class="route-item"></v-view>
         <!--头部  -->
@@ -16,7 +7,6 @@
                 <h1 class="title">查看订单</h1>
                 <img class="search" src="./search.png" width="16" height="16" />
             </div>
->>>>>>> 3b9bfa30033d32baf010faeaa5ab8cb04265215f
         </div>
         <div class="content-wrapper item-cls">
             <a href="#home" class="order-title">
@@ -25,12 +15,12 @@
                 <img class="more" width=11 height=11 src="./more.png" />
             </a>
             <div class="order-content">
-                <div class="content-item content-item-top">
-                    <img class="product" width=104 height=104 src="./product01.png" />
+                <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
+                    <img class="product" width=104 height=104 :src="val.mainmap" />
                     <div class="product-message">
-                        <span class="desc">圣雅琦 明眸亮莹眼部精华圣雅琦 明眸亮莹眼部精华</span>
+                        <span class="desc">{{val.name}}</span>
                         <p class="num">数量:1</p>
-                        <p class="price">总价:￥39.00</p>
+                        <p class="price">总价:￥{{val.price}}</p>
                     </div>
                     <span class="for-to-paid">待付款</span>
                     <div class="handle">
@@ -40,12 +30,12 @@
                         <a class="link" href="#">取消订单</a>
                     </div>
                 </div>
-                <div class="content-item content-item-bottom">
+                <div class="content-item content-item-bottom" >
                     <img class="product" width=104 height=104 src="./product01.png" />
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华</span>
-                        <p class="num">数量:1</p>
-                        <p class="price">总价:￥39000.00</p>
+                        <p class="num">数量:</p>
+                        <p class="price">总价:￥</p>
                     </div>
                     <span class="for-to-paid">待评价</span>
                     <div class="handle">
@@ -83,57 +73,6 @@
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
-const imgList = [
-    'http://img.dwstatic.com/www/1707/363289838921/1499336815305.jpg',
-    'http://img.car.mianfeiapp.net/upload/20170527/14958505848030.jpg',
-    'http://img.car.mianfeiapp.net/upload/20170527/14958505847196.jpg',
-    'http://img.car.mianfeiapp.net/upload/20170527/14958505857898.jpg',
-    'http://img.car.mianfeiapp.net/upload/20170527/14958505851569.jpg'
-]
-const baseList = [{
-    url: 'javascript:',
-    img: 'http://f12.baidu.com/it/u=2438918904,3021139008&fm=72',
-    title: "圣雅琦 明眸亮莹眼部精华"
-}, {
-    url: 'javascript:',
-    img: 'http://img.sc115.com/uploads/allimg/110518/201105181934451250.jpg',
-    title: "圣雅琦 送到家里电视机分厘卡"
-}, {
-    url: 'javascript:',
-    img: 'http://pic.58pic.com/58pic/12/03/53/78d58PICIPR.jpg',
-    title: "圣雅琦 阿斯顿撒旦"
-}, {
-    url: 'javascript:',
-    img: 'http://img3.redocn.com/20100327/Redocn_2010032702520247.jpg',
-    title: "圣雅琦 似的撒旦"
-}, {
-    url: 'javascript:',
-    img: 'http://a4.att.hudong.com/46/84/300534043329134140848931667.png',
-    title: "圣雅琦 阿斯顿撒旦撒旦"
-}
-]
-
-//  const imgList = [ 
-//    'http://placeholder.qiniudn.com/800x300/FF3B3B/ffffff', 
-//    'http://placeholder.qiniudn.com/800x300/FFEF7D/ffffff', 
-//    'http://placeholder.qiniudn.com/800x300/8AEEB1/ffffff' 
-//  ] 
-
-const urlList = baseList.map((item, index) => ({
-    url: 'http://m.baidu.com',
-    img: item.img,
-    title: `(可点击)${item.title}`
-}))
-
-const demoList = imgList.map((one, index) => ({
-    url: 'javascript:',
-    img: one
-}))
-
-const only2ClickList = baseList.slice(0, 2).map(item => {
-    item.url = '#'
-    return item
-})
 
 export default {
     components: {
@@ -148,19 +87,26 @@ export default {
 
     },
     methods: {
-        onSwiperItemIndexChange(index) {
-            console.log('demo item change', index)
-        },
-        demo01_onIndexChange(index) {
-            this.demo01_index = index
+        getDataFromBackend: function() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Order/order',
+                emulateJSON: true
+            }).then(function (response) {
+                this.orderList = response.body
+                console.log(this.orderList)
+            })
         }
     },
     data() {
         return {
-            demo01_list: baseList,
-            demo01_index: 0,
-            swiperItemIndex: 1
+            orderList: []
         }
+    },
+    mounted(){
+        this.$nextTick(function(){
+            this.getDataFromBackend()
+        })
     }
 }
 
@@ -222,9 +168,11 @@ width100 = 100%
                 border-bottom-1px(#e6e6e6)           
                 .product
                     float: left
+                    width: 1.625rem 
+                    height: 1.625rem
                     margin: 0.5625rem 0.5625rem 0 0    
                 .product-message
-                    margin-top: 9px
+                    margin-top: 0.5rem
                     float: left
                     width: 5.25rem
                     line-height: 0.625rem
