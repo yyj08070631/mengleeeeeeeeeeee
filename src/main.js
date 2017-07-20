@@ -28,6 +28,7 @@ import buyGoods from './components/buyGoods/buyGoods';
 import myCollect from './components/myCollect/myCollect';
 import cart from './components/cart/cart';
 import addrManage from './components/addrManage/addrManage';
+import allOrder from './components/allOrder/allOrder';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
@@ -142,6 +143,10 @@ const routes = [{
     {
         path: '/addrManage',
         component: addrManage
+    },
+    {
+        path: '/allOrder',
+        component: allOrder
     }
 ];
 

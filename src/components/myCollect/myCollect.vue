@@ -60,16 +60,25 @@ export default {
     },
     data() {
         return {
-
+            orderList: []
         }
     },
     methods: {
-        getDataFromBackend: function () {
-
+        getDataFromBackend: function() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Order/collist',
+                emulateJSON: true
+            }).then(function (response) {
+                this.orderList = response.body
+                console.log(this.orderList)
+            })
         }
     },
-    mounted() {
-
+    mounted(){
+        this.$nextTick(function(){
+            this.getDataFromBackend()
+        })
     }
 }
 </script>
