@@ -98,7 +98,7 @@ export default {
                         font-size: 0.375rem
                         text-align: center
                         border-left: 0.0313rem solid #909090  
-                        color: #365ba5
+                        color: #ea6aa2
         .search-title
             width: 100%
             height: 1.0313rem
