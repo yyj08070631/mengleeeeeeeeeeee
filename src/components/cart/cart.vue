@@ -82,7 +82,7 @@
                 <p class="total">合计：</p>
                 <p class="price">￥0.00</p>
             </div>
-            <router-link class="pay">结算(0)</router-link>
+            <router-link to="/home" class="pay">结算(0)</router-link>
         </footer>
     </div>
 </template>

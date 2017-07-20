@@ -24,6 +24,7 @@ import offlineInfo from './components/offlineInfo/offlineInfo';
 import subscribe from './components/subscribe/subscribe';
 import myCollect from './components/myCollect/myCollect';
 import cart from './components/cart/cart';
+import addrManage from './components/addrManage/addrManage';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
@@ -118,11 +119,14 @@ const routes = [{
     {
         path: '/myCollect',
         component: myCollect
-    }
-    ,
+    },
     {
         path: '/cart',
         component: cart
+    },
+    {
+        path: '/addrManage',
+        component: addrManage
     }
 ];
 
