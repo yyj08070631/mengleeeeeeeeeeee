@@ -22,15 +22,13 @@ import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
 import offlineInfo from './components/offlineInfo/offlineInfo';
 import subscribe from './components/subscribe/subscribe';
-<<<<<<< HEAD
 import subscribeNow from './components/subscribeNow/subscribeNow';
 import search from './components/search/search';
 import buyGoods from './components/buyGoods/buyGoods';
-=======
 import myCollect from './components/myCollect/myCollect';
 import cart from './components/cart/cart';
 import addrManage from './components/addrManage/addrManage';
->>>>>>> 3b9bfa30033d32baf010faeaa5ab8cb04265215f
+import addrEdit from './components/addrEdit/addrEdit';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
@@ -123,7 +121,6 @@ const routes = [{
         component: subscribe
     },
     {
-<<<<<<< HEAD
         path: '/subscribeNow',
         component: subscribeNow
     },
@@ -134,7 +131,8 @@ const routes = [{
     {
         path: '/buyGoods',
         component: buyGoods
-=======
+    },
+    {
         path: '/myCollect',
         component: myCollect
     },
@@ -145,7 +143,10 @@ const routes = [{
     {
         path: '/addrManage',
         component: addrManage
->>>>>>> 3b9bfa30033d32baf010faeaa5ab8cb04265215f
+    },
+    {
+        path: '/addrEdit',
+        component: addrEdit
     }
 ];
 

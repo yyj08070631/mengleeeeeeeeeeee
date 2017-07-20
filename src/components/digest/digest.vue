@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="divider"></div>
-        <a href="javascript:void(0)" class="link">我要预约</a>
+        <a href="#subscribeNow" class="link">我要预约</a>
     </div>
 </template>
 <script type="ecmascript-6">

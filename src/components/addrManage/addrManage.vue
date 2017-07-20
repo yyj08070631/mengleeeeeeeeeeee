@@ -11,43 +11,50 @@
         </header>
         <!-- 主体 -->
         <section class="main">
-            <!-- 超大分割线 -->
-            <div class="dividerBig"></div>
             <!-- 一个收货地址 -->
-            <div class="oneAddr">
+            <router-link to="/buyGoods" class="oneAddr">
                 <div class="rowUp">
-                    <p class="name">大帅比</p>
-                    <div class="phone">
-                        <p>15555555555</p>
-                        <span>默认</span>
+                    <div class="nameAndPhone">
+                        <p class="name">大帅比</p>
+                        <div class="phone default">15555555555</div>
                     </div>
                     <div class="icon">
-                        <img src="./images/edit.png">
-                        <img src="./images/del.png">
+                        <router-link to="/addrEdit">
+                            <img src="./images/edit.png">
+                        </router-link>
+                        <router-link to="/home">
+                            <img src="./images/del.png">
+                        </router-link>
+                    </div>
+                </div>
+                <div class="rowDown">
+                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
+                </div>
+            </router-link>
+            <!-- 一个收货地址 -->
+            <router-link to="/buyGoods" class="oneAddr">
+                <div class="rowUp">
+                    <div class="nameAndPhone">
+                        <p class="name">大帅比</p>
+                        <div class="phone">15555555555</div>
+                    </div>
+                    <div class="icon">
+                        <router-link to="/addrEdit">
+                            <img src="./images/edit.png">
+                        </router-link>
+                        <router-link to="/home">
+                            <img src="./images/del.png">
+                        </router-link>
                     </div>
                 </div>
                 <div class="rowDown">
                     厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
                 </div>
+            </router-link>
+            <!-- 新建地址 -->
+            <div class="newAddr">
+                <router-link to="/addrEdit" class="newAddrItem">新建地址</router-link>
             </div>
-            <!-- 一个收货地址 -->
-            <div class="oneAddr">
-                <div class="rowUp">
-                    <p class="name">大帅比</p>
-                    <div class="phone">
-                        <p>15555555555</p>
-                    </div>
-                    <div class="icon">
-                        <img src="./images/edit.png">
-                        <img src="./images/del.png">
-                    </div>
-                </div>
-                <div class="rowDown">
-                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
-                </div>
-            </div>
-            <!-- 超大分割线 -->
-            <div class="dividerBig"></div>
         </section>
     </div>
 </template>
@@ -139,18 +146,63 @@ span, a, img, input, textarea
             flex-direction column
             justify-content center
             align-items center
-            height 2.6875rem
             padding-bottom 0.3125rem
             border-bottom-1px(#e0e0e0)
             .rowUp
                 display flex
-                .name
-                    font-size 0.4375rem
-                .phone
-                    p
+                justify-content space-between
+                align-items center
+                width 9rem
+                margin 0.5625rem 0 0.5313rem 0 
+                .nameAndPhone
+                    display flex
+                    .name
                         font-size 0.4375rem
+                        color #333
+                        margin-right 0.9375rem
+                    // 电话
+                    .phone
+                        display flex
+                        position relative
+                        font-size 0.4375rem
+                        color #333
+                    // 带 "默认" 的电话
+                    .default:after
+                        content ''
+                        position absolute
+                        right -1.2031rem
+                        width 1.0781rem
+                        height 0.4219rem
+                        background url('./images/default.png') no-repeat
+                .icon
+                    display flex
+                    align-items center
+                    a
+                        display flex
+                        justify-content center
+                        align-items center
+                    a:last-child
+                        margin-left 0.6875rem
             .rowDown
+                width 9rem
                 font-size 0.375rem
                 color #909090
                 text-align justify
+                line-height 1.5
+        // 新建地址
+        .newAddr
+            display flex
+            justify-content center
+            width 100%
+            .newAddrItem
+                display flex
+                justify-content center
+                align-items center
+                width 7.9688rem
+                height 1.25rem
+                margin-top 1.2344rem
+                background-color #ea68a2
+                border-radius 0.1563rem
+                font-size 0.4375rem
+                color #fff
 </style>

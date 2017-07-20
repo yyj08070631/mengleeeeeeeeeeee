@@ -157,8 +157,8 @@
 				<img src="./images/collect.png" ref="menuItem" @click="changSrc(key)">
 				<p>加入收藏</p>
 			</a>
-			<a href="javascript:void(0)">加购物袋</a>
-			<a href="#buyGoods">立即购买</a>
+			<router-link to="/cart">加购物袋</router-link>
+			<router-link to="/buyGoods">立即购买</router-link>
 		</footer>
 	</div>
 </template>

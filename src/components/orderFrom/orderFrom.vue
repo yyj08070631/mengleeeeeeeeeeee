@@ -1,32 +1,24 @@
 <template>
-<<<<<<< HEAD
-  <div class="orderFrom-wrapper">
-      <v-view class="route-item"></v-view>
-  <!--头部  -->    
-      <div class="header">
-        <div class="header-content border-bottom-1px">
-            <h1 class="title">查看订单</h1>
-            <a href="#search"><img class="search" src="./search.png"/></a>
-=======
     <div class="orderFrom-wrapper">
         <v-view class="route-item"></v-view>
-        <!--头部  -->
+        <!-- 头部 -->
         <div class="header">
-            <div class="header-content border-bottom-1px">
+            <div class="header-content">
                 <h1 class="title">查看订单</h1>
-                <img class="search" src="./search.png" width="16" height="16" />
+                <a href="#search">
+                    <img class="search" src="./search.png" />
+                </a>
             </div>
->>>>>>> 3b9bfa30033d32baf010faeaa5ab8cb04265215f
         </div>
         <div class="content-wrapper item-cls">
             <a href="#home" class="order-title">
                 <span class="title">我的订单</span>
                 <span class="content">查看全部订单</span>
-                <img class="more" width=11 height=11 src="./more.png" />
+                <img class="more" src="./more.png" />
             </a>
             <div class="order-content">
                 <div class="content-item content-item-top">
-                    <img class="product" width=104 height=104 src="./product01.png" />
+                    <img class="product" src="./product01.png" />
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华圣雅琦 明眸亮莹眼部精华</span>
                         <p class="num">数量:1</p>
@@ -41,7 +33,7 @@
                     </div>
                 </div>
                 <div class="content-item content-item-bottom">
-                    <img class="product" width=104 height=104 src="./product01.png" />
+                    <img class="product" src="./product01.png" />
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华</span>
                         <p class="num">数量:1</p>
@@ -63,7 +55,7 @@
                 <router-link to="/myCollect">
                     <span class="content">查看所有收藏</span>
                 </router-link>
-                <img class="more" width=11 height=11 src="./more.png" />
+                <img class="more" src="./more.png" />
             </a>
             <div class="slide-wrapper">
                 <div class="slide-container">
@@ -77,7 +69,7 @@
                 <p style="font-size:12px" v-for="(val,key) in demo01_list"></p>
             </div>
         </div>
-        <!--头部  -->
+        <!-- 头部 -->
     </div>
 </template>
 <script type="ecmascript-6">

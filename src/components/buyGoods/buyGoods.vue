@@ -10,14 +10,14 @@
                 <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
-        <div class="userInfo">
+        <router-link to="/addrManage" class="userInfo">
             <div><img src="./location.png"></div>
             <div>
                 <span>陈超成</span><span>15218348383</span>
                 <p>广东省广州市番禺区番禺区大学城小谷围街道国家数字家庭基地A242</p>
             </div>
             <div><img src="./arrow_right.png"></div>
-        </div>
+        </router-link>
         <div class="goodsInfo">
            <div><img src="./goodsMap.png"></div>
            <div>
@@ -37,7 +37,7 @@
                     <span>实付款：</span><span>￥32.80</span>
                     <p>已使用0张优惠券</p>
                 </div>
-                <div>提交订单</div>
+                <router-link to="/orderFrom">提交订单</router-link>
             </div>
         </div>
 
@@ -150,13 +150,11 @@ export default {
                 font-size: 0.3438rem  
                 line-height: 0.4688rem 
                 color: #909090
-        div:last-child
+        a
             line-height: 1.1563rem 
             width: 2.5625rem
             font-size: 0.375rem  
             background: #ea68a2
             color: #fff
             text-align: center
-           
-              
 </style>

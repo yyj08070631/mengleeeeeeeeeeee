@@ -11,7 +11,7 @@
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
-            <a href="#digest" class="storeNearby">
+            <a href="#offlineInfo" class="storeNearby">
                 <div class="colLeft">
                     <p>
                         <span>附近的项目实体店</span>

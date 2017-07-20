@@ -59,10 +59,10 @@
                     <span>线下服务</span>
                 </h1>
                 <hr class="divider dividerMargin">
-                <p>
+                <router-link to="/digest">
                     <span>单人泡澡 + 臀部疗保养 + 面部补水三项套餐</span>
                     <span>￥199.00</span>
-                </p>
+                </router-link>
             </div>
             <!--粗分割线-->
             <hr class="divider dividerBig">
@@ -419,7 +419,7 @@ img, span, a
                     font-weight bold
                 span:first-child
                     margin-right 0.1563rem
-            p
+            a
                 display flex
                 justify-content space-between
                 align-items center
