@@ -1,0 +1,188 @@
+<template>
+    <div class="goodDetail-wrapper">
+        <!--头部-->
+        <header class="header">
+            <a href="javascript:history.back(1)" class="goBack">
+                <img src="./images/arrow_left.png">
+                <span>返回</span>
+            </a>
+            <div class="title">我的收藏</div>
+            <div class="search">
+                <img class="searchImg" src="./images/search.png">
+            </div>
+        </header>
+        <!-- 主体 -->
+        <section class="main">
+            <!-- 正常收藏件 -->
+            <div class="oneCollect">
+                <img src="./images/mainMap.png">
+                <div class="info">
+                    <div class="rowUp">刺绣牛仔九分裤女</div>
+                    <div class="rowMiddle">
+                        <span>￥</span>
+                        <span>55.</span>
+                        <span>8</span>
+                    </div>
+                    <div class="rowDown">
+                        <a href="javascript:void(0)" class="add">
+                            <img src="./images/cart.png">
+                        </a>
+                        <a href="javascript:void(0)" class="del">删除</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 失效收藏件 -->
+            <div class="oneCollect oneBadCollect">
+                <img src="./images/mainMap.png">
+                <div class="badCollect">已失效</div>
+                <div class="info">
+                    <div class="rowUp">刺绣牛仔九分裤女</div>
+                    <div class="rowMiddle">
+                        <span>￥</span>
+                        <span>55.</span>
+                        <span>8</span>
+                    </div>
+                    <div class="rowDown">
+                        <a href="javascript:void(0)" class="add">
+                            <img src="./images/cart.png">
+                        </a>
+                        <a href="javascript:void(0)" class="del">删除</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</template>
+<script type="ecmascript-6">
+export default {
+    components: {
+
+    },
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+        getDataFromBackend: function () {
+
+        }
+    },
+    mounted() {
+
+    }
+}
+</script>
+<style lang="stylus" rel="stylesheet/stylus">
+@import '../../commom/stylus/mixin'
+
+width = 100%
+color = #fff
+// 外层元素
+.goodDetail-wrapper
+    position fixed
+    top 1.25rem
+    left 0
+    width width
+    background #fff
+    // 详情页header
+    .header
+        border-bottom-1px(#e0e0e0)
+        position fixed
+        display flex
+        top 0
+        left 0
+        justify-content space-between
+        align-items center
+        height 1.25rem
+        width width
+        background-color #f9f9f9
+        z-index 1
+        .goBack
+            font-size 0.1563rem
+            margin-left 0.5rem
+            flex 1
+            width width
+            display flex
+            align-items center
+            span
+                display block
+                color #ea68a2
+                margin-left 0.1563rem
+                font-size 0.4063rem
+            img
+                display block
+        .title
+            font-size 0.4063rem
+            font-weight 800
+            flex 1
+            width width
+            text-align center
+        .search
+            display flex
+            justify-content flex-end
+            margin-right 0.5rem
+            flex 1
+            width width
+    // 主体
+    .main
+        // 正常收藏件
+        .oneCollect
+            display flex
+            width 100%
+            margin-top 0.3125rem
+            & > img
+                width 3.3438rem
+                height 3.25rem
+            .info
+                width 100%
+                .rowUp
+                    padding 0.3125rem 0 1.0625rem 0.25rem
+                    font-size 0.4063rem
+                    color #333
+                .rowMiddle
+                    display flex
+                    align-items flex-end
+                    padding 0 0 0.3125rem 0.25rem
+                    color #ea68a2
+                    span:first-child, span:last-child
+                        font-size 0.4375rem
+                    span:nth-child(2)
+                        font-size 0.5rem
+                .rowDown
+                    display flex
+                    justify-content flex-end
+                    .add
+                        display flex
+                        justify-content center
+                        align-items center
+                        height 0.6563rem
+                        width 1.5469rem
+                        border 0.0313rem solid #ea68a2
+                        border-radius 0.0938rem
+                    .del
+                        display flex
+                        justify-content center
+                        align-items center
+                        height 0.6563rem
+                        width 1.5469rem
+                        margin 0 0.4063rem 0 0.2813rem
+                        border 0.0313rem solid #ababab
+                        border-radius 0.0938rem
+                        font-size 0.3438rem
+        // 失效收藏件
+        .oneBadCollect
+            position relative
+            .badCollect
+                display flex
+                justify-content center
+                align-items center
+                position absolute
+                left 0.5469rem
+                top 0.5rem
+                width 2.25rem
+                height 2.25rem
+                border-radius 50%
+                font-size 0.4063rem
+                background-color rgba(255, 255, 255, .5)
+</style>

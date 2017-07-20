@@ -243,6 +243,9 @@ img, span, a
                 align-items center
                 height height
                 padding 0 0.5rem
+                img
+                    width 0.2188rem
+                    height 0.3906rem
                 span
                     display block
                     color #ea68a2
@@ -265,6 +268,9 @@ img, span, a
                 height height
                 padding 0 0.5rem
                 align-items center
+                img
+                    width 0.4219rem
+                    height 0.4219rem
     // 主体
     .main
         margin-bottom 1.3438rem
