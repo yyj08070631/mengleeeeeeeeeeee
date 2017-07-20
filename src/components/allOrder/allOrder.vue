@@ -1,21 +1,17 @@
 <template>
     <div class="orderFrom-wrapper">
-        <v-view class="route-item"></v-view>
-        <!-- 头部 -->
+        <!--头部  -->
         <div class="header">
-            <div class="header-content">
-                <h1 class="title">查看订单</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
+            <div class="header-content border-bottom-1px">
+                <a href="javascript:history.back(-1)" class="goBack">
+				    <img src="./arrow_left.png" height="16">
+				    <span>返回</span>
+			    </a>
+                <h1 class="title">查看全部订单</h1>
+                <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
         <div class="content-wrapper item-cls">
-            <a href="#home" class="order-title">
-                <span class="title">我的订单</span>
-                <a href="#allOrder" class="content">查看全部订单</a>
-                <img class="more" width=11 height=11 src="./more.png" />
-            </a>
             <div class="order-content">
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
                     <img class="product" width=104 height=104 :src="val.mainmap" />
@@ -33,8 +29,8 @@
                         <a class="link" href="javascript:void(0)">取消订单</a>
                     </div>
                 </div>
-                <div class="content-item content-item-bottom">
-                    <img class="product" src="./product01.png" />
+                <div class="content-item content-item-bottom" >
+                    <img class="product" width=104 height=104 src="./product01.png" />
                     <div class="product-message">
                         <span class="desc">圣雅琦 明眸亮莹眼部精华</span>
                         <p class="num">数量:</p>
@@ -43,24 +39,15 @@
                     <span class="for-to-paid">待评价</span>
                     <span class="orderPrice">数量：1</span>
                     <div class="handle">
-                        <a class="link" href="#">再次购买</a>
+                        <a class="link" href="javascript:void(0)">再次购买</a>
                     </div>
                     <div class="handle pos-left">
-                        <a class="link" href="#">待评价</a>
+                        <a class="link" href="javascript:void(0)">待评价</a>
                     </div>
                 </div>
             </div>
-            <a class="more-orderFrom" href="#">查看更多订单</a>
-            <div class="line"></div>
-            <a href="#home" class="order-title">
-                <span class="title">我的收藏</span>
-                <router-link to="/myCollect">
-                    <a href="#myCollect" class="content">查看所有收藏</a>
-                </router-link>
-                <img class="more" src="./more.png" />
-            </a>
         </div>
-        <!-- 头部 -->
+        <!--头部  -->
     </div>
 </template>
 <script type="ecmascript-6">
@@ -83,7 +70,7 @@ export default {
         getDataFromBackend: function() {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/Order/order',
+                url: global.Domain + '/Order/ordlist',
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body

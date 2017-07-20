@@ -15,9 +15,9 @@
             <a href="javascript:" @click="showList" class="screen">筛选</a>
             <a href="javascript:" @click="changeClass" class="sort">排列方式</a>
             <div id="screenType" v-show="isShow">
-                <a href="javascript:" @click="isHidden();postTime()">价格</a>   
-                <a href="javascript:" @click="isHidden();postPrice()">上架时间</a>
-                <a href="javascript:" @click="isHidden();postNumber()">销量</a>
+                <a href="javascript:" @click="postTime()"><div>价格</div><div><img src="./arrow_none.png" ref="active" @click="changeActive(2)"></div></a>   
+                <a href="javascript:" @click="postPrice()"><div>上架时间</div><div><img src="./arrow_none.png" ref="active"></div></a>
+                <a href="javascript:" @click="postNumber()"><div>销量</div><div><img src="./arrow_none.png" ref="active"></div></a>
             </div>
         </div>
         <div class="goods-wrapper">
@@ -39,6 +39,7 @@ export default {
     data()
         {
             return {
+                now: 1,
                 changeStyle: 'goods-item1',
                 isShow: false,
                 timeKey: 0,//传给服务器的字段
@@ -120,7 +121,36 @@ export default {
             }
             this.getDataFromBackend()//ajax
         },
-        
+        changeActive(index){
+//            this.$refs.active.src=require('./arrow_none.png')
+              this.now=index
+              let NONE=require('./arrow_none.png');
+              let UP=require('./arrow_up.png');
+              let DOWN=require('./arrow_down.png');
+            switch(this.now){
+                case 0:
+                   this.$refs.active.src = NONE 
+                   break;  
+                case 1:
+                   this.$refs.active.src = DOWN
+                   break;   
+                case 2:
+                   this.$refs.active.src = UP
+                   break; 
+                case 3:
+                   this.$refs.active.src = DOWN
+                   break; 
+                case 4:
+                   this.$refs.active.src = UP
+                   break;  
+                case 5:
+                   this.$refs.active.src = DOWN
+                   break; 
+                case 6:
+                   this.$refs.active.src = UP
+                   break;                     
+            }
+        },
         //ajax
          getDataFromBackend: function() {
             this.$http({
@@ -244,10 +274,19 @@ class2()
             background: #fff
             border-bottom: 0.0313rem solid #e0e0e0
             a
+                display: flex
                 flex: 1
                 font-size: 0.3438rem
                 color: #ea68a2
- 
+                align-items: center
+                div:first-child
+                    flex: 1
+                div:last-child
+
+                    img
+                        margin-right: 0.25rem
+                        width: 0.25rem
+
     .goods-wrapper
         margin: 0.9531rem auto 1.3438rem auto
         width: 100%

@@ -28,11 +28,15 @@ import buyGoods from './components/buyGoods/buyGoods';
 import myCollect from './components/myCollect/myCollect';
 import cart from './components/cart/cart';
 import addrManage from './components/addrManage/addrManage';
+<<<<<<< HEAD
 import addrEdit from './components/addrEdit/addrEdit';
+=======
+import allOrder from './components/allOrder/allOrder';
+>>>>>>> b755dec60ee00c612036eee739252065c5b61868
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
@@ -147,6 +151,10 @@ const routes = [{
     {
         path: '/addrEdit',
         component: addrEdit
+    },
+    {
+        path: '/allOrder',
+        component: allOrder
     }
 ];
 
