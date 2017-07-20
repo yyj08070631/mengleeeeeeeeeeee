@@ -26,7 +26,25 @@
                         <img src="./images/del.png">
                     </div>
                 </div>
-                <div class="rowDown"></div>
+                <div class="rowDown">
+                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
+                </div>
+            </div>
+            <!-- 一个收货地址 -->
+            <div class="oneAddr">
+                <div class="rowUp">
+                    <p class="name">大帅比</p>
+                    <div class="phone">
+                        <p>15555555555</p>
+                    </div>
+                    <div class="icon">
+                        <img src="./images/edit.png">
+                        <img src="./images/del.png">
+                    </div>
+                </div>
+                <div class="rowDown">
+                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
+                </div>
             </div>
             <!-- 超大分割线 -->
             <div class="dividerBig"></div>
@@ -115,4 +133,24 @@ span, a, img, input, textarea
             width 100%
             height 0.3125rem
             background-color #ddd
+        // 一个收货地址
+        .oneAddr
+            display flex
+            flex-direction column
+            justify-content center
+            align-items center
+            height 2.6875rem
+            padding-bottom 0.3125rem
+            border-bottom-1px(#e0e0e0)
+            .rowUp
+                display flex
+                .name
+                    font-size 0.4375rem
+                .phone
+                    p
+                        font-size 0.4375rem
+            .rowDown
+                font-size 0.375rem
+                color #909090
+                text-align justify
 </style>
