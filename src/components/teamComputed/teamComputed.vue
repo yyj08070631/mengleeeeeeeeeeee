@@ -3,70 +3,93 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">头衔统计</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-             </div>
+                    <img src="./arrow_left.png">
+                    <span>返回</span>
+                </a>
+                <h1 class="title">团队统计</h1>
+                <a href="#search">
+                    <img class="search" src="./search.png" />
+                </a>
+            </div>
         </div>
         <div class="title-board">
             <span class="rank-title">团队总收益（元）</span>
             <h1 class="myTitle">0.00</h1>
         </div>
         <a href="javascript:void(0)" class="get-title indent">
-                <span class="title">我的团队</span>
-                <div class="link-wrapper">
-                    <img class="more" src="./more.png">
-                </div>
+            <span class="title">我的团队</span>
+            <div class="link-wrapper">
+                <img class="more" src="./more.png">
+            </div>
         </a>
         <a href="javascript:void(0)" class="title-computed">
-                <span class="computed">本月</span>
-                <div class="link-wrapper">
-                    <span>获得：</span><span class="number">1500500.00</span>
-                    <span class="state">未激活</span>
-                </div>
+            <span class="computed">本月</span>
+            <div class="link-wrapper">
+                <span>获得：</span>
+                <span class="number">1500500.00</span>
+                <span class="state">未激活</span>
+            </div>
         </a>
         <a href="javascript:void(0)" class="title-item">
-                <div class="title-msg">
-                    <span class="from">Duke团队业绩</span>
-                    <span class="date">团队人数：134人</span>
-                </div>
-                <span class="get-number">530020.00</span>
-        </a>  
+            <div class="title-msg">
+                <span class="from">Duke团队业绩</span>
+                <span class="date">团队人数：134人</span>
+            </div>
+            <span class="get-number">530020.00</span>
+        </a>
         <a href="javascript:void(0)" class="title-item">
-                <div class="title-msg">
-                    <span class="from">友善猪团队业绩</span>
-                    <span class="date">团队人数：0人</span>
-                </div>
-                <span class="get-number">269.00</span>
-        </a>  
+            <div class="title-msg">
+                <span class="from">友善猪团队业绩</span>
+                <span class="date">团队人数：0人</span>
+            </div>
+            <span class="get-number">269.00</span>
+        </a>
         <a href="javascript:void(0)" class="title-item">
-                <div class="title-msg">
-                    <span class="from">miley团队业绩</span>
-                    <span class="date">团队人数：0人</span>
-                </div>
-                <span class="get-number">369.00</span>
-        </a>  
+            <div class="title-msg">
+                <span class="from">miley团队业绩</span>
+                <span class="date">团队人数：0人</span>
+            </div>
+            <span class="get-number">369.00</span>
+        </a>
         <a href="javascript:void(0)" class="title-item">
-                <div class="title-msg">
-                    <span class="from">AAA拼单平价潮衣物品团队业绩</span>
-                    <span class="date">团队人数：3人</span>
-                </div>
-                <span class="get-number">1360.00</span>
-        </a>  
+            <div class="title-msg">
+                <span class="from">AAA拼单平价潮衣物品团队业绩</span>
+                <span class="date">团队人数：3人</span>
+            </div>
+            <span class="get-number">1360.00</span>
+        </a>
         <a href="javascript:void(0)" class="title-item">
-                <div class="title-msg">
-                    <span class="from">A欧阳飞刀团队业绩</span>
-                    <span class="date">2017-6-14</span>
-                </div>
-                <span class="get-number">+80.00</span>
-        </a>  
+            <div class="title-msg">
+                <span class="from">A欧阳飞刀团队业绩</span>
+                <span class="date">2017-6-14</span>
+            </div>
+            <span class="get-number">+80.00</span>
+        </a>
     </div>
 </template>
 <script type="ecmascript-6">
 export default {
-  
+    data() {
+        return {
+            data: []
+        }
+    },
+    created() {
+        this.getDataFromBackend()
+    },
+    methods: {
+        getDataFromBackend: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/upgradeList?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data
+            })
+        }
+    },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

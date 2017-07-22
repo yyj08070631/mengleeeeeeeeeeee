@@ -3,91 +3,113 @@
         <div class="header">
             <div class="header-content border-bottom-1px">
                 <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
-				    <span>返回</span>
-			    </a>
+                    <img src="./arrow_left.png" height="16">
+                    <span>返回</span>
+                </a>
                 <h1 class="title">我的积分</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-             </div>
-        </div>     
+                <a href="#search">
+                    <img class="search" src="./search.png" />
+                </a>
+            </div>
+        </div>
         <div class="integral-board" v-for="dataItem in appData">
             <span class="rank-title">{{dataItem.rank}}</span>
             <span class="rank-question">等级特权?</span>
             <h1 class="myIntegral">{{dataItem.integral}}</h1>
         </div>
-         <div class="content-wrapper" v-for="dataItem in appData">
+        <div class="content-wrapper" v-for="dataItem in appData">
             <a href="javascript:void(0)" class="get-expand">
-                    <span class="title">我的团队</span>
-                    <div class="link-wrapper">
-                        <img class="more" width=16 height=16 src="./more.png">
-                    </div>
+                <router-link to="/myTeam" class="title">我的团队</router-link>
+                <div class="link-wrapper">
+                    <img class="more" width=16 height=16 src="./more.png">
+                </div>
             </a>
             <div class="line"></div>
             <a href="javascript:void(0)" class="expand-computed border-bottom-1px">
-                    <span class="computed">本月</span>
-                    <div class="link-wrapper">
-                        <span>获得：</span><span class="number">{{dataItem.countIntegral}}</span>
-                        <span>已到账</span>
-                    </div>
+                <span class="computed">本月</span>
+                <div class="link-wrapper">
+                    <span>获得：</span>
+                    <span class="number">{{dataItem.countIntegral}}</span>
+                    <span>已到账</span>
+                </div>
             </a>
-            <a href="javascript:void(0)" class="expand-item" v-for="item in dataItem.userMsg">
-                    <div class="expand-msg">
-                        <span class="from">{{item.expense}}</span>
-                        <span class="date">{{item.date}}</span>
-                    </div>
-                    <span class="get-number">{{item.getMoney}}</span>
-            </a>  
+            <!-- 积分获取详情 -->
+            <div class="expand-item expand-item-empty" v-if="data.length == 0">本月还没有积分进账哦:-D</div>
+            <a href="javascript:void(0)" class="expand-item" v-for="(val,key) in data" v-else>
+                <div class="expand-msg">
+                    <span class="from">{{item.expense}}</span>
+                    <span class="date">{{item.date}}</span>
+                </div>
+                <span class="get-number">{{item.getMoney}}</span>
+            </a>
         </div>
     </div>
 </template>
 <script type="ecmascript-6">
 export default {
-  data(){
-      return {
-          appData: [
-              {
-                  rank: '皇冠会员',
-                  integral: 58000,
-                  countIntegral: 6880.00,
-                  userMsg: [{
-                      expense: '友善猪消费-直属',
-                      date: '2017-6-14',
-                      getMoney: '+80.00'   
-                  },
-                  {
-                      expense: '友善猪消费-直属',
-                      date: '2017-6-14',
-                      getMoney: '+80.00'   
-                  },
-                  {
-                      expense: '友善猪消费-直属',
-                      date: '2017-6-14',
-                      getMoney: '+80.00'   
-                  },
-                  {
-                      expense: '友善猪消费-直属',
-                      date: '2017-6-14',
-                      getMoney: '+80.00'   
-                  },
-                  {
-                      expense: '友善猪消费-直属',
-                      date: '2017-6-14',
-                      getMoney: '+80.00'   
-                  },
-                  {
-                      expense: '友善猪消费-直属',
-                      date: '2017-6-14',
-                      getMoney: '+80.00'   
-                  },
-                  {
-                      expense: '友善猪消费-直属',
-                      date: '2017-6-14',
-                      getMoney: '+80.00'   
-                  }] 
-              }
-          ]
-      }
-  }
+    data() {
+        return {
+            appData: [
+                {
+                    rank: '皇冠会员',
+                    integral: 58000,
+                    countIntegral: 6880.00,
+                    userMsg: [{
+                        expense: '友善猪消费-直属',
+                        date: '2017-6-14',
+                        getMoney: '+80.00'
+                    },
+                    {
+                        expense: '友善猪消费-直属',
+                        date: '2017-6-14',
+                        getMoney: '+80.00'
+                    },
+                    {
+                        expense: '友善猪消费-直属',
+                        date: '2017-6-14',
+                        getMoney: '+80.00'
+                    },
+                    {
+                        expense: '友善猪消费-直属',
+                        date: '2017-6-14',
+                        getMoney: '+80.00'
+                    },
+                    {
+                        expense: '友善猪消费-直属',
+                        date: '2017-6-14',
+                        getMoney: '+80.00'
+                    },
+                    {
+                        expense: '友善猪消费-直属',
+                        date: '2017-6-14',
+                        getMoney: '+80.00'
+                    },
+                    {
+                        expense: '友善猪消费-直属',
+                        date: '2017-6-14',
+                        getMoney: '+80.00'
+                    }]
+                }
+            ],
+            data: []
+        }
+    },
+    created() {
+        this.getDataFromBackend()
+    },
+    methods: {
+        getDataFromBackend: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/integralList?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data
+            })
+        }
+    },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -208,36 +230,41 @@ export default {
                     float: left
                     color: #ea68a2
         .expand-item
-                display: block
-                position: relative
-                margin-left: 0.5rem
-                width: 100%
-                height: 1.6875rem
-                line-height: 1.3438rem
-                background: #fff
-                font-size: 0
-                border-bottom-1px(#e0e0e0)
-                .expand-msg
-                    display: inline-block
-                    width: 3.75rem
-                    height: 100%
-                    overflow: hidden
-                    .from
-                        margin: -0.1875rem 0 0 0
-                        float: left 
-                        height: 0.4063rem
-                        font-size: 0.4063rem
-                        color: #333
-                    .date
-                        margin: 0.1875rem 0 0 0
-                        float: left
-                        font-size: 0.3438rem
-                .get-number
-                    margin-right: 1.125rem
-                    float: right
-                    line-height: 1.6875rem 
-                    font-size: 0.4063rem    
-                    color: #333  
-
+            display: block
+            position: relative
+            margin-left: 0.5rem
+            width: 100%
+            height: 1.6875rem
+            line-height: 1.3438rem
+            background: #fff
+            font-size: 0
+            border-bottom-1px(#e0e0e0)
+            .expand-msg
+                display: inline-block
+                width: 3.75rem
+                height: 100%
+                overflow: hidden
+                .from
+                    margin: -0.1875rem 0 0 0
+                    float: left 
+                    height: 0.4063rem
+                    font-size: 0.4063rem
+                    color: #333
+                .date
+                    margin: 0.1875rem 0 0 0
+                    float: left
+                    font-size: 0.3438rem
+            .get-number
+                margin-right: 1.125rem
+                float: right
+                line-height: 1.6875rem 
+                font-size: 0.4063rem    
+                color: #333
+        .expand-item-empty
+            display flex
+            justify-content center
+            align-items center
+            margin-left 0 !important
+            font-size 0.4063rem !important
 </style>
 

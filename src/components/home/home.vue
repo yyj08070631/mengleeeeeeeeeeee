@@ -9,7 +9,7 @@
         </div>
         <!-- banner轮播 -->
         <div v-for="(val,key) in dataApp" :key="key">
-            <!-- <div>{{val.groupId}}</div> -->
+             <div>{{val.groupId}}</div>
             <!-- title -->
             <div class="bannerTitle" v-if="val.name != '-' && val.product.length != 0">{{val.name}}</div>
             <div class="bannerDivider" v-else-if="key != 0"></div>
@@ -73,12 +73,10 @@ export default {
                             name: '-',
                             product: (function () {
                                 let arr = [];
-                                for (let i = 0; i < res[key].banner.length; i++) {
-                                    arr.push({
-                                        id: res[key].banner[i].id,
-                                        src: res[key].banner[i].src
-                                    });
-                                }
+                                arr.push({
+                                    id: res[key].tip == 'gid' ? res[key].banner.gid : res[key].tip == 'aid' ? res[key].banner.aid : 'err',
+                                    src: res[key].banner.src
+                                });
                                 // console.log(arr);
                                 return arr
                             })()

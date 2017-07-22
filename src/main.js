@@ -35,7 +35,10 @@ import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
 import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
+import Vuex from 'vuex'
+import store from './vuex/store'
 
+Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
@@ -43,117 +46,117 @@ Vue.use(vueRouter)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 const routes = [{
-        path: '/goods',
-        component: goods
-    },
-    {
-        path: '/home',
-        component: home
-    },
-    {
-        path: '/myCenter',
-        component: myCenter
-    },
-    {
-        path: '/orderFrom',
-        component: orderFrom
-    },
-    {
-        path: '/goodDetail',
-        component: goodDetail
-    },
-    {
-        path: '/settings',
-        component: settings
-    },
-    {
-        path: '/myTeam',
-        component: myTeam
-    },
-    {
-        path: '/myQRcode',
-        component: myQRcode
-    },
-    {
-        path: '/integral',
-        component: integral
-    },
-    {
-        path: '/goodsData',
-        component: goodsData
-    },
-    {
-        path: '/offlineInfo',
-        component: offlineInfo
-    },
-    {
-        path: '/digest',
-        component: digest
-    },
-    {
-        path: '/bill',
-        component: bill
-    },
-    {
-        path: '/titleComputed',
-        component: titleComputed
-    },
-    {
-        path: '/expandComputed',
-        component: expandComputed
-    },
-    {
-        path: '/imageText',
-        component: imageText
-    },
-    {
-        path: '/nearbyStores',
-        component: nearbyStores
-    },
-    {
-        path: '/goodsClassify',
-        component: goodsClassify
-    },
-    {
-        path: '/teamComputed',
-        component: teamComputed
-    },
-    {
-        path: '/subscribe',
-        component: subscribe
-    },
-    {
-        path: '/subscribeNow',
-        component: subscribeNow
-    },
-    {
-        path: '/search',
-        component: search
-    },
-    {
-        path: '/buyGoods',
-        component: buyGoods
-    },
-    {
-        path: '/myCollect',
-        component: myCollect
-    },
-    {
-        path: '/cart',
-        component: cart
-    },
-    {
-        path: '/addrManage',
-        component: addrManage
-    },
-    {
-        path: '/addrEdit',
-        component: addrEdit
-    },
-    {
-        path: '/allOrder',
-        component: allOrder
-    }
+    path: '/goods',
+    component: goods
+},
+{
+    path: '/home',
+    component: home
+},
+{
+    path: '/myCenter',
+    component: myCenter
+},
+{
+    path: '/orderFrom',
+    component: orderFrom
+},
+{
+    path: '/goodDetail',
+    component: goodDetail
+},
+{
+    path: '/settings',
+    component: settings
+},
+{
+    path: '/myTeam',
+    component: myTeam
+},
+{
+    path: '/myQRcode',
+    component: myQRcode
+},
+{
+    path: '/integral',
+    component: integral
+},
+{
+    path: '/goodsData',
+    component: goodsData
+},
+{
+    path: '/offlineInfo',
+    component: offlineInfo
+},
+{
+    path: '/digest',
+    component: digest
+},
+{
+    path: '/bill',
+    component: bill
+},
+{
+    path: '/titleComputed',
+    component: titleComputed
+},
+{
+    path: '/expandComputed',
+    component: expandComputed
+},
+{
+    path: '/imageText',
+    component: imageText
+},
+{
+    path: '/nearbyStores',
+    component: nearbyStores
+},
+{
+    path: '/goodsClassify',
+    component: goodsClassify
+},
+{
+    path: '/teamComputed',
+    component: teamComputed
+},
+{
+    path: '/subscribe',
+    component: subscribe
+},
+{
+    path: '/subscribeNow',
+    component: subscribeNow
+},
+{
+    path: '/search',
+    component: search
+},
+{
+    path: '/buyGoods',
+    component: buyGoods
+},
+{
+    path: '/myCollect',
+    component: myCollect
+},
+{
+    path: '/cart',
+    component: cart
+},
+{
+    path: '/addrManage',
+    component: addrManage
+},
+{
+    path: '/addrEdit',
+    component: addrEdit
+},
+{
+    path: '/allOrder',
+    component: allOrder
+}
 ];
 
 
@@ -166,6 +169,30 @@ const router = new vueRouter({
 
 // 定义全局变量
 global.Domain = 'http://dde.dgxinn.cn/dream/index.php/Home'
+
+// // 页面切换显示loading
+// // 首先，注册一个module来保存状态
+// const store = new Vuex.Store({}) // 这里你可能已经有其他 module
+
+// store.registerModule('vux', { // 名字自己定义
+//     state: {
+//         isLoading: false
+//     },
+//     mutations: {
+//         updateLoadingStatus(state, payload) {
+//             state.isLoading = payload.isLoading
+//         }
+//     }
+// });
+// // 然后使用vue-router的beforeEach和afterEach来更改loading状态
+// router.beforeEach(function (to, from, next) {
+//   store.commit('updateLoadingStatus', {isLoading: true})
+//   next()
+// })
+
+// router.afterEach(function (to) {
+//   store.commit('updateLoadingStatus', {isLoading: false})
+// })
 
 new Vue({
     el: '#app',

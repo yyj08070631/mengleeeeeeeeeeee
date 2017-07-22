@@ -51,18 +51,33 @@
                     <span class="msg">{{data.constellation}}</span>
                     <img class="other" src="./more.png">
                 </div>
+                <!-- 天才如我才能想出来的透明遮罩！ -->
+                <select class="constellationBra" @change="changeConstellation($event)">
+                    <option value="1">白羊座</option>
+                    <option value="2">金牛座</option>
+                    <option value="3">双子座</option>
+                    <option value="4">巨蟹座</option>
+                    <option value="5">狮子座</option>
+                    <option value="6">处女座</option>
+                    <option value="7">天秤座</option>
+                    <option value="8">天蝎座</option>
+                    <option value="9">射手座</option>
+                    <option value="10">摩羯座</option>
+                    <option value="11">水瓶座</option>
+                    <option value="12">双鱼座</option>
+                </select>
             </a>
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">身高</span>
                 <div class="link-wrapper">
-                    <span class="msg">{{data.height}}</span>
+                    <span class="msg">{{data.height}}cm</span>
                     <img class="other" src="./more.png">
                 </div>
             </a>
             <a href="javascript:void(0)" class="message-item indent">
                 <span class="title">体重</span>
                 <div class="link-wrapper">
-                    <span class="msg">{{data.weight}}</span>
+                    <span class="msg">{{data.weight}}kg</span>
                     <img class="other" src="./more.png">
                 </div>
             </a>
@@ -84,12 +99,11 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">兴趣爱好</span>
                 <div class="link-wrapper">
-                    <span class="msg">未填写</span>
+                    <span class="msg">{{data.habbit}}</span>
                     <img class="other" src="./more.png">
                 </div>
             </a>
         </div>
-        <!-- modal -->
     </div>
 </template>
  <script type="ecmascript-6">
@@ -104,7 +118,8 @@ export default {
     },
     data() {
         return {
-            data: []
+            data: [],
+            showHideOnBlur: true,
         }
     },
     created() {
@@ -120,6 +135,24 @@ export default {
                 let res = response.body;
                 console.log(res);
                 this.data = res.data
+            })
+        },
+        // 修改星座
+        changeConstellation: function ($event) {
+            // console.log($event.target.value)
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/userSet?userId===tPtcNLZARXEuvDhRSFGkQX&constellation=' + $event.target.value,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log($event.target.value)
+                if (res.code == 200) {
+                    
+                } else {
+                    alert('修改失败！！');
+                    return
+                }
             })
         }
     },
@@ -242,11 +275,23 @@ export default {
                         margin-top: 0.5rem 
                         width: 0.375rem
                         height: 0.375rem
+                // 天才如我才能想出来的遮罩！
+                .constellationBra
+                    position absolute
+                    right 0
+                    width 5rem
+                    height 1.3438rem
+                    border 0
+                    background-color transparent
+                    font-size 0
+                    z-index 500
+                    option
+                        font-size 0.4063rem
             .indent
                 border-bottom-none()               
             .line
                 width: 100%
                 height: 0.3125rem
                 background: #f0f0f0            
-
+ 
 </style>
