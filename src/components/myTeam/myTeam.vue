@@ -1,6 +1,6 @@
 <template>
     <div class="myTeam-wrapper">
-        <!--头部-->    
+        <!--头部-->
         <header class="header">
             <div class="goBack">
                 <a href="javascript:history.back(1)">
@@ -8,206 +8,40 @@
                     <span>返回</span>
                 </a>
             </div>
-			<div class="title">我的团队</div>
+            <div class="title">我的团队</div>
             <div class="search">
                 <a href="javascript:void(0)">
-                    <a href="#search"><img src="./images/search.png"></a>
+                    <a href="#search">
+                        <img src="./images/search.png">
+                    </a>
                 </a>
             </div>
-		</header>
+        </header>
         <!--主体-->
         <section class="main">
             <!--概览-->
             <div class="overview">
                 <p>概况</p>
                 <div>
-                    <p>直属：100</p>
-                    <p>间接：500</p>
+                    <p>直属：{{data.d_count}}</p>
+                    <p>间接：{{data.i_count}}</p>
                 </div>
             </div>
             <!--团队列表-->
             <div class="teammateList">
-                <a href="javascript:void(0)" class="oneTeammate">
+                <a href="javascript:void(0)" class="oneTeammate" v-for="(val,key) in data.d_arr">
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
-                                <img src="./images/avatar01.png">
+                                <img :src="val.headimg">
                             </div>
                             <div class="boxRight">
                                 <div>
-                                    <p>Duke</p>
-                                    <img src="./images/huangguan.png">
+                                    <p>{{val.username}}</p>
+                                    <img :src="computeImg(val.level)">
                                 </div>
                                 <div>
-                                    加入时间-2017.06.14
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar02.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>友善猪</p>
-                                    <img src="./images/xiaobai.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.12
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar03.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>miley</p>
-                                    <img src="./images/xiaobai.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.12
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar04.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>AAA 拼单平价潮衣物品</p>
-                                    <img src="./images/xingxing.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.12
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar05.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>A 欧阳飞刀</p>
-                                    <img src="./images/xingxing.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.12
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar06.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>许丹璇</p>
-                                    <img src="./images/zuanshi.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.12
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar05.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>陈海浪</p>
-                                    <img src="./images/jinguan.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.11
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar08.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>美带.lucy</p>
-                                    <img src="./images/xingxing.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.11
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="oneTeammate">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img src="./images/avatar09.png">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>丹丹</p>
-                                    <img src="./images/xingxing.png">
-                                </div>
-                                <div>
-                                    加入时间-2017.06.11
+                                    加入时间-{{val.ctime}}
                                 </div>
                             </div>
                         </div>
@@ -223,7 +57,46 @@
 </template>
 <script type="ecmascript-6">
 export default {
+    data() {
+        return {
+            data: []
+        }
+    },
+    created() {
+        this.getDataFromBackend()
+    },
+    methods: {
+        getDataFromBackend: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/myTeam?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data
+            })
+        },
+        computeImg: function (level) {
+            if (level == 1) {
+                return require('./images/xiaobai.png')
+            } else if (level == 2) {
+                return require('./images/xingxing.png')
+            } else if (level == 3) {
+                return require('./images/zuanshi.png')
+            } else if (level == 4) {
+                return require('./images/jinguan.png')
+            } else if (level == 5) {
+                return require('./images/huangguan.png')
+            } else {
+                console.log('获取了无效的等级数据！');
+                return '#'
+            }
+        }
+    },
+    computed: {
 
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -338,6 +211,8 @@ img, span, a
                         display flex
                         align-items center
                         .boxLeft img
+                            width 1.1719rem
+                            height 1.1719rem
                             border-radius 50%
                         .boxRight
                             display flex
