@@ -42,7 +42,7 @@ import mySwiper from '../mySwiper/mySwiper'
 export default {
     data() {
         return {
-            dataApp: []
+            dataApp: [],
         }
     },
     created() {
@@ -63,7 +63,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                console.log(res)
+                //console.log(res)
                 // console.log(response)
                 for (var key in res) {
                     if (res[key].banner) {

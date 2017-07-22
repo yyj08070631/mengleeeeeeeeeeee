@@ -11,9 +11,6 @@ export default {
 	},	
 	created: function(){
 		this.$router.push('home')
-	},
-		mounted() {
-
 	}
 }
 </script>

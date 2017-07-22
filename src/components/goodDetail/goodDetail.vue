@@ -1,22 +1,22 @@
 <template>
 	<div class="goodDetail-wrapper">
 		<!--头部-->
-		<header class="header">
-			<a href="javascript:history.back(1)" class="goBack">
-				<img src="./images/arrow_left.png">
-				<span>返回</span>
-			</a>
-			<div class="title">商品详情</div>
-			<div class="search">
-				<a href="#search"><img class="searchImg" src="./images/search.png"></a>
-			</div>
-		</header>
+		<div class="header">
+            <div class="header-content border-bottom-1px">
+                <a href="javascript:history.back(-1)" class="goBack">
+				    <img src="./images/arrow_left.png">
+				    <span>返回</span>
+			    </a>
+                <h1 class="title">商品详情</h1>
+                <a href="#search"><img class="search" src="./images/search.png"/></a>
+            </div>
+        </div>
 		<!--图片轮播-->
-		<swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
-			<swiper-item class="swiper-demo-img" v-for="(item, index) in bannerImg" :key="index">
-				<img :src="item" width="100%" height="100%">
-			</swiper-item>
-		</swiper>
+		  <swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
+			   <swiper-item class="swiper-demo-img" v-for="(item, index) in detailItemList.albumitem" :key="index">
+				<img :src="item.src" width="100%" height="100%">
+			</swiper-item>   
+		</swiper>  
 		<!--导航按钮-->
 		<div class="detailNav">
 			<a href="#imageText">图文详情</a>
@@ -28,10 +28,10 @@
 		<div class="comment">
 			<div class="titleUp">
 				<div class="colLeft">
-					<a href="javascript:void(0)" class="rowUp">美悠斯 益生菌固体饮料 蔓越莓味 + 橙味</a>
+					<a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem[0].name}}</a><!---->
 					<div class="rowDown">
-						<p>￥268.00</p>
-						<p>已有 200 人购买</p>
+						<p>￥{{detailItemList.gooditem[0].price}}</p>
+						<p>已有 {{detailItemList.gooditem[0].sale}} 人购买</p>
 					</div>
 				</div>
 				<div class="colRight" name="share" role="button">
@@ -46,97 +46,28 @@
 					<p>看看大伙怎么说</p>
 				</div>
 				<div class="colRight">
-					共172个评论
+					共{{detailItemList.commentitem.count}}个评论
 				</div>
 			</div>
 			<hr class="divider dividerThin">
-			<div class="commentDetailContainer">
+			<div class="commentDetailContainer" v-for="(val,key) in detailItemList.commentitem.comment">
 				<div class="commentDetail">
 					<div class="colLeft">
-						<img src="./images/avatar00.png">
+						<img :src="val.headimg">
 					</div>
 					<div class="colRight">
 						<div class="rowUp">
-							<p>Duke</p>
-							<img src="./images/huangguan.png">
+							<p>{{val.username}}</p>
+							<img :src="imgList[val.level]">
 						</div>
 						<div class="rowDown">
-							Emmet (前身为 Zen Coding) 是一个能大幅度提高前端开发效率的一个工具. 在前端开发的过程中，一大部分的工作是写 HTML、CSS 代码。特别是手动编写 HTML 代码的时候，效率会特别低下，因为需要敲打很多尖括号，而且很多标签都需要闭合标签等。于是，就有了 Emmet，它可以极大的提高代码编写的效率，它提供了一种非常简练的语法规则，然后立刻生成对应的 HTML 结构或者 CSS 代码，同时还有多种实用的功能帮助进行前端开发。	
-						</div>
-					</div>
-				</div>
-				<hr class="divider dividerThin">
-			</div>
-			<div class="commentDetailContainer">
-				<div class="commentDetail">
-					<div class="colLeft">
-						<img src="./images/avatar01.png">
-					</div>
-					<div class="colRight">
-						<div class="rowUp">
-							<p>友善猪</p>
-							<img src="./images/xiaobai.png">
-						</div>
-						<div class="rowDown">
-							我就是这段时间用了就减掉了两斤肉肉。真的很高兴、看到这么多激励的评论，现在又有减肥的动力了。
-						</div>
-					</div>
-				</div>
-				<hr class="divider dividerThin">
-			</div>
-			<div class="commentDetailContainer">
-				<div class="commentDetail">
-					<div class="colLeft">
-						<img src="./images/avatar02.png">
-					</div>
-					<div class="colRight">
-						<div class="rowUp">
-							<p>A 欧阳飞刀</p>
-							<img src="./images/xingxing.png">
-						</div>
-						<div class="rowDown">
-							没有做任何的配合运动就瘦了那么多，真的是不知道高兴的说什么好了，对现在的身材已经非常满意了
-						</div>
-					</div>
-				</div>
-				<hr class="divider dividerThin">
-			</div>
-			<div class="commentDetailContainer">
-				<div class="commentDetail">
-					<div class="colLeft">
-						<img src="./images/avatar03.png">
-					</div>
-					<div class="colRight">
-						<div class="rowUp">
-							<p>陈海浪</p>
-							<img src="./images/jinguan.png">
-						</div>
-						<div class="rowDown">
-							现在用了快半个月了吧，效果很理想，已经瘦了3斤了，以前也减过很多次肥，有过运动有过节食，效果都不怎么样，都不太成功，这次受了那么多，还这么轻松的瘦下来，真的感觉好惊讶，不用那么痛苦的去减肥。
-						</div>
-					</div>
-				</div>
-				<hr class="divider dividerThin">
-			</div>
-			<div class="commentDetailContainer">
-				<div class="commentDetail">
-					<div class="colLeft">
-						<img src="./images/avatar04.png">
-					</div>
-					<div class="colRight">
-						<div class="rowUp">
-							<p>丹丹</p>
-							<img src="./images/xiaobai.png">
-						</div>
-						<div class="rowDown">
-							赞同~感觉有用~~
+							{{val.content}}
 						</div>
 					</div>
 				</div>
 				<hr class="divider dividerThin">
 			</div>
 			<div class="viewMore">
-				<spinner :type="ios" slot="value"></spinner>
 				<span>查看更多评价</span>
 			</div>
 		</div>
@@ -154,7 +85,7 @@
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img src="./images/collect.png" ref="menuItem" @click="changSrc(key)">
+				<img src="./images/collect.png" ref="menuItem" @click="changSrc()">
 				<p>加入收藏</p>
 			</a>
 			<router-link to="/cart">加购物袋</router-link>
@@ -164,26 +95,22 @@
 </template>
 <script type="ecmascript-6">
 import { Swiper, SwiperItem, Divider } from 'vux'
-import { Icon } from 'vux'
-import { Spinner } from 'vux'
-
-const imgList = [
-	'http://www.pptbz.com/d/file/p/201701/smallffd423a3ab9e735686ff2f099adfe309.jpg',
-	'http://img1.gamedog.cn/2011/11/22/14-111122102315-50.jpg',
-	'http://www.pptbz.com/d/file/p/201701/small70188852ba4be2e23b26ddb7b14df6f3.jpg'
-]
-
 export default {
 	components: {
 		Swiper,
 		SwiperItem,
 		Divider,
-		Icon,
-		Spinner
 	},
 	data() {
 		return {
-			bannerImg: imgList,
+			imgList: [
+				'',
+				require('./images/xiaobai.png'),
+				require('./images/xingxing.png'),
+				require('./images/zuanshi.png'),
+				require('./images/jinguan.png'),
+				require('./images/huangguan.png')
+					],
 			detailItemList: []
 		}	
 	},
@@ -191,7 +118,7 @@ export default {
 		onIndexChange(index) {
 			this.bannerIndex = index
 		},
-		changSrc: function(index){
+		changSrc: function(){
             let file = require('./images/collect.png');
             let file2 = require('./images/collect-active.png');
             let obj = this.$refs.menuItem
@@ -211,11 +138,11 @@ export default {
 		getDataFromBackend: function() {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/cate/detail?gid=1',
+                url: global.Domain + '/Cate/detail?gid='+this.$route.query.gid,
                 emulateJSON: true
             }).then(function (response) {
                 this.detailItemList = response.body
-                console.log(this.detailItemList)
+				console.log(this.detailItemList)
             })
         }
 	
@@ -225,7 +152,8 @@ export default {
 		this.$nextTick(function(){
 			this.getDataFromBackend()
 		})
-	}
+	},
+	
 	
 }
 </script>
@@ -238,49 +166,13 @@ export default {
 	// 外层元素
 	.goodDetail-wrapper
 		position absolute
-		top 1.25rem
+		top 1.0938rem
 		left 0
 		width width
 		background #fff
 		// 详情页header
 		.header
-			border-bottom-1px(#e0e0e0)
-			position fixed
-			display flex
-			top 0
-			left 0
-			justify-content space-between
-			align-items center
-			height 1.25rem
-			width width
-			background-color #f9f9f9
-			z-index 1
-			.goBack
-				font-size 0.1563rem
-				margin-left 0.5rem
-				flex 1
-				width width
-				display flex
-				align-items center
-				span
-					display block
-					color #ea68a2
-					margin-left 0.1563rem
-					font-size 0.4063rem
-				img
-					display block
-			.title
-				font-size 0.4063rem
-				font-weight 800
-				flex 1
-				width width
-				text-align center
-			.search
-				display flex
-				justify-content flex-end
-				margin-right 0.5rem
-				flex 1
-				width width
+			headerCss()
 		// 详情页导航
 		.detailNav
 			display flex
@@ -322,6 +214,9 @@ export default {
 						font-size 0.4063rem
 						font-weight bold
 						color: #333
+						img
+							width: 1.125rem !important
+							height: 0.375rem !important
 					.rowDown
 						margin-top 0.1563rem
 						display flex
