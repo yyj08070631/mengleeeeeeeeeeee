@@ -35,7 +35,7 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">昵称</span>
                 <div class="link-wrapper">
-                    <input class="inputBox msg" @change="changeNickname($event)" :value="data.username">
+                    <span class="msg">{{data.username}}</span>
                     <img class="other" src="./more.png">
                 </div>
             </a>
@@ -270,29 +270,6 @@ export default {
                 })
             } else {
                 alert('请输入正确的体重数字！！');
-                return
-            }
-        },
-        // 修改昵称
-        changeNickname: function ($event) {
-            // console.log($event.target.value.length)
-            if ((/^[\u4E00-\u9FA5A-Za-z0-9_]+$/.test($event.target.value)) && $event.target.value.length >= 3 && $event.target.value.length <= 15) {
-                this.$http({
-                    method: 'get',
-                    url: global.Domain + '/user/userSet?userId===tPtcNLZARXEuvDhRSFGkQX&username=' + $event.target.value,
-                    emulateJSON: true
-                }).then(function (response) {
-                    let res = response.body;
-                    // console.log($event.target.value)
-                    if (res.code == 200) {
-                        alert('修改成功！！');
-                    } else {
-                        alert('修改失败！！');
-                        return
-                    }
-                })
-            } else {
-                alert('昵称仅包含汉字、数字、字母及下划线且长度为3-15个字符！！');
                 return
             }
         },
