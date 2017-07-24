@@ -6,8 +6,8 @@
 </template>
 
 <script type="ecmascript-6"> 
-import { Loading } from 'vux'
-import { mapState } from 'vuex'
+// import { Loading } from 'vux'
+// import { mapState } from 'vuex'
 
 export default {
 	data: function () {

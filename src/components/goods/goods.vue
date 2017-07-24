@@ -4,7 +4,7 @@
         <!--头部-->    
         <div class="header">
             <div class="header-content border-bottom-1px">
-                <h1 class="title">商品分类</h1>
+                <h1 class="title">商品分类{{message}}</h1>
                 <a href="#search"><img class="search" src="./images/search.png"></a>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <hr class="divider dividerBig">
             <!--分类列表-->
             <div class="kindList">
-                <a href="#goodsClassify" class="oneKind" v-for="(val,key) in cateItemList" @click="changeId(key),eve()">
+                <router-link :to="{path:'/goodsClassify',query:{cid:val.id}}" class="oneKind" v-for="(val,key) in cateItemList">
                     <div class="oneKindMain">
                         <img :src="val.src">
                         <div>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <hr class="divider dividerThinNoMargin">
-                </a>
+                </router-link>
             </div>
             <hr class="divider dividerBig">
         </div>
@@ -63,32 +63,19 @@
 import view from '../../components/view/view';
 export default {
     components :{
-        'v-view': view
+        'v-view': view,
     },
     data() {
         return {
             cateItemList: [],
-            id: 0
+            static: 1
+            
         }
     },
     created () {
         this.getDataFromBackend()
     },
     methods: {
-        
-        eve() {
-            let Hub = new Vue();
-            Hub.$emit('change','hehe'); //Hub触发事件
-        },
-
-
-
-
-
-        changeId(index){
-            this.id=index
-            this.getDataFromBackend()
-        },
         // 获取数据方法
         getDataFromBackend() {
             let that = this;
@@ -102,7 +89,8 @@ export default {
                 this.cateItemList = res.cateitem
             })
         }
-    }
+    },
+    
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

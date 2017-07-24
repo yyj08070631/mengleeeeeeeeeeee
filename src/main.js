@@ -31,15 +31,16 @@ import cart from './components/cart/cart';
 import addrManage from './components/addrManage/addrManage';
 import addrEdit from './components/addrEdit/addrEdit';
 import allOrder from './components/allOrder/allOrder';
+import evaluate from './components/evaluate/evaluate';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
 import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
-import Vuex from 'vuex'
-import store from './vuex/store'
+//import Vuex from 'vuex'
+//import store from './vuex/store'
 
-Vue.use(Vuex)
+//Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
@@ -60,7 +61,11 @@ const routes = [{
 },
 {
     path: '/orderFrom',
-    component: orderFrom
+    component: orderFrom,
+    children: [{
+        path: '/orderFrom/evaluate',
+        component: evaluate
+    }]
 },
 {
     path: '/goodDetail',

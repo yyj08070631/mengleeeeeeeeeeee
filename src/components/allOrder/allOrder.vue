@@ -11,7 +11,7 @@
                 <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
-        <div class="content-wrapper item-cls">
+        <div class="order-content-wrapper item-cls">
             <div class="order-content">
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
                     <img class="product" width=104 height=104 :src="val.mainmap" />
@@ -20,29 +20,13 @@
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">待付款</span>
+                    <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
                     <span class="orderPrice">数量：{{val.number}}</span>
                     <div class="handle">
-                        <a class="link" href="javascript:void(0)">立即结账</a>
+                        <router-link class="link" :to="{path:'/goodDetail',query:{gid:11}}" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
-                    <div class="handle pos-left">
-                        <a class="link" href="javascript:void(0)">取消订单</a>
-                    </div>
-                </div>
-                <div class="content-item content-item-bottom" >
-                    <img class="product" width=104 height=104 src="./product01.png" />
-                    <div class="product-message">
-                        <span class="desc">圣雅琦 明眸亮莹眼部精华</span>
-                        <p class="num">数量:</p>
-                        <p class="price">总价:￥</p>
-                    </div>
-                    <span class="for-to-paid">待评价</span>
-                    <span class="orderPrice">数量：1</span>
-                    <div class="handle">
-                        <a class="link" href="javascript:void(0)">再次购买</a>
-                    </div>
-                    <div class="handle pos-left">
-                        <a class="link" href="javascript:void(0)">待评价</a>
+                    <div class="handle pos-left" v-if="val.status==1 || val.status == 3">
+                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
                     </div>
                 </div>
             </div>
@@ -80,7 +64,41 @@ export default {
     },
     data() {
         return {
-            orderList: []
+            orderList: [],
+            goodsTypeArr: [
+                'err',
+                {
+                    btnInfo: '取消订单',
+                    btnInfo2: '立即结账',
+                    type: '待结账',
+                    link: ''
+                },
+                'err',
+                {
+                    btnInfo: '去评价',
+                    btnInfo2: '再次购买',
+                    type: '待收货',
+                    link: ''
+                },
+                {
+                    btnInfo: '再次购买',
+                    type: '待评价',
+                    link: ''
+                },
+                {
+                    btnInfo: '再次购买',
+                    type: '交易成功',
+                    link: ''
+                },
+                'err',
+                'err',
+                {
+                    btnInfo: '再次购买',
+                    type: '订单取消',
+                    link: ''
+                }
+        
+            ],
         }
     },
     mounted(){
@@ -95,10 +113,7 @@ export default {
 @import '../../commom/stylus/mixin'
 mg-width = 1.125rem
 width100 = 100%
-  .orderFrom-wrapper
-    position: absolute
-    top: 1.0938rem
-    left: 0
+  .orderFrom-wrapper    
     width: 100%
     height: 100%
     background: #fff
@@ -109,8 +124,9 @@ width100 = 100%
         headerCss()
      .item-cls
        position: relative            
-     .content-wrapper
+     .order-content-wrapper
         width: 100%
+        height: 100%
         margin-left: 0.5rem
         font-size: 0
         .order-title
@@ -213,57 +229,7 @@ width100 = 100%
             width: 100%
             height: 11px
             background: #f0f0f0   
-        .slide-wrapper
-            margin-left: -15px
-            width: 100%
-            .slide-container
-                position: relative
-                margin: 15px auto
-                width: 100%
-                height: 190px
-                .vux-slider
-                    overflow: visible
-                    width: 100%
-                    .vux-swiper
-                        overflow: hidden
-                        position: relative
-                        margin: 0 auto
-                        width: 123px
-                        height: 123px
-                        background-size: 123px 123px
-                        .active
-                            background: none
-                        .vux-img
-                            width: 123px !important
-                            height: 123px !important
-                    .vux-swiper-desc
-                        bottom: 36px
-                        width: 123px 
-                        padding: 0
-                        height: auto
-                        overflow: visible 
-                        text-overflow: clip
-                        word-wrap:break-word 
-                        white-space: nowrap 
-                        text-shadow: none
-                        background: #fff
-                        font-size: 11px
-                        color: #333               
-                .vux-indicator 
-                    display: none
-                .x-item
-                    float: left  
-                    width: 20%
-                    height: 1.5008px 
-                    margin: 0
-                .shop-desc
-                    margin-top: 11px
-                    font-size: 11px    
-                .shop-price
-                    display: block
-                    font-size: 11px    
-                .active
-                    background: #606060        
+             
                             
 </style>    
 
