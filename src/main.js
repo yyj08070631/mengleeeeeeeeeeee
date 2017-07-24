@@ -18,6 +18,7 @@ import titleComputed from './components/titleComputed/titleComputed';
 import expandComputed from './components/expandComputed/expandComputed';
 import teamComputed from './components/teamComputed/teamComputed';
 import nearbyStores from './components/nearbyStores/nearbyStores';
+import nearbyStoresAll from './components/nearbyStoresAll/nearbyStoresAll';
 import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
 import offlineInfo from './components/offlineInfo/offlineInfo';
@@ -156,6 +157,10 @@ const routes = [{
 {
     path: '/allOrder',
     component: allOrder
+},
+{
+    path: '/nearbyStoresAll',
+    component: nearbyStoresAll
 }
 ];
 
