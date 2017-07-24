@@ -13,7 +13,7 @@
         <div class="content-wrapper item-cls">
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的订单</span>
-                <a href="#allOrder" class="content">查看全部订单</a>
+                <a href="#allOrder" class="content">查看更多订单</a>
                 <img class="more" width=11 height=11 src="./more.png" />
             </a>
             <div class="order-content">
@@ -24,16 +24,16 @@
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">待付款</span>
+                    <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
                     <span class="orderPrice">数量：{{val.number}}</span>
                     <div class="handle">
-                        <a class="link" href="javascript:void(0)">立即结账</a>
+                        <router-link class="link" :to="{path:'/goodDetail',query:{gid:11}}" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
-                    <div class="handle pos-left">
-                        <a class="link" href="javascript:void(0)">取消订单</a>
+                    <div class="handle pos-left" v-if="val.status==1 || val.status == 3">
+                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
                     </div>
                 </div>
-                <div class="content-item content-item-top" v-for="(val,key) in moreData.orderitem">
+                <div class="content-item content-item-top" v-for="(val,key) in moreData.orderitem" v-if="para>0">
                     <img class="product" width=104 height=104 :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
@@ -43,30 +43,14 @@
                     <span class="for-to-paid">待付款</span>
                     <span class="orderPrice">数量：{{val.number}}</span>
                     <div class="handle">
-                        <a class="link" href="javascript:void(0)">立即结账</a>
+                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo}}</a>
                     </div>
                     <div class="handle pos-left">
-                        <a class="link" href="javascript:void(0)">取消订单</a>
+                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
                     </div>
                 </div>
-                <!-- <div class="content-item content-item-bottom">
-                    <img class="product" src="./product01.png" />
-                    <div class="product-message">
-                        <span class="desc">圣雅琦 明眸亮莹眼部精华</span>
-                        <p class="num">数量:</p>
-                        <p class="price">总价:￥</p>
-                    </div>
-                    <span class="for-to-paid">待评价</span>
-                    <span class="orderPrice">数量：1</span>
-                    <div class="handle">
-                        <a class="link" href="javascript:void(0)">再次购买</a>
-                    </div>
-                    <div class="handle pos-left">
-                        <a class="link" href="javascript:void(0)">待评价</a>
-                    </div>
-                </div> -->
             </div>
-            <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()">查看更多订单</a>
+            <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()">{{goodsType}}</a>
             <div class="line"></div>
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的收藏</span>
@@ -76,7 +60,8 @@
                 <img class="more" src="./more.png" />
             </a>
         </div>
-        <swiper :options="swiperOption" ref="mySwiper" style="width: 100%;height: 100%">
+        <div class="swiper-pos">
+            <swiper :options="swiperOption" ref="mySwiper" style="width: 100%;height: 100%">
             <swiper-slide v-for="(val,key) in orderList.collectitem">
                 <!-- <router-link to="/goodDetail" v-if="dataApp.linkType == 'gid'">  -->
                 <img :src="val.mainmap">
@@ -88,7 +73,9 @@
             </swiper-slide>
             <!-- 这是轮播的小圆点 -->
             <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+            </swiper>
+        </div>
+        <router-view></router-view>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -106,11 +93,18 @@ export default {
     },
     methods: {
         addPara: function(){
-            this.para++;
-            if(this.moreData!='err'){
-                //  alert(this.moreData.orderitem+""+this.para)
-                
-            }          
+             this.para++;
+            if(this.para>this.moreData.orderitem.length){
+                this.para=this.moreData.orderitem.length;
+            }
+            if(this.moreData.orderitem.length){
+                this.goodsType = "没有更多订单了"
+            }else{
+                this.goodsType = "查看更多订单"
+            }
+         this.getMoreData();
+        //  console.log(this.para)
+
         },
         getDataFromBackend: function () {
             this.$http({
@@ -119,7 +113,6 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
-                //console.log(this.orderList)
             })
         },
         getMoreData: function () {
@@ -129,7 +122,8 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.moreData = response.body;
-                alert(this.moreData.orderitem.length)
+                console.log(this.moreData)
+                
             })
         }
     },
@@ -137,8 +131,43 @@ export default {
         return {
             para: 0,
             len: 0,
+            goodsType: '查看更多订单',
             orderList: [],
             moreData: [],
+            goodsTypeArr: [
+                'err',
+                {
+                    btnInfo: '取消订单',
+                    btnInfo2: '立即结账',
+                    type: '待结账',
+                    link1: '/goodDetail'
+                },
+                'err',
+                {
+                    btnInfo: '去评价',
+                    btnInfo2: '再次购买',
+                    type: '待收货',
+                    link: '/goodDetail'
+                },
+                {
+                    btnInfo: '再次购买',
+                    type: '待评价',
+                    link: '/goodDetail'
+                },
+                {
+                    btnInfo: '再次购买',
+                    type: '交易成功',
+                    link: '/goodDetail'
+                },
+                'err',
+                'err',
+                {
+                    btnInfo: '再次购买',
+                    type: '订单取消',
+                    link: '/goodDetail'
+                }
+        
+            ],
             swiperOption: {
                 notNextTick: true,
                 loop : false,
@@ -181,8 +210,9 @@ width100 = 100%
      .item-cls
        position: relative   
      .content-wrapper
-        width: 100%
         margin-left: 0.5rem
+        float: left
+        width: 100%
         font-size: 0
         .order-title
             display: block
@@ -283,28 +313,33 @@ width100 = 100%
             margin-left: -0.4688rem
             width: 100%
             height: 11px
-            background: #f0f0f0         
-    .swiper-container
-        position: relative
-        height: 8.125rem !important
-        .swiper-wrapper
-            width: 50% !important  
-            height: 5.4688rem
-            margin: 0.3125rem auto
-            img
-                width: 5.4063rem !important   
-                height: 5.4063rem !important
-            p
-                margin-top: 0.3125rem 
-                width: 5.4063rem !important   
-                font-size: 0.3438rem   
-                text-align: center
-        .swiper-pagination
-            height: 0.0313rem  !important 
-            background: #ccc
-            bottom: 0  
-            span
-                height: 0.0313rem
+            background: #f0f0f0  
+    .swiper-pos 
+        
+        width: 100%
+        height: 8.125rem          
+        margin-bottom: 1.3438rem !important  
+        .swiper-container
+            position: relative
+            height: 8.125rem !important
+            .swiper-wrapper
+                width: 50% !important  
+                height: 5.4688rem
+                margin: 0.3125rem auto
+                img
+                    width: 5.4063rem !important   
+                    height: 5.4063rem !important
+                p
+                    margin-top: 0.3125rem 
+                    width: 5.4063rem !important   
+                    font-size: 0.3438rem   
+                    text-align: center
+            .swiper-pagination
+                height: 0.0313rem  !important 
+                background: #ccc
+                bottom: 0  
+                span
+                    height: 0.0313rem
                                  
 </style>    
 
