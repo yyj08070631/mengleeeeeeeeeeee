@@ -9,7 +9,7 @@
         </div>
         <!-- banner轮播 -->
         <div v-for="(val,key) in dataApp" :key="key">
-             <div>{{val.groupId}}</div>
+             <!-- <div>{{val.groupId}}</div> -->
             <!-- title -->
             <div class="bannerTitle" v-if="val.name != '-' && val.product.length != 0">{{val.name}}</div>
             <div class="bannerDivider" v-else-if="key != 0"></div>
