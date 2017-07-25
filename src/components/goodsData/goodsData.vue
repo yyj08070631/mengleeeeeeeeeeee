@@ -11,7 +11,8 @@
             </div>
         </div>
         <div class="content-wrapper">
-            <div class="content-item">
+            
+            <!-- <div class="content-item">
                 <h2 class="title">美悠斯 益生菌固体饮料</h2>
                 <p class="desc">2种益生菌+100亿个活性益生菌，超级活菌来自全球领先的益生菌生产商杜邦-丹尼斯克。</p>
             </div>
@@ -84,7 +85,7 @@
                     <li>产品标准代号：Q/HRLRG0001</li>
                     <li>生产日期：见标示；保质期：18个月</li>
                 </ul>
-            </div>
+            </div> -->
         </div>
         <footer class="myFooter">
 			<a href="javascript:void(0)">
@@ -103,10 +104,10 @@
 <script type="ecmascript-6">
 export default {
   methods: {
-      getDataFromBackend: function() {
+      getContentData: function() {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/Cate/detail?cid=1',
+                url: global.Domain + '/Cate/data?gid='+this.$route.query.gid,
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
@@ -132,7 +133,7 @@ export default {
   },
   mounted(){
       this.$nextTick(function(){
-          this.getDataFromBackend()
+          this.getContentData()
       })
   },
   

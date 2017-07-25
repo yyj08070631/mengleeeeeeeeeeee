@@ -117,7 +117,7 @@ width100 = 100%
     width: 100%
     height: 100%
     background: #fff
-    overflow: hidden
+    overflow-x: hidden
     .route-item
         footerCss()
     .header
@@ -126,7 +126,6 @@ width100 = 100%
        position: relative            
      .order-content-wrapper
         width: 100%
-        height: 100%
         margin-left: 0.5rem
         font-size: 0
         .order-title

@@ -19,8 +19,8 @@
 		</swiper>  
 		<!--导航按钮-->
 		<div class="detailNav">
-			<a href="#imageText">图文详情</a>
-			<a href="#goodsData">商品参数</a>
+			<router-link :to="{path:'/imageText',query:{gid:$route.query.gid}}">图文详情</router-link>
+			<router-link :to="{path:'/goodsData',query:{gid:$route.query.gid}}">商品参数</router-link>
 		</div>
 		<!--粗分割线-->
 		<hr class="divider">
@@ -67,8 +67,25 @@
 				</div>
 				<hr class="divider dividerThin">
 			</div>
-			<div class="viewMore">
-				<span>查看更多评价</span>
+			<div class="commentDetailContainer" v-for="(item,key) in comMoreList">
+				<div class="commentDetail">
+					<div class="colLeft">
+						<img :src="item.headimg">
+					</div>
+					<div class="colRight">
+						<div class="rowUp">
+							<p>{{item.username}}</p>
+							<img :src="imgList[item.level]">
+						</div>
+						<div class="rowDown">
+							{{item.content}}
+						</div>
+					</div>
+				</div>
+				<hr class="divider dividerThin">
+			</div>
+			<div class="viewMore"> 
+				<span @click="addComMore">{{comNode}}</span>
 			</div>
 		</div>
 		<!--超粗分割线-->
@@ -103,18 +120,22 @@ export default {
 	},
 	data() {
 		return {
-			imgList: [
-				'',
+			imgList: [//等级划分对应数组
+				'err',
 				require('./images/xiaobai.png'),
 				require('./images/xingxing.png'),
 				require('./images/zuanshi.png'),
 				require('./images/jinguan.png'),
 				require('./images/huangguan.png')
 					],
-			detailItemList: []
+			detailItemList: [],
+			comNode: '查看更多评论',
+			comMoreList: [],//查看更多评论数组
+			para: 0
 		}	
 	},
 	methods: {
+		//改变收藏按钮样式函数
 		onIndexChange(index) {
 			this.bannerIndex = index
 		},
@@ -142,10 +163,32 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.detailItemList = response.body
-				console.log(this.detailItemList)
+				//console.log(this.detailItemList)
             })
-        }
-	
+        },
+		getMomMore: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Cate/commore?para='+this.para+'&gid='+this.$route.query.gid,
+                emulateJSON: true
+            }).then(function (response) {
+                let moreComMore = response.body;
+                if(moreComMore == 'err'){
+                    this.comNode = "没有更多评论了"
+                    this.para = this.para-1
+                   return
+                }else{
+                    this.comNode = "查看更多评论"
+                    moreComMore.commentitem.forEach((obj)=>{
+                    this.comMoreList.push(obj)
+					})
+                }
+            })
+		},
+		addComMore: function(){
+			this.para++
+			this.getMomMore()
+		}
 	
 	},
 	mounted(){
@@ -222,11 +265,12 @@ export default {
 						display flex
 						p
 							font-size 0.4063rem
+							color: #ff0
 						p:first-child
 							color #ea68a2
 						p:last-child
 							margin-left 0.25rem
-							color #909090
+							color #333
 				.colRight
 					display flex
 					flex-direction column
@@ -264,6 +308,10 @@ export default {
 				margin-bottom 0.3438rem
 				.colLeft
 					margin-right 0.5938rem
+					img
+						border-radius: 50%
+						width: 1.1719rem
+						height: 1.1719rem
 				.colRight
 					margin-top 0.1563rem
 					.rowUp
@@ -274,6 +322,7 @@ export default {
 							margin-left 0.0938rem
 						p
 							font-size 0.4063rem
+							color: #909090
 					.rowDown
 						font-size 0.4063rem
 						margin-top 0.1875rem
@@ -281,7 +330,7 @@ export default {
 						line-height 0.5rem
 						margin-right 0.625rem
 						text-align justify
-						color #909090
+						color #333
 			.viewMore
 				color #ea68a2
 				display flex
