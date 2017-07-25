@@ -6,13 +6,13 @@
 				    <img src="./arrow_left.png" height="16">
 				    <span>返回</span>
 			    </a>
-                <h1 class="title">产品参数</h1>
+                <h1 class="title">图文详情</h1>
                 <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
         <div class="activity-wrapper">
-                <div class="activity-title">
-                    <img src="./activity01.png" width=100% height=auto>
+                <div class="activity-title" v-html="unescape(imageTextList.imageitem.content)">
+                    <!-- {{ | unescape}} -->
                 </div>
         </div>
         <footer class="myFooter">
@@ -31,7 +31,36 @@
 </template>
 <script type="ecmascript-6">
 export default {
-  
+  data(){
+      return {
+          imageTextList: [],
+          tag: 0,
+        }
+    },
+  methods: {
+        getImageTextData: function() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Cate/image?gid='+this.$route.query.gid,
+                emulateJSON: true
+            }).then(function (response) {
+                this.imageTextList = response.body                  
+            })
+        },
+        unescape : function (html) {
+            return html
+            .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&quot;/g, "\"")
+            .replace(/&#39;/g, "\'");
+        } 
+    },
+    mounted(){
+        this.$nextTick(function(){
+            this.getImageTextData()
+        })
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -43,6 +72,7 @@ export default {
         headerCss()
     .content-wrapper
         margin: 0.625rem 0 0.5938rem 0.25rem
+        overflow-x: hidden
         .content-item
             padding: 0.2031rem 0.25rem 0.2031rem 0
             border-bottom-1px(#e0e0e0)

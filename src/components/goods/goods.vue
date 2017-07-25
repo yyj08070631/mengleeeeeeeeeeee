@@ -88,7 +88,15 @@ export default {
                 let res = response.body;
                 this.cateItemList = res.cateitem
             })
-        }
+        },
+        unescape : function (html) {
+            return html
+            .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&quot;/g, "\"")
+            .replace(/&#39;/g, "\'");
+        } 
     },
     
 }

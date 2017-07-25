@@ -4,7 +4,7 @@
         <!-- 头部 -->
         <div class="header">
             <div class="header-content">
-                <h1 class="title">查看订单</h1>
+                <h1 class="title"><router-link to="/orderFrom/evaluate">查看订单</router-link></h1>
                 <a href="#search">
                     <img class="search" src="./search.png" />
                 </a>
@@ -29,11 +29,11 @@
                     <div class="handle">
                         <router-link class="link" :to="{path:'/goodDetail',query:{gid:11}}" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
-                    <div class="handle pos-left" v-if="val.status==1 || val.status == 3">
+                    <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
                         <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
                     </div>
                 </div>
-                <div class="content-item content-item-top" v-for="(val,key) in moreData.orderitem" v-if="para>0">
+                <div class="content-item content-item-top" v-for="(val,key) in moreData">
                     <img class="product" width=104 height=104 :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
@@ -45,12 +45,14 @@
                     <div class="handle">
                         <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo}}</a>
                     </div>
-                    <div class="handle pos-left">
+                    <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
                         <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
                     </div>
                 </div>
             </div>
-            <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()">{{goodsType}}</a>
+            <div class="order-content">
+            </div>
+            <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()">{{goodsNode}}</a>
             <div class="line"></div>
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的收藏</span>
@@ -63,11 +65,9 @@
         <div class="swiper-pos">
             <swiper :options="swiperOption" ref="mySwiper" style="width: 100%;height: 100%">
             <swiper-slide v-for="(val,key) in orderList.collectitem">
-                <!-- <router-link to="/goodDetail" v-if="dataApp.linkType == 'gid'">  -->
-                <img :src="val.mainmap">
-                <!-- </router-link> -->
-                <!-- <router-link to="/offlineInfo" v-else-if="dataApp.linkType == 'aid'">  -->
-                <!-- </router-link>  -->
+                <router-link :to="{path:'/goodDetail',query:{gid:val.id}}">  
+                    <img :src="val.mainmap">
+                </router-link> 
                 <p>{{val.name}}</p>
                 <p v-if="val.type === 1">￥{{val.price}}</p>
             </swiper-slide>
@@ -92,20 +92,6 @@ export default {
 
     },
     methods: {
-        addPara: function(){
-             this.para++;
-            if(this.para>this.moreData.orderitem.length){
-                this.para=this.moreData.orderitem.length;
-            }
-            if(this.moreData.orderitem.length){
-                this.goodsType = "没有更多订单了"
-            }else{
-                this.goodsType = "查看更多订单"
-            }
-         this.getMoreData();
-        //  console.log(this.para)
-
-        },
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -121,19 +107,32 @@ export default {
                 url: global.Domain + '/Order/ordmore?para='+this.para,
                 emulateJSON: true
             }).then(function (response) {
-                this.moreData = response.body;
-                console.log(this.moreData)
-                
+                let moreData = response.body;
+                if(moreData == 'err'){
+                    this.goodsNode = "没有更多订单了"
+                    this.para = this.para-1
+                   return
+                }else{
+                    this.goodsNode = "查看更多订单"
+                    moreData.orderitem.forEach((obj)=>{
+                    this.moreData.push(obj)
+                    })
+                }
             })
-        }
+        },
+        addPara: function(){
+            this.para++;
+            this.getMoreData();
+ 
+        },
     },
     data() {
         return {
             para: 0,
-            len: 0,
-            goodsType: '查看更多订单',
+            goodsNode: '查看更多订单',
             orderList: [],
             moreData: [],
+            para: 0,
             goodsTypeArr: [
                 'err',
                 {
@@ -184,7 +183,6 @@ export default {
     mounted() {
         this.$nextTick(function () {
             this.getDataFromBackend();
-            this.getMoreData();
         })
     }
 }
@@ -195,9 +193,7 @@ export default {
 mg-width = 1.125rem
 width100 = 100%
   .orderFrom-wrapper
-    position: absolute
-    top: 1.0938rem
-    left: 0
+    margin-top: 1.0938rem
     padding-bottom: 1.3438rem
     width: 100%
     height: 100%
@@ -209,10 +205,12 @@ width100 = 100%
         headerCss()
      .item-cls
        position: relative   
+       display: block
      .content-wrapper
         margin-left: 0.5rem
         float: left
         width: 100%
+        height: 100%
         font-size: 0
         .order-title
             display: block
@@ -245,6 +243,7 @@ width100 = 100%
             .content-item-bottom
                 height: 3.4375rem
             .content-item
+                display: block
                 position: relative
                 border-bottom-1px(#e6e6e6)           
                 .product
@@ -315,10 +314,9 @@ width100 = 100%
             height: 11px
             background: #f0f0f0  
     .swiper-pos 
-        
+        float: left 
         width: 100%
         height: 8.125rem          
-        margin-bottom: 1.3438rem !important  
         .swiper-container
             position: relative
             height: 8.125rem !important
