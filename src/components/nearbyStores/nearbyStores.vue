@@ -20,7 +20,7 @@
                     <img width="104" height="104" src="./stores.png">
                 </div>
                 <div>
-                    <p class="title">完美尺寸 天誉花园</p>
+                    <p class="title" @click="getNearByStoresData">完美尺寸 天誉花园</p>
                     <p>周一至周日，上午9:30-下午10:00</p>
                     <p>1.1公里 | 14分钟</p>
                 </div>
@@ -47,8 +47,28 @@ export default {
     },
     components :{
         'v-view': view
-    } 
+    },
+    methods: {
+         getNearByStoresData() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Nearby/nearby',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res)
+                console.log(1)
+            })
+        },
+    },
+    mounted(){
+		this.$nextTick(function(){
+			this.getNearByStoresData()
+		})
+	},
+        
 }
+    
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'

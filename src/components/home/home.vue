@@ -113,7 +113,7 @@ export default {
                         console.log('获取了无效的数据！')
                     }
                 }
-                console.log(result)
+                //console.log(result)
                 this.dataApp = result
             })
         }
