@@ -29,10 +29,6 @@
                 </div>
             </a>
             <div class="line"></div>
-            <router-link :to="{ path: '/nearbyStoresAll', query: { name: 'handsomeB' } }" class="all-stores">
-                浏览所有线下项目实体店
-                <img class="more" width="32" height="32" src="./more.png">
-            </router-link>
         </div>     
         
     </div>

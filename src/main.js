@@ -18,6 +18,7 @@ import titleComputed from './components/titleComputed/titleComputed';
 import expandComputed from './components/expandComputed/expandComputed';
 import teamComputed from './components/teamComputed/teamComputed';
 import nearbyStores from './components/nearbyStores/nearbyStores';
+import nearbyStoresAll from './components/nearbyStoresAll/nearbyStoresAll';
 import imageText from './components/imageText/imageText';
 import goodsClassify from './components/goodsClassify/goodsClassify';
 import offlineInfo from './components/offlineInfo/offlineInfo';
@@ -47,121 +48,125 @@ Vue.use(vueRouter)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 const routes = [{
-        path: '/goods',
-        component: goods
-    },
-    {
-        path: '/home',
-        component: home
-    },
-    {
-        path: '/myCenter',
-        component: myCenter
-    },
-    {
-        path: '/orderFrom',
-        component: orderFrom,
-        children: [{
-            path: '/orderFrom/evaluate',
-            component: evaluate
-        }]
-    },
-    {
-        path: '/goodDetail',
-        component: goodDetail
-    },
-    {
-        path: '/settings',
-        component: settings
-    },
-    {
-        path: '/myTeam',
-        component: myTeam
-    },
-    {
-        path: '/myQRcode',
-        component: myQRcode
-    },
-    {
-        path: '/integral',
-        component: integral
-    },
-    {
-        path: '/goodsData',
-        component: goodsData
-    },
-    {
-        path: '/offlineInfo',
-        component: offlineInfo
-    },
-    {
-        path: '/digest',
-        component: digest
-    },
-    {
-        path: '/bill',
-        component: bill
-    },
-    {
-        path: '/titleComputed',
-        component: titleComputed
-    },
-    {
-        path: '/expandComputed',
-        component: expandComputed
-    },
-    {
-        path: '/imageText',
-        component: imageText
-    },
-    {
-        path: '/nearbyStores',
-        component: nearbyStores
-    },
-    {
-        path: '/goodsClassify',
-        component: goodsClassify
-    },
-    {
-        path: '/teamComputed',
-        component: teamComputed
-    },
-    {
-        path: '/subscribe',
-        component: subscribe
-    },
-    {
-        path: '/subscribeNow',
-        component: subscribeNow
-    },
-    {
-        path: '/search',
-        component: search
-    },
-    {
-        path: '/buyGoods',
-        component: buyGoods
-    },
-    {
-        path: '/myCollect',
-        component: myCollect
-    },
-    {
-        path: '/cart',
-        component: cart
-    },
-    {
-        path: '/addrManage',
-        component: addrManage
-    },
-    {
-        path: '/addrEdit',
-        component: addrEdit
-    },
-    {
-        path: '/allOrder',
-        component: allOrder
-    }
+    path: '/goods',
+    component: goods
+},
+{
+    path: '/home',
+    component: home
+},
+{
+    path: '/myCenter',
+    component: myCenter
+},
+{
+    path: '/orderFrom',
+    component: orderFrom,
+    children: [{
+        path: '/orderFrom/evaluate',
+        component: evaluate
+    }]
+},
+{
+    path: '/goodDetail',
+    component: goodDetail
+},
+{
+    path: '/settings',
+    component: settings
+},
+{
+    path: '/myTeam',
+    component: myTeam
+},
+{
+    path: '/myQRcode',
+    component: myQRcode
+},
+{
+    path: '/integral',
+    component: integral
+},
+{
+    path: '/goodsData',
+    component: goodsData
+},
+{
+    path: '/offlineInfo',
+    component: offlineInfo
+},
+{
+    path: '/digest',
+    component: digest
+},
+{
+    path: '/bill',
+    component: bill
+},
+{
+    path: '/titleComputed',
+    component: titleComputed
+},
+{
+    path: '/expandComputed',
+    component: expandComputed
+},
+{
+    path: '/imageText',
+    component: imageText
+},
+{
+    path: '/nearbyStores',
+    component: nearbyStores
+},
+{
+    path: '/goodsClassify',
+    component: goodsClassify
+},
+{
+    path: '/teamComputed',
+    component: teamComputed
+},
+{
+    path: '/subscribe',
+    component: subscribe
+},
+{
+    path: '/subscribeNow',
+    component: subscribeNow
+},
+{
+    path: '/search',
+    component: search
+},
+{
+    path: '/buyGoods',
+    component: buyGoods
+},
+{
+    path: '/myCollect',
+    component: myCollect
+},
+{
+    path: '/cart',
+    component: cart
+},
+{
+    path: '/addrManage',
+    component: addrManage
+},
+{
+    path: '/addrEdit',
+    component: addrEdit
+},
+{
+    path: '/allOrder',
+    component: allOrder
+},
+{
+    path: '/nearbyStoresAll',
+    component: nearbyStoresAll
+}
 ];
 
 
