@@ -18,11 +18,19 @@
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
-            <mySwiper class="mySwiper"></mySwiper>
+            <img :src="data.nearbyitem.mainmap[0].src" width="100%" height="100%" v-if="data.nearbyitem.mainmap.length == 1">
+            <swiper :options="swiperOption" ref="mySwiper" v-else-if="data.nearbyitem.mainmap.length > 1">
+                <swiper-slide v-for="(val,key) in data.nearbyitem.mainmap">
+                    <img :src="val.src" width="100%" height="100%">
+                </swiper-slide>
+                <!-- 这是轮播的小圆点 -->
+                <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+            <div class="swiper-instead" v-else>找不到图片x_x</div>
             <!-- 线下信息 -->
             <div class="offlineInfo">
                 <div class="rowUp">
-                    <p>完美尺寸 天御公园店</p>
+                    <p>{{data.nearbyitem.name}}</p>
                     <a href="javascript:void(0)">
                         <img src="./images/share.png">
                         <span>分享</span>
@@ -30,19 +38,19 @@
                 </div>
                 <hr class="divider dividerMargin">
                 <div class="rowMiddle">
-                    <p class="tel">020-38845959</p>
+                    <p class="tel">{{data.nearbyitem.phone}}</p>
                     <p class="time">
-                        营业时间：周一至周日，上午9:30-下午10:00
+                        营业时间：{{data.nearbyitem.trade_time}}，{{data.nearbyitem.day_time}}
                     </p>
                 </div>
                 <hr class="divider dividerMargin">
                 <a class="rowDown" href="javascript:void(0)">
                     <div class="colLeft">
-                        <p class="loc">广州市天河区林和中路139号天誉花园2期101铺</p>
+                        <p class="loc">{{data.nearbyitem.address}}</p>
                         <p class="dis">
-                            <span>1.1公里</span>
+                            <span>{{data.nearbyitem.distance}}公里</span>
                             <span class="verticalLine">|</span>
-                            <span>14分钟</span>
+                            <span>{{data.nearbyitem.minute}}分钟</span>
                         </p>
                     </div>
                     <div class="colRight">
@@ -59,9 +67,9 @@
                     <span>线下服务</span>
                 </h1>
                 <hr class="divider dividerMargin">
-                <router-link to="/digest">
-                    <span>单人泡澡 + 臀部疗保养 + 面部补水三项套餐</span>
-                    <span>￥199.00</span>
+                <router-link :to="{ path: '/digest', query: { id: val.id } }" v-for="(val,key) in data.sericeitem">
+                    <span>{{val.name}}</span>
+                    <span>￥{{parseFloat(val.price).toFixed(2)}}</span>
                 </router-link>
             </div>
             <!--粗分割线-->
@@ -74,97 +82,28 @@
                         <p>看看大伙怎么说</p>
                     </div>
                     <div class="colRight">
-                        共172个评论
+                        共{{data.commentitem.count}}个评论
                     </div>
                 </div>
                 <hr class="divider">
-                <div class="commentDetailContainer">
+                <div class="commentDetailContainer" v-for="(val,key) in data.commentitem.comment">
                     <div class="commentDetail">
                         <div class="colLeft">
-                            <img src="./images/avatar00.png">
+                            <img :src="val.headimg">
                         </div>
                         <div class="colRight">
                             <div class="rowUp">
-                                <p>Duke</p>
-                                <img src="./images/huangguan.png">
+                                <p>{{val.username}}</p>
+                                <img :src="computeImg(val.level)">
                             </div>
                             <div class="rowDown">
-                                Emmet (前身为 Zen Coding) 是一个能大幅度提高前端开发效率的一个工具. 在前端开发的过程中，一大部分的工作是写 HTML、CSS 代码。特别是手动编写 HTML 代码的时候，效率会特别低下，因为需要敲打很多尖括号，而且很多标签都需要闭合标签等。于是，就有了 Emmet，它可以极大的提高代码编写的效率，它提供了一种非常简练的语法规则，然后立刻生成对应的 HTML 结构或者 CSS 代码，同时还有多种实用的功能帮助进行前端开发。
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="divider">
-                </div>
-                <div class="commentDetailContainer">
-                    <div class="commentDetail">
-                        <div class="colLeft">
-                            <img src="./images/avatar01.png">
-                        </div>
-                        <div class="colRight">
-                            <div class="rowUp">
-                                <p>友善猪</p>
-                                <img src="./images/xiaobai.png">
-                            </div>
-                            <div class="rowDown">
-                                我就是这段时间用了就减掉了两斤肉肉。真的很高兴、看到这么多激励的评论，现在又有减肥的动力了。
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="divider">
-                </div>
-                <div class="commentDetailContainer">
-                    <div class="commentDetail">
-                        <div class="colLeft">
-                            <img src="./images/avatar02.png">
-                        </div>
-                        <div class="colRight">
-                            <div class="rowUp">
-                                <p>A 欧阳飞刀</p>
-                                <img src="./images/xingxing.png">
-                            </div>
-                            <div class="rowDown">
-                                没有做任何的配合运动就瘦了那么多，真的是不知道高兴的说什么好了，对现在的身材已经非常满意了
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="divider">
-                </div>
-                <div class="commentDetailContainer">
-                    <div class="commentDetail">
-                        <div class="colLeft">
-                            <img src="./images/avatar03.png">
-                        </div>
-                        <div class="colRight">
-                            <div class="rowUp">
-                                <p>陈海浪</p>
-                                <img src="./images/jinguan.png">
-                            </div>
-                            <div class="rowDown">
-                                现在用了快半个月了吧，效果很理想，已经瘦了3斤了，以前也减过很多次肥，有过运动有过节食，效果都不怎么样，都不太成功，这次受了那么多，还这么轻松的瘦下来，真的感觉好惊讶，不用那么痛苦的去减肥。
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="divider">
-                </div>
-                <div class="commentDetailContainer">
-                    <div class="commentDetail">
-                        <div class="colLeft">
-                            <img src="./images/avatar04.png">
-                        </div>
-                        <div class="colRight">
-                            <div class="rowUp">
-                                <p>丹丹</p>
-                                <img src="./images/xiaobai.png">
-                            </div>
-                            <div class="rowDown">
-                                赞同~感觉有用~~
+                                {{val.content}}
                             </div>
                         </div>
                     </div>
                     <hr class="divider">
                 </div>
                 <div class="viewMore">
-                    <spinner type="bubbles" slot="value" size=""></spinner>
                     <span>查看更多评价</span>
                 </div>
             </div>
@@ -173,19 +112,79 @@
     </div>
 </template>
 <script type="ecmascript-6">
-import { Spinner } from 'vux'
-import mySwiper from '../mySwiper/mySwiper'
-
-const imgList = [
-    'http://www.pptbz.com/d/file/p/201701/smallffd423a3ab9e735686ff2f099adfe309.jpg',
-    'http://img1.gamedog.cn/2011/11/22/14-111122102315-50.jpg',
-    'http://www.pptbz.com/d/file/p/201701/small70188852ba4be2e23b26ddb7b14df6f3.jpg'
-]
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
     components: {
-        Spinner,
-        'mySwiper': mySwiper
+        swiper,
+        swiperSlide,
+    },
+    data() {
+        return {
+            swiperOption: {
+                notNextTick: true,
+                autoplay: 3000,
+                loop: true,
+                paginationType: "bullets",
+                pagination: '.swiper-pagination',
+                paginationBulletRender: function (swiper, index, className) {
+                    let width = (isFinite(100 / (parseInt(swiper.imagesLoaded / 2))) ? 100 / (parseInt(swiper.imagesLoaded / 2)) : 100) + '%';
+                    // console.log(width);
+                    return '<span class="' + className + '"' + 'style="width:' + width + '"' + '></span>';
+                }
+            },
+            data: [],
+            // img: [
+            //     'http://pic.58pic.com/58pic/14/01/25/96Q58PICs7j_1024.jpg',
+            //     'http://img0.imgtn.bdimg.com/it/u=3685194930,2385658000&fm=214&gp=0.jpg',
+            //     'http://www.pp3.cn/uploads/201410/2014102809.jpg',
+            //     'http://tupian.enterdesk.com/2015/xll/28/12/lizhiyou7.jpg'
+            // ]
+        }
+    },
+    created() {
+        
+    },
+    methods: {
+        // 获取数据方法
+        getDataFromBackend() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/nearby/netail?nid=' + this.$route.query.nid,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log(res);
+                this.data = res;
+            });
+        },
+        computeImg: function (level) {
+            if (level == 1) {
+                return require('./images/xiaobai.png')
+            } else if (level == 2) {
+                return require('./images/xingxing.png')
+            } else if (level == 3) {
+                return require('./images/zuanshi.png')
+            } else if (level == 4) {
+                return require('./images/jinguan.png')
+            } else if (level == 5) {
+                return require('./images/huangguan.png')
+            } else {
+                console.log('获取了无效的等级数据！');
+                return '#'
+            }
+        }
+    },
+    //定义这个sweiper对象  
+    computed: {
+        swiper() {
+            return this.$refs.mySwiper.swiper;
+        }
+    },
+    mounted() {
+        //这边就可以使用swiper这个对象去使用swiper官网中的那些方法  
+        // this.swiper.slideTo(0, 0, false);
+        this.getDataFromBackend();
     }
 }
 </script>
@@ -211,6 +210,18 @@ img, span, a
         border-radius 0
     .swiper-pagination-bullet-active
         background #606060
+.swiper-container
+    height 7.5rem
+.swiper-instead
+    display flex
+    justify-content center
+    align-items center
+    width 100%
+    height 7.5rem
+    background-color #fff
+    font-size 0.5rem
+    color #333
+    border-bottom-1px(#e0e0e0)
 
 // 外层元素
 .offlineInfo-wrapper
