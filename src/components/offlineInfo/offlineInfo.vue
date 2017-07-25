@@ -284,7 +284,6 @@ img, span, a
                     height 0.4219rem
     // 主体
     .main
-        margin-bottom 1.3438rem
         // 分割线
         .divider
             margin 0
