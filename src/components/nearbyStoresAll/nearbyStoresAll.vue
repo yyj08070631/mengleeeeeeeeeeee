@@ -7,22 +7,22 @@
 				    <img src="./arrow_left.png" height="16">
 				    <span>返回</span>
 			    </a>
-                <h1 class="title">查找实体店</h1>
+                <h1 class="title">查看所有实体店</h1>
                 <a href="#search"><img class="search" src="./search.png"/></a>
              </div>
         </div>
         <div class="store-message">
             <div href="javascript:void(0)" class="store-computed border-bottom-1px">
-                <span class="computed">附近的项目实体店</span>
+                <span class="computed">附近所有项目实体店</span>
             </div>
             <a href="#offlineInfo" class="store-item">
                 <div>
-                    <img width="104" height="104" src="./stores.png">
+                    <img :src="data.mainmap">
                 </div>
                 <div>
-                    <p class="title">完美尺寸 天誉花园</p>
-                    <p>周一至周日，上午9:30-下午10:00</p>
-                    <p>1.1公里 | 14分钟</p>
+                    <p class="title">{{data.name}}</p>
+                    <p>{{data.trade_time}}，{{data.day_time}}</p>
+                    <p>{{data.distance}}公里 | {{data.minute}}分钟</p>
                 </div>
                 <div>
                     <img class="more" width="32" height="32" src="./more.png">
@@ -36,14 +36,32 @@
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 export default {
-    data(){
+    components :{
+        'v-view': view,
+    },
+    data() {
         return {
-            showClass: true
+            data: []
         }
     },
-    components :{
-        'v-view': view
-    } 
+    created () {
+        this.getDataFromBackend()
+    },
+    methods: {
+        // 获取数据方法
+        getDataFromBackend() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Nearby/nelist',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log(res);
+                this.data = res.nearbyitem
+                console.log(this.data)
+            });
+        }
+    },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

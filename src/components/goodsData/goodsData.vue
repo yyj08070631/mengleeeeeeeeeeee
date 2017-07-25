@@ -10,7 +10,7 @@
                 <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
-        <div class="content-wrapper">
+        <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)">
             
             <!-- <div class="content-item">
                 <h2 class="title">美悠斯 益生菌固体饮料</h2>
@@ -103,6 +103,11 @@
 </template>
 <script type="ecmascript-6">
 export default {
+  data(){
+      return {
+        dataList: '',
+      }
+  },
   methods: {
       getContentData: function() {
             this.$http({
@@ -110,9 +115,17 @@ export default {
                 url: global.Domain + '/Cate/data?gid='+this.$route.query.gid,
                 emulateJSON: true
             }).then(function (response) {
-                let res = response.body
-                console.log(res)
+                this.dataList = response.body
+                
             })
+        },
+        unescape : function (html) {
+            return html
+            .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&quot;/g, "\"")
+            .replace(/&#39;/g, "\'");
         },
         changSrc: function(index){
             let file = require('./collect.png');

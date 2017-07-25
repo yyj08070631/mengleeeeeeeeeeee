@@ -42,7 +42,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import AMap from 'vue-amap'
 
 Vue.use(AMap)
-//Vue.use(Vuex)
+    //Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
@@ -58,8 +58,7 @@ AMap.initAMapApiLoader({
     plugin: ['Scale', 'Geolocation']
 })
 
-const routes = [
-    {
+const routes = [{
         path: '/goods',
         component: goods
     },
