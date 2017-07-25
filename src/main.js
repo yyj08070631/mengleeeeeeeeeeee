@@ -39,7 +39,9 @@ import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 //import Vuex from 'vuex'
 //import store from './vuex/store'
+import AMap from 'vue-amap'
 
+Vue.use(AMap)
 //Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
@@ -47,128 +49,137 @@ Vue.use(vueResource)
 Vue.use(vueRouter)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
-const routes = [{
-    path: '/goods',
-    component: goods
-},
-{
-    path: '/home',
-    component: home
-},
-{
-    path: '/myCenter',
-    component: myCenter
-},
-{
-    path: '/orderFrom',
-    component: orderFrom,
-    children: [{
-        path: '/orderFrom/evaluate',
-        component: evaluate
-    }]
-},
-{
-    path: '/goodDetail',
-    component: goodDetail
-},
-{
-    path: '/settings',
-    component: settings
-},
-{
-    path: '/myTeam',
-    component: myTeam
-},
-{
-    path: '/myQRcode',
-    component: myQRcode
-},
-{
-    path: '/integral',
-    component: integral
-},
-{
-    path: '/goodsData',
-    component: goodsData
-},
-{
-    path: '/offlineInfo',
-    component: offlineInfo
-},
-{
-    path: '/digest',
-    component: digest
-},
-{
-    path: '/bill',
-    component: bill
-},
-{
-    path: '/titleComputed',
-    component: titleComputed
-},
-{
-    path: '/expandComputed',
-    component: expandComputed
-},
-{
-    path: '/imageText',
-    component: imageText
-},
-{
-    path: '/nearbyStores',
-    component: nearbyStores
-},
-{
-    path: '/goodsClassify',
-    component: goodsClassify
-},
-{
-    path: '/teamComputed',
-    component: teamComputed
-},
-{
-    path: '/subscribe',
-    component: subscribe
-},
-{
-    path: '/subscribeNow',
-    component: subscribeNow
-},
-{
-    path: '/search',
-    component: search
-},
-{
-    path: '/buyGoods',
-    component: buyGoods
-},
-{
-    path: '/myCollect',
-    component: myCollect
-},
-{
-    path: '/cart',
-    component: cart
-},
-{
-    path: '/addrManage',
-    component: addrManage
-},
-{
-    path: '/addrEdit',
-    component: addrEdit
-},
-{
-    path: '/allOrder',
-    component: allOrder
-},
-{
-    path: '/nearbyStoresAll',
-    component: nearbyStoresAll
-}
-];
 
+// 初始化vue-amap
+AMap.initAMapApiLoader({
+    // 申请的高德key
+    key: 'cff70e3d1e0ff9e38fb1d82801838419',
+    // 插件集合
+    plugin: ['Scale', 'Geolocation']
+})
+
+const routes = [
+    {
+        path: '/goods',
+        component: goods
+    },
+    {
+        path: '/home',
+        component: home
+    },
+    {
+        path: '/myCenter',
+        component: myCenter
+    },
+    {
+        path: '/orderFrom',
+        component: orderFrom,
+        children: [{
+            path: '/orderFrom/evaluate',
+            component: evaluate
+        }]
+    },
+    {
+        path: '/goodDetail',
+        component: goodDetail
+    },
+    {
+        path: '/settings',
+        component: settings
+    },
+    {
+        path: '/myTeam',
+        component: myTeam
+    },
+    {
+        path: '/myQRcode',
+        component: myQRcode
+    },
+    {
+        path: '/integral',
+        component: integral
+    },
+    {
+        path: '/goodsData',
+        component: goodsData
+    },
+    {
+        path: '/offlineInfo',
+        component: offlineInfo
+    },
+    {
+        path: '/digest',
+        component: digest
+    },
+    {
+        path: '/bill',
+        component: bill
+    },
+    {
+        path: '/titleComputed',
+        component: titleComputed
+    },
+    {
+        path: '/expandComputed',
+        component: expandComputed
+    },
+    {
+        path: '/imageText',
+        component: imageText
+    },
+    {
+        path: '/nearbyStores',
+        component: nearbyStores
+    },
+    {
+        path: '/goodsClassify',
+        component: goodsClassify
+    },
+    {
+        path: '/teamComputed',
+        component: teamComputed
+    },
+    {
+        path: '/subscribe',
+        component: subscribe
+    },
+    {
+        path: '/subscribeNow',
+        component: subscribeNow
+    },
+    {
+        path: '/search',
+        component: search
+    },
+    {
+        path: '/buyGoods',
+        component: buyGoods
+    },
+    {
+        path: '/myCollect',
+        component: myCollect
+    },
+    {
+        path: '/cart',
+        component: cart
+    },
+    {
+        path: '/addrManage',
+        component: addrManage
+    },
+    {
+        path: '/addrEdit',
+        component: addrEdit
+    },
+    {
+        path: '/allOrder',
+        component: allOrder
+    },
+    {
+        path: '/nearbyStoresAll',
+        component: nearbyStoresAll
+    }
+];
 
 const router = new vueRouter({
     routes,

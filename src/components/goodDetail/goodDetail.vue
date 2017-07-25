@@ -206,7 +206,7 @@ export default {
 				border-color #e0e0e0
 			.titleUp
 				display flex
-				justify-content space-around
+				justify-content space-between
 				align-items center
 				margin 0.5rem 0
 				.colLeft
