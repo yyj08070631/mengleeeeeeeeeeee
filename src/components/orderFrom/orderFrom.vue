@@ -311,7 +311,7 @@ width100 = 100%
         .line
             margin-left: -0.4688rem
             width: 100%
-            height: 11px
+            height: 0.3438rem
             background: #f0f0f0  
     .swiper-pos 
         float: left 

@@ -159,6 +159,7 @@ export default {
 .goodsData-wrapper 
     width =  100%
     height = 100%
+    padding-top: 1.0938rem
     .header
         headerCss()
     .content-wrapper

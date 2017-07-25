@@ -68,10 +68,11 @@ export default {
 .goodsData-wrapper 
     width =  100%
     height = 100%
+    padding: 1.0938rem 0 1.25rem 0
     .header
         headerCss()
     .content-wrapper
-        margin: 0.625rem 0 0.5938rem 0.25rem
+        margin: 40px 0 19.0016px 8px
         overflow-x: hidden
         .content-item
             padding: 0.2031rem 0.25rem 0.2031rem 0

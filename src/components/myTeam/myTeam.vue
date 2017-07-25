@@ -48,11 +48,12 @@
                         <div class="colRight">
                             <img src="./images/arrow_right.png">
                         </div>
+                        
                     </div>
+                    <div class="line"></div>
                 </a>
             </div>
         </section>
-        <hr class="divider dividerBig">
     </div>
 </template>
 <script type="ecmascript-6">
@@ -113,7 +114,9 @@ img, span, a
     top 1.25rem
     left 0
     width width
-    background #fff
+    height height
+    background #f0f0f0
+    overflow-x: hidden
     // 头部
     .header
         border-bottom-1px(#e0e0e0)
@@ -145,6 +148,8 @@ img, span, a
                     font-size: 0.4063rem
                 img
                     display block
+                    width 0.2188rem
+                    height 0.3906rem
         .title
             font-size: 0.4063rem
             font-weight 800
@@ -155,24 +160,15 @@ img, span, a
             flex 1
             width width
             height height
-            display flex
             justify-content flex-end
             a
                 display flex
                 height height
                 padding 0 0.5rem
                 align-items center
-    // 分割线
-    .divider
-        margin 0
-        border-left 0
-        border-right 0
-        border-bottom 0
-        border-top 0.0313rem solid #e0e0e0
-    // 粗分割线
-    .dividerBig
-        border-width 0.7813rem
-        border-color #f0f0f0
+                img 
+                    width 0.5rem
+                    margin-left: 0.3125rem
     // 主体
     .main
         // 总览
@@ -205,8 +201,8 @@ img, span, a
                     height 1.75rem
                     justify-content space-between
                     align-items center
-                    margin-left 0.5rem
-                    border-bottom-1px(#e0e0e0)
+                    padding 0 0.5rem
+                    background #fff
                     .colLeft
                         display flex
                         align-items center
@@ -231,6 +227,18 @@ img, span, a
                                 color #909090
                                 margin-top 0.1563rem
                     .colRight
-                        margin-right 0.5rem
+                        margin-left 0.5rem
+                        img
+                            width 0.2188rem
+                            height 0.3906rem
+                .line       
+                    margin: -0.0313rem 0 0 0.5rem         
+                    width: 100%
+                    height: 0.0313rem
+                    background: #e0e0e0
+    
+                    
+                    
+                            
 </style>
 

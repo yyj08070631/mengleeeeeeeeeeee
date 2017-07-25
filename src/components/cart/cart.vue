@@ -121,7 +121,8 @@ span, a, img, input, textarea
     top 1.25rem
     left 0
     width width
-    background #fff
+    height: 100%
+    background #f0f0f0
     // 详情页header
     .header
         border-bottom-1px(#e0e0e0)
@@ -148,6 +149,8 @@ span, a, img, input, textarea
                 font-size 0.4063rem
             img
                 display block
+                width: 0.2188rem
+                height: 0.3906rem 
         .title
             font-size 0.4063rem
             font-weight 800
@@ -168,7 +171,7 @@ span, a, img, input, textarea
         .dividerBig
             width 100%
             height 0.3125rem
-            background-color #ddd
+            background-color #f0f0f0
         // 一个产品
         .oneProduct
             display flex
