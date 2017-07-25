@@ -78,6 +78,7 @@ export default {
                 this.data = res.data
             })
         },
+        // 计算等级图标
         computeImg: function (level) {
             if (level == 1) {
                 return require('./images/xiaobai.png')

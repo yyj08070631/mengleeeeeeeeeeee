@@ -15,7 +15,7 @@
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
-            <a href="#offlineInfo" class="storeNearby">
+            <router-link :to="{ path: '/offlineInfo', query: { nid: data.naerbyitem.id } }" class="storeNearby">
                 <div class="colLeft">
                     <p>
                         <span>附近的项目实体店</span>
@@ -30,7 +30,7 @@
                 <div class="colRight">
                     <img src="./images/arrow_right.png">
                 </div>
-            </a>
+            </router-link>
             <hr class="divider dividerThin">
             <!--查找其他项目实体店-->
             <router-link to="/nearbyStores" class="storeFind">
