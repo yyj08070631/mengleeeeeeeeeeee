@@ -14,7 +14,7 @@
             <div class="bannerTitle" v-if="val.name != '-' && val.product.length != 0">{{val.name}}</div>
             <div class="bannerDivider" v-else-if="key != 0"></div>
             <!-- main -->
-            <router-link to="/goodDetail" v-if="val.product.length == 1 && val.linkType == 'gid'">
+            <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'">
                 <img :src="val.product[0].src" width="100%" height="100%">
             </router-link>
             <router-link to="/offlineInfo" v-else-if="val.product.length == 1 && val.linkType == 'aid'">

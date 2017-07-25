@@ -39,14 +39,25 @@ import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 //import Vuex from 'vuex'
 //import store from './vuex/store'
+import AMap from 'vue-amap'
 
-//Vue.use(Vuex)
+Vue.use(AMap)
+    //Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
 Vue.use(vueRouter)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
+
+// 初始化vue-amap
+AMap.initAMapApiLoader({
+    // 申请的高德key
+    key: 'cff70e3d1e0ff9e38fb1d82801838419',
+    // 插件集合
+    plugin: ['Scale', 'Geolocation']
+})
+
 const routes = [{
         path: '/goods',
         component: goods
@@ -168,7 +179,6 @@ const routes = [{
         component: nearbyStoresAll
     }
 ];
-
 
 const router = new vueRouter({
     routes,

@@ -27,7 +27,7 @@
                     <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
                     <span class="orderPrice">数量：{{val.number}}</span>
                     <div class="handle">
-                        <router-link class="link" :to="{path:'/goodDetail',query:{gid:11}}" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
+                        <router-link class="link" :to="{ path: '/goodDetail', query: { gid: 11 } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
                     <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
                         <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>

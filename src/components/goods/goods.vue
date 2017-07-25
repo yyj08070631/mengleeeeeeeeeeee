@@ -1,11 +1,15 @@
 <template>
     <div class="goods-wrapper">
+        <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
+        </el-amap>
         <v-view class="route-item"></v-view>
-        <!--头部-->    
+        <!--头部-->
         <div class="header">
-            <div class="header-content border-bottom-1px">
-                <h1 class="title">商品分类{{message}}</h1>
-                <a href="#search"><img class="search" src="./images/search.png"></a>
+            <div class="header-content">
+                <h1 class="title">商品分类</h1>
+                <a href="#search">
+                    <img class="search" src="./images/search.png">
+                </a>
             </div>
         </div>
         <!--主体-->
@@ -16,11 +20,11 @@
                     <p>
                         <span>附近的项目实体店</span>
                     </p>
-                    <div>天誉花园</div>
+                    <div>{{data.naerbyitem.name}}</div>
                     <p>
-                        <span class="dis">1.1公里</span>
+                        <span class="dis">{{data.naerbyitem.distance}}公里</span>
                         <span>|</span>
-                        <span class="tim">14分钟</span>
+                        <span class="tim">{{data.naerbyitem.minute}}分钟</span>
                     </p>
                 </div>
                 <div class="colRight">
@@ -42,7 +46,7 @@
             <hr class="divider dividerBig">
             <!--分类列表-->
             <div class="kindList">
-                <router-link :to="{path:'/goodsClassify',query:{cid:val.id}}" class="oneKind" v-for="(val,key) in cateItemList">
+                <router-link :to="{ path: '/goodsClassify', query: { cid: val.id } }" class="oneKind" v-for="(val,key) in data.cateitem">
                     <div class="oneKindMain">
                         <img :src="val.src">
                         <div>
@@ -55,42 +59,78 @@
             </div>
             <hr class="divider dividerBig">
         </div>
-        
     </div>
-  
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 export default {
-    components :{
+    components: {
         'v-view': view,
     },
     data() {
         return {
-            cateItemList: [],
-            static: 1
-            
+            data: [],
+            gaodeData: this.gaode(),
+            coordinate: []
         }
     },
-    created () {
-        this.getDataFromBackend()
+    created() {
+        this.getDataFromBackend();
     },
     methods: {
         // 获取数据方法
         getDataFromBackend() {
-            let that = this;
-            let result = [];
             this.$http({
                 method: 'get',
-                url: global.Domain + '/cate/category?id='+this.id,
+                url: global.Domain + '/cate/category',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                this.cateItemList = res.cateitem
-            })
+                // console.log(res);
+                this.data = res
+            });
         },
+        // 获取高德地图定位
+        gaode() {
+            let self = this;
+            let obj = {
+                center: [121.59996, 31.197646],
+                lng: 0,
+                lat: 0,
+                loaded: false,
+                plugin: [{
+                    pName: 'Geolocation',
+                    events: {
+                        init(o) {
+                            let arr = [];
+                            // o 是高德地图定位插件实例
+                            o.getCurrentPosition((status, result) => {
+                                if (result && result.position) {
+                                    self.lng = result.position.lng;
+                                    self.lat = result.position.lat;
+                                    self.center = [self.lng, self.lat];
+                                    self.loaded = true;
+                                    self.$nextTick();
+                                    // 传坐标到后台
+                                    self.$http({
+                                        method: 'get',
+                                        url: global.Domain + '/cate/category?lng=' + self.lng + 'lat=' + self.lat,
+                                        emulateJSON: true
+                                    }).then(function (response) {
+                                        let res = response.body;
+                                        // console.log(res);
+                                    });
+                                }
+                                // console.log(self.lng, self.lat);
+                            });
+                        }
+                    }
+                }]
+            };
+            // console.log(obj);
+            return obj
+        }
     },
-    
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
