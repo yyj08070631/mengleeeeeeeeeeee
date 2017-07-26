@@ -2,21 +2,24 @@
     <div class="goodDetail-wrapper">
         <!--头部-->
         <header class="header">
-            <a href="javascript:history.back(1)" class="goBack">
-                <img src="./images/arrow_left.png">
-                <span>返回</span>
-            </a>
+            <div class="goBack">
+                <a href="javascript:history.back(1)">
+                    <img src="./images/arrow_left.png">
+                    <span>返回</span>
+                </a>
+            </div>
             <div class="title">收货地址</div>
-            <div class="search"></div>
+            <div class="search">
+            </div>
         </header>
         <!-- 主体 -->
         <section class="main">
             <!-- 一个收货地址 -->
-            <router-link to="/buyGoods" class="oneAddr">
+            <router-link to="/addrManage" class="oneAddr" v-for="(val,key) in data">
                 <div class="rowUp">
                     <div class="nameAndPhone">
-                        <p class="name">大帅比</p>
-                        <div class="phone default">15555555555</div>
+                        <p class="name">{{val.name}}</p>
+                        <div class="phone default">{{val.phone}}</div>
                     </div>
                     <div class="icon">
                         <router-link to="/addrEdit">
@@ -28,27 +31,7 @@
                     </div>
                 </div>
                 <div class="rowDown">
-                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
-                </div>
-            </router-link>
-            <!-- 一个收货地址 -->
-            <router-link to="/buyGoods" class="oneAddr">
-                <div class="rowUp">
-                    <div class="nameAndPhone">
-                        <p class="name">大帅比</p>
-                        <div class="phone">15555555555</div>
-                    </div>
-                    <div class="icon">
-                        <router-link to="/addrEdit">
-                            <img src="./images/edit.png">
-                        </router-link>
-                        <router-link to="/home">
-                            <img src="./images/del.png">
-                        </router-link>
-                    </div>
-                </div>
-                <div class="rowDown">
-                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
+                    {{val.province + val.city + val.area + val.address}}
                 </div>
             </router-link>
             <!-- 新建地址 -->
@@ -65,16 +48,24 @@ export default {
     },
     data() {
         return {
-
+            data: []
         }
     },
     methods: {
         getDataFromBackend: function () {
-
-        }
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/addressList?userId===tPtcNLZARXEuvDhRSFGkQX&page=',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data
+            })
+        },
     },
     mounted() {
-
+        this.getDataFromBackend()
     }
 }
 </script>
@@ -96,42 +87,7 @@ span, a, img, input, textarea
     background #fff
     // 详情页header
     .header
-        border-bottom-1px(#e0e0e0)
-        position fixed
-        display flex
-        top 0
-        left 0
-        justify-content space-between
-        align-items center
-        height 1.25rem
-        width width
-        background-color #f9f9f9
-        z-index 1
-        .goBack
-            display flex
-            align-items center
-            width width
-            flex 1
-            span
-                display block
-                color #ea68a2
-                margin-left 0.1563rem
-                font-size 0.4063rem
-            img
-                display block
-                margin-left 0.5rem
-        .title
-            font-size 0.4063rem
-            font-weight 800
-            flex 1
-            width width
-            text-align center
-        .search
-            display flex
-            justify-content flex-end
-            font-size 0.4063rem
-            color #ea68a2
-            flex 1
+        headerFlex()
     // 主体
     .main
         margin-bottom 1.4063rem

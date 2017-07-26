@@ -1,16 +1,20 @@
 <template>
 	<div class="goodDetail-wrapper">
 		<!--头部-->
-		<div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./images/arrow_left.png">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">商品详情</h1>
-                <a href="#search"><img class="search" src="./images/search.png"/></a>
+		<header class="header">
+            <div class="goBack">
+                <a href="javascript:history.back(1)">
+                    <img src="./images/arrow_left.png">
+                    <span>返回</span>
+                </a>
             </div>
-        </div>
+            <div class="title">商品详情</div>
+            <div class="search">
+                <a href="#search">
+                    <img src="./images/search.png">
+                </a>
+            </div>
+        </header>
 		<!--图片轮播-->
 		  <swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
 			   <swiper-item class="swiper-demo-img" v-for="(item, index) in detailItemList.albumitem" :key="index">
@@ -215,7 +219,7 @@ export default {
 		background #fff
 		// 详情页header
 		.header
-			headerCss()
+			headerFlex()
 		// 详情页导航
 		.detailNav
 			display flex

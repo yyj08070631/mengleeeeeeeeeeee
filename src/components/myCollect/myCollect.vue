@@ -2,13 +2,17 @@
     <div class="goodDetail-wrapper">
         <!--头部-->
         <header class="header">
-            <a href="javascript:history.back(1)" class="goBack">
-                <img src="./images/arrow_left.png">
-                <span>返回</span>
-            </a>
+            <div class="goBack">
+                <a href="javascript:history.back(1)">
+                    <img src="./images/arrow_left.png">
+                    <span>返回</span>
+                </a>
+            </div>
             <div class="title">我的收藏</div>
             <div class="search">
-                <img class="searchImg" src="./images/search.png">
+                <a href="#search">
+                    <img src="./images/search.png">
+                </a>
             </div>
         </header>
         <!-- 主体 -->
@@ -96,43 +100,7 @@ color = #fff
     background #fff
     // 详情页header
     .header
-        border-bottom-1px(#e0e0e0)
-        position fixed
-        display flex
-        top 0
-        left 0
-        justify-content space-between
-        align-items center
-        height 1.25rem
-        width width
-        background-color #f9f9f9
-        z-index 1
-        .goBack
-            font-size 0.1563rem
-            margin-left 0.5rem
-            flex 1
-            width width
-            display flex
-            align-items center
-            span
-                display block
-                color #ea68a2
-                margin-left 0.1563rem
-                font-size 0.4063rem
-            img
-                display block
-        .title
-            font-size 0.4063rem
-            font-weight 800
-            flex 1
-            width width
-            text-align center
-        .search
-            display flex
-            justify-content flex-end
-            margin-right 0.5rem
-            flex 1
-            width width
+        headerFlex()
     // 主体
     .main
         // 正常收藏件

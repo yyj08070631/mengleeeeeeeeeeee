@@ -1,29 +1,22 @@
 <template>
 	<div id="app">
-		<!-- <loading v-model="isLoading"></loading> -->
+		<!-- <my-loading v-if="ifLoading"></my-loading> -->
 		<router-view></router-view>
 	</div>
 </template>
 
 <script type="ecmascript-6"> 
-// import { Loading } from 'vux'
-// import { mapState } from 'vuex'
+import myLoading from './components/myLoading'
+import { mapState } from 'vuex'
 
 export default {
-	data: function () {
-	},
-	created: function () {
-		this.$router.push('home')
-	},
-	mounted() {
-
-	},
+	// name: 'app',
 	// components: {
-	// 	Loading
+	// 	myLoading
 	// },
 	// computed: {
 	// 	...mapState({
-	// 		isLoading: state => state.vux.isLoading
+	// 		ifloading: state => state.ifloading
 	// 	})
 	// }
 }
