@@ -59,7 +59,7 @@ export default {
             .name
                 display: inline-block
                 margin: 0.4688rem 0 0.1875rem 0
-                font-size: 28px
+                font-size: 0.4063rem
                 color: #000
             .mobile
                 display: block
@@ -75,8 +75,11 @@ export default {
                 top: 0
                 right: 0
             .QRcode
+                display: block
+                width: 6.9688rem
+                height: 6.9688rem
                 padding: 0.2813rem
-                margin: 1.125rem auto 0 auto
+                margin: 1.125rem auto 
                 background: #fff
             .desc
                 margin: 2.375rem 0 1.25rem 0

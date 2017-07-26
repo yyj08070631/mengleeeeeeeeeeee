@@ -223,14 +223,15 @@ export default {
                 display flex
                 align-items center
                 margin-right 0.5rem
+                img   
+                    width 0.2188rem
+                    height 0.3281rem 
                 p
                     font-size 0.3438rem
                     margin-right 0.1875rem
                     line-height 1.3125rem 
                     color #909090
-                img   
-                    width 0.2188rem
-                    height 0.3281rem  
+                
         // 分类列表
         .kindList
             display flex

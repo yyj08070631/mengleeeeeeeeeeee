@@ -147,6 +147,9 @@ color = #fff
                         border 0.0313rem solid #ababab
                         border-radius 0.0938rem
                         font-size 0.3438rem
+                    img
+                        width 0.5rem
+                        height 0.5rem
         // 失效收藏件
         .oneBadCollect
             position relative

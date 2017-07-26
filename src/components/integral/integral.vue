@@ -30,7 +30,7 @@
                 <div class="link-wrapper">
                     <span>获得：</span>
                     <span class="number">{{dataItem.countIntegral}}</span>
-                    <span>已到账</span>
+                    <span @click="getDataFromBackend">已到账</span>
                 </div>
             </a>
             <!-- 积分获取详情 -->
@@ -94,22 +94,24 @@ export default {
             data: []
         }
     },
-    created() {
-        this.getDataFromBackend()
-    },
+
     methods: {
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/integralList?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/Nearby/serice?sid=1&nid='+this.$route.query.id,
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
                 console.log(res);
-                this.data = res.data
             })
         }
     },
+    mounted(){
+        this.$nextTick(function(){
+             this.getDataFromBackend()
+        })
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

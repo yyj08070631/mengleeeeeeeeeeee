@@ -67,7 +67,7 @@
                     <span>线下服务</span>
                 </h1>
                 <hr class="divider dividerMargin">
-                <router-link :to="{ path: '/digest', query: { id: val.id } }" v-for="(val,key) in data.sericeitem">
+                <router-link :to="{ path: '/digest', query: { sid: val.id,nid: $route.query.nid } }" v-for="(val,key) in data.sericeitem">
                     <span>{{val.name}}</span>
                     <span>￥{{parseFloat(val.price).toFixed(2)}}</span>
                 </router-link>
@@ -156,6 +156,7 @@ export default {
                 let res = response.body;
                 // console.log(res);
                 this.data = res;
+                //console.log(this.data)
             });
         },
         computeImg: function (level) {

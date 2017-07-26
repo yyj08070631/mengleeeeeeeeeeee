@@ -72,27 +72,8 @@ export default {
     .header
         headerCss()
     .content-wrapper
-        margin: 40px 0 19.0016px 8px
-        overflow-x: hidden
-        .content-item
-            padding: 0.2031rem 0.25rem 0.2031rem 0
-            border-bottom-1px(#e0e0e0)
-            .title
-                font-size: 0.2031rem
-                line-height: 0.3125rem
-                font-weight: bold
-                color: #333
-            .desc   
-                font-size: 0.1719rem
-                line-height: 0.3125rem
-                color: #909090
-            ul
-                margin-left: 0.25rem
-                li
-                    list-style: disc 
-                    font-size: 0.1719rem
-                    line-height: 0.3125rem
-                    color: #909090    
+        img
+            width: 100%
     .myFooter
         position fixed
         bottom 0

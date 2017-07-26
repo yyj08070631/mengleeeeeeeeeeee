@@ -133,7 +133,7 @@ export default {
                         line-height: 0.5625rem
                         text-align: center
                         background: #ea68a2
-                        border-radius: 5px
+                        border-radius: 0.1563rem
                         float: right
                     a:first-child
                         margin: 0.2813rem 0.4375rem 0 0  

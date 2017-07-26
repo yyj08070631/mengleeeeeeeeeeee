@@ -10,6 +10,11 @@ import myLoading from './components/myLoading'
 import { mapState } from 'vuex'
 
 export default {
+	created: function () {
+		if (test == 'http://localhost:8080/ ' || test == 'localhost:8080/#' || test == 'localhost:8080/#/' || 'http://192.168.0.123:8080/') {
+			this.$router.push('home')
+		}
+	}
 	// name: 'app',
 	// components: {
 	// 	myLoading
