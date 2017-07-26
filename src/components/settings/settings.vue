@@ -251,6 +251,7 @@ export default {
                 alert('请输入正确的身高数字！！');
                 return
             }
+            $event.target.blur() 
         },
         // 修改体重
         changeWeight: function ($event) {

@@ -13,26 +13,25 @@
         </div>
         <div class="serve"></div>
         <div class="serve-desc">
-            <h2 class="desc-title">单人泡澡+臀部疗保养+面部补水三项套餐</h2>
+            <h2 class="desc-title">{{appData.sericeitem.name}}</h2>
             <span class="desc-content">
-                岁月就像一条河，左岸是无法忘却的回忆，右岸是值得把握的当下，中间飞快流淌的是容颜的变迁。完美尺寸让岁月在您的容颜上止步。给一点时间，泡澡+臀部保养+面部补水，让过去的过去，让开始的
-开始，让时间稍作休息。
+                {{appData.sericeitem.descript}}
             </span>
         </div>
         <div class="divider"></div>
         <div class="serve-date-address">
             <span class="date">时间</span>
             <div class="details">
-                <span>2017年6月28日 星期三</span>
-                <span class="mg-top">提前一天</span>
+                <span>{{appData.timeitem.name}}</span>
+                <span class="mg-top">{{appData.timeitem.date}}</span>
             </div>
         </div>
         <div class="divider"></div>
         <div class="serve-date-address">
             <span class="date">地址</span>
             <div class="details">
-                <span>完美尺寸 天誉花园店</span>
-                <span class="mg-top">广州市天河区林和中路136号 天誉花园2期 101铺</span>
+                <span>{{appData.nearbyitem.name}}</span>
+            <span class="mg-top">{{appData.nearbyitem.address}}</span>
             </div>
         </div>
         <div class="divider"></div>
@@ -44,7 +43,32 @@ import view from '../../components/view/view';
 export default {
     components :{
         'v-view': view
-    } 
+    },
+    data(){
+        return {
+            appData: []
+        }
+    },
+    methods: {
+        getDataFromBackend() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Nearby/serice?nid=' + this.$route.query.nid+'&sid='+this.$route.query.sid,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                 console.log(res)
+                this.appData = res
+                //console.log(this.appData.nearbyitem.address)
+            });
+        },
+    },
+    mounted(){
+        this.$nextTick(function(){
+            this.getDataFromBackend()
+        })
+    }
+
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

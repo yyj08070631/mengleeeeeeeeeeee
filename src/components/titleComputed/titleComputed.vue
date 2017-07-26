@@ -19,7 +19,7 @@
         <router-link to="/myTeam" class="get-title indent">
             <span class="title">我的团队</span>
             <div class="link-wrapper">
-                <img class="more" width=16 height=16 src="./more.png">
+                <img class="more" src="./more.png">
             </div>
         </router-link>
         <a href="javascript:void(0)" class="title-computed border-bottom-1px">
@@ -71,8 +71,8 @@ export default {
 @import '../../commom/stylus/mixin'
     width = 100%
     .title-wrapper
-        margin-top: 1.0938rem
-        padding-bottom: 3.125rem
+        position: absolute
+        top: 1.0938rem
         width: 100%
         height: 100%
         font-size: 0

@@ -121,6 +121,8 @@ color = #fff
                 font-size 0.4063rem
             img
                 display block
+                width 0.2188rem
+                height 0.3906rem
         .title
             font-size 0.4063rem
             font-weight 800
@@ -133,6 +135,9 @@ color = #fff
             margin-right 0.5rem
             flex 1
             width width
+            img
+                width 0.4219rem
+                height 0.4219rem
     // 主体
     .main
         // 正常收藏件
@@ -179,6 +184,9 @@ color = #fff
                         border 0.0313rem solid #ababab
                         border-radius 0.0938rem
                         font-size 0.3438rem
+                    img
+                        width 0.5rem
+                        height 0.5rem
         // 失效收藏件
         .oneBadCollect
             position relative

@@ -24,10 +24,10 @@
             <!-- 所在地区 -->
             <div class="infoBox loc">
                 <div class="rowLeft">所在地区：</div>
-                <div class="rowRight">
+                <a href="javascript:void(0)" class="rowRight">
                     <p>广东省广州市海珠区</p>
                     <img src="./images/arrow_right.png">
-                </div>
+                </a>
             </div>
             <!-- 街道地址 -->
             <div class="infoBox locDetail">
@@ -43,25 +43,64 @@
             <div class="saveAddr">
                 <router-link to="/home" class="saveAddrItem">保存</router-link>
             </div>
+            
         </section>
+        <div class="groups-container">
+            <group>
+                <selector v-model="value1" title="省份" :options="province" @on-change="onChange"></selector>
+            </group>
+            <group>
+                <selector v-model="value1" title="市区" :options="province.city" @on-change="onChange"></selector>
+            </group>
+            <group>
+                <selector v-model="value1" title="区/县" :options="province" @on-change="onChange"></selector>
+            </group>
+        </div>
+
     </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+//  import VDistpicker from 'v-distpicker'
+import addrData from '../../commom/json/address.min.json'
+import { Selector,Group } from 'vux'
 export default {
     components: {
-
+       Group,
+    Selector
     },
     data() {
         return {
-
+            value1: '广西',
+            plainList: ['广东', '广西'],
+            addrListData: addrData,
+            province: [],
+            city: [],
+            
         }
     },
     methods: {
-        getDataFromBackend: function () {
+        onChange (val) {
+          
+         },
+        addrDataSort(){
+             this.addrListData.forEach((data)=>{
+                this.province.push(data.name)
+                //this.city.push(data.city)
+
+                data.city.forEach((city) => {
+                    this.city.push(city.name)
+                })
+                //console.log(data)
+             })
+              console.log(this.city)
 
         }
+         
     },
     mounted() {
+        this.$nextTick(function(){
+            this.addrDataSort()
+        })
 
     }
 }
@@ -177,5 +216,28 @@ span, a, img, input, textarea
             p
                 height 100%
                 margin-left 0.2188rem
-                font-size 0.4688rem
+                font-size 0.4688rem  
+
+    .groups-container
+        display fixed
+        top 0
+        width 100%
+        height 100%
+        .weui-cells
+            height 1.0938rem
+            line-height 1.0938rem
+            font-size 0.375rem
+            color #909090
+            border-top 1px solid #ea68a2
+            margin 0 0.5rem
+        .weui-cells:last-child
+            border-bottom 1px solid #ea68a2    
+            select
+                option
+                    font-size 0.375rem
+                    font-align right!important           
+        .weui-cell_select .weui-cell__bd:after   
+            width 0.25rem
+            height 0.25rem  
+            margin -0.125rem 0.0781rem 0 0        
 </style>

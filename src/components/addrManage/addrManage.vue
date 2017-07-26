@@ -119,6 +119,8 @@ span, a, img, input, textarea
                 font-size 0.4063rem
             img
                 display block
+                width 0.2188rem
+                height 0.3906rem
                 margin-left 0.5rem
         .title
             font-size 0.4063rem
@@ -153,7 +155,7 @@ span, a, img, input, textarea
                 justify-content space-between
                 align-items center
                 width 9rem
-                margin 0.5625rem 0 0.5313rem 0 
+                margin 0.5625rem 0 0.5313rem 0  
                 .nameAndPhone
                     display flex
                     .name
@@ -181,8 +183,15 @@ span, a, img, input, textarea
                         display flex
                         justify-content center
                         align-items center
+                    a:first-child    
+                        img
+                            width 0.6875rem
+                            height 0.6875rem
                     a:last-child
                         margin-left 0.6875rem
+                        img
+                            width 0.5625rem
+                            height 0.5625rem
             .rowDown
                 width 9rem
                 font-size 0.375rem

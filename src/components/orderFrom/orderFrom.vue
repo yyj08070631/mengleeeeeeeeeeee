@@ -215,18 +215,18 @@ width100 = 100%
         .order-title
             display: block
             width: 100%
-            height: 1.125rem
-            line-height: 1.125rem
+            height: 1.3125rem
+            line-height: 1.3125rem
             border-bottom-1px(#e6e6e6)
             .title 
                 float: left
-                font-size: 0.3438rem   
+                font-size: 0.375rem   
                 color: #333
             .content
                 display: inline-block    
                 float: right
                 margin-right: 1.625rem
-                font-size: 0.3438rem
+                font-size: 0.375rem
                 color: #909090
             .more 
                 position: absolute
@@ -256,7 +256,7 @@ width100 = 100%
                     float: left
                     width: 5.25rem
                     line-height: 0.625rem
-                    font-size: 0.3438rem 
+                    font-size: 0.375rem 
                     .desc
                         color: #333
                     .num
@@ -271,7 +271,7 @@ width100 = 100%
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.3438rem
+                    font-size: 0.375rem
                     color: #ea6aa2
                 .orderPrice
                     display: inline-block
@@ -281,7 +281,7 @@ width100 = 100%
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.3438rem
+                    font-size: 0.375rem
                     color: #909090            
                 .handle
                     display: block
@@ -305,11 +305,11 @@ width100 = 100%
             width: 100%
             height: 1.2188rem
             line-height: 1.2188rem
-            font-size: 0.3438rem
+            font-size: 0.375rem
             text-align: center
             color: #ea6aa2
         .line
-            margin-left: -0.4688rem
+            margin-left: -0.5rem
             width: 100%
             height: 0.3438rem
             background: #f0f0f0  
