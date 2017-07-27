@@ -2,12 +2,14 @@
     <div class="goodDetail-wrapper">
         <!--头部-->
         <header class="header">
-            <a href="javascript:history.back(1)" class="goBack">
-                <img src="./images/arrow_left.png">
-                <span>返回</span>
-            </a>
-            <div class="title">购物车</div>
-            <div class="search">编辑</div>
+            <div class="goBack">
+                <a href="javascript:history.back(1)">
+                    <img src="./images/arrow_left.png">
+                    <span>返回</span>
+                </a>
+            </div>
+            <div class="title">我的团队</div>
+            <div class="search"><p>编辑</p></div>
         </header>
         <!-- 主体 -->
         <section class="main">
@@ -125,6 +127,7 @@ span, a, img, input, textarea
     background #f0f0f0
     // 详情页header
     .header
+<<<<<<< HEAD
         border-bottom-1px(#e0e0e0)
         position fixed
         display flex
@@ -164,6 +167,9 @@ span, a, img, input, textarea
             font-size 0.4063rem
             color #ea68a2
             flex 1
+=======
+        headerFlex()
+>>>>>>> 8c6570977a1b2b4c1c764b527ec1b23528858b11
     // 主体
     .main
         margin-bottom 1.4063rem

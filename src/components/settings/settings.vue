@@ -261,7 +261,7 @@ export default {
                 alert('请输入正确的身高数字！！');
                 return
             }
-            $event.target.blur() 
+            $event.target.blur()
         },
         // 修改体重
         changeWeight: function ($event) {
@@ -285,6 +285,7 @@ export default {
                 alert('请输入正确的体重数字！！');
                 return
             }
+            $event.target.blur()
         },
         // 修改职业
         changeCareer: function ($event) {
@@ -326,6 +327,7 @@ export default {
                 alert('请输入正确的月收入！！');
                 return
             }
+            $event.target.blur()
         },
         // 修改兴趣爱好
         changeHabbit: function ($event) {
@@ -349,6 +351,7 @@ export default {
                 alert('兴趣爱好仅包含汉字、字母！！');
                 return
             }
+            $event.target.blur()
         }
     },
     mounted() {

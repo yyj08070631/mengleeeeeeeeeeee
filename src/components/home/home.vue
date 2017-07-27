@@ -27,7 +27,7 @@
             </router-link>
         </div>
         <!-- 查看更多活动 -->
-        <a class="more-activity" href="#orderFrom">查看更多活动</a>
+        <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a>
         <!-- logo & copyright -->
         <div class="footer">
             <div class="logo"></div>

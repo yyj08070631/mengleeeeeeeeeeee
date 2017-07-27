@@ -231,7 +231,11 @@ img, span, a
     background #fff
     // 详情页header
     .header
+<<<<<<< HEAD
        headerCss()
+=======
+        headerFlex()
+>>>>>>> 8c6570977a1b2b4c1c764b527ec1b23528858b11
     // 主体
     .main
         // 分割线

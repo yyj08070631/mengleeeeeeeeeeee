@@ -32,6 +32,7 @@ import addrManage from './components/addrManage/addrManage';
 import addrEdit from './components/addrEdit/addrEdit';
 import allOrder from './components/allOrder/allOrder';
 import evaluate from './components/evaluate/evaluate';
+import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
@@ -42,7 +43,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import AMap from 'vue-amap'
 
 Vue.use(AMap)
-    //Vue.use(Vuex)
+//Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
@@ -58,7 +59,8 @@ AMap.initAMapApiLoader({
     plugin: ['Scale', 'Geolocation']
 })
 
-const routes = [{
+const routes = [
+    {
         path: '/goods',
         component: goods
     },
@@ -177,6 +179,10 @@ const routes = [{
     {
         path: '/nearbyStoresAll',
         component: nearbyStoresAll
+    },
+    {
+        path: '/myLoading',
+        component: myLoading
     }
 ];
 
@@ -190,28 +196,52 @@ const router = new vueRouter({
 // 定义全局变量
 global.Domain = 'http://dde.dgxinn.cn/dream/index.php/Home'
 
-// // 页面切换显示loading
-// // 首先，注册一个module来保存状态
-// const store = new Vuex.Store({}) // 这里你可能已经有其他 module
-
-// store.registerModule('vux', { // 名字自己定义
-//     state: {
-//         isLoading: false
-//     },
-//     mutations: {
-//         updateLoadingStatus(state, payload) {
-//             state.isLoading = payload.isLoading
+// 页面加载显示loading
+// router.beforeEach((to, from, next) => {
+    // let rediurl = to.path
+    // Vue.http({
+    //     method: 'post',
+    //     url: global.Domain.mallUrl + 'index',
+    //     body: {
+    //         rediurl: rediurl
+    //     },
+    //     emulateJSON: true
+    // }).then(function (response) {
+    //     let res = response.data
+    //     if (res.app === 0) {
+    //         location.href = res.url
+    //         return
+    //     } else {
+    //         Store.state.ifLoading = false
+    //     }
+    // })
+    // next()
+// })
+// router.afterEach((to, from, next) => {
+//     // console.log(to.meta.title)
+//     if (to.meta) {
+//         if (to.meta.title) {
+//             document.title = to.meta.title
+//         } else {
+//             document.title = to.meta
+//         }
+//         // if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+//         //   this.iframe = '/favicon.ico' + Math.random()
+//         // }
+//         let ua = navigator.userAgent
+//         // console.log(ua)
+//         if (/ip(hone|od|ad)/i.test(ua)) {
+//             var i = document.createElement('iframe')
+//             i.src = require('./commom/favicon.png')
+//             i.style.display = 'none'
+//             i.onload = function () {
+//                 setTimeout(function () {
+//                     i.remove()
+//                 })
+//             }
+//             document.body.appendChild(i)
 //         }
 //     }
-// });
-// // 然后使用vue-router的beforeEach和afterEach来更改loading状态
-// router.beforeEach(function (to, from, next) {
-//   store.commit('updateLoadingStatus', {isLoading: true})
-//   next()
-// })
-
-// router.afterEach(function (to) {
-//   store.commit('updateLoadingStatus', {isLoading: false})
 // })
 
 new Vue({

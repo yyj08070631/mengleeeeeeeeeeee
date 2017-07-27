@@ -1,6 +1,7 @@
 <template>
     <div class="goodDetail-wrapper">
         <!--头部-->
+<<<<<<< HEAD
         <div class="header">
             <div class="header-content">
                 <a href="javascript:history.back(-1)" class="goBack">
@@ -10,14 +11,27 @@
                 <h1 class="title">收件信息</h1>
             </div>
         </div>
+=======
+        <header class="header">
+            <div class="goBack">
+                <a href="javascript:history.back(1)">
+                    <img src="./images/arrow_left.png">
+                    <span>返回</span>
+                </a>
+            </div>
+            <div class="title">收货地址</div>
+            <div class="search">
+            </div>
+        </header>
+>>>>>>> 8c6570977a1b2b4c1c764b527ec1b23528858b11
         <!-- 主体 -->
         <section class="main">
             <!-- 一个收货地址 -->
-            <router-link to="/buyGoods" class="oneAddr">
+            <router-link to="/addrManage" class="oneAddr" v-for="(val,key) in data">
                 <div class="rowUp">
                     <div class="nameAndPhone">
-                        <p class="name">大帅比</p>
-                        <div class="phone default">15555555555</div>
+                        <p class="name">{{val.name}}</p>
+                        <div class="phone default">{{val.phone}}</div>
                     </div>
                     <div class="icon">
                         <router-link to="/addrEdit">
@@ -29,27 +43,7 @@
                     </div>
                 </div>
                 <div class="rowDown">
-                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
-                </div>
-            </router-link>
-            <!-- 一个收货地址 -->
-            <router-link to="/buyGoods" class="oneAddr">
-                <div class="rowUp">
-                    <div class="nameAndPhone">
-                        <p class="name">大帅比</p>
-                        <div class="phone">15555555555</div>
-                    </div>
-                    <div class="icon">
-                        <router-link to="/addrEdit">
-                            <img src="./images/edit.png">
-                        </router-link>
-                        <router-link to="/home">
-                            <img src="./images/del.png">
-                        </router-link>
-                    </div>
-                </div>
-                <div class="rowDown">
-                    厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了厉害了
+                    {{val.province + val.city + val.area + val.address}}
                 </div>
             </router-link>
             <!-- 新建地址 -->
@@ -66,16 +60,24 @@ export default {
     },
     data() {
         return {
-
+            data: []
         }
     },
     methods: {
         getDataFromBackend: function () {
-
-        }
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/addressList?userId===tPtcNLZARXEuvDhRSFGkQX&page=',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data
+            })
+        },
     },
     mounted() {
-
+        this.getDataFromBackend()
     }
 }
 </script>
@@ -97,7 +99,11 @@ span, a, img, input, textarea
     background #fff
     // 详情页header
     .header
+<<<<<<< HEAD
        headerCss()
+=======
+        headerFlex()
+>>>>>>> 8c6570977a1b2b4c1c764b527ec1b23528858b11
     // 主体
     .main
         margin-bottom 1.4063rem

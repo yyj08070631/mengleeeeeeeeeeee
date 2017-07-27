@@ -10,10 +10,8 @@
             </div>
             <div class="title">我的团队</div>
             <div class="search">
-                <a href="javascript:void(0)">
-                    <a href="#search">
-                        <img src="./images/search.png">
-                    </a>
+                <a href="#search">
+                    <img src="./images/search.png">
                 </a>
             </div>
         </header>
@@ -120,56 +118,7 @@ img, span, a
     overflow-x: hidden
     // 头部
     .header
-        border-bottom-1px(#e0e0e0)
-        position fixed
-        display flex
-        top 0
-        left 0
-        justify-content space-between
-        align-items center
-        height 1.25rem
-        width width
-        background-color #f9f9f9
-        z-index 1
-        .goBack
-            flex 1
-            width width
-            height height
-            display flex
-            align-items center
-            a
-                display flex
-                align-items center
-                height height
-                padding 0 0.5rem
-                span
-                    display block
-                    color #ea68a2
-                    margin-left 0.1563rem
-                    font-size: 0.4063rem
-                img
-                    display block
-                    width 0.2188rem
-                    height 0.3906rem
-        .title
-            font-size: 0.4063rem
-            font-weight 800
-            flex 1
-            width width
-            text-align center
-        .search
-            flex 1
-            width width
-            height height
-            justify-content flex-end
-            a
-                display flex
-                height height
-                padding 0 0.5rem
-                align-items center
-                img 
-                    width 0.5rem
-                    margin-left: 0.3125rem
+        headerFlex()
     // 主体
     .main
         // 总览

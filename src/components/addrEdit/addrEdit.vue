@@ -1,6 +1,7 @@
 <template>
     <div class="goodDetail-wrapper">
         <!--头部-->
+<<<<<<< HEAD
         <div class="header">
             <div class="header-content">
                 <a href="javascript:history.back(-1)" class="goBack">
@@ -10,6 +11,19 @@
                 <h1 class="title">新增地址</h1>
             </div>
         </div>
+=======
+        <header class="header">
+            <div class="goBack">
+                <a href="javascript:history.back(1)">
+                    <img src="./images/arrow_left.png">
+                    <span>返回</span>
+                </a>
+            </div>
+            <div class="title">收货地址</div>
+            <div class="search">
+            </div>
+        </header>
+>>>>>>> 8c6570977a1b2b4c1c764b527ec1b23528858b11
         <!-- 主体 -->
         <section class="main">
             <!-- 收货人 -->
@@ -124,7 +138,11 @@ span, a, img, input, textarea
     background #fff
     // 详情页header
     .header
+<<<<<<< HEAD
        headerCss()
+=======
+        headerFlex()
+>>>>>>> 8c6570977a1b2b4c1c764b527ec1b23528858b11
     // 主体
     .main
         // 一般

@@ -13,7 +13,7 @@
         </div>
         <div class="store-message">
             <div href="javascript:void(0)" class="store-computed border-bottom-1px">
-                <span class="computed">附近所有项目实体店</span>
+                <span class="computed">所有项目实体店</span>
             </div>
             <a href="#offlineInfo" class="store-item">
                 <div>
