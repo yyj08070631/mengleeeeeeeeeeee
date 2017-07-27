@@ -21,11 +21,11 @@
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img src="./collect.png" height="32">
+				<img src="./collect.png"ref="menuItem" @click="changSrc()">
 				<p>加入收藏</p>
 			</a>
-			<a href="javascript:void(0)">加购物袋</a>
-			<a href="javascript:void(0)">立即购买</a>
+			<router-link to="/cart">加购物袋</router-link>
+			<router-link to="/buyGoods">立即购买</router-link>
 		</footer>
     </div>
 </template>
@@ -38,6 +38,22 @@ export default {
         }
     },
   methods: {
+        changSrc: function(){
+            let file = require('./collect.png');
+            let file2 = require('./collect-active.png');
+            let obj = this.$refs.menuItem
+            if(obj.src == file){
+                obj.src = file2
+                setTimeout(function(){
+                    alert('收藏成功')
+                },1000)
+            }else{
+                obj.src = file
+                setTimeout(function(){
+                    alert('已取消收藏')
+                 },1000)
+				 }
+		},		
         getImageTextData: function() {
             this.$http({
                 method: 'get',

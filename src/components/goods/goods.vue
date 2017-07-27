@@ -201,6 +201,9 @@ export default {
                 display flex
                 align-items center
                 margin-right 0.5rem
+                img
+                    width 0.2188rem
+                    height 0.3906rem
         // 查找其他项目实体店
         .storeFind
             display flex
@@ -225,7 +228,7 @@ export default {
                 margin-right 0.5rem
                 img   
                     width 0.2188rem
-                    height 0.3281rem 
+                    height 0.3906rem 
                 p
                     font-size 0.3438rem
                     margin-right 0.1875rem

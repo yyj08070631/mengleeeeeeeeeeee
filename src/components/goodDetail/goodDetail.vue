@@ -212,7 +212,8 @@ export default {
 		top 1.0938rem
 		left 0
 		width width
-		background #fff
+		height 100%
+		background color
 		// 详情页header
 		.header
 			headerCss()
@@ -223,6 +224,7 @@ export default {
 			align-items center
 			width width
 			height 1.3438rem
+			background color	
 			a
 				color #ea68a2
 				width width
@@ -241,9 +243,12 @@ export default {
 			border-right 0
 			border-bottom 0
 			border-top 0.3125rem solid #f0f0f0
+			background color
 		// 评论
+		
 		.comment
 			margin-left 0.5rem
+			background color
 			.dividerThin
 				border-width 0.0313rem
 				border-color #e0e0e0
@@ -257,9 +262,7 @@ export default {
 						font-size 0.4063rem
 						font-weight bold
 						color: #333
-						img
-							width: 1.125rem !important
-							height: 0.375rem !important
+							
 					.rowDown
 						margin-top 0.1563rem
 						display flex
@@ -319,6 +322,8 @@ export default {
 						align-items center
 						img
 							display block
+							width: 1.125rem 
+							height: 0.375rem	
 							margin-left 0.0938rem
 						p
 							font-size 0.4063rem
@@ -353,6 +358,8 @@ export default {
 			margin-bottom 1.1875rem
 			img
 				display block
+				width 0.3438rem
+				height 0.375rem
 			p
 				font-size 0.375rem
 				margin-left 0.1563rem

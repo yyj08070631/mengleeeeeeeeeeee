@@ -179,6 +179,7 @@
                 </div>
             </a>
         </div>
+        <div class="SUCCESS" ref="success" v-show="success">修改成功</div> 
     </div>
 </template>
 <script type="ecmascript-6">
@@ -192,6 +193,7 @@ export default {
             data: [],
             showHideOnBlur: true,
             show: true,
+            success: false
         }
     },
     created() {
@@ -200,6 +202,10 @@ export default {
         })
     },
     methods: {
+        d(){
+            
+          
+        },
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -219,10 +225,14 @@ export default {
                 url: global.Domain + '/user/userSet?userId===tPtcNLZARXEuvDhRSFGkQX&constellation=' + $event.target.value,
                 emulateJSON: true
             }).then(function (response) {
+                
                 let res = response.body;
+                 //alert('修改成功！！');
                 // console.log($event.target.value)
                 if (res.code == 200) {
-                    alert('修改成功！！');
+                   
+                    this.success = true
+        
                 } else {
                     alert('修改失败！！');
                     return
@@ -517,5 +527,18 @@ export default {
                 width: 100%
                 height: 0.3125rem
                 background: #f0f0f0            
- 
+    .SUCCESS
+        position fixed
+        left 50%
+        bottom 20%
+        margin-left -1.25rem
+        width 2.5rem
+        height 0.875rem
+        line-height 0.875rem
+        border-radius 0.1875rem
+        background rgba(0,0,0,0.7)
+        font-size 0.4063rem
+        color #fff
+        text-align center
+        transition 1s all
 </style>

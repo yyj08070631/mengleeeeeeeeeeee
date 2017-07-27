@@ -14,15 +14,15 @@ export default {
 	data: function () {
 	},
 	created: function () {
-		 if(test == 'http://localhost:8080/'){
+		 if(test == 'http://localhost:8080/ ' || test ==  'localhost:8080/#' || test ==  'localhost:8080/#/' || 'http://192.168.0.123:8080/'){
 			 	this.$router.push('home')
-		 }
-		// if(!this.route.path){
+		 }	//  else if(window.history.length == 0){
+		// 	 	alert("没有记录")
+		//  }
+		// if(window.history.length >= 1){
 		// 	this.$router.push('home')
-		// }else{
-		// 	return
 		// }
-		//this.$router.push('home')
+		
 	},
 	mounted() {
 

@@ -1,20 +1,18 @@
 <template>
     <div class="offlineInfo-wrapper">
         <!--头部-->
-        <header class="header">
-            <div class="goBack">
-                <a href="javascript:history.back(1)">
+       <div class="header">
+            <div class="header-content">
+                <a href="javascript:history.back(-1)" class="goBack">
                     <img src="./images/arrow_left.png">
                     <span>返回</span>
                 </a>
-            </div>
-            <div class="title">线下信息</div>
-            <div class="search">
+                <h1 class="title">线下信息</h1>
                 <a href="#search">
-                    <img src="./images/search.png">
+                    <img class="search" src="./images/search.png" />
                 </a>
             </div>
-        </header>
+        </div>
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
@@ -233,56 +231,7 @@ img, span, a
     background #fff
     // 详情页header
     .header
-        border-bottom-1px(#e0e0e0)
-        position fixed
-        display flex
-        top 0
-        left 0
-        justify-content space-between
-        align-items center
-        height 1.25rem
-        width width
-        background-color #f9f9f9
-        z-index 500
-        .goBack
-            flex 1
-            width width
-            height height
-            display flex
-            align-items center
-            a
-                display flex
-                align-items center
-                height height
-                padding 0 0.5rem
-                img
-                    width 0.2188rem
-                    height 0.3906rem
-                span
-                    display block
-                    color #ea68a2
-                    margin-left 0.1563rem
-                    font-size 0.4063rem
-        .title
-            font-size 0.4063rem
-            font-weight 800
-            flex 1
-            width width
-            text-align center
-        .search
-            flex 1
-            width width
-            height height
-            display flex
-            justify-content flex-end
-            a
-                display flex
-                height height
-                padding 0 0.5rem
-                align-items center
-                img
-                    width 0.4219rem
-                    height 0.4219rem
+       headerCss()
     // 主体
     .main
         // 分割线
@@ -310,6 +259,9 @@ img, span, a
                     font-size 0.4063rem
                     color #ea68a2
                     margin-right 0.625rem
+                    img
+                        width 0.2188rem
+                        height 0.3906rem
             .commentDetail
                 display flex
                 margin-top 0.3125rem
@@ -329,6 +281,8 @@ img, span, a
                         align-items center
                         img
                             display block
+                            width 1.125rem
+                            height 0.375rem
                             margin-left 0.0938rem
                         p
                             font-size 0.4063rem
@@ -413,6 +367,9 @@ img, span, a
                         font-size 0.3438rem
                 .colRight
                     padding-right 0.5rem
+                    img
+                        width 0.2188rem
+                        height 0.3906rem
             .rowDown:active
                 background-color #f0f0f0
         // 线下服务

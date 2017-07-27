@@ -118,7 +118,7 @@ span, a, img, input, textarea
 // 外层元素
 .goodDetail-wrapper
     position absolute
-    top 1.25rem
+    top 1.0938rem
     left 0
     width width
     height: 100%
@@ -132,7 +132,7 @@ span, a, img, input, textarea
         left 0
         justify-content space-between
         align-items center
-        height 1.25rem
+        height 1.0938rem
         width width
         background-color #f9f9f9
         z-index 1
