@@ -77,23 +77,23 @@ export default {
                 margin-left: 0.5rem
                 width: 100%
                 height: 1.625rem
-                line-height: 1.625rem
                 div
-                    font-size: 0.3125rem
+                    font-size: 0.3438rem
                     border-bottom-1px(#e0e0e0)
                 .noLine
                     border-bottom-none()
                 .pullLeft
-                    width: 204px
+                    width: 3.125rem
+                    line-height: 1.625rem
                     color: #909090
                 .pullRight
                     flex: 1
                     margin-right: 0.5rem
                     p    
-                        margin-right: 0.5rem
+                        margin: 0.4688rem 0.5rem 0 0 
                     .userinfo
                         width: 100%
-                        margin-bottom: 16px
+                        margin-bottom: 0.25rem
                         .msg
                             float: left
                             width: 2.3438rem
@@ -109,6 +109,7 @@ export default {
                             margin-right: 0.5rem
                             float: right       
                             color: #ea6aa2
+                            line-height: 1.625rem
         .subscribe
             display: flex
             width: 100%
@@ -123,7 +124,7 @@ export default {
                 color: #909090  
             div
                 flex: 1
-                font-size: 0.375rem 
+                font-size: 0.4063rem 
                 text-align: center
 </style>
 

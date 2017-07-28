@@ -7,13 +7,15 @@
 
 <script type="ecmascript-6"> 
 import myLoading from './components/myLoading'
-import { mapState } from 'vuex'
+//import { mapState } from 'vuex'
 
 export default {
 	created: function () {
 		let test = window.location.href;
 		if (test == 'http://localhost:8080/ ' || test == 'localhost:8080/#' || test == 'localhost:8080/#/' || 'http://192.168.0.123:8080/') {
 			this.$router.push('home')
+		}else{
+			return
 		}
 	}
 	// name: 'app',

@@ -36,12 +36,12 @@ import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
+import Vuex from 'vuex';
 import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import Vuex from 'vuex';
 import vuexI18n from 'vuex-i18n';
 //import store from './vuex/store'
-import AMap from 'vue-amap'
 
 Vue.use(Vuex)
 const store = new Vuex.Store();
@@ -64,8 +64,7 @@ AMap.initAMapApiLoader({
     plugin: ['Scale', 'Geolocation']
 })
 
-const routes = [
-    {
+const routes = [{
         path: '/goods',
         component: goods
     },
@@ -203,24 +202,24 @@ global.Domain = 'http://dde.dgxinn.cn/dream/index.php/Home'
 
 // 页面加载显示loading
 // router.beforeEach((to, from, next) => {
-    // let rediurl = to.path
-    // Vue.http({
-    //     method: 'post',
-    //     url: global.Domain.mallUrl + 'index',
-    //     body: {
-    //         rediurl: rediurl
-    //     },
-    //     emulateJSON: true
-    // }).then(function (response) {
-    //     let res = response.data
-    //     if (res.app === 0) {
-    //         location.href = res.url
-    //         return
-    //     } else {
-    //         Store.state.ifLoading = false
-    //     }
-    // })
-    // next()
+// let rediurl = to.path
+// Vue.http({
+//     method: 'post',
+//     url: global.Domain.mallUrl + 'index',
+//     body: {
+//         rediurl: rediurl
+//     },
+//     emulateJSON: true
+// }).then(function (response) {
+//     let res = response.data
+//     if (res.app === 0) {
+//         location.href = res.url
+//         return
+//     } else {
+//         Store.state.ifLoading = false
+//     }
+// })
+// next()
 // })
 // router.afterEach((to, from, next) => {
 //     // console.log(to.meta.title)

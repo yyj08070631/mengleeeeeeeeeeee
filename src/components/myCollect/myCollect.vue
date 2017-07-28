@@ -109,7 +109,8 @@ color = #fff
             width 100%
             margin-top 0.3125rem
             & > img
-                width 3.3438rem
+                margin-left 0.5rem
+                width 5.5rem
                 height 3.25rem
             .info
                 width 100%
@@ -158,7 +159,7 @@ color = #fff
                 justify-content center
                 align-items center
                 position absolute
-                left 0.5469rem
+                left 1.0938rem 
                 top 0.5rem
                 width 2.25rem
                 height 2.25rem

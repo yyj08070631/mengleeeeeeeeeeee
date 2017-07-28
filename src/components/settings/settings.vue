@@ -52,7 +52,7 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">星座</span>
                 <div class="link-wrapper">
-                    <select class="selectBox msg" @change="changeConstellation($event)" :value="data.constellation">
+                    <select class="selectBox msg" @change="changeConstellation($event)"  :value="data.constellation">
                         <option value="1">白羊座</option>
                         <option value="2">金牛座</option>
                         <option value="3">双子座</option>
@@ -74,7 +74,7 @@
                 <span class="title">身高</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeHeight($event)" :value="data.height">
+                        <input class="msg" @change="changeHeight($event)" :value="data.height" @focus="textFocus1" ref="input1">
                         <span class="msg">cm</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -85,7 +85,7 @@
                 <span class="title">体重</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeWeight($event)" :value="data.weight">
+                        <input class="msg" @change="changeWeight($event)" :value="data.weight" @focus="textFocus2" ref="input2">
                         <span class="msg">kg</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -164,7 +164,7 @@
                 <span class="title">收入</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeGain($event)" :value="data.gain">
+                        <input class="msg" @change="changeGain($event)" :value="data.gain" @focus="textFocus3" ref="input3">
                         <span class="msg">/月</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -174,24 +174,50 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">兴趣爱好</span>
                 <div class="link-wrapper">
-                    <input class="inputBox msg" @change="changeHabbit($event)" :value="data.habbit">
+                    <input class="inputBox msg" @change="changeHabbit($event)" :value="data.habbit" @focus="textFocus4" ref="input4"> 
                     <img class="other" src="./more.png">
                 </div>
             </a>
         </div>
+        <!-- 弹出框 -->
+        <div>
+            <toast v-model="success" type="text">修改成功</toast>
+        </div>
+        <div>
+            <toast v-model="error" type="text">修改失败</toast>
+        </div>
+        <div>
+            <toast v-model="number" type="text">请输入正确数值</toast>
+        </div>
+        <div>
+            <toast v-model="height" type="text">请输入正确数值</toast>
+        </div>
+        <div>
+            <toast v-model="weight" type="text">请输入正确数值</toast>
+        </div>
+        <div>
+            <toast v-model="hobby" type="text">仅包含汉字、字母</toast>
+       </div>
+        <!-- 弹出框 -->
     </div>
 </template>
-<script type="ecmascript-6">
 
+<script type="ecmascript-6">
+import { Toast, Group } from 'vux'
 export default {
     components: {
-
+        Toast,
+        Group,
     },
     data() {
         return {
             data: [],
-            showHideOnBlur: true,
-            show: true,
+            success: false,
+            error: false,
+            number: false,
+            height: false,
+            weight: false,
+            hobby: false,
         }
     },
     created() {
@@ -200,6 +226,43 @@ export default {
         })
     },
     methods: {
+            // // onChange (val) {
+            // // const _this = this
+            // // if (val) {
+            // //     this.$vux.toast.show({
+            // //     text: 'Hello World',
+            // //     onShow () {
+            // //         console.log('Plugin: I\'m showing')
+            // //     },
+            // //     onHide () {
+            // //         console.log('Plugin: I\'m hiding')
+            // //         _this.show9 = false
+            // //     }
+            // //     })
+            // // } else {
+            // //     this.$vux.toast.hide()
+            // // }
+            // },    
+        textFocus1: function(){
+            this.$refs.input1.selectionStart = 0;
+            this.$refs.input1.selectionEnd = this.$refs.input1.value.length
+            //input. = input.value.length
+        },    
+         textFocus2: function(){
+            this.$refs.input2.selectionStart = 0;
+            this.$refs.input2.selectionEnd = this.$refs.input2.value.length
+            //input. = input.value.length
+        }, 
+         textFocus3: function(){
+            this.$refs.input3.selectionStart = 0;
+            this.$refs.input3.selectionEnd = this.$refs.input3.value.length
+            //input. = input.value.length
+        }, 
+        textFocus4: function(){
+            this.$refs.input4.selectionStart = 0;
+            this.$refs.input4.selectionEnd = this.$refs.input.value.length
+            //input. = input.value.length
+        }, 
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -219,12 +282,14 @@ export default {
                 url: global.Domain + '/user/userSet?userId===tPtcNLZARXEuvDhRSFGkQX&constellation=' + $event.target.value,
                 emulateJSON: true
             }).then(function (response) {
+                
                 let res = response.body;
-                // console.log($event.target.value)
+                
                 if (res.code == 200) {
-                    alert('修改成功！！');
+                   this.success = true
+            
                 } else {
-                    alert('修改失败！！');
+                   this.error = true   
                     return
                 }
             })
@@ -241,14 +306,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true
                     } else {
-                        alert('修改失败！！');
+                        this.error = true;   
                         return
                     }
                 })
             } else {
-                alert('请输入正确的身高数字！！');
+                this.number = true
                 return
             }
             $event.target.blur()
@@ -265,14 +330,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true;
                     } else {
-                        alert('修改失败！！');
+                        this.error = true;   
                         return
                     }
                 })
             } else {
-                alert('请输入正确的体重数字！！');
+                this.height = true
                 return
             }
             $event.target.blur()
@@ -288,9 +353,9 @@ export default {
                 let res = response.body;
                 // console.log($event.target.value)
                 if (res.code == 200) {
-                    alert('修改成功！！');
+                    this.success = true;
                 } else {
-                    alert('修改失败！！');
+                    this.error = true;  
                     return
                 }
             })
@@ -307,14 +372,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true;
                     } else {
-                        alert('修改失败！！');
+                        this.error = true;  
                         return
                     }
                 })
             } else {
-                alert('请输入正确的月收入！！');
+                this.weight = true
                 return
             }
             $event.target.blur()
@@ -331,14 +396,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true;
                     } else {
-                        alert('修改失败！！');
+                        this.error = true; 
                         return
                     }
                 })
             } else {
-                alert('兴趣爱好仅包含汉字、字母！！');
+                this.hobby = true
                 return
             }
             $event.target.blur()
@@ -520,5 +585,14 @@ export default {
                 width: 100%
                 height: 0.3125rem
                 background: #f0f0f0            
- 
+    .weui-toast  
+        width auto!important 
+        height 0.9375rem
+        line-height 0.7813rem
+        top 50%!important
+        p
+            padding 0.3125rem 0.3125rem
+            font-size 0.375rem
+
+
 </style>

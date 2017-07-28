@@ -112,15 +112,23 @@
 			<router-link to="/cart">加购物袋</router-link>
 			<router-link to="/buyGoods">立即购买</router-link>
 		</footer>
+		<div>
+            <toast v-model="on" type="text">收藏成功</toast>
+        </div>
+        <div>
+            <toast v-model="off" type="text">已取消收藏</toast>
+        </div>
 	</div>
 </template>
 <script type="ecmascript-6">
-import { Swiper, SwiperItem, Divider } from 'vux'
+import { Swiper, SwiperItem, Divider,Toast, Group } from 'vux'
 export default {
 	components: {
 		Swiper,
 		SwiperItem,
 		Divider,
+		Toast, 
+		Group
 	},
 	data() {
 		return {
@@ -135,7 +143,9 @@ export default {
 			detailItemList: [],
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
-			para: 0
+			para: 0,
+			on: false,
+            off: false
 		}	
 	},
 	methods: {
@@ -149,14 +159,10 @@ export default {
             let obj = this.$refs.menuItem
             if(obj.src == file){
                 obj.src = file2
-                setTimeout(function(){
-                    alert('收藏成功')
-                },1000)
+                this.on = true
             }else{
                 obj.src = file
-                setTimeout(function(){
-                    alert('已取消收藏')
-                 },1000)
+               this.off = true
 				 }
 		},		 
 		
@@ -216,7 +222,8 @@ export default {
 		top 1.0938rem
 		left 0
 		width width
-		background #fff
+		height 100%
+		background color
 		// 详情页header
 		.header
 			headerFlex()
@@ -227,6 +234,7 @@ export default {
 			align-items center
 			width width
 			height 1.3438rem
+			background color	
 			a
 				color #ea68a2
 				width width
@@ -245,9 +253,12 @@ export default {
 			border-right 0
 			border-bottom 0
 			border-top 0.3125rem solid #f0f0f0
+			background color
 		// 评论
+		
 		.comment
 			margin-left 0.5rem
+			background color
 			.dividerThin
 				border-width 0.0313rem
 				border-color #e0e0e0
@@ -261,9 +272,7 @@ export default {
 						font-size 0.4063rem
 						font-weight bold
 						color: #333
-						img
-							width: 1.125rem !important
-							height: 0.375rem !important
+							
 					.rowDown
 						margin-top 0.1563rem
 						display flex
@@ -323,6 +332,8 @@ export default {
 						align-items center
 						img
 							display block
+							width: 1.125rem 
+							height: 0.375rem	
 							margin-left 0.0938rem
 						p
 							font-size 0.4063rem
@@ -357,6 +368,8 @@ export default {
 			margin-bottom 1.1875rem
 			img
 				display block
+				width 0.3438rem
+				height 0.375rem
 			p
 				font-size 0.375rem
 				margin-left 0.1563rem
@@ -405,4 +418,12 @@ export default {
 				color #fff
 				background-color #ea6aa2
 				height 100%
+		.weui-toast  
+			width auto!important 
+			height 0.9375rem
+			line-height 0.7813rem
+			top 50%!important
+			p
+				padding 0.0625rem 0.3125rem 0 0.3125rem
+				font-size 0.375rem 			
 </style>

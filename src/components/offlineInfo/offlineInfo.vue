@@ -1,20 +1,18 @@
 <template>
     <div class="offlineInfo-wrapper">
         <!--头部-->
-        <header class="header">
-            <div class="goBack">
-                <a href="javascript:history.back(1)">
+       <div class="header">
+            <div class="header-content">
+                <a href="javascript:history.back(-1)" class="goBack">
                     <img src="./images/arrow_left.png">
                     <span>返回</span>
                 </a>
-            </div>
-            <div class="title">线下信息</div>
-            <div class="search">
+                <h1 class="title">线下信息</h1>
                 <a href="#search">
-                    <img src="./images/search.png">
+                    <img class="search" src="./images/search.png" />
                 </a>
             </div>
-        </header>
+        </div>
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
@@ -103,8 +101,25 @@
                     </div>
                     <hr class="divider">
                 </div>
+                 <div class="commentDetailContainer" v-for="(val,key) in msgData">
+                    <div class="commentDetail">
+                        <div class="colLeft">
+                            <img :src="val.headimg">
+                        </div>
+                        <div class="colRight">
+                            <div class="rowUp">
+                                <p>{{val.username}}</p>
+                                <img :src="computeImg(val.level)">
+                            </div>
+                            <div class="rowDown">
+                                {{val.content}}
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                </div> 
                 <div class="viewMore">
-                    <span>查看更多评价</span>
+                    <a href="javascript:void(0)" @click="addMsgMore">{{msgMore}}</a>
                 </div>
             </div>
         </section>
@@ -134,12 +149,9 @@ export default {
                 }
             },
             data: [],
-            // img: [
-            //     'http://pic.58pic.com/58pic/14/01/25/96Q58PICs7j_1024.jpg',
-            //     'http://img0.imgtn.bdimg.com/it/u=3685194930,2385658000&fm=214&gp=0.jpg',
-            //     'http://www.pp3.cn/uploads/201410/2014102809.jpg',
-            //     'http://tupian.enterdesk.com/2015/xll/28/12/lizhiyou7.jpg'
-            // ]
+            msgData: [],
+            para: 0,
+            msgMore: '查看更多评论'
         }
     },
     created() {
@@ -159,6 +171,34 @@ export default {
                 //console.log(this.data)
             });
         },
+        //获取更多评论数据
+        getMsgMore: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Nearby/msgmore?para='+this.para+'&nid='+this.$route.query.nid,
+                emulateJSON: true
+            }).then(function (response) {
+                let moreComMore = response.body;
+                
+                //console.log(moreComMore)
+                if(moreComMore == 'err'){
+                    this.msgMore = "没有更多评论了"
+                    this.para = this.para-1
+                   return
+                }else{
+                    this.msgMore = "查看更多评论"
+                    moreComMore.commentitem.forEach((obj)=>{
+                    this.msgData.push(obj)
+					})
+                }
+            })
+        },
+        //添加数据机制
+        addMsgMore: function(){
+            this.para++
+			this.getMsgMore()
+        },
+        //等级图标
         computeImg: function (level) {
             if (level == 1) {
                 return require('./images/xiaobai.png')
@@ -183,8 +223,6 @@ export default {
         }
     },
     mounted() {
-        //这边就可以使用swiper这个对象去使用swiper官网中的那些方法  
-        // this.swiper.slideTo(0, 0, false);
         this.getDataFromBackend();
     }
 }
@@ -233,7 +271,7 @@ img, span, a
     background #fff
     // 详情页header
     .header
-        headerFlex()
+       headerCss()
     // 主体
     .main
         // 分割线
@@ -261,6 +299,9 @@ img, span, a
                     font-size 0.4063rem
                     color #ea68a2
                     margin-right 0.625rem
+                    img
+                        width 0.2188rem
+                        height 0.3906rem
             .commentDetail
                 display flex
                 margin-top 0.3125rem
@@ -280,6 +321,8 @@ img, span, a
                         align-items center
                         img
                             display block
+                            width 1.125rem
+                            height 0.375rem
                             margin-left 0.0938rem
                         p
                             font-size 0.4063rem
@@ -292,15 +335,15 @@ img, span, a
                         text-align justify
                         color #909090
             .viewMore
-                color #ea68a2
                 display flex
                 justify-content center
                 align-items center
                 height 1.3438rem
                 font-size 0.4063rem
-                span
+                a
                     display block
                     margin-left 0.1563rem
+                    color #ea68a2
         // 粗分割线
         .dividerBig
             margin-bottom 0.3125rem
@@ -364,6 +407,9 @@ img, span, a
                         font-size 0.3438rem
                 .colRight
                     padding-right 0.5rem
+                    img
+                        width 0.2188rem
+                        height 0.3906rem
             .rowDown:active
                 background-color #f0f0f0
         // 线下服务
