@@ -52,7 +52,7 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">星座</span>
                 <div class="link-wrapper">
-                    <select class="selectBox msg" @change="changeConstellation($event)" :value="data.constellation">
+                    <select class="selectBox msg" @change="changeConstellation($event)"  :value="data.constellation">
                         <option value="1">白羊座</option>
                         <option value="2">金牛座</option>
                         <option value="3">双子座</option>
@@ -179,21 +179,45 @@
                 </div>
             </a>
         </div>
-        <div class="SUCCESS" ref="success" v-show="success">修改成功</div> 
+        <!-- 弹出框 -->
+        <div>
+            <toast v-model="success" type="text">修改成功</toast>
+        </div>
+        <div>
+            <toast v-model="error" type="text">修改失败</toast>
+        </div>
+        <div>
+            <toast v-model="number" type="text">请输入正确的数字</toast>
+        </div>
+        <div>
+            <toast v-model="height" type="text">请输入正确的身高数字！！</toast>
+        </div>
+        <div>
+            <toast v-model="weight" type="text">请输入正确的体重数字！！</toast>
+        </div>
+        <div>
+            <toast v-model="hobby" type="text">兴趣爱好仅包含汉字、字母！！</toast>
+       </div>
+        <!-- 弹出框 -->
     </div>
 </template>
-<script type="ecmascript-6">
 
+<script type="ecmascript-6">
+import { Toast, Group } from 'vux'
 export default {
     components: {
-
+        Toast,
+        Group,
     },
     data() {
         return {
             data: [],
-            showHideOnBlur: true,
-            show: true,
-            success: false
+            success: false,
+            error: false,
+            number: false,
+            height: false,
+            weight: false,
+            hobby: false,
         }
     },
     created() {
@@ -202,10 +226,23 @@ export default {
         })
     },
     methods: {
-        d(){
-            
-          
-        },
+            // // onChange (val) {
+            // // const _this = this
+            // // if (val) {
+            // //     this.$vux.toast.show({
+            // //     text: 'Hello World',
+            // //     onShow () {
+            // //         console.log('Plugin: I\'m showing')
+            // //     },
+            // //     onHide () {
+            // //         console.log('Plugin: I\'m hiding')
+            // //         _this.show9 = false
+            // //     }
+            // //     })
+            // // } else {
+            // //     this.$vux.toast.hide()
+            // // }
+            // },    
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -227,14 +264,12 @@ export default {
             }).then(function (response) {
                 
                 let res = response.body;
-                 //alert('修改成功！！');
-                // console.log($event.target.value)
+                
                 if (res.code == 200) {
-                   
-                    this.success = true
-        
+                   this.success = true
+            
                 } else {
-                    alert('修改失败！！');
+                   this.error = true   
                     return
                 }
             })
@@ -251,14 +286,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true
                     } else {
-                        alert('修改失败！！');
+                        this.error = true;   
                         return
                     }
                 })
             } else {
-                alert('请输入正确的身高数字！！');
+                this.number = true
                 return
             }
             $event.target.blur()
@@ -275,14 +310,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true;
                     } else {
-                        alert('修改失败！！');
+                        this.error = true;   
                         return
                     }
                 })
             } else {
-                alert('请输入正确的体重数字！！');
+                this.height = true
                 return
             }
             $event.target.blur()
@@ -298,9 +333,9 @@ export default {
                 let res = response.body;
                 // console.log($event.target.value)
                 if (res.code == 200) {
-                    alert('修改成功！！');
+                    this.success = true;
                 } else {
-                    alert('修改失败！！');
+                    this.error = true;  
                     return
                 }
             })
@@ -317,14 +352,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true;
                     } else {
-                        alert('修改失败！！');
+                        this.error = true;  
                         return
                     }
                 })
             } else {
-                alert('请输入正确的月收入！！');
+                this.weight = true
                 return
             }
             $event.target.blur()
@@ -341,14 +376,14 @@ export default {
                     let res = response.body;
                     // console.log($event.target.value)
                     if (res.code == 200) {
-                        alert('修改成功！！');
+                        this.success = true;
                     } else {
-                        alert('修改失败！！');
+                        this.error = true; 
                         return
                     }
                 })
             } else {
-                alert('兴趣爱好仅包含汉字、字母！！');
+                this.hobby = true
                 return
             }
             $event.target.blur()
@@ -530,18 +565,14 @@ export default {
                 width: 100%
                 height: 0.3125rem
                 background: #f0f0f0            
-    .SUCCESS
-        position fixed
-        left 50%
-        bottom 20%
-        margin-left -1.25rem
-        width 2.5rem
-        height 0.875rem
-        line-height 0.875rem
-        border-radius 0.1875rem
-        background rgba(0,0,0,0.7)
-        font-size 0.4063rem
-        color #fff
-        text-align center
-        transition 1s all
+    .weui-toast  
+        width auto!important 
+        height 0.9375rem
+        line-height 0.7813rem
+        top 50%!important
+        p
+            padding 0.3125rem 0.3125rem
+            font-size 0.375rem
+
+
 </style>

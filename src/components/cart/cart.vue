@@ -127,7 +127,6 @@ span, a, img, input, textarea
     background #f0f0f0
     // 详情页header
     .header
-<<<<<<< HEAD
         border-bottom-1px(#e0e0e0)
         position fixed
         display flex
@@ -167,9 +166,6 @@ span, a, img, input, textarea
             font-size 0.4063rem
             color #ea68a2
             flex 1
-=======
-        headerFlex()
->>>>>>> 8c6570977a1b2b4c1c764b527ec1b23528858b11
     // 主体
     .main
         margin-bottom 1.4063rem

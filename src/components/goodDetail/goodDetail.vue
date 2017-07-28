@@ -112,15 +112,23 @@
 			<router-link to="/cart">加购物袋</router-link>
 			<router-link to="/buyGoods">立即购买</router-link>
 		</footer>
+		<div>
+            <toast v-model="on" type="text">收藏成功</toast>
+        </div>
+        <div>
+            <toast v-model="off" type="text">已取消收藏</toast>
+        </div>
 	</div>
 </template>
 <script type="ecmascript-6">
-import { Swiper, SwiperItem, Divider } from 'vux'
+import { Swiper, SwiperItem, Divider,Toast, Group } from 'vux'
 export default {
 	components: {
 		Swiper,
 		SwiperItem,
 		Divider,
+		Toast, 
+		Group
 	},
 	data() {
 		return {
@@ -135,7 +143,9 @@ export default {
 			detailItemList: [],
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
-			para: 0
+			para: 0,
+			on: false,
+            off: false
 		}	
 	},
 	methods: {
@@ -149,14 +159,10 @@ export default {
             let obj = this.$refs.menuItem
             if(obj.src == file){
                 obj.src = file2
-                setTimeout(function(){
-                    alert('收藏成功')
-                },1000)
+                this.on = true
             }else{
                 obj.src = file
-                setTimeout(function(){
-                    alert('已取消收藏')
-                 },1000)
+               this.off = true
 				 }
 		},		 
 		
@@ -412,4 +418,12 @@ export default {
 				color #fff
 				background-color #ea6aa2
 				height 100%
+		.weui-toast  
+			width auto!important 
+			height 0.9375rem
+			line-height 0.7813rem
+			top 50%!important
+			p
+				padding 0.0625rem 0.3125rem 0 0.3125rem
+				font-size 0.375rem 			
 </style>

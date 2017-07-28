@@ -31,10 +31,17 @@
                 </div>
             </div>
         </div>
+        <div>
+            <toast v-model="on" type="text">收藏成功</toast>
+        </div>
+        <div>
+            <toast v-model="off" type="text">已取消收藏</toast>
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import { Toast, Group } from 'vux'
 export default {
     data()
         {
@@ -51,11 +58,15 @@ export default {
                 getId: '',
                 goodsItemList: [],
                 file: require('./collect.png'),//收藏图片
+                on: false,
+                off: false
             }
         },
         props: ['id'],
     components :{
-        'v-view': view
+        'v-view': view,
+        Toast,
+        Group,
     },
     methods: {
         changeClass: function(){
@@ -84,14 +95,10 @@ export default {
             let obj = this.$refs.menuItem
             if(obj[index].src == file){
                 obj[index].src = file2
-                setTimeout(function(){
-                    alert('收藏成功')
-                },1000)
+                    this.on = true
             }else{
                 obj[index].src = file
-                setTimeout(function(){
-                    alert('已取消收藏')
-                 },1000)
+                    this.off = true
                  }
             },
         changeActive(){
@@ -194,6 +201,8 @@ class1()
      .collect
         margin: 0.2813rem 0.4375rem 0.1563rem 0 
         float: right
+        width 0.6563rem
+        height 0.6563rem   
         .goodsMsg
             width: 4.9688rem 
             height: 4.625rem 
@@ -225,6 +234,8 @@ class2()
         position: absolute
         right: 0.375rem
         top: 0.375rem
+        width 0.6563rem
+        height 0.6563rem    
     .goodsMsg
         float: left
         width: 4.9688rem 
@@ -306,5 +317,13 @@ class2()
         .goods-item1
             class1()
         .goods-item2
-            class2()    
+            class2()
+    .weui-toast  
+        width auto!important 
+        height 0.9375rem
+        line-height 0.7813rem
+        top 50%!important
+        p
+            padding 0.0625rem 0.3125rem 0 0.3125rem
+            font-size 0.375rem            
 </style>
