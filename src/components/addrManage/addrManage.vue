@@ -83,8 +83,9 @@ span, a, img, input, textarea
     position absolute
     top 1.25rem
     left 0
-    width width
-    background #fff
+    width 100%
+    height 100%
+    background #f0f0f0
     // 详情页header
     .header
         headerFlex()
@@ -104,6 +105,7 @@ span, a, img, input, textarea
             align-items center
             padding-bottom 0.3125rem
             border-bottom-1px(#e0e0e0)
+            background-color #fff
             .rowUp
                 display flex
                 justify-content space-between

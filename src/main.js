@@ -38,11 +38,16 @@ import jsonp from 'jsonp';
 import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
 import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
-//import Vuex from 'vuex'
+import Vuex from 'vuex';
+import vuexI18n from 'vuex-i18n';
 //import store from './vuex/store'
 import AMap from 'vue-amap'
 
+Vue.use(Vuex)
+const store = new Vuex.Store();
+
 Vue.use(AMap)
+Vue.use(vuexI18n.plugin, store)
 //Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)

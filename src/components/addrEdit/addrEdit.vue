@@ -17,25 +17,21 @@
             <!-- 收货人 -->
             <div class="infoBox">
                 <div class="rowLeft">收货人：</div>
-                <div class="rowRight">大帅比</div>
+                <input class="rowRight" placeholder="请填写收货人姓名" maxlength="10">
             </div>
             <!-- 手机号码 -->
             <div class="infoBox">
                 <div class="rowLeft">手机号码：</div>
-                <div class="rowRight">15555555555</div>
+                <input class="rowRight" placeholder="请填写手机号码" maxlength="11">
             </div>
             <!-- 所在地区 -->
             <div class="infoBox loc">
-                <div class="rowLeft">所在地区：</div>
-                <a href="javascript:void(0)" class="rowRight">
-                    <p>广东省广州市海珠区</p>
-                    <img src="./images/arrow_right.png">
-                </a>
+                <x-address title="所在地区：" v-model="value" :list="addressData" placeholder="请选择地址" class=""></x-address>
             </div>
             <!-- 街道地址 -->
             <div class="infoBox locDetail">
                 <div class="rowLeft">街道地址：</div>
-                <div class="rowRight">街道地址在哪里呢滑稽街道地址在哪里呢滑稽</div>
+                <textarea placeholder="请输入收货地址" class="rowRight textArea" maxlength="20"></textarea>
             </div>
             <!-- 默认地址 -->
             <a href="javascript:void(0)" class="selDefault">
@@ -46,64 +42,29 @@
             <div class="saveAddr">
                 <router-link to="/home" class="saveAddrItem">保存</router-link>
             </div>
-            
         </section>
-        <div class="groups-container">
-            <group>
-                <selector v-model="value1" title="省份" :options="province" @on-change="onChange"></selector>
-            </group>
-            <group>
-                <selector v-model="value1" title="市区" :options="province.city" @on-change="onChange"></selector>
-            </group>
-            <group>
-                <selector v-model="value1" title="区/县" :options="province" @on-change="onChange"></selector>
-            </group>
-        </div>
-
     </div>
 </template>
  <script type="ecmascript-6">
-//  import VDistpicker from 'v-distpicker'
-import addrData from '../../commom/json/address.min.json'
-import { Selector,Group } from 'vux'
+import { Group, XAddress, ChinaAddressV3Data, XButton, Cell, Value2nameFilter as value2name } from 'vux';
+
 export default {
     components: {
-       Group,
-    Selector
+        Group,
+        XAddress,
+        XButton,
+        Cell
     },
     data() {
         return {
-            value1: '广西',
-            plainList: ['广东', '广西'],
-            addrListData: addrData,
-            province: [],
-            city: [],
-            
+            value: [],
+            addressData: ChinaAddressV3Data,
         }
     },
     methods: {
-        onChange (val) {
-          
-         },
-        addrDataSort(){
-             this.addrListData.forEach((data)=>{
-                this.province.push(data.name)
-                //this.city.push(data.city)
 
-                data.city.forEach((city) => {
-                    this.city.push(city.name)
-                })
-                //console.log(data)
-             })
-              console.log(this.city)
-
-        }
-         
     },
     mounted() {
-        this.$nextTick(function(){
-            this.addrDataSort()
-        })
 
     }
 }
@@ -122,8 +83,9 @@ span, a, img, input, textarea
     position absolute
     top 1.25rem
     left 0
-    width width
-    background #fff
+    width 100%
+    height 100%
+    background #f0f0f0
     // 详情页header
     .header
         headerFlex()
@@ -144,8 +106,43 @@ span, a, img, input, textarea
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight
+                display flex
+                align-items center
                 width 6.4688rem
+                height 95%
                 color #262626
+                outline 0
+            textarea
+                height 60% !important
+                border 0
+                font-size 0.4375rem
+                font-family 'Microsoft YaHei'
+                color #262626
+                resize none
+            .weui-cell
+                padding 0
+                span
+                    display inline
+            .vux-cell-box
+                display flex
+                align-items center
+                position absolute
+                top 0
+                width 100%
+                height 100%
+                color #525252
+                .weui-cell
+                    width 100%
+                    height 100%                    
+                    .weui-cell__hd
+                        margin 0 0.7188rem 0 0.3125rem
+                    .vux-cell-primary
+                        .vux-popup-picker-select
+                            display flex
+                    .weui-cell__ft
+                        display none
+                &:before
+                    border 0
         // 特殊
         .locDetail
             height 2.0313rem
@@ -184,28 +181,5 @@ span, a, img, input, textarea
             p
                 height 100%
                 margin-left 0.2188rem
-                font-size 0.4688rem  
-
-    .groups-container
-        display fixed
-        top 0
-        width 100%
-        height 100%
-        .weui-cells
-            height 1.0938rem
-            line-height 1.0938rem
-            font-size 0.375rem
-            color #909090
-            border-top 1px solid #ea68a2
-            margin 0 0.5rem
-        .weui-cells:last-child
-            border-bottom 1px solid #ea68a2    
-            select
-                option
-                    font-size 0.375rem
-                    font-align right!important           
-        .weui-cell_select .weui-cell__bd:after   
-            width 0.25rem
-            height 0.25rem  
-            margin -0.125rem 0.0781rem 0 0        
+                font-size 0.4688rem    
 </style>

@@ -8,7 +8,7 @@
                     <span>返回</span>
                 </a>
             </div>
-            <div class="title">我的团队</div>
+            <div class="title">我的购物袋</div>
             <div class="search"><p>编辑</p></div>
         </header>
         <!-- 主体 -->
