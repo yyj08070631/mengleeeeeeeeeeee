@@ -74,7 +74,7 @@
                 <span class="title">身高</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeHeight($event)" :value="data.height">
+                        <input class="msg" @change="changeHeight($event)" :value="data.height" @focus="textFocus1" ref="input1">
                         <span class="msg">cm</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -85,7 +85,7 @@
                 <span class="title">体重</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeWeight($event)" :value="data.weight">
+                        <input class="msg" @change="changeWeight($event)" :value="data.weight" @focus="textFocus2" ref="input2">
                         <span class="msg">kg</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -164,7 +164,7 @@
                 <span class="title">收入</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeGain($event)" :value="data.gain">
+                        <input class="msg" @change="changeGain($event)" :value="data.gain" @focus="textFocus3" ref="input3">
                         <span class="msg">/月</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -174,7 +174,7 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">兴趣爱好</span>
                 <div class="link-wrapper">
-                    <input class="inputBox msg" @change="changeHabbit($event)" :value="data.habbit">
+                    <input class="inputBox msg" @change="changeHabbit($event)" :value="data.habbit" @focus="textFocus4" ref="input4"> 
                     <img class="other" src="./more.png">
                 </div>
             </a>
@@ -187,16 +187,16 @@
             <toast v-model="error" type="text">修改失败</toast>
         </div>
         <div>
-            <toast v-model="number" type="text">请输入正确的数字</toast>
+            <toast v-model="number" type="text">请输入正确数值</toast>
         </div>
         <div>
-            <toast v-model="height" type="text">请输入正确的身高数字！！</toast>
+            <toast v-model="height" type="text">请输入正确数值</toast>
         </div>
         <div>
-            <toast v-model="weight" type="text">请输入正确的体重数字！！</toast>
+            <toast v-model="weight" type="text">请输入正确数值</toast>
         </div>
         <div>
-            <toast v-model="hobby" type="text">兴趣爱好仅包含汉字、字母！！</toast>
+            <toast v-model="hobby" type="text">仅包含汉字、字母</toast>
        </div>
         <!-- 弹出框 -->
     </div>
@@ -243,6 +243,26 @@ export default {
             // //     this.$vux.toast.hide()
             // // }
             // },    
+        textFocus1: function(){
+            this.$refs.input1.selectionStart = 0;
+            this.$refs.input1.selectionEnd = this.$refs.input1.value.length
+            //input. = input.value.length
+        },    
+         textFocus2: function(){
+            this.$refs.input2.selectionStart = 0;
+            this.$refs.input2.selectionEnd = this.$refs.input2.value.length
+            //input. = input.value.length
+        }, 
+         textFocus3: function(){
+            this.$refs.input3.selectionStart = 0;
+            this.$refs.input3.selectionEnd = this.$refs.input3.value.length
+            //input. = input.value.length
+        }, 
+        textFocus4: function(){
+            this.$refs.input4.selectionStart = 0;
+            this.$refs.input4.selectionEnd = this.$refs.input.value.length
+            //input. = input.value.length
+        }, 
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
