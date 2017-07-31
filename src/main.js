@@ -35,11 +35,10 @@ import evaluate from './components/evaluate/evaluate';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
-import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
+import { AlertPlugin, ToastPlugin, AjaxPlugin, XDialog } from 'vux'
 import Vuex from 'vuex';
-import { XDialog } from 'vux'
+import AMap from 'vue-amap'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
-import Vuex from 'vuex';
 import vuexI18n from 'vuex-i18n';
 //import store from './vuex/store'
 
@@ -48,7 +47,7 @@ const store = new Vuex.Store();
 
 Vue.use(AMap)
 Vue.use(vuexI18n.plugin, store)
-//Vue.use(Vuex)
+    //Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
