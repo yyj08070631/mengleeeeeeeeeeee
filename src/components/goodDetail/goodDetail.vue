@@ -109,14 +109,47 @@
 				<img src="./images/collect.png" ref="menuItem" @click="changSrc()">
 				<p>加入收藏</p>
 			</a>
-			<router-link to="/cart">加购物袋</router-link>
+			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
 			<router-link to="/buyGoods">立即购买</router-link>
 		</footer>
+		<div class="goodsCart-wrapper" v-show="showCart">
+			<div class="addCart-container">
+				<div class="goodsInfo">
+					<div>
+						 <div class="img-wrapper">
+							 <img :src="detailItemList.albumitem[0].src"> 
+						 </div>
+					</div>
+					<div>
+						<span>{{detailItemList.gooditem[0].name}}</span>
+						<span>￥{{detailItemList.gooditem[0].price}}</span>
+					</div>
+					<div>
+						<img src="./images/close.png" @click="closeCart">
+					</div>
+				</div>
+				<div class="goodsNumber">
+					<span>请选择数量</span>
+					<div class="count">
+						<div class="sub" @click="numSub">-</div>
+						<input type="text" :value="number">
+						<div class="plus" @click="numPlus">+</div> 
+					</div>
+				</div>
+				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
+			</div>
+		</div>
 		<div>
             <toast v-model="on" type="text">收藏成功</toast>
         </div>
         <div>
             <toast v-model="off" type="text">已取消收藏</toast>
+        </div>
+		<div>
+            <toast v-model="success" type="text">添加成功</toast>
+        </div>
+		<div>
+            <toast v-model="error" type="text">添加失败</toast>
         </div>
 	</div>
 </template>
@@ -145,7 +178,11 @@ export default {
 			comMoreList: [],//查看更多评论数组
 			para: 0,
 			on: false,
-            off: false
+            off: false,
+			showCart: false,
+			number: 1,
+			success: false,
+			error: false
 		}	
 	},
 	methods: {
@@ -153,6 +190,7 @@ export default {
 		onIndexChange(index) {
 			this.bannerIndex = index
 		},
+		//收藏按钮
 		changSrc: function(){
             let file = require('./images/collect.png');
             let file2 = require('./images/collect-active.png');
@@ -165,7 +203,7 @@ export default {
                this.off = true
 				 }
 		},		 
-		
+		// 获取数据
 		getDataFromBackend: function() {
             this.$http({
                 method: 'get',
@@ -173,9 +211,10 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.detailItemList = response.body
-				//console.log(this.detailItemList)
+				console.log(this.detailItemList)
             })
         },
+		// 获取更多评论
 		getMomMore: function () {
             this.$http({
                 method: 'get',
@@ -195,11 +234,56 @@ export default {
                 }
             })
 		},
+		// 添加评论
 		addComMore: function(){
 			this.para++
 			this.getMomMore()
-		}
-	
+		},
+		//显示购物车
+		showCartFn: function(){
+			if(this.showCart == false){
+				this.showCart = true
+			}else{
+				this.showCart = false
+			}
+		},
+		// 隐藏购物车
+		closeCart: function(){
+			this.showCart = false
+		},
+		// 数量++
+		numPlus: function(){
+			this.number ++
+		},
+		// 数量--
+		numSub: function(){
+			if(this.number == 1){
+				this.number = 1
+			}else{
+				this.number -- 
+			}
+		},
+		//添加到购物车
+		addCartList: function(){
+                this.$http.post(
+					global.Domain + '/Order/addcart',
+					{
+						gid:this.detailItemList.gooditem[0].id,
+						number:this.number
+					},
+					{
+						emulateJSON:true
+					}).then(response=>{
+                    let data = response.body;
+                    if(data === 1){
+						this.success = true
+					}else{
+						this.error = true
+					}
+                })
+        this.closeCart()
+		},
+		
 	},
 	mounted(){
 		this.$nextTick(function(){
@@ -418,6 +502,7 @@ export default {
 				color #fff
 				background-color #ea6aa2
 				height 100%
+		//弹窗		
 		.weui-toast  
 			width auto!important 
 			height 0.9375rem
@@ -425,5 +510,89 @@ export default {
 			top 50%!important
 			p
 				padding 0.0625rem 0.3125rem 0 0.3125rem
-				font-size 0.375rem 			
+				font-size 0.375rem 		
+		//购物车			
+		.goodsCart-wrapper
+			position fixed
+			top 0
+			left 0
+			width 100%
+			height 100%		
+			background rgba(0,0,0,0.5)
+			z-index 1000  
+			.addCart-container
+				position absolute
+				bottom 0
+				width 100%
+				height 6.0938rem
+				background #fff
+				.goodsInfo
+					display flex
+					width 100%
+					height 2.8438rem
+					border-bottom-1px(#e0e0e0)
+					font-size 0.375rem
+					div:first-child
+						position relative
+						width 2.9688rem
+						.img-wrapper
+							position absolute
+							margin 0
+							padding 0.1563rem
+							left 0.3125rem
+							bottom 0.4688rem
+							width 2.5313rem
+							height 2.5313rem
+							background #fff
+							border-radius 0.1563rem
+							img
+								width 2.5313rem
+								height 2.5313rem
+					div:nth-child(2)
+						flex 1
+						span:first-child
+							margin-top 0.2813rem
+							line-height 0.9375rem
+							text-indent 0.4688rem	
+							color #ea6aa2
+						span:last-child	
+							line-height 0.9375rem	
+							text-indent 0.4688rem
+							color #909090	
+					div:last-child
+						margin 0.2813rem 0.2813rem 0 0
+						width 0.625rem
+						height 0.625rem
+	
+				.goodsNumber
+					display flex
+					width 100%
+					height 2rem
+					line-height 2rem
+					font-size 0.4063rem
+					span
+						flex 1
+						margin-left 0.3438rem
+					.count
+						display flex
+						margin 0.625rem 0.2813rem 0 0
+						height 0.6875rem
+						line-height  0.6875rem
+						border 0.0313rem solid #d6d6d6
+						.sub,.plus
+							text-align center
+							width 0.6875rem
+						input 
+							width 0.6875rem	
+							text-align center
+							border-left 0.0313rem solid #d6d6d6
+							border-right 0.0313rem solid #d6d6d6
+				.dumpBtn
+					width 100%
+					height 1.25rem
+					line-height 1.25rem
+					font-size 0.4219rem
+					color #fff
+					text-align center
+					background #fe9333
 </style>
