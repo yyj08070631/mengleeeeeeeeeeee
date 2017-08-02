@@ -2,40 +2,41 @@
 	<div class="goodDetail-wrapper">
 		<!--头部-->
 		<header class="header">
-            <div class="goBack">
-                <a href="javascript:history.back(1)">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-            </div>
-            <div class="title">商品详情</div>
-            <div class="search">
-                <a href="#search">
-                    <img src="./images/search.png">
-                </a>
-            </div>
-        </header>
+			<div class="goBack">
+				<a href="javascript:history.back(1)">
+					<img src="./images/arrow_left.png">
+					<span>返回</span>
+				</a>
+			</div>
+			<div class="title">商品详情</div>
+			<div class="search">
+				<a href="#search">
+					<img src="./images/search.png">
+				</a>
+			</div>
+		</header>
 		<!--图片轮播-->
-		  <swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
-			   <swiper-item class="swiper-demo-img" v-for="(item, index) in detailItemList.albumitem" :key="index">
+		<swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
+			<swiper-item class="swiper-demo-img" v-for="(item, index) in detailItemList.albumitem" :key="index">
 				<img :src="item.src" width="100%" height="100%">
-			</swiper-item>   
-		</swiper>  
+			</swiper-item>
+		</swiper>
 		<!--导航按钮-->
 		<div class="detailNav">
 			<router-link :to="{path:'/imageText',query:{gid:$route.query.gid}}">图文详情</router-link>
 			<router-link :to="{path:'/goodsData',query:{gid:$route.query.gid}}">商品参数</router-link>
 		</div>
 		<!--粗分割线-->
-		<hr class="divider">
+		<div class="divider"></div>
 		<!--评论详情-->
 		<div class="comment">
 			<div class="titleUp">
 				<div class="colLeft">
-					<a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem[0].name}}</a><!---->
+					<a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem.name}}</a>
+					<!---->
 					<div class="rowDown">
-						<p>￥{{detailItemList.gooditem[0].price}}</p>
-						<p>已有 {{detailItemList.gooditem[0].sale}} 人购买</p>
+						<p>￥{{detailItemList.gooditem.price}}</p>
+						<p>已有 {{detailItemList.gooditem.sale}} 人购买</p>
 					</div>
 				</div>
 				<div class="colRight" name="share" role="button">
@@ -69,7 +70,7 @@
 						</div>
 					</div>
 				</div>
-				<hr class="divider dividerThin">
+				<div class="divider dividerThin"></div>
 			</div>
 			<div class="commentDetailContainer" v-for="(item,key) in comMoreList">
 				<div class="commentDetail">
@@ -88,7 +89,7 @@
 				</div>
 				<hr class="divider dividerThin">
 			</div>
-			<div class="viewMore"> 
+			<div class="viewMore">
 				<span @click="addComMore">{{comNode}}</span>
 			</div>
 		</div>
@@ -106,7 +107,7 @@
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img src="./images/collect.png" ref="menuItem" @click="changSrc()">
+				<img :src="detailItemList.iscolitems == 0 ? require('./images/collect.png') : require('./images/collect-active.png')" ref="menuItem" @click="changSrc()">
 				<p>加入收藏</p>
 			</a>
 			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
@@ -116,13 +117,13 @@
 			<div class="addCart-container">
 				<div class="goodsInfo">
 					<div>
-						 <div class="img-wrapper">
-							 <img :src="detailItemList.albumitem[0].src"> 
-						 </div>
+						<div class="img-wrapper">
+							<img :src="detailItemList.albumitem[0].src">
+						</div>
 					</div>
 					<div>
-						<span>{{detailItemList.gooditem[0].name}}</span>
-						<span>￥{{detailItemList.gooditem[0].price}}</span>
+						<span>{{detailItemList.gooditem.name}}</span>
+						<span>￥{{detailItemList.gooditem.price}}</span>
 					</div>
 					<div>
 						<img src="./images/close.png" @click="closeCart">
@@ -133,34 +134,34 @@
 					<div class="count">
 						<div class="sub" @click="numSub">-</div>
 						<input type="text" :value="number">
-						<div class="plus" @click="numPlus">+</div> 
+						<div class="plus" @click="numPlus">+</div>
 					</div>
 				</div>
 				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
 			</div>
 		</div>
 		<div>
-            <toast v-model="on" type="text">收藏成功</toast>
-        </div>
-        <div>
-            <toast v-model="off" type="text">已取消收藏</toast>
-        </div>
+			<toast v-model="on" type="text">收藏成功</toast>
+		</div>
 		<div>
-            <toast v-model="success" type="text">添加成功</toast>
-        </div>
+			<toast v-model="off" type="text">已取消收藏</toast>
+		</div>
 		<div>
-            <toast v-model="error" type="text">添加失败</toast>
-        </div>
+			<toast v-model="success" type="text">添加成功</toast>
+		</div>
+		<div>
+			<toast v-model="error" type="text">添加失败</toast>
+		</div>
 	</div>
 </template>
 <script type="ecmascript-6">
-import { Swiper, SwiperItem, Divider,Toast, Group } from 'vux'
+import { Swiper, SwiperItem, Divider, Toast, Group } from 'vux'
 export default {
 	components: {
 		Swiper,
 		SwiperItem,
 		Divider,
-		Toast, 
+		Toast,
 		Group
 	},
 	data() {
@@ -172,18 +173,18 @@ export default {
 				require('./images/zuanshi.png'),
 				require('./images/jinguan.png'),
 				require('./images/huangguan.png')
-					],
+			],
 			detailItemList: [],
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
 			para: 0,
 			on: false,
-            off: false,
+			off: false,
 			showCart: false,
 			number: 1,
 			success: false,
 			error: false
-		}	
+		}
 	},
 	methods: {
 		//改变收藏按钮样式函数
@@ -191,112 +192,111 @@ export default {
 			this.bannerIndex = index
 		},
 		//收藏按钮
-		changSrc: function(){
-            let file = require('./images/collect.png');
-            let file2 = require('./images/collect-active.png');
-            let obj = this.$refs.menuItem
-            if(obj.src == file){
-                obj.src = file2
-                this.on = true
-            }else{
-                obj.src = file
-               this.off = true
-				 }
-		},		 
+		changSrc: function () {
+			let file = require('./images/collect.png');
+			let file2 = require('./images/collect-active.png');
+			let obj = this.$refs.menuItem
+			if (obj.src == file) {
+				obj.src = file2
+				this.on = true
+			} else {
+				obj.src = file
+				this.off = true
+			}
+		},
 		// 获取数据
-		getDataFromBackend: function() {
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/Cate/detail?gid='+this.$route.query.gid,
-                emulateJSON: true
-            }).then(function (response) {
-                this.detailItemList = response.body
+		getDataFromBackend: function () {
+			this.$http({
+				method: 'get',
+				url: global.Domain + '/Cate/detail?gid=' + this.$route.query.gid,
+				emulateJSON: true
+			}).then(function (response) {
+				this.detailItemList = response.body
 				console.log(this.detailItemList)
-            })
-        },
+			})
+		},
 		// 获取更多评论
 		getMomMore: function () {
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/Cate/commore?para='+this.para+'&gid='+this.$route.query.gid,
-                emulateJSON: true
-            }).then(function (response) {
-                let moreComMore = response.body;
-                if(moreComMore == 'err'){
-                    this.comNode = "没有更多评论了"
-                    this.para = this.para-1
-                   return
-                }else{
-                    this.comNode = "查看更多评论"
-                    moreComMore.commentitem.forEach((obj)=>{
-                    this.comMoreList.push(obj)
+			this.$http({
+				method: 'get',
+				url: global.Domain + '/Cate/commore?para=' + this.para + '&gid=' + this.$route.query.gid,
+				emulateJSON: true
+			}).then(function (response) {
+				let moreComMore = response.body;
+				if (moreComMore == 'err') {
+					this.comNode = "没有更多评论了"
+					this.para = this.para - 1
+					return
+				} else {
+					this.comNode = "查看更多评论"
+					moreComMore.commentitem.forEach((obj) => {
+						this.comMoreList.push(obj)
 					})
-                }
-            })
+				}
+			})
 		},
 		// 添加评论
-		addComMore: function(){
+		addComMore: function () {
 			this.para++
 			this.getMomMore()
 		},
 		//显示购物车
-		showCartFn: function(){
-			if(this.showCart == false){
+		showCartFn: function () {
+			if (this.showCart == false) {
 				this.showCart = true
-			}else{
+			} else {
 				this.showCart = false
 			}
 		},
 		// 隐藏购物车
-		closeCart: function(){
+		closeCart: function () {
 			this.showCart = false
 		},
 		// 数量++
-		numPlus: function(){
-			this.number ++
+		numPlus: function () {
+			this.number++
 		},
 		// 数量--
-		numSub: function(){
-			if(this.number == 1){
+		numSub: function () {
+			if (this.number == 1) {
 				this.number = 1
-			}else{
-				this.number -- 
+			} else {
+				this.number--
 			}
 		},
 		//添加到购物车
-		addCartList: function(){
-                this.$http.post(
-					global.Domain + '/Order/addcart',
-					{
-						gid:this.detailItemList.gooditem[0].id,
-						number:this.number
-					},
-					{
-						emulateJSON:true
-					}).then(response=>{
-                    let data = response.body;
-                    if(data === 1){
+		addCartList: function () {
+			this.$http.post(
+				global.Domain + '/Order/addcart',
+				{
+					gid: this.detailItemList.gooditem.id,
+					number: this.number
+				},
+				{
+					emulateJSON: true
+				}).then(response => {
+					let data = response.body;
+					if (data === 1) {
 						this.success = true
-					}else{
+					} else {
 						this.error = true
 					}
-                })
-        this.closeCart()
+				})
+			this.closeCart()
 		},
-		
+
 	},
-	mounted(){
-		this.$nextTick(function(){
+	mounted() {
+		this.$nextTick(function () {
 			this.getDataFromBackend()
 		})
 	},
-	
-	
+
+
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 	@import '../../commom/stylus/mixin'
-
 
 	width = 100%
 	color = #fff
@@ -305,9 +305,9 @@ export default {
 		position absolute
 		top 1.0938rem
 		left 0
-		width width
+		width 100%
 		height 100%
-		background color
+		background #f0f0f0
 		// 详情页header
 		.header
 			headerFlex()
@@ -341,7 +341,7 @@ export default {
 		// 评论
 		
 		.comment
-			margin-left 0.5rem
+			padding-left 0.5rem
 			background color
 			.dividerThin
 				border-width 0.0313rem
@@ -350,13 +350,12 @@ export default {
 				display flex
 				justify-content space-between
 				align-items center
-				margin 0.5rem 0
+				padding 0.5rem 0
 				.colLeft
 					.rowUp
 						font-size 0.4063rem
 						font-weight bold
 						color: #333
-							
 					.rowDown
 						margin-top 0.1563rem
 						display flex
