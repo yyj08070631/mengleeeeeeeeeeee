@@ -32,10 +32,10 @@
 		<div class="comment">
 			<div class="titleUp">
 				<div class="colLeft">
-					<a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem[0].name}}</a><!---->
+					  <a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem.name}}</a>  
 					<div class="rowDown">
-						<p>￥{{detailItemList.gooditem[0].price}}</p>
-						<p>已有 {{detailItemList.gooditem[0].sale}} 人购买</p>
+						  <p>￥{{detailItemList.gooditem.price}}</p>  
+						  <p>已有 {{detailItemList.gooditem.sale}} 人购买</p>  
 					</div>
 				</div>
 				<div class="colRight" name="share" role="button">
@@ -117,12 +117,12 @@
 				<div class="goodsInfo">
 					<div>
 						 <div class="img-wrapper">
-							 <img :src="detailItemList.albumitem[0].src"> 
+							  <img :src="detailItemList.gooditem.mainmap">  
 						 </div>
 					</div>
 					<div>
-						<span>{{detailItemList.gooditem[0].name}}</span>
-						<span>￥{{detailItemList.gooditem[0].price}}</span>
+						 <span>{{detailItemList.gooditem.name}}</span> 
+						 <span>￥{{detailItemList.gooditem.price}}</span> 
 					</div>
 					<div>
 						<img src="./images/close.png" @click="closeCart">
@@ -268,7 +268,7 @@ export default {
                 this.$http.post(
 					global.Domain + '/Order/addcart',
 					{
-						gid:this.detailItemList.gooditem[0].id,
+						gid:this.detailItemList.gooditem.id,
 						number:this.number
 					},
 					{
@@ -310,6 +310,7 @@ export default {
 		background color
 		// 详情页header
 		.header
+			height 1.0938rem!important
 			headerFlex()
 		// 详情页导航
 		.detailNav

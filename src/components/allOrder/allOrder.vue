@@ -12,6 +12,7 @@
             </div>
         </div>
         <div class="order-content-wrapper item-cls">
+            <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
             <div class="order-content">
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
                     <img class="product" width=104 height=104 :src="val.mainmap" />

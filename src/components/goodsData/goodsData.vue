@@ -29,12 +29,12 @@
 				<div class="goodsInfo">
 					<div>
 						 <div class="img-wrapper">
-							 <img > 
+							 <img :src="goodsInfo.gooditem.mainmap"> 
 						 </div>
 					</div>
 					<div>
-						<span>{{goodsInfo.gooditem[0].name}}</span>
-						<span>￥{{goodsInfo.gooditem[0].price}}</span>
+						<span>{{goodsInfo.gooditem.name}}</span>
+						<span>￥{{goodsInfo.gooditem.price}}</span>
 					</div>
 					<div>
 						<img src="./close.png" @click="closeCart">
@@ -157,7 +157,7 @@ export default {
                 this.$http.post(
 					global.Domain + '/Order/addcart',
 					{
-						gid:this.goodsInfo.gooditem[0].id,
+						gid:this.goodsInfo.gooditem.id,
 						number:this.number
 					},
 					{

@@ -17,6 +17,7 @@
                 <img class="more" width=11 height=11 src="./more.png" />
             </a>
             <div class="order-content">
+                <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
                     <img class="product" width=104 height=104 :src="val.mainmap" />
                     <div class="product-message">
@@ -203,6 +204,11 @@ width100 = 100%
         footerCss()
     .header
         headerCss()
+    .noGoods
+        margin 20% 0
+        font-size 0.4688rem
+        text-align center
+        color #333
      .item-cls
        position: relative   
        display: block
@@ -236,8 +242,7 @@ width100 = 100%
                 width: 0.375rem
                 height: 0.375rem        
         .order-content
-            width: 100%
-            border-bottom-1px(#e6e6e6)        
+            width: 100%    
             .content-item-top
                 height: 4rem
             .content-item-bottom
