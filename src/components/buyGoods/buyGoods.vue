@@ -37,7 +37,7 @@
                     <span>实付款：</span><span>￥32.80</span>
                     <p>已使用0张优惠券</p>
                 </div>
-                <router-link to="/orderFrom">提交订单</router-link>
+                <router-link to="/payResult">提交订单</router-link>
             </div>
         </div>
 

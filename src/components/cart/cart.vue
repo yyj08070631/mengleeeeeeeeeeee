@@ -374,10 +374,10 @@ span, a, img, input, textarea
             text-align center
             color #333
         // 分割线    
-        .dividerBig
-            width 100%
-            height 0.3125rem
-            background-color #f0f0f0
+        // .dividerBig
+        //     width 100%
+        //     height 0.3125rem
+        //     background-color #f0f0f0
         // 一个产品
         .oneProduct
             display flex
