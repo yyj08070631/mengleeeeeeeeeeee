@@ -42,7 +42,6 @@ import Vuex from 'vuex';
 import AMap from 'vue-amap'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
-import AMap from 'vue-amap'
 
 Vue.use(Vuex)
 const store = new Vuex.Store();
