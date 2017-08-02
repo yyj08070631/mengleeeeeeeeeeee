@@ -11,81 +11,6 @@
             </div>
         </div>
         <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)">
-            
-            <!-- <div class="content-item">
-                <h2 class="title">美悠斯 益生菌固体饮料</h2>
-                <p class="desc">2种益生菌+100亿个活性益生菌，超级活菌来自全球领先的益生菌生产商杜邦-丹尼斯克。</p>
-            </div>
-            <div class="content-item">
-                <h2 class="title">美悠斯 益生菌固体饮料（蔓越莓味）</h2>
-                <h2 class="title">营养成分表</h2>
-                <ul>
-                    <li>能量，每100克1801千焦，NRV21%；</li>
-                    <li>蛋白质，每100克2.4克，NRV4%；</li>
-                    <li>脂肪，每100克0克，NRV0%；</li>
-                    <li>碳水化合物，每100克75.9克，NRV25%；</li>
-                    <li>膳食纤维，每100克58.3克，NRV233%；</li>
-                    <li>钠，每100克72毫克，NRV4%。</li>
-                </ul>
-            </div>
-            <div class="content-item">
-                <h2 class="title">配料表</h2>
-                <p class="desc">菊粉、乳糖醇、低聚果糖、蔓越莓水果粉、嗜酸乳杆菌、乳双歧杆菌、硅酸钙。</p>
-            </div>
-            <div class="content-item">
-                <h2 class="title">美悠斯 益生菌固体饮料（橙味）</h2>
-                <h2 class="title">营养成分表</h2>
-                <ul>
-                    <li>能量，每100克1801千焦，NRV21%；</li>
-                    <li>蛋白质，每100克2.4克，NRV4%；</li>
-                    <li>脂肪，每100克0克，NRV0%；</li>
-                    <li>碳水化合物，每100克75.9克，NRV25%；</li>
-                    <li>膳食纤维，每100克58.3克，NRV233%；</li>
-                    <li>钠，每100克72毫克，NRV4%。</li>
-                </ul>
-            </div>
-            <div class="content-item">
-                <h2 class="title">配料表</h2>
-                <p class="desc">菊粉、乳糖醇、低聚果糖、蔓越莓水果粉、嗜酸乳杆菌、乳双歧杆菌、硅酸钙。</p>
-            </div>
-            <div class="content-item">
-                <h2 class="title">注意事项</h2>
-                <ul>
-                    <li>本品不能代替药物；</li>
-                    <li>存放于儿童不易接触到的地方；</li>
-                    <li>不能与抗生素同时服用，如正服用了抗生素类药物，请与益生菌间隔2个小时以上再服用；</li>
-                    <li>开封后请尽快食用完。</li>
-                </ul>
-            </div>
-            <div class="content-item">
-                <h2 class="title">食用方法</h2>
-                <ul>
-                    <li>每天早上（蔓越莓味）一次，每次2g，每条食用不少于100ml于37℃以下温水或牛奶冲调；</li>
-                    <li>每天晚上（橙味）一次，每次2g，每条食用不少于100ml于37℃以下温水或牛奶冲调。</li>
-                </ul>
-            </div>
-             <div class="content-item">
-                <h2 class="title">储存方法</h2>
-                <p class="desc">室内阴凉、干燥、避光处保存，冷藏更佳。</p>
-            </div>
-            <div class="content-item">
-                <h2 class="title">生产信息</h2>
-                <ul>
-                    <li>委托单位：广州掌商网络科技有限公司</li>
-                    <li>地址：广州市天河区中山大道中得悦街2、4、6、8号
-201房之A80房</li>
-                    <li>联系电话：400-0049129</li>
-                    <li>开封后请尽快食用完。</li>
-                    <li>被委托单位：杜邦营养食品配料（北京）有限公司</li>
-                    <li>地址：北京市怀柔区雁栖经济开发区雁栖大街28号</li>
-                    <li>联系电话：010-69639155</li>
-                    <li>产地：北京市怀柔区</li>
-                    <li>食品生产许可证：SC10611160411487</li>
-                    <li>菌株专利号：US6653062</li>
-                    <li>产品标准代号：Q/HRLRG0001</li>
-                    <li>生产日期：见标示；保质期：18个月</li>
-                </ul>
-            </div> -->
         </div>
         <footer class="myFooter">
 			<a href="javascript:void(0)">
@@ -93,19 +18,70 @@
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img src="./collect.png" ref="menuItem" @click="changSrc(key)">
+				<img src="./collect.png" ref="menuItem" @click="changSrc()">
 				<p>加入收藏</p>
 			</a>
-			<a href="#cart">加入购物袋</a>
+			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
 			<a href="#buyGoods">立即购买</a>
 		</footer>
+        <div class="goodsCart-wrapper" v-show="showCart">
+			<div class="addCart-container">
+				<div class="goodsInfo">
+					<div>
+						 <div class="img-wrapper">
+							 <img > 
+						 </div>
+					</div>
+					<div>
+						<span>{{goodsInfo.gooditem[0].name}}</span>
+						<span>￥{{goodsInfo.gooditem[0].price}}</span>
+					</div>
+					<div>
+						<img src="./close.png" @click="closeCart">
+					</div>
+				</div>
+				<div class="goodsNumber">
+					<span>请选择数量</span>
+					<div class="count">
+						<div class="sub" @click="numSub">-</div>
+						<input type="text" :value="number">
+						<div class="plus" @click="numPlus">+</div> 
+					</div>
+				</div>
+				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
+			</div>
+		</div>
+		<div>
+            <toast v-model="on" type="text">收藏成功</toast>
+        </div>
+        <div>
+            <toast v-model="off" type="text">已取消收藏</toast>
+        </div>
+		<div>
+            <toast v-model="success" type="text">添加成功</toast>
+        </div>
+		<div>
+            <toast v-model="error" type="text">添加失败</toast>
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
+import { Toast, Group } from 'vux'
 export default {
+  components: {
+        Toast,
+        Group
+    },
   data(){
       return {
         dataList: '',
+        on: false,
+        off: false,
+        showCart: false,
+        number: 1,
+        success: false,
+        error: false,
+        goodsInfo: []
       }
   },
   methods: {
@@ -119,6 +95,17 @@ export default {
                 console.log(this.dataList)
             })
         },
+         //获取商品信息（购物车专用接口）
+        getGoodsInfo: function() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/cate/headimg?gid='+this.$route.query.gid,
+                emulateJSON: true
+            }).then(function (response) {
+                this.goodsInfo = response.body
+				console.log(this.goodsInfo)
+            })
+        },
         unescape : function (html) {
             return html
             .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
@@ -127,26 +114,67 @@ export default {
             .replace(/&quot;/g, "\"")
             .replace(/&#39;/g, "\'");
         },
-        changSrc: function(index){
+        changSrc: function(){
             let file = require('./collect.png');
             let file2 = require('./collect-active.png');
             let obj = this.$refs.menuItem
             if(obj.src == file){
-                obj.src = file2
-                setTimeout(function(){
-                    alert('收藏成功')
-                },1000)
+                    obj.src = file2
+                    this.on = true
             }else{
-                obj.src = file
-                setTimeout(function(){
-                    alert('已取消收藏')
-                 },1000)
-				 }
-		}	
+                    obj.src = file
+                    this.off= true
+				}
+		},
+         //显示购物袋
+        showCartFn: function(){
+			if(this.showCart == false){
+				this.showCart = true
+			}else{
+				this.showCart = false
+			}
+		}, 
+        //隐藏购物袋
+        closeCart: function(){
+			this.showCart = false
+		},
+        //数量++
+        numPlus: function(){
+			this.number ++
+		},
+        //数量—-
+		numSub: function(){
+			if(this.number == 1){
+				this.number = 1
+			}else{
+				this.number -- 
+			}
+		},
+        addCartList: function(){
+                this.$http.post(
+					global.Domain + '/Order/addcart',
+					{
+						gid:this.goodsInfo.gooditem[0].id,
+						number:this.number
+					},
+					{
+						emulateJSON:true
+					}).then(response=>{
+                    let data = response.body;
+                    if(data === 1){
+						this.success = true
+					}else{
+						this.error = true
+					}
+                })
+        this.closeCart()
+		},
+
   },
   mounted(){
       this.$nextTick(function(){
           this.getContentData()
+          this.getGoodsInfo()
       })
   },
   
@@ -227,4 +255,95 @@ export default {
             color #fff
             background-color #ea6aa2
             height 100%
+    .weui-toast  
+        width auto!important 
+        height 0.9375rem
+        line-height 0.7813rem
+        top 50%!important
+        p
+            padding 0.0625rem 0.3125rem 0 0.3125rem
+            font-size 0.375rem     
+    .goodsCart-wrapper
+        position fixed
+        top 0
+        left 0
+        width 100%
+        height 100%		
+        background rgba(0,0,0,0.5)
+        z-index 1000  
+        .addCart-container
+            position absolute
+            bottom 0
+            width 100%
+            height 6.0938rem
+            background #fff
+            .goodsInfo
+                display flex
+                width 100%
+                height 2.8438rem
+                border-bottom-1px(#e0e0e0)
+                font-size 0.375rem
+                div:first-child
+                    position relative
+                    width 2.9688rem
+                    .img-wrapper
+                        position absolute
+                        margin 0
+                        padding 0.1563rem
+                        left 0.3125rem
+                        bottom 0.4688rem
+                        width 2.5313rem
+                        height 2.5313rem
+                        background #fff
+                        border-radius 0.1563rem
+                        img
+                            width 2.5313rem
+                            height 2.5313rem
+                div:nth-child(2)
+                    flex 1
+                    span:first-child
+                        margin-top 0.2813rem
+                        line-height 0.9375rem
+                        text-indent 0.4688rem	
+                        color #ea6aa2
+                    span:last-child	
+                        line-height 0.9375rem	
+                        text-indent 0.4688rem
+                        color #909090	
+                div:last-child
+                    margin 0.2813rem 0.2813rem 0 0
+                    width 0.625rem
+                    height 0.625rem
+
+            .goodsNumber
+                display flex
+                width 100%
+                height 2rem
+                line-height 2rem
+                font-size 0.4063rem
+                span
+                    flex 1
+                    margin-left 0.3438rem
+                .count
+                    display flex
+                    margin 0.625rem 0.2813rem 0 0
+                    height 0.6875rem
+                    line-height  0.6875rem
+                    border 0.0313rem solid #d6d6d6
+                    .sub,.plus
+                        text-align center
+                        width 0.6875rem
+                    input 
+                        width 0.6875rem	
+                        text-align center
+                        border-left 0.0313rem solid #d6d6d6
+                        border-right 0.0313rem solid #d6d6d6
+            .dumpBtn
+                width 100%
+                height 1.25rem
+                line-height 1.25rem
+                font-size 0.4219rem
+                color #fff
+                text-align center
+                background #fe9333             
 </style>

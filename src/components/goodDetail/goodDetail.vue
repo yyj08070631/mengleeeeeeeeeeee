@@ -190,6 +190,7 @@ export default {
 		onIndexChange(index) {
 			this.bannerIndex = index
 		},
+		//收藏按钮
 		changSrc: function(){
             let file = require('./images/collect.png');
             let file2 = require('./images/collect-active.png');
@@ -202,7 +203,7 @@ export default {
                this.off = true
 				 }
 		},		 
-		
+		// 获取数据
 		getDataFromBackend: function() {
             this.$http({
                 method: 'get',
@@ -213,6 +214,7 @@ export default {
 				console.log(this.detailItemList)
             })
         },
+		// 获取更多评论
 		getMomMore: function () {
             this.$http({
                 method: 'get',
@@ -232,10 +234,12 @@ export default {
                 }
             })
 		},
+		// 添加评论
 		addComMore: function(){
 			this.para++
 			this.getMomMore()
 		},
+		//显示购物车
 		showCartFn: function(){
 			if(this.showCart == false){
 				this.showCart = true
@@ -243,12 +247,15 @@ export default {
 				this.showCart = false
 			}
 		},
+		// 隐藏购物车
 		closeCart: function(){
 			this.showCart = false
 		},
+		// 数量++
 		numPlus: function(){
 			this.number ++
 		},
+		// 数量--
 		numSub: function(){
 			if(this.number == 1){
 				this.number = 1
@@ -256,6 +263,7 @@ export default {
 				this.number -- 
 			}
 		},
+		//添加到购物车
 		addCartList: function(){
                 this.$http.post(
 					global.Domain + '/Order/addcart',
@@ -494,6 +502,7 @@ export default {
 				color #fff
 				background-color #ea6aa2
 				height 100%
+		//弹窗		
 		.weui-toast  
 			width auto!important 
 			height 0.9375rem
@@ -501,7 +510,8 @@ export default {
 			top 50%!important
 			p
 				padding 0.0625rem 0.3125rem 0 0.3125rem
-				font-size 0.375rem 			
+				font-size 0.375rem 		
+		//购物车			
 		.goodsCart-wrapper
 			position fixed
 			top 0

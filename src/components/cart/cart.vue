@@ -13,6 +13,7 @@
         </header>
         <!-- 主体 -->
         <section class="main">
+            <p v-show="data.data.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
             <!-- 超大分割线 -->
             <div class="dividerBig"></div>
             <!-- 一个商品 -->
@@ -61,7 +62,8 @@
             <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a>
             <a href="javascript:void(0)" class="del" v-show="showWrite" @click="delCartList">删除</a>
         </footer>
-    
+        <!-- 脚部 -->
+        <!-- 页面所有弹窗 -->
         <div>
             <toast v-model="successAlert" type="text">已删除</toast>
         </div>
@@ -71,9 +73,7 @@
         <div>
             <toast v-model="writeAfter" type="text">已修改</toast>
         </div>
-         <div>
-            <toast v-model="writeError" type="text">更改失败</toast>
-        </div>
+         <!-- 页面所有弹窗 -->
     </div>
 </template>
 <script type="ecmascript-6">
@@ -85,28 +85,27 @@ export default {
     },
     data() {
         return {
-            writeType: 0,
-            showWrite: false,
-            showPay: true,
-            data: [],
-            number: [],
-            isCheck: false,
-            isCheckAll: false,
-            clearData: 0,
-            Idarr: [],
-            getIdArr: [],
-            priceArr: [],
-            getPriceArr: [],
-            saveData: [],
-            successAlert: false,
-            errorAlert: false,
-            writeAfter: false,
-            writeError: false,
+            writeType: 0,//编辑状态
+            showWrite: false,//显示编辑所需组件
+            showPay: true,//显示结账所需组件
+            data: [],//获取数据
+            number: [],//存储数字
+            isCheck: false,//选中单个按钮
+            isCheckAll: false,//选中所有按钮
+            clearData: 0,//清楚数据
+            Idarr: [],//获取Id数组
+            getIdArr: [],//获取Id过滤数组
+            priceArr: [],//价钱数组
+            getPriceArr: [],//获取价钱过滤数组
+            saveData: [],//保存修改数量后的数组
+            successAlert: false,//获取成功弹窗
+            errorAlert: false,//获取数据失败弹窗
+            writeAfter: false,//编辑成功弹窗
             arr: []
         }
     },
     methods: {
-        //数量+1
+        //数量+=1
         numberPlus(id){
             for(let i = 0; i < this.number.length; i++){
                 if(this.number[i].id == id){
@@ -132,7 +131,7 @@ export default {
                }
             }
         },
-        //数量-1
+        //数量-=1
         numberSub(id){
             for(let i = 0; i < this.number.length; i++){
                 if(this.number[i].id == id){
@@ -202,6 +201,7 @@ export default {
                 this.saveData[i].number = Number(this.saveData[i].number);
             }
             this.$http.post(
+                
                     global.Domain + '/Order/chancart',
                     {
                         num: JSON.stringify(this.saveData)
@@ -211,14 +211,13 @@ export default {
                     }).then(response=>{
                     let data = response.body;
                     if(data === 1){
-                        // this.writeAfter = true
                         this.getDataFromBackend()
                          console.log(response.body)
                     }else{
-                        this.writeError = true
                         //console.log(response.body)
                     }
                 })
+                this.writeAfter = true
         },
         //获取数据
         getDataFromBackend: function () {
@@ -262,8 +261,8 @@ export default {
                 this.priceArr.remove(result)
                 
             }
-       // console.log(this.priceArr)
-    //   console.log(this.Idarr)
+        // console.log(this.priceArr)
+        //   console.log(this.Idarr)
         },
         //选中所有个按钮
         checkAllBox: function(){
@@ -368,7 +367,13 @@ span, a, img, input, textarea
     // 主体
     .main
         margin-bottom 1.4063rem
-        // 分割线
+        //没有商品
+        .noGoods
+            margin-top 50%
+            font-size 0.4688rem
+            text-align center
+            color #333
+        // 分割线    
         .dividerBig
             width 100%
             height 0.3125rem
@@ -497,6 +502,7 @@ span, a, img, input, textarea
             font-size 0.4063rem
             color #fff
             background-color #ea68a2    
+    //弹窗组件        
     .weui-toast  
         width auto!important 
         height 0.9375rem
