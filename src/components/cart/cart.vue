@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="title">我的购物袋</div>
-            <div class="search" @click="writeCart"><p>{{writeType}}</p></div>
+            <div class="search" @click="writeCart()"><p v-show="writeType == 0" @click="finish(false)">编辑</p><p v-show="writeType == 1" @click="finish();changeNum()">完成</p></div>
         </header>
         <!-- 主体 -->
         <section class="main">
@@ -20,7 +20,7 @@
                 <!-- 选择框 -->
                 <div class="colLeft" ref="allBox">
                     <!-- 选择那个圈圈 -->
-                    <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key,val.price,val.gid)" class="check-hook">
+                    <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key,val.price,val.id)" class="check-hook">
                 </div>
                 <!-- 商品图片 -->
                 <div class="colMiddle">
@@ -40,7 +40,7 @@
                              <!-- :placeholder="val.number" -->
                             <a href="javascript:void(0)" @click="numberPlus(val.id)">+</a>
                         </div>
-                        <div class="num" v-show="showPay">×{{val.number}}</div>
+                        <div class="num" v-show="showPay">×{{number[key].num}}</div>
                     </div>
                 </div>
             </div>
@@ -61,16 +61,31 @@
             <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a>
             <a href="javascript:void(0)" class="del" v-show="showWrite" @click="delCartList">删除</a>
         </footer>
+    
+        <div>
+            <toast v-model="successAlert" type="text">已删除</toast>
+        </div>
+		<div>
+            <toast v-model="errorAlert" type="text">删除失败</toast>
+        </div>
+        <div>
+            <toast v-model="writeAfter" type="text">已修改</toast>
+        </div>
+         <div>
+            <toast v-model="writeError" type="text">更改失败</toast>
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
+import { Toast, Group } from 'vux'
 export default {
     components: {
-
+        Toast, 
+		Group
     },
     data() {
         return {
-            writeType: '编辑',
+            writeType: 0,
             showWrite: false,
             showPay: true,
             data: [],
@@ -81,8 +96,13 @@ export default {
             Idarr: [],
             getIdArr: [],
             priceArr: [],
-            getPriceArr: []
-            
+            getPriceArr: [],
+            saveData: [],
+            successAlert: false,
+            errorAlert: false,
+            writeAfter: false,
+            writeError: false,
+            arr: []
         }
     },
     methods: {
@@ -90,8 +110,26 @@ export default {
         numberPlus(id){
             for(let i = 0; i < this.number.length; i++){
                 if(this.number[i].id == id){
-                    this.number[i].num ++;
+                    this.number[i].num ++;  
                 }
+            }
+            let narr = []//保存对比之前的数组
+            let get = []//保存对比之后的数组
+            for(let i=0;i<this.number.length;i++){
+                narr.push({
+                    num: this.data.data[i].number,
+                    id: this.data.data[i].id
+                }) 
+               if((this.number[i].num - narr[i].num) != 0){
+                 // get.push(comput)
+                    get.push({
+                        number: this.number[i].num,
+                        id: this.number[i].id
+                    })
+                    this.saveData = get
+               }else{
+                    //get.pop()
+               }
             }
         },
         //数量-1
@@ -105,17 +143,82 @@ export default {
                     }
                 }
             }
+            let narr = []//保存对比之前的数组
+            let get = []//保存对比之后的数组
+             for(let i=0;i<this.number.length;i++){
+                narr.push({
+                    num: this.data.data[i].number,
+                    id: this.data.data[i].id
+                }) 
+               if((this.number[i].num - narr[i].num) != 0){
+                    get.push({
+                        number: this.number[i].num,
+                        id: this.number[i].id
+                    })
+                    this.saveData = get
+               }else{
+                    this.saveData.pop()
+               }
+            }
             
         },
         //删除数据
         delCartList: function(){
-            this.$http({
-                method: 'post',
-                url: global.Domain + '/Order/delcart',
-                emulateJSON: true,
-                oid: this.Idarr
-            }).then((result)=>{
-            })
+            console.log(this.Idarr)
+            for(let i=0;i<this.Idarr.length;i++){
+                this.Idarr[i] = Number(this.Idarr[i]);
+            }
+            this.$http.post(
+                    global.Domain + '/Order/delcart',
+                    {
+                        oid: JSON.stringify(this.Idarr)
+                    },
+                    {
+                        emulateJSON:true
+                    }).then(response=>{
+                    let data = response.body;
+                    if(data === 1){
+                        this.successAlert = true
+                         for(let i=0;i<this.$refs.allBox.length;i++){
+                            this.$refs.allBox[i].getElementsByTagName('img')[0].src=require('./images/unchecked.png')
+                            this.Idarr = []
+                            this.isCheckAll = false
+                            this.$refs.allCheckHook.src = require('./images/unchecked.png')
+                        }
+                        this.getDataFromBackend()
+                    }else{
+                        this.errorAlert = true
+                    }
+                })
+        },
+        //修改数量
+        changeNum :function(){
+            console.log(this.saveData)
+            this.arr={
+                        num: this.saveData
+                        }
+            for(let i=0;i<this.saveData.length;i++){
+                this.saveData[i].id = Number(this.saveData[i].id);
+                this.saveData[i].number = Number(this.saveData[i].number);
+            }
+            this.$http.post(
+                    global.Domain + '/Order/chancart',
+                    {
+                        num: JSON.stringify(this.saveData)
+                    },
+                    {
+                        emulateJSON:true
+                    }).then(response=>{
+                    let data = response.body;
+                    if(data === 1){
+                        // this.writeAfter = true
+                        this.getDataFromBackend()
+                         console.log(response.body)
+                    }else{
+                        this.writeError = true
+                        //console.log(response.body)
+                    }
+                })
         },
         //获取数据
         getDataFromBackend: function () {
@@ -125,6 +228,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let moreComMore = response.body;
+                console.log(moreComMore)
                 let arr = [];
                 this.data = moreComMore;
                 for(let i = 0; i < moreComMore.data.length; i++){
@@ -133,7 +237,7 @@ export default {
                         num: moreComMore.data[i].number
                     });
                 }
-                this.number = arr
+                this.number = arr;
             })
         },
         //选中单个按钮
@@ -159,7 +263,7 @@ export default {
                 
             }
        // console.log(this.priceArr)
-       console.log(this.Idarr)
+    //   console.log(this.Idarr)
         },
         //选中所有个按钮
         checkAllBox: function(){
@@ -173,11 +277,10 @@ export default {
                     this.isCheckAll = false
                     this.$refs.allCheckHook.src = require('./images/unchecked.png')
                 }
-                 
                for(let i=0;i<this.$refs.allBox.length;i++){ 
                     if(this.isCheckAll == true){              
                        this.$refs.allBox[i].getElementsByTagName('img')[0].src=require('./images/checked.png')
-                       this.Idarr.push(this.data.data[i].gid)
+                       this.Idarr.push(this.data.data[i].id)
                        this.priceArr.push(this.number[i].num * this.data.data[i].price)
                        let arr = []
                        for(var i =0;i<this.Idarr.length-1;i++){
@@ -202,17 +305,27 @@ export default {
                 }
             }
           //  console.log(this.priceArr)
-           console.log(this.Idarr)
+        //    console.log(this.Idarr)
+        },
+        //编辑完成
+        finish: function(type){
+            this.writeAfter = type
+            for(let i=0;i<this.$refs.allBox.length;i++){
+                   this.$refs.allBox[i].getElementsByTagName('img')[0].src=require('./images/unchecked.png')
+                   this.Idarr = []
+                   this.isCheckAll = false
+                   this.$refs.allCheckHook.src = require('./images/unchecked.png')
+                }
         },
         //显示编辑区块
         writeCart: function(){
             if(this.showWrite == false){
                this.showWrite = true
-               this.writeType = '完成'
+               this.writeType = 1
                this.showPay = false
             }else{
                this.showWrite = false
-               this.writeType = '编辑'
+               this.writeType = 0
                this.showPay = true
             }
         },
@@ -384,4 +497,12 @@ span, a, img, input, textarea
             font-size 0.4063rem
             color #fff
             background-color #ea68a2    
+    .weui-toast  
+        width auto!important 
+        height 0.9375rem
+        line-height 0.7813rem
+        top 50%!important
+        p
+            padding 0.0625rem 0.3125rem 0 0.3125rem
+            font-size 0.375rem     
 </style>

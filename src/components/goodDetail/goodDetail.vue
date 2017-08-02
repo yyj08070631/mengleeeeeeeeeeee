@@ -112,12 +112,6 @@
 			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
 			<router-link to="/buyGoods">立即购买</router-link>
 		</footer>
-		<div>
-            <toast v-model="on" type="text">收藏成功</toast>
-        </div>
-        <div>
-            <toast v-model="off" type="text">已取消收藏</toast>
-        </div>
 		<div class="goodsCart-wrapper" v-show="showCart">
 			<div class="addCart-container">
 				<div class="goodsInfo">
@@ -142,9 +136,21 @@
 						<div class="plus" @click="numPlus">+</div> 
 					</div>
 				</div>
-				<div class="dumpBtn" @click="addCartList">加入购物车</div>
+				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
 			</div>
 		</div>
+		<div>
+            <toast v-model="on" type="text">收藏成功</toast>
+        </div>
+        <div>
+            <toast v-model="off" type="text">已取消收藏</toast>
+        </div>
+		<div>
+            <toast v-model="success" type="text">添加成功</toast>
+        </div>
+		<div>
+            <toast v-model="error" type="text">添加失败</toast>
+        </div>
 	</div>
 </template>
 <script type="ecmascript-6">
@@ -174,7 +180,9 @@ export default {
 			on: false,
             off: false,
 			showCart: false,
-			number: 1
+			number: 1,
+			success: false,
+			error: false
 		}	
 	},
 	methods: {
@@ -249,16 +257,25 @@ export default {
 			}
 		},
 		addCartList: function(){
-            this.$http({
-                method: 'post',
-                url: global.Domain + '/Order/addcart',
-                emulateJSON: true,
-                gid: detailItemList.gooditem[0].id,
-				number: this.number
-            }).then((result)=>{
-            })
-        },
-
+                this.$http.post(
+					global.Domain + '/Order/addcart',
+					{
+						gid:this.detailItemList.gooditem[0].id,
+						number:this.number
+					},
+					{
+						emulateJSON:true
+					}).then(response=>{
+                    let data = response.body;
+                    if(data === 1){
+						this.success = true
+					}else{
+						this.error = true
+					}
+                })
+        this.closeCart()
+		},
+		
 	},
 	mounted(){
 		this.$nextTick(function(){

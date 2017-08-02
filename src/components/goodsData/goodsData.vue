@@ -116,7 +116,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.dataList = response.body
-                
+                console.log(this.dataList)
             })
         },
         unescape : function (html) {
