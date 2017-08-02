@@ -127,45 +127,7 @@ span, a, img, input, textarea
     background #f0f0f0
     // 详情页header
     .header
-        border-bottom-1px(#e0e0e0)
-        position fixed
-        display flex
-        top 0
-        left 0
-        justify-content space-between
-        align-items center
-        height 1.0938rem
-        width width
-        background-color #f9f9f9
-        z-index 1
-        .goBack
-            display flex
-            align-items center
-            width width
-            margin-left 0.5rem
-            flex 1
-            span
-                display block
-                color #ea68a2
-                margin-left 0.1563rem
-                font-size 0.4063rem
-            img
-                display block
-                width: 0.2188rem
-                height: 0.3906rem 
-        .title
-            font-size 0.4063rem
-            font-weight 800
-            flex 1
-            width width
-            text-align center
-        .search
-            display flex
-            justify-content flex-end
-            margin-right 0.5rem
-            font-size 0.4063rem
-            color #ea68a2
-            flex 1
+        headerFlex()
     // 主体
     .main
         margin-bottom 1.4063rem

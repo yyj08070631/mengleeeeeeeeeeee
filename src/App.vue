@@ -1,32 +1,31 @@
 <template>
 	<div id="app">
-		<!-- <my-loading v-if="ifLoading"></my-loading> -->
+		 <!-- <my-loading v-model="isLoading"></my-loading>  -->
 		<router-view></router-view>
 	</div>
 </template>
 
 <script type="ecmascript-6"> 
 import myLoading from './components/myLoading'
-//import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
 	created: function () {
 		let test = window.location.href;
 		if (test == 'http://localhost:8080/ ' || test == 'localhost:8080/#' || test == 'localhost:8080/#/' || 'http://192.168.0.123:8080/') {
 			this.$router.push('home')
-		}else{
+		} else {
 			return
 		}
+	},
+	components: {
+		myLoading
+	},
+	computed: {
+		// ...mapState({
+		// 	isLoading: state => state.vux.isLoading
+		// })
 	}
-	// name: 'app',
-	// components: {
-	// 	myLoading
-	// },
-	// computed: {
-	// 	...mapState({
-	// 		ifloading: state => state.ifloading
-	// 	})
-	// }
 }
 </script>
 

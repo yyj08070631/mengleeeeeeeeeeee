@@ -7,7 +7,7 @@
                     <img src="./images/arrow_left.png">
                     <span>返回</span>
                 </a>
-                <h1 class="title">新增地址</h1>
+                <h1 class="title">修改地址</h1>
             </div>
         </div>
         <!-- 主体 -->
@@ -15,21 +15,21 @@
             <!-- 收货人 -->
             <div class="infoBox">
                 <div class="rowLeft">收货人：</div>
-                <input class="rowRight" placeholder="请填写收货人姓名" maxlength="8" v-model="name">
+                <input type="text" class="rowRight" placeholder="请填写收货人姓名" maxlength="8" v-model="name">
             </div>
             <!-- 手机号码 -->
             <div class="infoBox">
                 <div class="rowLeft">手机号码：</div>
-                <input class="rowRight" placeholder="请填写手机号码" maxlength="11" v-model="phone">
+                <input type="text" class="rowRight" placeholder="请输入手机号码" maxlength="11" v-model="phone">
             </div>
             <!-- 所在地区 -->
             <div class="infoBox loc">
-                <vux-address @listenToChildEvent="showMsgFromChild"></vux-address>
+                <vux-address @listenToChildEvent="showMsgFromChild" :locArr="area"></vux-address>
             </div>
             <!-- 街道地址 -->
             <div class="infoBox locDetail">
                 <div class="rowLeft">街道地址：</div>
-                <textarea placeholder="请输入收货地址" class="rowRight textArea" maxlength="20" v-model="street"></textarea>
+                <textarea placeholder="请输入收货地址" class="rowRight textArea" maxlength="20" v-model="street">{{data.address}}</textarea>
             </div>
             <!-- 默认地址 -->
             <a href="javascript:void(0)" class="selDefault">
@@ -52,42 +52,67 @@ export default {
     },
     data() {
         return {
-            area: '',
+            area: [],
             phone: '',
             name: '',
             street: '',
-            defaultLoc: ''
+            defaultLoc: '',
+            data: []
         }
     },
     methods: {
         submitInfo: function () {
-            console.log(this.phone, this.area, this.street, this.name, Number(this.defaultLoc));
+            // console.log(this.phone, this.area, this.street, this.name, this.defaultLoc);
             // -------------------------------------------------------------boolean---------
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/user/addressAdd?userId===tPtcNLZARXEuvDhRSFGkQX&phone=' + this.phone + '&name=' + this.name + '&province=' + this.area[0] + '&city=' + this.area[1] + '&area=' + this.area[2] + '&address=' + this.street + '&isDefault=' + Number(this.defaultLoc),
-                emulateJSON: true
-            }).then(function (response) {
-                let res = response.body;
-                // console.log(res);
-                this.data = res.data;
-                if(res.code == 200){
-                    alert('添加成功!');
+            // 判断是否有数据修改，若无修改则不提交
+            if(this.phone == this.data.phone && this.area.join() == [this.data.province, this.data.city, this.data.area].join() && this.street == this.data.address && this.name == this.data.name && this.defaultLoc == (this.data.isDefault == 1 ? true : false)){
+                alert('您没有进行修改！')
+            } else {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/addressEdit?userId===tPtcNLZARXEuvDhRSFGkQX&id=' + this.$route.query.id + '&phone=' + this.phone + '&name=' + this.name + '&province=' + this.area[0] + '&city=' + this.area[1] + '&area=' + this.area[2] + '&address=' + this.street + '&isDefault=' + Number(this.defaultLoc),
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res);
+                    alert('修改成功!');
                     this.$router.push('addrManage');
-                } else {
-                    alert('添加失败！');
-                }
-            })
+                })
+            }
         },
         // 展示子组件获取的数据 // 此处指vuxAddress传过来的地址字符串
         showMsgFromChild: function(data){
             data = data.split(' ');
             this.area = data;
             // console.log(this.area);
-        }
+        },
+        // 展示当前收货地址数据
+        getDataFromBackEnd: function () {
+            // console.log(this.$route.query.id)
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/addressDetail?userId===tPtcNLZARXEuvDhRSFGkQX&id=' + this.$route.query.id,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data;
+                // 利用双向绑定传输数据到页面
+                this.phone = this.data.phone; // 电话
+                this.name = this.data.name; // 收件人
+                if(this.data.isDefault == 1){ // 是否默认地址
+                    this.defaultLoc = true
+                } else {
+                    this.defaultLoc = false
+                }
+                this.area = [this.data.province, this.data.city, this.data.area];
+                this.street = this.data.address
+                // console.log(this.area)
+            })
+        },
     },
     mounted() {
-        
+        this.getDataFromBackEnd()
     }
 }
 </script>

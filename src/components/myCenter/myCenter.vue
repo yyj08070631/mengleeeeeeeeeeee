@@ -39,7 +39,7 @@
                 <span class="num">{{data.integral|num}}&nbsp;积分</span>我的积分
                 <img class="more" src="./more.png">
             </a>
-            <a href="javascript:void(0)" class="item-cls">
+            <a href="#myWallet" class="item-cls">
                 <span class="num">{{data.wallet|num}}&nbsp;元</span>我的钱包
                 <img class="more" src="./more.png">
             </a>

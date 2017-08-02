@@ -13,23 +13,25 @@
         <!-- 主体 -->
         <section class="main">
             <!-- 一个收货地址 -->
-            <router-link to="/addrManage" class="oneAddr" v-for="(val,key) in data">
+            <div class="emptyType" v-if="data.length == 0">请添加收货地址:-D</div>
+            <router-link to="/addrManage" class="oneAddr" v-for="(val,key) in data" v-else>
                 <div class="rowUp">
                     <div class="nameAndPhone">
                         <p class="name">{{val.name}}</p>
-                        <div class="phone default">{{val.phone}}</div>
+                        <div class="phone default" v-if="val.isDefault == 1">{{val.phone}}</div>
+                        <div class="phone" v-else>{{val.phone}}</div>
                     </div>
                     <div class="icon">
-                        <router-link to="/addrEdit">
+                        <router-link :to="{ path: '/addrEditReal', query: { id: val.id } }">
                             <img src="./images/edit.png">
                         </router-link>
-                        <router-link to="/home">
+                        <div @click="delReceInfo(val.id)">
                             <img src="./images/del.png">
-                        </router-link>
+                        </div>
                     </div>
                 </div>
                 <div class="rowDown">
-                    {{val.province + val.city + val.area + val.address}}
+                    {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
                 </div>
             </router-link>
             <!-- 新建地址 -->
@@ -57,10 +59,27 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                console.log(res);
+                // console.log(res);
                 this.data = res.data
             })
         },
+        // 删除收件信息
+        delReceInfo: function (id) {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/addressDel?userId===tPtcNLZARXEuvDhRSFGkQX&id=' + id,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log(res);
+                if (res.code == 200) {
+                    alert('删除成功')
+                    this.getDataFromBackend()
+                } else {
+                    alert('删除失败')
+                }
+            })
+        }
     },
     mounted() {
         this.getDataFromBackend()
@@ -90,6 +109,15 @@ span, a, img, input, textarea
     // 主体
     .main
         margin-bottom 1.4063rem
+        // 无收货地址
+        .emptyType
+            display flex
+            justify-content center
+            align-items center
+            width 100%
+            height 3.125rem
+            background-color #fff
+            font-size 0.5rem
         // 分割线
         .dividerBig
             width 100%
@@ -126,6 +154,7 @@ span, a, img, input, textarea
                     .default:after
                         content ''
                         position absolute
+                        top 0
                         right -1.2031rem
                         width 1.0781rem
                         height 0.4219rem
@@ -137,11 +166,10 @@ span, a, img, input, textarea
                         display flex
                         justify-content center
                         align-items center
-                    a:first-child    
                         img
                             width 0.6875rem
                             height 0.6875rem
-                    a:last-child
+                    div
                         margin-left 0.6875rem
                         img
                             width 0.5625rem

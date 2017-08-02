@@ -30,8 +30,10 @@ import myCollect from './components/myCollect/myCollect';
 import cart from './components/cart/cart';
 import addrManage from './components/addrManage/addrManage';
 import addrEdit from './components/addrEdit/addrEdit';
+import addrEditReal from './components/addrEditReal/addrEditReal';
 import allOrder from './components/allOrder/allOrder';
 import evaluate from './components/evaluate/evaluate';
+import myWallet from './components/myWallet/myWallet';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
@@ -39,9 +41,8 @@ import { AlertPlugin, ToastPlugin, AjaxPlugin } from 'vux'
 import Vuex from 'vuex';
 import { XDialog } from 'vux'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
-import Vuex from 'vuex';
 import vuexI18n from 'vuex-i18n';
-//import store from './vuex/store'
+import AMap from 'vue-amap'
 
 Vue.use(Vuex)
 const store = new Vuex.Store();
@@ -64,7 +65,8 @@ AMap.initAMapApiLoader({
     plugin: ['Scale', 'Geolocation']
 })
 
-const routes = [{
+const routes = [
+    {
         path: '/goods',
         component: goods
     },
@@ -177,6 +179,10 @@ const routes = [{
         component: addrEdit
     },
     {
+        path: '/addrEditReal',
+        component: addrEditReal
+    },
+    {
         path: '/allOrder',
         component: allOrder
     },
@@ -187,6 +193,10 @@ const routes = [{
     {
         path: '/myLoading',
         component: myLoading
+    },
+    {
+        path: '/myWallet',
+        component: myWallet
     }
 ];
 
@@ -200,57 +210,69 @@ const router = new vueRouter({
 // 定义全局变量
 global.Domain = 'http://dde.dgxinn.cn/dream/index.php/Home'
 
-// 页面加载显示loading
-// router.beforeEach((to, from, next) => {
-// let rediurl = to.path
-// Vue.http({
-//     method: 'post',
-//     url: global.Domain.mallUrl + 'index',
-//     body: {
-//         rediurl: rediurl
-//     },
-//     emulateJSON: true
-// }).then(function (response) {
-//     let res = response.data
-//     if (res.app === 0) {
-//         location.href = res.url
-//         return
-//     } else {
-//         Store.state.ifLoading = false
-//     }
-// })
-// next()
-// })
-// router.afterEach((to, from, next) => {
-//     // console.log(to.meta.title)
-//     if (to.meta) {
-//         if (to.meta.title) {
-//             document.title = to.meta.title
-//         } else {
-//             document.title = to.meta
-//         }
-//         // if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
-//         //   this.iframe = '/favicon.ico' + Math.random()
-//         // }
-//         let ua = navigator.userAgent
-//         // console.log(ua)
-//         if (/ip(hone|od|ad)/i.test(ua)) {
-//             var i = document.createElement('iframe')
-//             i.src = require('./commom/favicon.png')
-//             i.style.display = 'none'
-//             i.onload = function () {
-//                 setTimeout(function () {
-//                     i.remove()
-//                 })
-//             }
-//             document.body.appendChild(i)
-//         }
-//     }
-// })
-
 new Vue({
     el: '#app',
     router: router,
     template: '<App/>',
     components: { App }
 })
+
+// 页面加载显示loading
+store.registerModule('vux', { // 名字自己定义
+    state: {
+        isLoading: false
+    },
+    mutations: {
+        updateLoadingStatus(state, payload) {
+            state.isLoading = payload.isLoading
+        }
+    }
+})
+
+// router.beforeEach((to, from, next) => {
+//     // Vue.http({
+//     //     method: 'post',
+//     //     url: global.Domain + '/test/test',
+//     //     emulateJSON: true
+//     // }).then(function (response) {
+//     //     let res = response.data
+//     //     // console.log(res);
+//     //     // res.app == 0
+//     //     if (false) {
+//     //         location.href = res.url
+//     //         return
+//     //     } else {
+//     //         Store.state.ifLoading = false
+//     //     }
+//     // })
+//     // next()
+//     store.commit('updateLoadingStatus', { isLoading: true })
+//     next()
+// })
+// router.afterEach((to, from, next) => {
+//     // console.log(to.meta.title)
+//     // if (to.meta) {
+//     //     if (to.meta.title) {
+//     //         document.title = to.meta.title
+//     //     } else {
+//     //         document.title = to.meta
+//     //     }
+//     //     // if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+//     //     //   this.iframe = '/favicon.ico' + Math.random()
+//     //     // }
+//     //     let ua = navigator.userAgent
+//     //     // console.log(ua)
+//     //     if (/ip(hone|od|ad)/i.test(ua)) {
+//     //         var i = document.createElement('iframe')
+//     //         // i.src = require('./commom/favicon.png')
+//     //         i.style.display = 'none'
+//     //         i.onload = function () {
+//     //             setTimeout(function () {
+//     //                 i.remove()
+//     //             })
+//     //         }
+//     //         document.body.appendChild(i)
+//     //     }
+//     // }
+//     store.commit('updateLoadingStatus', {isLoading: false})
+// })
