@@ -14,7 +14,7 @@
         </div>
         <div class="title-board">
             <span class="rank-title">团队总收益（元）</span>
-            <h1 class="myTitle">0.00</h1>
+            <h1 class="myTitle">{{data.total | num}}</h1>
         </div>
         <a href="javascript:void(0)" class="get-title indent">
             <span class="title">我的团队</span>
@@ -30,40 +30,13 @@
                 <span class="state">未激活</span>
             </div>
         </a>
-        <a href="javascript:void(0)" class="title-item">
+        <div class="title-item title-item-empty" v-if="data.list.length == 0">本月还没有团队收益哦:-D</div>
+        <a href="javascript:void(0)" class="title-item" v-for="(val,key) in data.list" v-else>
             <div class="title-msg">
-                <span class="from">Duke团队业绩</span>
-                <span class="date">团队人数：134人</span>
+                <span class="from">{{val.username}}</span>
+                <span class="date">团队人数：{{val.total_people}}人</span>
             </div>
-            <span class="get-number">530020.00</span>
-        </a>
-        <a href="javascript:void(0)" class="title-item">
-            <div class="title-msg">
-                <span class="from">友善猪团队业绩</span>
-                <span class="date">团队人数：0人</span>
-            </div>
-            <span class="get-number">269.00</span>
-        </a>
-        <a href="javascript:void(0)" class="title-item">
-            <div class="title-msg">
-                <span class="from">miley团队业绩</span>
-                <span class="date">团队人数：0人</span>
-            </div>
-            <span class="get-number">369.00</span>
-        </a>
-        <a href="javascript:void(0)" class="title-item">
-            <div class="title-msg">
-                <span class="from">AAA拼单平价潮衣物品团队业绩</span>
-                <span class="date">团队人数：3人</span>
-            </div>
-            <span class="get-number">1360.00</span>
-        </a>
-        <a href="javascript:void(0)" class="title-item">
-            <div class="title-msg">
-                <span class="from">A欧阳飞刀团队业绩</span>
-                <span class="date">2017-6-14</span>
-            </div>
-            <span class="get-number">+80.00</span>
+            <span class="get-number">{{val.total_money}}</span>
         </a>
     </div>
 </template>
@@ -81,7 +54,7 @@ export default {
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/upgradeList?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/user/groupCountList?userId===tPtcNLZARXEuvDhRSFGkQX',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
@@ -90,32 +63,46 @@ export default {
             })
         }
     },
+    filters: {
+        // 1,025.00
+        num: function (value) {
+            // console.log(value)
+            let afterPt = value.toFixed(2).split('.')[1];
+            // console.log(afterPt); // 00
+            value = String(value.toFixed(2).split('.')[0]);
+            let result = '';
+            let i = 0;
+            for (i = 3; i < value.length; i += 3) {
+                result = ',' + value.slice(-i) + result;
+            }
+            result = value.slice(0, value.length % 3) + result + '.' + afterPt;
+            return result
+        }
+    },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
     width = 100%
     .title-wrapper
-        margin-top: 1.0938rem
         width: 100%
         height: 100%
         font-size: 0
-        overflow-x: hidden
         background: #f0f0f0
         .header
             headerCss()
         .title-board
-            padding: 0.8438rem 0 0 0.5625rem
-            width: width
-            height: 3.5313rem
-            background: #ea6aa2
-            color: #fff
+            height 4.375rem
+            padding-top 1.0938rem
+            background-color #ea68a2
             .rank-title
-                font-size: 0.4063rem
-                vertical-align: top
+                padding .8438rem 0 .75rem .5rem
+                font-size .4063rem
+                color #fff
             .myTitle
-                margin-top: 0.75rem
-                font-size: 1.6875rem
+                padding-left .5rem
+                font-size 1.625rem
+                color #fff
         .get-title
             display: block
             position: relative
@@ -146,6 +133,7 @@ export default {
         height: 1.1563rem
         background: #fff
         border-bottom-1px(#e0e0e0)
+        overflow hidden
         .computed
             display: inline-block
             margin: 0.375rem 0 0 0.5rem
@@ -177,36 +165,45 @@ export default {
                 font-size: 0.375rem
                 color: #fff
                 background: #909090
-                border-radius: 0.0938rem 
+                border-radius: 0.0938rem
+    .title-item-empty
+        display flex !important
+        justify-content center
+        align-items center
+        font-size 0.4063rem !important
+        padding 0 !important
+        line-height inherit !important
     .title-item
-            display: block
-            position: relative
-            width: 100%
-            height: 1.6875rem
-            line-height: 1.3438rem
-            background: #fff
-            font-size: 0
-            border-bottom-1px(#e0e0e0)
-            .title-msg
-                display: inline-block
-                width: 3.75rem
-                height: 100%
-                overflow: hidden
-                .from
-                    margin: -0.0938rem 0 0 0.5rem
-                    float: left 
-                    height: 0.4063rem
-                    font-size: 0.4063rem
-                    color: #333
-                .date
-                    margin: 0.1875rem 0 0 0.5rem
-                    float: left
-                    font-size: 0.3438rem
-            .get-number
-                margin-right: 0.5rem
-                float: right
-                line-height: 1.6875rem 
-                font-size: 0.4063rem    
-                color: #333    
+        display: block
+        position: relative
+        width: 100%
+        height: 1.6875rem
+        line-height: 1.3438rem
+        background: #fff
+        font-size: 0
+        border-bottom-1px(#e0e0e0)
+        .title-msg
+            display: inline-block
+            width: 3.75rem
+            height: 100%
+            overflow: hidden
+            .from
+                margin: -0.0938rem 0 0 0.5rem
+                float: left 
+                height: 0.4063rem
+                font-size: 0.4063rem
+                color: #333
+            .date
+                margin: 0.1875rem 0 0 0.5rem
+                float: left
+                font-size: 0.3438rem
+        .get-number
+            margin-right: 0.5rem
+            float: right
+            line-height: 1.6875rem 
+            font-size: 0.4063rem    
+            color: #333
+    .title-item:last-child:after
+            border 0
 </style>
 

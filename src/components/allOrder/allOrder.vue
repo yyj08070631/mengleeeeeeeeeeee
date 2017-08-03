@@ -120,7 +120,6 @@ width100 = 100%
     width: 100%
     height: 100%
     background: #fff
-    overflow-x: hidden
     .route-item
         footerCss()
     .header

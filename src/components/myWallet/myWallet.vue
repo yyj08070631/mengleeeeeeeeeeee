@@ -24,34 +24,97 @@
                     <span>3,480.00</span>
                 </div>
                 <div class="operatList">
-                    <router-link to="/home">我要充值</router-link>
+                    <div class="operatItem">
+                        <a href="javascript:void(0)" @click="showHideOnBlur=true">
+                            我要充值
+                            <img src="./images/arrow_right.png">
+                        </a>
+                    </div>
                 </div>
             </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
             <!-- 可提现金额 -->
-            <div class="onePanel">
+            <div class="onePanel bluePanel">
                 <div class="dataBox">
                     <p>可提现金额（元）</p>
                     <span>99,999.00</span>
                 </div>
                 <div class="operatList">
-                    <router-link to="/home">我要提现</router-link>
-                    <router-link to="/bill">我的账单</router-link>
+                    <div class="operatItem">
+                        <router-link to="/home">
+                            我要提现
+                            <img src="./images/arrow_right.png">
+                        </router-link>
+                    </div>
+                    <div class="operatItem">
+                        <router-link to="/bill">
+                            我的账单
+                            <img src="./images/arrow_right.png">
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </section>
+        <!-- 遮罩：选择充值金额 -->
+        <div v-transfer-dom>
+            <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+                <div class="chooseValue">
+                    <p>选择面额</p>
+                    <checker v-model="moneyValue" default-item-class="valueUnsel" selected-item-class="valueSel">
+                        <checker-item value="5">
+                            5元
+                        </checker-item>
+                        <checker-item value="10">
+                            10元
+                        </checker-item>
+                        <checker-item value="20" class="noMargin">
+                            20元
+                        </checker-item>
+                        <checker-item value="50">
+                            50元
+                        </checker-item>
+                        <checker-item value="100">
+                            100元
+                        </checker-item>
+                        <checker-item value="200" class="noMargin">
+                            200元
+                        </checker-item>
+                    </checker>
+                    <div class="submit" @click="chongZhi()">确定</div>
+                </div>
+            </x-dialog>
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
+import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
+import { Checker, CheckerItem, Popup } from 'vux'
+
+
 export default {
+    directives: {
+        TransferDom
+    },
+    components: {
+        XDialog,
+        XButton,
+        Checker,
+        CheckerItem,
+        Popup
+    },
     data() {
         return {
-            data: []
+            data: [],
+            showHideOnBlur: false,
+            moneyValue: '',
         }
     },
     mounted() {
         // this.getDataFromBackend()
     },
     methods: {
+        // 获取数据
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -62,6 +125,10 @@ export default {
                 console.log(res);
                 this.data = res.data
             })
+        },
+        // 充值
+        chongZhi:function(){
+            alert('充值' + this.moneyValue + '元')
         }
     },
     computed: {
@@ -75,10 +142,53 @@ export default {
 // 初始化样式
 img, span, a
     display block
+
+// 充值金额选择框：modal
+.valueUnsel
+    display flex !important
+    justify-content center
+    align-items center
+    height 1.2813rem
+    width 2.4063rem
+    margin-right 0.4375rem
+    border .0313rem solid #ff8b00
+    font-size .5rem
+    color #d54600
+    background-color #fff
+.noMargin
+    margin-right 0 !important
+.valueSel
+    color #fff
+    background-color #ff8b00
+.weui-dialog
+    max-width none !important
+    width auto !important
+    text-align left !important
+    border-radius 0.1875rem
+    .chooseValue
+        width 8.2813rem
+        padding 0 0.4375rem
+        .vux-checker-box
+            display flex
+            flex-wrap wrap
+        .submit
+            display flex
+            justify-content center
+            align-items center
+            width 100%
+            height 1.25rem
+            margin 1rem 0 0.4688rem 0
+            font-size 0.5rem
+            color #fff
+            background-color #ff8b00
+        p
+            margin 0.4063rem 0 0.3438rem 0
+            font-size 0.4375rem
+            color #555
+
 // wrapper
 .myTeam-wrapper
     position absolute
-    top 1.25rem
     left 0
     width 100%
     height 100%
@@ -89,8 +199,39 @@ img, span, a
     // 主体
     .main
         background-color #f0f0f0
+        margin-top 1.25rem
+        // 分割线
+        .divider
+            border-bottom 0.3125rem solid #e0e0e0
+        // 一个面板
         .onePanel
             .dataBox
+                height 4.375rem
                 background-color #ea68a2
+                p
+                    padding .8438rem 0 .75rem .5rem
+                    font-size .4063rem
+                    color #fff
+                span
+                    padding-left .5rem
+                    font-size 1.625rem
+                    color #fff
+            .operatList
+                .operatItem
+                    height 1.3438rem
+                    border-bottom-1px(#e0e0e0)
+                    background-color #fff
+                    a
+                        display flex
+                        align-items center
+                        justify-content space-between
+                        height 100%
+                        margin 0 0.5rem 0 0.5rem
+                        font-size 0.4063rem
+                        color #333
+        // 改data面板的颜色
+        .bluePanel
+            .dataBox
+                background-color #00b9ed
 </style>
 

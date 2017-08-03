@@ -110,17 +110,16 @@ img, span, a
 // wrapper
 .myTeam-wrapper
     position absolute
-    top 1.25rem
     left 0
-    width width
-    height height
+    width 100%
+    height 100%
     background #f0f0f0
-    overflow-x: hidden
     // 头部
     .header
         headerFlex()
     // 主体
     .main
+        margin-top 1.25rem
         // 总览
         .overview
             display flex

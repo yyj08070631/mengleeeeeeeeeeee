@@ -46,7 +46,7 @@
                 <div class="text-wrapper">
                     <p>{{item.name}}</p>
                     <span>¥{{item.price}}</span>
-                    <span>运费{{item.freight}}元 | 销量{{item.sale}}件</span>
+                    <span>{{item.freight == 0 ? '不包邮' : item.freight == 1 ? '包邮' : '无邮费信息'}}&nbsp;|&nbsp;销量{{item.sale}}件</span>
                 </div>
             </div>
         </div>
@@ -233,7 +233,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.goodsItemList = response.body
-                // console.log(this.goodsItemList)
+                console.log(this.goodsItemList)
             })
         }
     },
