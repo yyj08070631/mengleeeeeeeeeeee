@@ -18,20 +18,21 @@
         <!-- 主体 -->
         <section class="main">
             <!-- 正常收藏件 -->
-            <div class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem">
+            <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦&nbsp;:)</div>
+            <div class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
                 <img :src="val.mainmap">
                 <div class="badCollect" v-if="val.is_show == 0 || val.off == 0">已失效</div>
                 <div class="info">
                     <div class="rowUp">{{val.name}}</div>
                     <div class="rowMiddle" v-if="val.type == 1">
-                        <span>￥</span>
+                        <span>￥</span>  
                         <span>{{val.price}}</span>
                     </div>
                     <div class="rowDown">
                         <a href="javascript:void(0)" class="add" v-if="val.type == 1"> 
-                            <img src="./images/cart.png" @click="showCartFn(key)">
+                            <img src="./images/cart.png" @click="selectCollect(val.id);showCartFn()">
                         </a>
-                        <a href="javascript:void(0)" class="del">删除</a>
+                        <a href="javascript:void(0)" class="del" @click="delCollect(val.colid,val.type);addCartList()">删除</a>
                     </div>
                 </div>
             </div>
@@ -41,12 +42,12 @@
 				<div class="goodsInfo">
 					<div>
 						 <div class="img-wrapper">
-							   <img :src="orderList.collectitem[index].mainmap">   
+							<img :src="saveData.mainmap">     
 						 </div>
 					</div>
 					<div>
-						  <span>{{orderList.collectitem[index].name}}</span>  
-						  <span>￥{{orderList.collectitem[index].price}}</span>  
+						   <span>{{saveData.name}}</span>  
+						  <span>￥{{saveData.price}}</span>   
 					</div>
 					<div>
 						<img src="./images/close.png" @click="closeCart">
@@ -64,25 +65,27 @@
 			</div>
 		</div>
 		<div>
-            <toast v-model="on" type="text">收藏成功</toast>
+            <toast v-model="on" type="text">已添加</toast>
         </div>
         <div>
-            <toast v-model="off" type="text">已取消收藏</toast>
+            <toast v-model="off" type="text">添加失败</toast>
         </div>
 		<div>
-            <toast v-model="success" type="text">添加成功</toast>
+            <toast v-model="success" type="text">删除成功</toast>
         </div>
 		<div>
-            <toast v-model="error" type="text">添加失败</toast>
+            <toast v-model="error" type="text">删除失败</toast>
         </div>
+        <alert v-model="show" title="222" @on-show="onShow" @on-hide="onHide"> 212312</alert>
     </div>
 </template>
  <script type="ecmascript-6">
- import { Toast, Group } from 'vux'
+ import { Toast, Group,Alert } from 'vux'
 export default {
     components: {
         Toast,
-        Group
+        Group,
+        Alert
     },
     data() {
         return {
@@ -90,10 +93,13 @@ export default {
             on: false,
             off: false,
 			showCart: false,
+            showAlert: true,
 			number: 1,
 			success: false,
             error: false,
-            index: 0
+            index: 0,
+            delCollectList: [],
+            saveData: []
         }
     },
     methods: {
@@ -104,7 +110,6 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
-                console.log(this.orderList)
             })
         },
         showCartFn: function(key){
@@ -132,11 +137,22 @@ export default {
 			}
 		},
 		//添加到购物车
-		addCartList: function(){
+		addCartList: function(id){
+                if( this.orderList.collectitem.length > 0){
+                    for(let i = 0; i < this.orderList.collectitem.length; i++){
+                        if(this.orderList.collectitem[i].id == id){
+                            this.saveData = {
+                                id: this.orderList.collectitem[i].id,
+                                mainmap: this.orderList.collectitem[i].mainmap,
+                                price: this.orderList.collectitem[i].price,
+                            }
+                        }
+                    }
+                } 
                 this.$http.post(
 					global.Domain + '/Order/addcart',
 					{
-						gid:this.orderList.collectitem[this.index].id,
+						gid:this.saveData.id,
 						number:this.number
 					},
 					{
@@ -144,13 +160,54 @@ export default {
 					}).then(response=>{
                     let data = response.body;
                     if(data === 1){
-						this.success = true
+						this.on = true
 					}else{
-						this.error = true
+						this.off = true
 					}
-                })
+                })      
         this.closeCart()
+        this.number = 1
 		},
+        // 删除收藏
+        delCollect: function (id, type) {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/order/iscol?iscol=0&colid=' + id + '&type='+type,
+                emulateJSON: true
+            }).then((response)=>{
+                this.delCollectList = response.body
+                if(this.delCollectList ==  1 ){
+                    this.success = true
+                    this.getDataFromBackend()
+                }else{
+                    this.error = true 
+                    return
+                }
+               
+            })
+        },
+        // 查找id对应商品
+        selectCollect: function(id){
+            if( this.orderList.collectitem.length > 0){
+                for(let i = 0; i < this.orderList.collectitem.length; i++){
+                    if(this.orderList.collectitem[i].id == id){
+                        this.saveData = {
+                            id: this.orderList.collectitem[i].id,
+                            name: this.orderList.collectitem[i].name,
+                            mainmap: this.orderList.collectitem[i].mainmap,
+                            price: this.orderList.collectitem[i].price,
+                        }
+                    }
+                }
+            } 
+            //   console.log(this.saveData)
+        },
+     onHide () {
+      console.log('on hide')
+    },
+    onShow () {
+      console.log('on show')
+    },
     },
     mounted(){
         this.$nextTick(function(){
@@ -166,16 +223,23 @@ width = 100%
 color = #fff
 // 外层元素
 .goodDetail-wrapper
-    padding 1.0938rem 0 0  0
-    margin 0.3125rem 0 1.0938rem 0
+    margin-top 1.5rem
+    padding-bottom 0.5625rem
     width width
     height width
-    background #fff
+    background #fff!important
     // 详情页header
     .header
         headerFlex()
+        height 1.0938rem
     // 主体
     .main
+        background #fff
+        .noGoods
+            margin-top 60%
+            font-size 0.4688rem
+            text-align center
+            color #333
         // 正常收藏件
         .oneCollect
             display flex
@@ -188,7 +252,7 @@ color = #fff
             .info
                 width 100%
                 .rowUp
-                    padding 0.3125rem 0 1.0625rem 0.25rem
+                    padding 0.3125rem 0 0.9375rem 0.25rem
                     font-size 0.4063rem
                     color #333
                 .rowMiddle
@@ -240,6 +304,7 @@ color = #fff
                 font-size 0.4063rem
                 color rgba(255,255,255,0.8)
                 background-color rgba(0, 0, 0, 0.3)
+    // 弹窗
     .weui-toast  
         width auto!important 
         height 0.9375rem
@@ -247,8 +312,8 @@ color = #fff
         top 50%!important
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
-            font-size 0.375rem 		
-		//购物车			
+            font-size 0.375rem 	        
+    //购物车			
     .goodsCart-wrapper
         position fixed
         top 0

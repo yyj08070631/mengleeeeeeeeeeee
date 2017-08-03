@@ -1,5 +1,5 @@
 <template>
-	<div class="goodDetail-wrapper">
+	<div class="collect-wrapper">
 		<!--头部-->
 		<header class="header">
             <div class="goBack">
@@ -301,7 +301,7 @@ export default {
 	width = 100%
 	color = #fff
 	// 外层元素
-	.goodDetail-wrapper
+	.collect-wrapper
 		position absolute
 		top 1.0938rem
 		left 0

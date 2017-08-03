@@ -159,7 +159,6 @@ export default {
             })
         },
         changeActive() {
-
             if (this.test1 == true) {
                 this.test1 = false
                 this.now = 1

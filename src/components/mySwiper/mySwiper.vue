@@ -70,14 +70,18 @@ img, span, a
         height 100%
 .swiper-pagination
     display flex
-    left 5% !important
-    bottom 0.3125rem !important
-    width 90% !important
+    left 50% !important
+    margin-left -25%
+    bottom 0.0156rem !important
+    width 50% !important
     .swiper-pagination-bullet
         changeHeight(0.0938rem)
         margin 0 !important
-        background-color #fff
+        background-color rgba(255,255,255,0)
         border-radius 0
+        height 0.0625rem   !important 
+        margin-left 0.3125rem !important
     .swiper-pagination-bullet-active
-        background #606060
+        background rgba(0,0,0,0.7)
+        height 0.0625rem   !important         
 </style>

@@ -19,14 +19,16 @@
             <div class="order-content">
                 <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
-                    <img class="product" width=104 height=104 :src="val.mainmap" />
+                    <img class="product" :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
-                    <span class="orderPrice">数量：{{val.number}}</span>
+                    <div>
+                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
+                        <span class="orderPrice">数量：{{val.number}}</span>
+                    </div>   
                     <div class="handle">
                         <router-link class="link" :to="{ path: '/goodDetail', query: { gid: 11 } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
@@ -35,14 +37,16 @@
                     </div>
                 </div>
                 <div class="content-item content-item-top" v-for="(val,key) in moreData">
-                    <img class="product" width=104 height=104 :src="val.mainmap" />
+                    <img class="product" :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">待付款</span>
-                    <span class="orderPrice">数量：{{val.number}}</span>
+                    <div>
+                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
+                        <span class="orderPrice">数量：{{val.number}}</span>
+                    </div>
                     <div class="handle">
                         <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo}}</a>
                     </div>
@@ -64,7 +68,8 @@
             </a>
         </div>
         <div class="swiper-pos">
-            <swiper :options="swiperOption" ref="mySwiper" style="width: 100%;height: 100%">
+            <p class="noCollect" v-if="orderList.collectitem.length < 1">没有任何收藏哦&nbsp;:)</p>
+            <swiper :options="swiperOption" ref="mySwiper" style="width: 100%;height: 100%" v-if="orderList.collectitem.length > 0">
             <swiper-slide v-for="(val,key) in orderList.collectitem">
                 <router-link :to="{path:'/goodDetail',query:{gid:val.id}}">  
                     <img :src="val.mainmap">
@@ -244,14 +249,15 @@ width100 = 100%
         .order-content
             width: 100%    
             .content-item-top
-                height: 4rem
+                height: 3.5rem
             .content-item-bottom
                 height: 3.4375rem
             .content-item
-                display: block
+                display: flex
                 position: relative
                 border-bottom-1px(#e6e6e6)           
                 .product
+                    display block
                     float: left
                     width: 1.625rem 
                     height: 1.625rem
@@ -321,14 +327,23 @@ width100 = 100%
     .swiper-pos 
         float: left 
         width: 100%
-        height: 8.125rem          
+        height: 8.125rem      
+        .noCollect
+            margin-top 3.5938rem
+            text-align: center
+            font-size: 0.5rem
+            color: #333
         .swiper-container
             position: relative
             height: 8.125rem !important
+            .swiper-pagination
+                left 0% !important
+                width 100% !important
             .swiper-wrapper
                 width: 50% !important  
                 height: 5.4688rem
                 margin: 0.3125rem auto
+                .swiper-pagination-bullet
                 img
                     width: 5.4063rem !important   
                     height: 5.4063rem !important
@@ -340,9 +355,15 @@ width100 = 100%
             .swiper-pagination
                 height: 0.0313rem  !important 
                 background: #ccc
-                bottom: 0  
+                bottom: 0 !important 
+                margin 0 !important
                 span
                     height: 0.0313rem
+        .swiper-pagination-bullet
+            margin 0 !important
+            height 0.0156rem !important
+        .swiper-pagination-bullet-active   
+            height 0.0313rem !important      
                                  
 </style>    
 

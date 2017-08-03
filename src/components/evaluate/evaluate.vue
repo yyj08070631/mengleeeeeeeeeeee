@@ -2,8 +2,8 @@
   <div class="evaluate-wrapper">
         <div class="evlbox">
             <div class="title">填写您的评价</div>
-            <textarea class="content" type="text"></textarea>
-            <a class="button" href="javascript:void(0)">确定</a>
+            <textarea class="content" type="text" onfocus="changeFixed()"></textarea>
+            <a class="button" href="javascript:history.back(1)">确定</a>
         </div>
   </div>
 </template>

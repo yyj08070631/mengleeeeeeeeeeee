@@ -21,8 +21,10 @@
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
-                    <span class="orderPrice">数量：{{val.number}}</span>
+                    <div>
+                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
+                        <span class="orderPrice">数量：{{val.number}}</span>
+                    </div>
                     <div class="handle">
                         <router-link class="link" :to="{path:'/goodDetail',query:{gid:11}}" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
@@ -127,6 +129,7 @@ width100 = 100%
        position: relative            
      .order-content-wrapper
         width: 100%
+        height 100%
         margin-left: 0.5rem
         font-size: 0
         .order-title
@@ -156,10 +159,11 @@ width100 = 100%
             width: 100%
             border-bottom-1px(#e6e6e6)        
             .content-item-top
-                height: 4rem
+                height: 3.5rem
             .content-item-bottom
                 height: 3.4375rem
             .content-item
+                display flex
                 position: relative
                 border-bottom-1px(#e6e6e6)           
                 .product
