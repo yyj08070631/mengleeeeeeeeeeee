@@ -24,7 +24,7 @@
             <div><span>收款方：</span><span>梦乐商城</span></div>
             <div></div>
         </div>
-        <div class="postButton">完成</div>
+        <router-link to="/goods" class="postButton">完成</router-link>
     </div>    
 </template>
  <script type="ecmascript-6">

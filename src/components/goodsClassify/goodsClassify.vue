@@ -38,8 +38,9 @@
             </div>
         </div>
         <div class="goods-wrapper">
+            <p v-if="goodsItemList.gooditem < 1 " class="noGoods">暂无商品,去看看<router-link to="/goods">其他商品</router-link>吧&nbsp;:)</p>
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
-                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click="collectGood(item.id, item.iscolitems)" />
+                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click="collectGood(item.colid, item.iscolitems)" />
                 <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
                     <img class="goodsMsg" :src="item.mainmap" />
                 </router-link>
@@ -121,7 +122,7 @@ export default {
             let collected = require('./collect-active.png');
             this.$http({
                 method: 'get',
-                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&gid=' + id + '&type=1',
+                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&colid=' + id + '&type=1',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
@@ -365,6 +366,14 @@ class2()
         width: 100%
         display flex
         flex-wrap wrap
+        .noGoods
+            margin 40% 0
+            width 100%
+            font-size 0.4688rem
+            text-align center
+            color #333
+            a
+                color #ea68a2
         .goods-item1:nth-child(odd),.goods-item2:nth-child(odd)
              border-right: 0.0313rem solid #e0e0e0  
         .goods-item1

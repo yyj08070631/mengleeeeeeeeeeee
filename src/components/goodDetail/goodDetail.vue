@@ -32,18 +32,11 @@
 		<div class="comment">
 			<div class="titleUp">
 				<div class="colLeft">
-<<<<<<< HEAD
-					  <a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem.name}}</a>  
-					<div class="rowDown">
-						  <p>￥{{detailItemList.gooditem.price}}</p>  
-						  <p>已有 {{detailItemList.gooditem.sale}} 人购买</p>  
-=======
 					<a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem.name}}</a>
 					<!---->
 					<div class="rowDown">
 						<p>￥{{detailItemList.gooditem.price}}</p>
 						<p>已有 {{detailItemList.gooditem.sale}} 人购买</p>
->>>>>>> 6e8459802f71dac0ffb5bb2c540cb337a1745700
 					</div>
 				</div>
 				<div class="colRight" name="share" role="button">
@@ -124,15 +117,6 @@
 			<div class="addCart-container">
 				<div class="goodsInfo">
 					<div>
-<<<<<<< HEAD
-						 <div class="img-wrapper">
-							  <img :src="detailItemList.gooditem.mainmap">  
-						 </div>
-					</div>
-					<div>
-						 <span>{{detailItemList.gooditem.name}}</span> 
-						 <span>￥{{detailItemList.gooditem.price}}</span> 
-=======
 						<div class="img-wrapper">
 							<img :src="detailItemList.albumitem[0].src">
 						</div>
@@ -140,7 +124,6 @@
 					<div>
 						<span>{{detailItemList.gooditem.name}}</span>
 						<span>￥{{detailItemList.gooditem.price}}</span>
->>>>>>> 6e8459802f71dac0ffb5bb2c540cb337a1745700
 					</div>
 					<div>
 						<img src="./images/close.png" @click="closeCart">
@@ -282,7 +265,6 @@ export default {
 			}
 		},
 		//添加到购物车
-<<<<<<< HEAD
 		addCartList: function(){
                 this.$http.post(
 					global.Domain + '/Order/addcart',
@@ -295,20 +277,6 @@ export default {
 					}).then(response=>{
                     let data = response.body;
                     if(data === 1){
-=======
-		addCartList: function () {
-			this.$http.post(
-				global.Domain + '/Order/addcart',
-				{
-					gid: this.detailItemList.gooditem.id,
-					number: this.number
-				},
-				{
-					emulateJSON: true
-				}).then(response => {
-					let data = response.body;
-					if (data === 1) {
->>>>>>> 6e8459802f71dac0ffb5bb2c540cb337a1745700
 						this.success = true
 					} else {
 						this.error = true
@@ -627,4 +595,4 @@ export default {
 					color #fff
 					text-align center
 					background #fe9333
-</style>
+</style>	

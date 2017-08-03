@@ -18,7 +18,7 @@
         <!-- 主体 -->
         <section class="main">
             <!-- 正常收藏件 -->
-            <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦&nbsp;:)</div>
+            <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦&nbsp;:) <router-link to="/goods">->去收藏<-</router-link></div>
             <div class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
                 <img :src="val.mainmap">
                 <div class="badCollect" v-if="val.is_show == 0 || val.off == 0">已失效</div>
@@ -240,6 +240,11 @@ color = #fff
             font-size 0.4688rem
             text-align center
             color #333
+            a
+                color #ea68a2
+                margin-top 0.3125rem
+                font-size 0.4375rem
+
         // 正常收藏件
         .oneCollect
             display flex
