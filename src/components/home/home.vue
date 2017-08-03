@@ -17,7 +17,7 @@
             <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'">
                 <img :src="val.product[0].src" width="100%" height="100%">
             </router-link>
-            <router-link to="/offlineInfo" v-else-if="val.product.length == 1 && val.linkType == 'aid'">
+            <router-link :to="{ path: '/offlineInfo', query: { nid: val.product[0].id } }" v-else-if="val.product.length == 1 && val.linkType == 'aid'">
                 <img :src="val.product[0].src" width="100%" height="100%">
             </router-link>
             <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'gid'"></mySwiper>
@@ -63,7 +63,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                //console.log(res)
+                // console.log(res)
                 // console.log(response)
                 for (var key in res) {
                     if (res[key].banner) {
@@ -113,7 +113,7 @@ export default {
                         console.log('获取了无效的数据！')
                     }
                 }
-                //console.log(result)
+                console.log(result)
                 this.dataApp = result
             })
         }

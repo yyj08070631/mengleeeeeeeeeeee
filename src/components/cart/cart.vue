@@ -9,7 +9,10 @@
                 </a>
             </div>
             <div class="title">我的购物袋</div>
-            <div class="search" @click="writeCart()"><p v-show="writeType == 0" @click="finish(false)">编辑</p><p v-show="writeType == 1" @click="finish();changeNum()">完成</p></div>
+            <div class="search" @click="writeCart()">
+                <p v-show="writeType == 0" @click="finish(false)">编辑</p>
+                <p v-show="writeType == 1" @click="finish();changeNum()">完成</p>
+            </div>
         </header>
         <!-- 主体 -->
         <section class="main">
@@ -38,7 +41,7 @@
                         <div class="count" v-show="showWrite">
                             <a href="javascript:void(0)" @click="numberSub(val.id)">-</a>
                             <input type="text" v-model="number[key].num">
-                             <!-- :placeholder="val.number" -->
+                            <!-- :placeholder="val.number" -->
                             <a href="javascript:void(0)" @click="numberPlus(val.id)">+</a>
                         </div>
                         <div class="num" v-show="showPay">×{{number[key].num}}</div>
@@ -67,21 +70,21 @@
         <div>
             <toast v-model="successAlert" type="text">已删除</toast>
         </div>
-		<div>
+        <div>
             <toast v-model="errorAlert" type="text">删除失败</toast>
         </div>
         <div>
             <toast v-model="writeAfter" type="text">已修改</toast>
         </div>
-         <!-- 页面所有弹窗 -->
+        <!-- 页面所有弹窗 -->
     </div>
 </template>
 <script type="ecmascript-6">
 import { Toast, Group } from 'vux'
 export default {
     components: {
-        Toast, 
-		Group
+        Toast,
+        Group
     },
     data() {
         return {
@@ -106,118 +109,118 @@ export default {
     },
     methods: {
         //数量+=1
-        numberPlus(id){
-            for(let i = 0; i < this.number.length; i++){
-                if(this.number[i].id == id){
-                    this.number[i].num ++;  
+        numberPlus(id) {
+            for (let i = 0; i < this.number.length; i++) {
+                if (this.number[i].id == id) {
+                    this.number[i].num++;
                 }
             }
             let narr = []//保存对比之前的数组
             let get = []//保存对比之后的数组
-            for(let i=0;i<this.number.length;i++){
+            for (let i = 0; i < this.number.length; i++) {
                 narr.push({
                     num: this.data.data[i].number,
                     id: this.data.data[i].id
-                }) 
-               if((this.number[i].num - narr[i].num) != 0){
-                 // get.push(comput)
+                })
+                if ((this.number[i].num - narr[i].num) != 0) {
+                    // get.push(comput)
                     get.push({
                         number: this.number[i].num,
                         id: this.number[i].id
                     })
                     this.saveData = get
-               }else{
+                } else {
                     //get.pop()
-               }
+                }
             }
         },
         //数量-=1
-        numberSub(id){
-            for(let i = 0; i < this.number.length; i++){
-                if(this.number[i].id == id){
-                    if(this.number[i].num == 1){
+        numberSub(id) {
+            for (let i = 0; i < this.number.length; i++) {
+                if (this.number[i].id == id) {
+                    if (this.number[i].num == 1) {
                         this.number[i].num = 1
-                    }else{
-                        this.number[i].num --;
+                    } else {
+                        this.number[i].num--;
                     }
                 }
             }
             let narr = []//保存对比之前的数组
             let get = []//保存对比之后的数组
-             for(let i=0;i<this.number.length;i++){
+            for (let i = 0; i < this.number.length; i++) {
                 narr.push({
                     num: this.data.data[i].number,
                     id: this.data.data[i].id
-                }) 
-               if((this.number[i].num - narr[i].num) != 0){
+                })
+                if ((this.number[i].num - narr[i].num) != 0) {
                     get.push({
                         number: this.number[i].num,
                         id: this.number[i].id
                     })
                     this.saveData = get
-               }else{
+                } else {
                     this.saveData.pop()
-               }
+                }
             }
-            
+
         },
         //删除数据
-        delCartList: function(){
+        delCartList: function () {
             console.log(this.Idarr)
-            for(let i=0;i<this.Idarr.length;i++){
+            for (let i = 0; i < this.Idarr.length; i++) {
                 this.Idarr[i] = Number(this.Idarr[i]);
             }
             this.$http.post(
-                    global.Domain + '/Order/delcart',
-                    {
-                        oid: JSON.stringify(this.Idarr)
-                    },
-                    {
-                        emulateJSON:true
-                    }).then(response=>{
+                global.Domain + '/Order/delcart',
+                {
+                    oid: JSON.stringify(this.Idarr)
+                },
+                {
+                    emulateJSON: true
+                }).then(response => {
                     let data = response.body;
-                    if(data === 1){
+                    if (data === 1) {
                         this.successAlert = true
-                         for(let i=0;i<this.$refs.allBox.length;i++){
-                            this.$refs.allBox[i].getElementsByTagName('img')[0].src=require('./images/unchecked.png')
+                        for (let i = 0; i < this.$refs.allBox.length; i++) {
+                            this.$refs.allBox[i].getElementsByTagName('img')[0].src = require('./images/unchecked.png')
                             this.Idarr = []
                             this.isCheckAll = false
                             this.$refs.allCheckHook.src = require('./images/unchecked.png')
                         }
                         this.getDataFromBackend()
-                    }else{
+                    } else {
                         this.errorAlert = true
                     }
                 })
         },
         //修改数量
-        changeNum :function(){
+        changeNum: function () {
             console.log(this.saveData)
-            this.arr={
-                        num: this.saveData
-                        }
-            for(let i=0;i<this.saveData.length;i++){
+            this.arr = {
+                num: this.saveData
+            }
+            for (let i = 0; i < this.saveData.length; i++) {
                 this.saveData[i].id = Number(this.saveData[i].id);
                 this.saveData[i].number = Number(this.saveData[i].number);
             }
             this.$http.post(
-                
-                    global.Domain + '/Order/chancart',
-                    {
-                        num: JSON.stringify(this.saveData)
-                    },
-                    {
-                        emulateJSON:true
-                    }).then(response=>{
+
+                global.Domain + '/Order/chancart',
+                {
+                    num: JSON.stringify(this.saveData)
+                },
+                {
+                    emulateJSON: true
+                }).then(response => {
                     let data = response.body;
-                    if(data === 1){
+                    if (data === 1) {
                         this.getDataFromBackend()
-                         console.log(response.body)
-                    }else{
+                        console.log(response.body)
+                    } else {
                         //console.log(response.body)
                     }
                 })
-                this.writeAfter = true
+            this.writeAfter = true
         },
         //获取数据
         getDataFromBackend: function () {
@@ -230,7 +233,7 @@ export default {
                 console.log(moreComMore)
                 let arr = [];
                 this.data = moreComMore;
-                for(let i = 0; i < moreComMore.data.length; i++){
+                for (let i = 0; i < moreComMore.data.length; i++) {
                     arr.push({
                         id: moreComMore.data[i].id,
                         num: moreComMore.data[i].number
@@ -240,92 +243,92 @@ export default {
             })
         },
         //选中单个按钮
-        checkType: function(key,data,id){
-             let  file = this.$refs.checkHook[key].src
-             let reg = /unchecked/
-             let result =  this.number[key].num*this.data.data[key].price
-            if(reg.test(file)){
+        checkType: function (key, data, id) {
+            let file = this.$refs.checkHook[key].src
+            let reg = /unchecked/
+            let result = this.number[key].num * this.data.data[key].price
+            if (reg.test(file)) {
                 this.$refs.checkHook[key].src = require('./images/checked.png')
-                this.Idarr.push(id)   
+                this.Idarr.push(id)
                 this.priceArr.push(result)
-            }else{
+            } else {
                 this.$refs.checkHook[key].src = require('./images/unchecked.png')
                 //删除数组中某个特定元素的方法
-                Array.prototype.remove = function(val) {
-                var index = this.indexOf(val);
-                if (index > -1) {
-                    this.splice(index, 1);
+                Array.prototype.remove = function (val) {
+                    var index = this.indexOf(val);
+                    if (index > -1) {
+                        this.splice(index, 1);
                     }
                 };
                 this.Idarr.remove(id)
                 this.priceArr.remove(result)
-                
+
             }
-        // console.log(this.priceArr)
-        //   console.log(this.Idarr)
+            // console.log(this.priceArr)
+            //   console.log(this.Idarr)
         },
         //选中所有个按钮
-        checkAllBox: function(){
-                
-                if(this.isCheckAll == false){
-                    this.isCheckAll = true
-                    this.Idarr = []
-                    this.priceArr = [] 
-                    this.$refs.allCheckHook.src = require('./images/checked.png')
-                }else{
-                    this.isCheckAll = false
-                    this.$refs.allCheckHook.src = require('./images/unchecked.png')
-                }
-               for(let i=0;i<this.$refs.allBox.length;i++){ 
-                    if(this.isCheckAll == true){              
-                       this.$refs.allBox[i].getElementsByTagName('img')[0].src=require('./images/checked.png')
-                       this.Idarr.push(this.data.data[i].id)
-                       this.priceArr.push(this.number[i].num * this.data.data[i].price)
-                       let arr = []
-                       for(var i =0;i<this.Idarr.length-1;i++){
-                    　　 if(arr.indexOf(this.Idarr[i]) == -1){
+        checkAllBox: function () {
+
+            if (this.isCheckAll == false) {
+                this.isCheckAll = true
+                this.Idarr = []
+                this.priceArr = []
+                this.$refs.allCheckHook.src = require('./images/checked.png')
+            } else {
+                this.isCheckAll = false
+                this.$refs.allCheckHook.src = require('./images/unchecked.png')
+            }
+            for (let i = 0; i < this.$refs.allBox.length; i++) {
+                if (this.isCheckAll == true) {
+                    this.$refs.allBox[i].getElementsByTagName('img')[0].src = require('./images/checked.png')
+                    this.Idarr.push(this.data.data[i].id)
+                    this.priceArr.push(this.number[i].num * this.data.data[i].price)
+                    let arr = []
+                    for (var i = 0; i < this.Idarr.length - 1; i++) {
+                        if (arr.indexOf(this.Idarr[i]) == -1) {
                             arr.push(this.Idarr[i]);
-                    　　      }
                         }
-                        this.getIdArr = arr
-                       let arr2 = [];
-                         for(var i =0;i<this.priceArr.length-1;i++){
-                    　　 if(arr2.indexOf(this.priceArr[i]) == -1){
+                    }
+                    this.getIdArr = arr
+                    let arr2 = [];
+                    for (var i = 0; i < this.priceArr.length - 1; i++) {
+                        if (arr2.indexOf(this.priceArr[i]) == -1) {
                             arr2.push(this.priceArr[i]);
-                    　　      }
                         }
-                        this.getPriceArr = arr2;
-                    }else{
-                        this.$refs.allBox[i].getElementsByTagName('img')[0].src=require('./images/unchecked.png')
-                        this.getIdArr = []
-                        this.Idarr = []        
-                        this.priceArr = []     
-                        this.getPriceArr = []      
+                    }
+                    this.getPriceArr = arr2;
+                } else {
+                    this.$refs.allBox[i].getElementsByTagName('img')[0].src = require('./images/unchecked.png')
+                    this.getIdArr = []
+                    this.Idarr = []
+                    this.priceArr = []
+                    this.getPriceArr = []
                 }
             }
-          //  console.log(this.priceArr)
-        //    console.log(this.Idarr)
+            //  console.log(this.priceArr)
+            //    console.log(this.Idarr)
         },
         //编辑完成
-        finish: function(type){
+        finish: function (type) {
             this.writeAfter = type
-            for(let i=0;i<this.$refs.allBox.length;i++){
-                   this.$refs.allBox[i].getElementsByTagName('img')[0].src=require('./images/unchecked.png')
-                   this.Idarr = []
-                   this.isCheckAll = false
-                   this.$refs.allCheckHook.src = require('./images/unchecked.png')
-                }
+            for (let i = 0; i < this.$refs.allBox.length; i++) {
+                this.$refs.allBox[i].getElementsByTagName('img')[0].src = require('./images/unchecked.png')
+                this.Idarr = []
+                this.isCheckAll = false
+                this.$refs.allCheckHook.src = require('./images/unchecked.png')
+            }
         },
         //显示编辑区块
-        writeCart: function(){
-            if(this.showWrite == false){
-               this.showWrite = true
-               this.writeType = 1
-               this.showPay = false
-            }else{
-               this.showWrite = false
-               this.writeType = 0
-               this.showPay = true
+        writeCart: function () {
+            if (this.showWrite == false) {
+                this.showWrite = true
+                this.writeType = 1
+                this.showPay = false
+            } else {
+                this.showWrite = false
+                this.writeType = 0
+                this.showPay = true
             }
         },
     },
@@ -334,12 +337,12 @@ export default {
     },
     computed: {
         //计算总价
-        totalPrice: function(){
-           let sum = 0
-           for(let i=0;i<this.priceArr.length;i++){
-               sum += this.priceArr[i];
-           }
-           return sum
+        totalPrice: function () {
+            let sum = 0
+            for (let i = 0; i < this.priceArr.length; i++) {
+                sum += this.priceArr[i];
+            }
+            return sum
         }
     }
 }

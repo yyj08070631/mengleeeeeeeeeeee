@@ -46,6 +46,30 @@
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 export default {
+    data() {
+        return {
+            data: []
+        }
+    },
+    created() {
+        this.getDataFromBackend()
+    },
+    methods: {
+        getDataFromBackend: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/myTeam?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data
+            })
+        }
+    },
+    computed: {
+
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -138,7 +162,6 @@ export default {
             flex: 1 
         div:nth-child(2)
             padding-top: 0.1875rem
-            width: 3.125rem
             span:first-child
                 color: #333
             span
