@@ -42,10 +42,10 @@
                 </div>
                 <div class="operatList">
                     <div class="operatItem">
-                        <router-link to="/home">
+                        <a href="javascript:void(0)" @click="showTixian=true">
                             我要提现
                             <img src="./images/arrow_right.png">
-                        </router-link>
+                        </a>
                     </div>
                     <div class="operatItem">
                         <router-link to="/bill">
@@ -85,6 +85,30 @@
                 </div>
             </x-dialog>
         </div>
+        <!-- 遮罩：填写提现信息 -->
+        <div v-transfer-dom>
+            <x-dialog v-model="showTixian" class="dialog-demo" hide-on-blur>
+                <div class="chooseValue">
+                    <p>提现</p>
+                    <label class="inputBox">
+                        <span>提现金额：</span>
+                        <input type="text" placeholder="请输入提现金额" v-model="tixianValue">
+                    </label>
+                    <label class="inputBox">
+                        <span>账户类型：</span>
+                        <select v-model="tixianAcouType">
+                            <option value="1" selected>支付宝</option>
+                            <option value="2">银行卡</option>
+                        </select>
+                    </label>
+                    <label class="inputBox">
+                        <span>账户账号：</span>
+                        <input type="text" placeholder="请输入提现账户" v-model="tixianAcouTxt">
+                    </label>
+                    <div class="submit" @click="tixian()">确定</div>
+                </div>
+            </x-dialog>
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -107,7 +131,11 @@ export default {
         return {
             data: [],
             showHideOnBlur: false,
+            showTixian: false,
             moneyValue: '',
+            tixianValue: '',
+            tixianAcouType: '',
+            tixianAcouTxt: ''
         }
     },
     mounted() {
@@ -129,10 +157,38 @@ export default {
         // 充值
         chongZhi:function(){
             alert('充值' + this.moneyValue + '元')
+        },
+        // 提现
+        tixian: function(){
+            // alert('从' + this.tixianAcouType + ' ' + this.tixianAcouTxt + ' 账户中提取' + this.tixianValue + '元')
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/applyWithdrawals?userId===tPtcNLZARXEuvDhRSFGkQX&money=' + this.tixianValue + '&type=' + this.tixianAcouType + '&account=' + this.tixianAcouTxt,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                if(res.code == 200){
+                    alert('提现申请成功！');
+                    this.showTixian = false;
+                } else {
+                    alert('提现申请失败：' + res.msg)
+                }
+            })
         }
     },
     computed: {
 
+    },
+    watch: {
+        tixianValue: function(val){
+            if(/^[0-9]/.test(val) || val == ''){
+                // console.log('提现金额输入正确');
+            } else {
+                alert('请输入正确的提现金额！');
+                this.tixianValue = '';
+            }
+        }
     }
 }
 </script>
@@ -151,6 +207,7 @@ img, span, a
     height 1.2813rem
     width 2.4063rem
     margin-right 0.4375rem
+    margin-bottom 0.4063rem
     border .0313rem solid #ff8b00
     font-size .5rem
     color #d54600
@@ -168,6 +225,7 @@ img, span, a
     .chooseValue
         width 8.2813rem
         padding 0 0.4375rem
+        // 充值金额
         .vux-checker-box
             display flex
             flex-wrap wrap
@@ -185,6 +243,33 @@ img, span, a
             margin 0.4063rem 0 0.3438rem 0
             font-size 0.4375rem
             color #555
+        // 提现信息
+        .inputBox
+            display flex
+            margin-bottom 0.5625rem
+            span
+                display flex
+                align-items center
+                width 3rem
+                font-size 0.4063rem
+            input
+                height 0.875rem
+                width 100%
+                padding-right 0.2813rem
+                border 1px solid #e0e0e0
+                outline 0
+                font-size 0.4063rem
+                text-align right
+            select
+                height 0.875rem
+                width 100%
+                padding-right 0.2813rem
+                border 1px solid #e0e0e0
+                outline 0
+                font-size 0.4063rem
+                color #909090
+                appearance none 
+                direction rtl
 
 // wrapper
 .myTeam-wrapper
