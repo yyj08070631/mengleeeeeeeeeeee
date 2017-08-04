@@ -33,6 +33,7 @@ import addrEdit from './components/addrEdit/addrEdit';
 import addrEditReal from './components/addrEditReal/addrEditReal';
 import allOrder from './components/allOrder/allOrder';
 import evaluate from './components/evaluate/evaluate';
+import payResult from './components/payResult/payResult';
 import myWallet from './components/myWallet/myWallet';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
@@ -64,8 +65,7 @@ AMap.initAMapApiLoader({
     plugin: ['Scale', 'Geolocation']
 })
 
-const routes = [
-    {
+const routes = [{
         path: '/goods',
         component: goods
     },
@@ -196,6 +196,10 @@ const routes = [
     {
         path: '/myWallet',
         component: myWallet
+    },
+    {
+        path: '/payResult',
+        component: payResult
     }
 ];
 

@@ -1,5 +1,5 @@
 <template>
-	<div class="goodDetail-wrapper">
+	<div class="collect-wrapper">
 		<!--头部-->
 		<header class="header">
 			<div class="goBack">
@@ -296,18 +296,18 @@ export default {
 			}
 		},
 		//添加到购物车
-		addCartList: function () {
-			this.$http.post(
-				global.Domain + '/Order/addcart',
-				{
-					gid: this.detailItemList.gooditem.id,
-					number: this.number
-				},
-				{
-					emulateJSON: true
-				}).then(response => {
-					let data = response.body;
-					if (data === 1) {
+		addCartList: function(){
+                this.$http.post(
+					global.Domain + '/Order/addcart',
+					{
+						gid:this.detailItemList.gooditem.id,
+						number:this.number
+					},
+					{
+						emulateJSON:true
+					}).then(response=>{
+                    let data = response.body;
+                    if(data === 1){
 						this.success = true
 					} else {
 						this.error = true
@@ -336,7 +336,7 @@ export default {
 	width = 100%
 	color = #fff
 	// 外层元素
-	.goodDetail-wrapper
+	.collect-wrapper
 		position absolute
 		top 1.0938rem
 		left 0
@@ -345,6 +345,7 @@ export default {
 		background #f0f0f0
 		// 详情页header
 		.header
+			height 1.0938rem!important
 			headerFlex()
 		// 详情页导航
 		.detailNav

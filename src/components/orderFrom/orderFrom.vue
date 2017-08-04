@@ -4,7 +4,7 @@
         <!-- 头部 -->
         <div class="header">
             <div class="header-content">
-                <h1 class="title"><router-link to="/orderFrom/evaluate">查看订单</router-link></h1>
+                <h1 class="title">查看订单</h1>
                 <a href="#search">
                     <img class="search" src="./search.png" />
                 </a>
@@ -13,46 +13,53 @@
         <div class="content-wrapper item-cls">
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的订单</span>
-                <a href="#allOrder" class="content">查看更多订单</a>
-                <img class="more" width=11 height=11 src="./more.png" />
+                <router-link to="/allOrder">
+                    <a href="javascript:;" class="content">查看更多订单</a>
+                </router-link>
+                <img class="more" src="./more.png" />
             </a>
             <div class="order-content">
+                <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
-                    <img class="product" width=104 height=104 :src="val.mainmap" />
+                    <img class="product" :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
-                    <span class="orderPrice">数量：{{val.number}}</span>
+                    <div>
+                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
+                        <span class="orderPrice">数量：{{val.number}}</span>
+                    </div>   
                     <div class="handle">
-                        <router-link class="link" :to="{ path: '/goodDetail', query: { gid: 11 } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
+                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
                     <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
-                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
+                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
                     </div>
                 </div>
                 <div class="content-item content-item-top" v-for="(val,key) in moreData">
-                    <img class="product" width=104 height=104 :src="val.mainmap" />
+                    <img class="product" :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">待付款</span>
-                    <span class="orderPrice">数量：{{val.number}}</span>
+                    <div>
+                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
+                        <span class="orderPrice">数量：{{val.number}}</span>
+                    </div>
                     <div class="handle">
-                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo}}</a>
+                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
                     <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
-                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
+                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
                     </div>
                 </div>
             </div>
             <div class="order-content">
             </div>
-            <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()">{{goodsNode}}</a>
+            <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()" v-show="orderList.orderitem.length > 0">{{goodsNode}}</a>
             <div class="line"></div>
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的收藏</span>
@@ -63,7 +70,8 @@
             </a>
         </div>
         <div class="swiper-pos">
-            <swiper :options="swiperOption" ref="mySwiper" style="width: 100%;height: 100%">
+            <p class="noCollect" v-if="orderList.collectitem.length < 1">没有任何收藏哦&nbsp;:)</p>
+            <swiper :options="swiperOption" ref="mySwiper" style="width: 100%;height: 100%" v-if="orderList.collectitem.length > 0">
             <swiper-slide v-for="(val,key) in orderList.collectitem">
                 <router-link :to="{path:'/goodDetail',query:{gid:val.id}}">  
                     <img :src="val.mainmap">
@@ -139,31 +147,34 @@ export default {
                     btnInfo: '取消订单',
                     btnInfo2: '立即结账',
                     type: '待结账',
-                    link1: '/goodDetail'
+                    link1: '/goodDetail',
+                    link2: '/buyGoods'
                 },
                 'err',
                 {
                     btnInfo: '去评价',
                     btnInfo2: '再次购买',
                     type: '待收货',
-                    link: '/goodDetail'
+                    link1: '/orderFrom/evaluate',
+                    link2: '/goodDetail'
                 },
                 {
                     btnInfo: '再次购买',
                     type: '待评价',
-                    link: '/goodDetail'
+                    link1: '/goodDetail'
                 },
                 {
                     btnInfo: '再次购买',
                     type: '交易成功',
-                    link: '/goodDetail'
+                    link1: '/goodDetail'
                 },
                 'err',
                 'err',
                 {
                     btnInfo: '再次购买',
                     type: '订单取消',
-                    link: '/goodDetail'
+                    link1: '/goodDetail',
+                    link2:'/orderFrom'
                 }
         
             ],
@@ -203,6 +214,11 @@ width100 = 100%
         footerCss()
     .header
         headerCss()
+    .noGoods
+        margin 20% 0
+        font-size 0.4688rem
+        text-align center
+        color #333
      .item-cls
        position: relative   
        display: block
@@ -213,21 +229,24 @@ width100 = 100%
         height: 100%
         font-size: 0
         .order-title
-            display: block
+            display: flex
             width: 100%
             height: 1.3125rem
             line-height: 1.3125rem
             border-bottom-1px(#e6e6e6)
             .title 
+                flex 1
                 float: left
                 font-size: 0.375rem   
                 color: #333
             .content
-                display: inline-block    
+                flex 1
+                display: block    
                 float: right
                 margin-right: 1.625rem
                 font-size: 0.375rem
                 color: #909090
+                align-item flex-end
             .more 
                 position: absolute
                 right: 0.7813rem
@@ -236,17 +255,17 @@ width100 = 100%
                 width: 0.375rem
                 height: 0.375rem        
         .order-content
-            width: 100%
-            border-bottom-1px(#e6e6e6)        
+            width: 100%    
             .content-item-top
-                height: 4rem
+                height: 3.5rem
             .content-item-bottom
                 height: 3.4375rem
             .content-item
-                display: block
+                display: flex
                 position: relative
                 border-bottom-1px(#e6e6e6)           
                 .product
+                    display block
                     float: left
                     width: 1.625rem 
                     height: 1.625rem
@@ -316,14 +335,23 @@ width100 = 100%
     .swiper-pos 
         float: left 
         width: 100%
-        height: 8.125rem          
+        height: 8.125rem      
+        .noCollect
+            margin-top 3.5938rem
+            text-align: center
+            font-size: 0.5rem
+            color: #333
         .swiper-container
             position: relative
             height: 8.125rem !important
+            .swiper-pagination
+                left 0% !important
+                width 100% !important
             .swiper-wrapper
                 width: 50% !important  
                 height: 5.4688rem
                 margin: 0.3125rem auto
+                .swiper-pagination-bullet
                 img
                     width: 5.4063rem !important   
                     height: 5.4063rem !important
@@ -335,9 +363,15 @@ width100 = 100%
             .swiper-pagination
                 height: 0.0313rem  !important 
                 background: #ccc
-                bottom: 0  
+                bottom: 0 !important 
+                margin 0 !important
                 span
                     height: 0.0313rem
+        .swiper-pagination-bullet
+            margin 0 !important
+            height 0.0156rem !important
+        .swiper-pagination-bullet-active   
+            height 0.0313rem !important      
                                  
 </style>    
 

@@ -12,6 +12,7 @@
             </div>
         </div>
         <div class="order-content-wrapper item-cls">
+            <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
             <div class="order-content">
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
                     <img class="product" width=104 height=104 :src="val.mainmap" />
@@ -20,13 +21,15 @@
                         <p class="num">单价:{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
-                    <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
-                    <span class="orderPrice">数量：{{val.number}}</span>
+                    <div>
+                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
+                        <span class="orderPrice">数量：{{val.number}}</span>
+                    </div>
                     <div class="handle">
-                        <router-link class="link" :to="{path:'/goodDetail',query:{gid:11}}" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
+                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: 11 } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
                     <div class="handle pos-left" v-if="val.status==1 || val.status == 3">
-                        <a class="link" href="javascript:void(0)">{{goodsTypeArr[val.status].btnInfo2}}</a>
+                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: 11 } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
                     </div>
                 </div>
             </div>
@@ -71,31 +74,34 @@ export default {
                     btnInfo: '取消订单',
                     btnInfo2: '立即结账',
                     type: '待结账',
-                    link: ''
+                    link1: '/goodDetail',
+                    link2: '/buyGoods'
                 },
                 'err',
                 {
                     btnInfo: '去评价',
                     btnInfo2: '再次购买',
                     type: '待收货',
-                    link: ''
+                    link1: '/orderFrom/evaluate',
+                    link2: '/goodDetail'
                 },
                 {
                     btnInfo: '再次购买',
                     type: '待评价',
-                    link: ''
+                    link1: '/goodDetail'
                 },
                 {
                     btnInfo: '再次购买',
                     type: '交易成功',
-                    link: ''
+                    link1: '/goodDetail'
                 },
                 'err',
                 'err',
                 {
                     btnInfo: '再次购买',
                     type: '订单取消',
-                    link: ''
+                    link1: '/goodDetail',
+                    link2:'/orderFrom'
                 }
         
             ],
@@ -125,6 +131,7 @@ width100 = 100%
        position: relative            
      .order-content-wrapper
         width: 100%
+        height 100%
         margin-left: 0.5rem
         font-size: 0
         .order-title
@@ -154,10 +161,11 @@ width100 = 100%
             width: 100%
             border-bottom-1px(#e6e6e6)        
             .content-item-top
-                height: 4rem
+                height: 3.5rem
             .content-item-bottom
                 height: 3.4375rem
             .content-item
+                display flex
                 position: relative
                 border-bottom-1px(#e6e6e6)           
                 .product

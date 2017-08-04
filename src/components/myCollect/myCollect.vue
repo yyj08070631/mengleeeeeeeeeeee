@@ -18,66 +18,196 @@
         <!-- 主体 -->
         <section class="main">
             <!-- 正常收藏件 -->
-            <div class="oneCollect">
-                <img src="./images/mainMap.png">
+            <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦&nbsp;:) <router-link to="/goods">->去收藏<-</router-link></div>
+            <div class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
+                <img :src="val.mainmap">
+                <div class="badCollect" v-if="val.is_show == 0 || val.off == 0">已失效</div>
                 <div class="info">
-                    <div class="rowUp">刺绣牛仔九分裤女</div>
-                    <div class="rowMiddle">
-                        <span>￥</span>
-                        <span>55.</span>
-                        <span>8</span>
+                    <div class="rowUp">{{val.name}}</div>
+                    <div class="rowMiddle" v-if="val.type == 1">
+                        <span>￥</span>  
+                        <span>{{val.price}}</span>
                     </div>
                     <div class="rowDown">
-                        <a href="javascript:void(0)" class="add">
-                            <img src="./images/cart.png">
+                        <a href="javascript:void(0)" class="add" v-if="val.type == 1"> 
+                            <img src="./images/cart.png" @click="selectCollect(val.id);showCartFn()">
                         </a>
-                        <a href="javascript:void(0)" class="del">删除</a>
-                    </div>
-                </div>
-            </div>
-            <!-- 失效收藏件 -->
-            <div class="oneCollect oneBadCollect">
-                <img src="./images/mainMap.png">
-                <div class="badCollect">已失效</div>
-                <div class="info">
-                    <div class="rowUp">刺绣牛仔九分裤女</div>
-                    <div class="rowMiddle">
-                        <span>￥</span>
-                        <span>55.</span>
-                        <span>8</span>
-                    </div>
-                    <div class="rowDown">
-                        <a href="javascript:void(0)" class="add">
-                            <img src="./images/cart.png">
-                        </a>
-                        <a href="javascript:void(0)" class="del">删除</a>
+                        <a href="javascript:void(0)" class="del" @click="delCollect(val.colid,val.type);addCartList()">删除</a>
                     </div>
                 </div>
             </div>
         </section>
+        <div class="goodsCart-wrapper" v-show="showCart">
+			<div class="addCart-container">
+				<div class="goodsInfo">
+					<div>
+						 <div class="img-wrapper">
+							<img :src="saveData.mainmap">     
+						 </div>
+					</div>
+					<div>
+						   <span>{{saveData.name}}</span>  
+						  <span>￥{{saveData.price}}</span>   
+					</div>
+					<div>
+						<img src="./images/close.png" @click="closeCart">
+					</div>
+				</div>
+				<div class="goodsNumber">
+					<span>请选择数量</span>
+					<div class="count">
+						<div class="sub" @click="numSub">-</div>
+						<input type="text" :value="number">
+						<div class="plus" @click="numPlus">+</div> 
+					</div>
+				</div>
+				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
+			</div>
+		</div>
+		<div>
+            <toast v-model="on" type="text">已添加</toast>
+        </div>
+        <div>
+            <toast v-model="off" type="text">添加失败</toast>
+        </div>
+		<div>
+            <toast v-model="success" type="text">删除成功</toast>
+        </div>
+		<div>
+            <toast v-model="error" type="text">删除失败</toast>
+        </div>
+        <alert v-model="show" title="222" @on-show="onShow" @on-hide="onHide"> 212312</alert>
     </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+ import { Toast, Group,Alert } from 'vux'
 export default {
     components: {
-
+        Toast,
+        Group,
+        Alert
     },
     data() {
         return {
-            orderList: []
+            orderList: [],
+            on: false,
+            off: false,
+			showCart: false,
+            showAlert: true,
+			number: 1,
+			success: false,
+            error: false,
+            index: 0,
+            delCollectList: [],
+            saveData: []
         }
     },
     methods: {
         getDataFromBackend: function() {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/Order/collist',
+                url: global.Domain + '/Order/colall',
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
-                console.log(this.orderList)
             })
-        }
+        },
+        showCartFn: function(key){
+            this.index = key
+			if(this.showCart == false){
+				this.showCart = true
+			}else{
+				this.showCart = false
+			}
+		},
+		// 隐藏购物车
+		closeCart: function(){
+            this.showCart = false
+		},
+		// 数量++
+		numPlus: function(){
+			this.number ++
+		},
+		// 数量--
+		numSub: function(){
+			if(this.number == 1){
+				this.number = 1
+			}else{
+				this.number -- 
+			}
+		},
+		//添加到购物车
+		addCartList: function(id){
+                if( this.orderList.collectitem.length > 0){
+                    for(let i = 0; i < this.orderList.collectitem.length; i++){
+                        if(this.orderList.collectitem[i].id == id){
+                            this.saveData = {
+                                id: this.orderList.collectitem[i].id,
+                                mainmap: this.orderList.collectitem[i].mainmap,
+                                price: this.orderList.collectitem[i].price,
+                            }
+                        }
+                    }
+                } 
+                this.$http.post(
+					global.Domain + '/Order/addcart',
+					{
+						gid:this.saveData.id,
+						number:this.number
+					},
+					{
+						emulateJSON:true
+					}).then(response=>{
+                    let data = response.body;
+                    if(data === 1){
+						this.on = true
+					}else{
+						this.off = true
+					}
+                })      
+        this.closeCart()
+        this.number = 1
+		},
+        // 删除收藏
+        delCollect: function (id, type) {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/order/iscol?iscol=0&colid=' + id + '&type='+type,
+                emulateJSON: true
+            }).then((response)=>{
+                this.delCollectList = response.body
+                if(this.delCollectList ==  1 ){
+                    this.success = true
+                    this.getDataFromBackend()
+                }else{
+                    this.error = true 
+                    return
+                }
+               
+            })
+        },
+        // 查找id对应商品
+        selectCollect: function(id){
+            if( this.orderList.collectitem.length > 0){
+                for(let i = 0; i < this.orderList.collectitem.length; i++){
+                    if(this.orderList.collectitem[i].id == id){
+                        this.saveData = {
+                            id: this.orderList.collectitem[i].id,
+                            name: this.orderList.collectitem[i].name,
+                            mainmap: this.orderList.collectitem[i].mainmap,
+                            price: this.orderList.collectitem[i].price,
+                        }
+                    }
+                }
+            } 
+            //   console.log(this.saveData)
+        },
+     onHide () {
+      console.log('on hide')
+    },
+    onShow () {
+      console.log('on show')
+    },
     },
     mounted(){
         this.$nextTick(function(){
@@ -93,16 +223,28 @@ width = 100%
 color = #fff
 // 外层元素
 .goodDetail-wrapper
-    position fixed
-    top 1.25rem
-    left 0
+    margin-top 1.5rem
+    padding-bottom 0.5625rem
     width width
-    background #fff
+    height width
+    background #fff!important
     // 详情页header
     .header
         headerFlex()
+        height 1.0938rem
     // 主体
     .main
+        background #fff
+        .noGoods
+            margin-top 60%
+            font-size 0.4688rem
+            text-align center
+            color #333
+            a
+                color #ea68a2
+                margin-top 0.3125rem
+                font-size 0.4375rem
+
         // 正常收藏件
         .oneCollect
             display flex
@@ -110,12 +252,12 @@ color = #fff
             margin-top 0.3125rem
             & > img
                 margin-left 0.5rem
-                width 5.5rem
+                width 3.25rem
                 height 3.25rem
             .info
                 width 100%
                 .rowUp
-                    padding 0.3125rem 0 1.0625rem 0.25rem
+                    padding 0.3125rem 0 0.9375rem 0.25rem
                     font-size 0.4063rem
                     color #333
                 .rowMiddle
@@ -165,5 +307,100 @@ color = #fff
                 height 2.25rem
                 border-radius 50%
                 font-size 0.4063rem
-                background-color rgba(255, 255, 255, .5)
+                color rgba(255,255,255,0.8)
+                background-color rgba(0, 0, 0, 0.3)
+    // 弹窗
+    .weui-toast  
+        width auto!important 
+        height 0.9375rem
+        line-height 0.7813rem
+        top 50%!important
+        p
+            padding 0.0625rem 0.3125rem 0 0.3125rem
+            font-size 0.375rem 	        
+    //购物车			
+    .goodsCart-wrapper
+        position fixed
+        top 0
+        left 0
+        width 100%
+        height 100%		
+        background rgba(0,0,0,0.5)
+        z-index 1000  
+        .addCart-container
+            position absolute
+            bottom 0
+            width 100%
+            height 6.0938rem
+            background #fff
+            .goodsInfo
+                display flex
+                width 100%
+                height 2.8438rem
+                border-bottom-1px(#e0e0e0)
+                font-size 0.375rem
+                div:first-child
+                    position relative
+                    width 2.9688rem
+                    .img-wrapper
+                        position absolute
+                        margin 0
+                        padding 0.1563rem
+                        left 0.3125rem
+                        bottom 0.4688rem
+                        width 2.5313rem
+                        height 2.5313rem
+                        background #fff
+                        border-radius 0.1563rem
+                        img
+                            width 2.5313rem
+                            height 2.5313rem
+                div:nth-child(2)
+                    flex 1
+                    span:first-child
+                        margin-top 0.2813rem
+                        line-height 0.9375rem
+                        text-indent 0.4688rem	
+                        color #ea6aa2
+                    span:last-child	
+                        line-height 0.9375rem	
+                        text-indent 0.4688rem
+                        color #909090	
+                div:last-child
+                    margin 0.2813rem 0.2813rem 0 0
+                    width 0.625rem
+                    height 0.625rem
+
+            .goodsNumber
+                display flex
+                width 100%
+                height 2rem
+                line-height 2rem
+                font-size 0.4063rem
+                span
+                    flex 1
+                    margin-left 0.3438rem
+                .count
+                    display flex
+                    margin 0.625rem 0.2813rem 0 0
+                    height 0.6875rem
+                    line-height  0.6875rem
+                    border 0.0313rem solid #d6d6d6
+                    .sub,.plus
+                        text-align center
+                        width 0.6875rem
+                    input 
+                        width 0.6875rem	
+                        text-align center
+                        border-left 0.0313rem solid #d6d6d6
+                        border-right 0.0313rem solid #d6d6d6
+            .dumpBtn
+                width 100%
+                height 1.25rem
+                line-height 1.25rem
+                font-size 0.4219rem
+                color #fff
+                text-align center
+                background #fe9333        
+
 </style>
