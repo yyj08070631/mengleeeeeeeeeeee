@@ -111,8 +111,9 @@
 				<p>加入收藏</p>
 			</a>
 			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
-			<router-link to="/buyGoods">立即购买</router-link>
+			<a href="javascript:void(0)" @click="showBuy = true">立即购买</a>
 		</footer>
+		<!-- 加入购物车弹窗 -->
 		<div class="goodsCart-wrapper" v-show="showCart">
 			<div class="addCart-container">
 				<div class="goodsInfo">
@@ -138,6 +139,34 @@
 					</div>
 				</div>
 				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
+			</div>
+		</div>
+		<!-- 立即购买弹窗 -->
+		<div class="goodsCart-wrapper" v-show="showBuy">
+			<div class="addCart-container">
+				<div class="goodsInfo">
+					<div>
+						<div class="img-wrapper">
+							<img :src="detailItemList.albumitem[0].src">
+						</div>
+					</div>
+					<div>
+						<span>{{detailItemList.gooditem.name}}</span>
+						<span>￥{{detailItemList.gooditem.price}}</span>
+					</div>
+					<div>
+						<img src="./images/close.png" @click="showBuy = false">
+					</div>
+				</div>
+				<div class="goodsNumber">
+					<span>请选择数量</span>
+					<div class="count">
+						<div class="sub" @click="numBuy--">-</div>
+						<input type="text" v-model="numBuy">
+						<div class="plus" @click="numBuy++">+</div>
+					</div>
+				</div>
+				<router-link :to="{ path: '/buyGoods', query: [{ gid: detailItemList.gooditem.id, number: numBuy }] }" class="dumpBtn buyNow">立即购买</router-link>
 			</div>
 		</div>
 		<div>
@@ -181,7 +210,9 @@ export default {
 			on: false,
 			off: false,
 			showCart: false,
+			showBuy: false,
 			number: 1,
+			numBuy: 1,
 			success: false,
 			error: false
 		}
@@ -284,15 +315,19 @@ export default {
 				})
 			this.closeCart()
 		},
-
 	},
 	mounted() {
 		this.$nextTick(function () {
 			this.getDataFromBackend()
 		})
 	},
-
-
+	watch: {
+		numBuy: function(val){
+			if(this.numBuy < 1 || typeof(this.numBuy) != 'number'){
+				this.numBuy = 1
+			}
+		}
+	}
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -594,4 +629,6 @@ export default {
 					color #fff
 					text-align center
 					background #fe9333
+				.buyNow
+					background-color #ea6aa2 !important
 </style>

@@ -195,7 +195,7 @@ export default {
         },
         //修改数量
         changeNum: function () {
-            console.log(this.saveData)
+            console.log(JSON.stringify(this.saveData));
             this.arr = {
                 num: this.saveData
             }
