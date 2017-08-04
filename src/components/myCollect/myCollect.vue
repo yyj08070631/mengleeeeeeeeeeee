@@ -18,7 +18,7 @@
         <!-- 主体 -->
         <section class="main">
             <!-- 正常收藏件 -->
-            <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦&nbsp;:) <router-link to="/goods">->去收藏<-</router-link></div>
+            <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦<router-link to="/goods">去收藏</router-link>&nbsp;&nbsp;:) </div>
             <div class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
                 <img :src="val.mainmap">
                 <div class="badCollect" v-if="val.is_show == 0 || val.off == 0">已失效</div>
@@ -30,13 +30,14 @@
                     </div>
                     <div class="rowDown">
                         <a href="javascript:void(0)" class="add" v-if="val.type == 1"> 
-                            <img src="./images/cart.png" @click="selectCollect(val.id);showCartFn()">
+                            <img src="./images/cart.png" @click="selectCollect(val.id);showCartFn();">
                         </a>
-                        <a href="javascript:void(0)" class="del" @click="delCollect(val.colid,val.type);addCartList()">删除</a>
+                        <a href="javascript:void(0)" class="del" @click="onShow();">删除</a>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- 购物车组件 -->
         <div class="goodsCart-wrapper" v-show="showCart">
 			<div class="addCart-container">
 				<div class="goodsInfo">
@@ -64,7 +65,9 @@
 				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
 			</div>
 		</div>
-		<div>
+		<!-- 购物车组件 -->
+        <!-- 弹窗组 -->
+        <div>
             <toast v-model="on" type="text">已添加</toast>
         </div>
         <div>
@@ -76,16 +79,22 @@
 		<div>
             <toast v-model="error" type="text">删除失败</toast>
         </div>
-        <alert v-model="show" title="222" @on-show="onShow" @on-hide="onHide"> 212312</alert>
+         <!-- 询问弹窗 -->
+        <alert v-model="show" title="提示" @on-show="onShow"  @on-hide="onHide">
+            <button class="btn1" @click="onHide();delCollect();">确定</button>
+            <button class="btn2" @click="onHide();">取消</button>
+            请确认删除
+        </alert>
+
+       
     </div>
 </template>
  <script type="ecmascript-6">
- import { Toast, Group,Alert } from 'vux'
+ import { Toast,Alert } from 'vux'
 export default {
     components: {
         Toast,
-        Group,
-        Alert
+        Alert,
     },
     data() {
         return {
@@ -97,12 +106,14 @@ export default {
 			number: 1,
 			success: false,
             error: false,
+            show: false,
             index: 0,
             delCollectList: [],
-            saveData: []
+            saveData: [],//数组重构，添加购物车，删除收藏等
         }
     },
     methods: {
+        // 获取数据
         getDataFromBackend: function() {
             this.$http({
                 method: 'get',
@@ -112,6 +123,7 @@ export default {
                 this.orderList = response.body
             })
         },
+        // 展示购物车组件
         showCartFn: function(key){
             this.index = key
 			if(this.showCart == false){
@@ -138,41 +150,50 @@ export default {
 		},
 		//添加到购物车
 		addCartList: function(id){
-                if( this.orderList.collectitem.length > 0){
-                    for(let i = 0; i < this.orderList.collectitem.length; i++){
-                        if(this.orderList.collectitem[i].id == id){
-                            this.saveData = {
-                                id: this.orderList.collectitem[i].id,
-                                mainmap: this.orderList.collectitem[i].mainmap,
-                                price: this.orderList.collectitem[i].price,
-                            }
+            if( this.orderList.collectitem.length > 0){
+                for(let i = 0; i < this.orderList.collectitem.length; i++){
+                    if(this.orderList.collectitem[i].id == id){
+                        this.saveData = {
+                            id: this.orderList.collectitem[i].id,
+                            mainmap: this.orderList.collectitem[i].mainmap,
+                            price: this.orderList.collectitem[i].price,
                         }
                     }
-                } 
-                this.$http.post(
-					global.Domain + '/Order/addcart',
-					{
-						gid:this.saveData.id,
-						number:this.number
-					},
-					{
-						emulateJSON:true
-					}).then(response=>{
-                    let data = response.body;
-                    if(data === 1){
-						this.on = true
-					}else{
-						this.off = true
-					}
-                })      
-        this.closeCart()
-        this.number = 1
+                }
+            } 
+            this.$http.post(
+                global.Domain + '/Order/addcart',
+                {
+                    gid:this.saveData.id,
+                    number:this.number
+                },
+                {
+                    emulateJSON:true
+                }).then(response=>{
+                let data = response.body;
+                if(data === 1){
+                    this.on = true
+                }else{
+                    this.off = true
+                }
+            })      
+            this.closeCart()
+            this.number = 1
 		},
         // 删除收藏
-        delCollect: function (id, type) {
+        delCollect: function () {
+            for(let i = 0; i < this.orderList.collectitem.length; i++){
+                this.saveData = {
+                    id: this.orderList.collectitem[i].id,
+                    mainmap: this.orderList.collectitem[i].mainmap,
+                    price: this.orderList.collectitem[i].price,
+                    colid: this.orderList.collectitem[i].colid,
+                    type: this.orderList.collectitem[i].type,
+                }
+            }
             this.$http({
                 method: 'get',
-                url: global.Domain + '/order/iscol?iscol=0&colid=' + id + '&type='+type,
+                url: global.Domain + '/order/iscol?iscol=0&colid=' + this.saveData.colid + '&type=' + this.saveData.type,
                 emulateJSON: true
             }).then((response)=>{
                 this.delCollectList = response.body
@@ -180,10 +201,9 @@ export default {
                     this.success = true
                     this.getDataFromBackend()
                 }else{
-                    this.error = true 
+                    this.error = true
                     return
                 }
-               
             })
         },
         // 查找id对应商品
@@ -200,20 +220,21 @@ export default {
                     }
                 }
             } 
-            //   console.log(this.saveData)
         },
-     onHide () {
-      console.log('on hide')
-    },
-    onShow () {
-      console.log('on show')
-    },
-    },
-    mounted(){
-        this.$nextTick(function(){
-            this.getDataFromBackend()
-        })
-    }
+        //显示弹窗    
+        onHide () {
+            this.show = false
+            },
+        //隐藏弹窗
+        onShow () {
+            this.show = true  
+            }
+        },
+        mounted(){
+            this.$nextTick(function(){
+                this.getDataFromBackend()
+            })
+        }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -317,7 +338,56 @@ color = #fff
         top 50%!important
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
-            font-size 0.375rem 	        
+    .weui-dialog
+        width 12.5rem!important
+        min-width 80%
+        background #fff
+        border-radius 0.1875rem
+        .weui-dialog__hd
+            padding 0.3125rem 0 0 0 
+            .weui-dialog__title
+                font-size 0.5rem !important
+        .weui-dialog__bd
+            padding 0.9375rem  0 
+            font-size 0.4688rem
+            margin-bottom 0.5625rem
+             
+        .btn1
+            position:absolute
+            left:0px;
+            bottom:0px;
+            background:#fff;
+            width:50%;
+            color:#ea6aa2;
+            height:1.25rem;
+            line-height: 40px;
+            z-index: 1000;
+            border:0;
+            border-top:1px solid #909090
+            font-size 0.4063rem
+        .btn2
+            position:absolute
+            left:50%;
+            bottom:0px;
+            background:#fff;
+            width:50%;
+            color:#ea6aa2;
+            height:1.25rem;
+            line-height: 40px;
+            z-index: 1000;
+            border:0;
+            border-top:1px solid #909090
+            font-size 0.4063rem    
+            .weui-dialog__title
+                font-size 0.4063rem !important
+            .weui-dialog__ft
+                background #3cf !important
+                display none
+                .weui-dialog__btn_primary
+                    color #ff0  !important
+                .weui-dialog__btn    
+                    color #ff0  !important
+
     //购物车			
     .goodsCart-wrapper
         position fixed

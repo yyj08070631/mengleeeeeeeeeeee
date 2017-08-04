@@ -11,7 +11,9 @@
             </div>
         </div>
         <div class="activity-wrapper">
-                <div class="activity-title" v-html="unescape(imageTextList.imageitem.content)">
+            <!-- v-if="orderList.collectitem.length == 0" -->
+                <div  class="noGoods" v-if="imageTextList.imageitem.content == ''">暂无商品信息&nbsp;:)</div>
+                <div class="activity-title" v-html="unescape(imageTextList.imageitem.content)" v-else>
                     <!-- {{ | unescape}} -->
                 </div>
         </div>
@@ -189,6 +191,16 @@ export default {
     padding: 1.0938rem 0 1.25rem 0
     .header
         headerCss()
+    .activity-wrapper
+        .noGoods
+            margin-top 60%
+            font-size 0.4688rem
+            text-align center
+            color #333
+            a
+                color #ea68a2
+                margin-top 0.3125rem
+                font-size 0.4375rem    
     .content-wrapper
         img
             width: 100%

@@ -65,6 +65,7 @@ export default {
                 width: 0.7813rem        
             .selectBox
                 flex: 1
+                margin-top 0.1875rem
                 height: 0.9375rem
                 background: #fff
                 border-radius: 0.7813rem

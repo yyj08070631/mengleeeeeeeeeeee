@@ -10,7 +10,8 @@
                 <a href="#search"><img class="search" src="./search.png"/></a>
             </div>
         </div>
-        <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)">
+         <div  class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
+         <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)"  v-else>
         </div>
         <footer class="myFooter">
 			<a href="javascript:void(0)">
@@ -193,6 +194,15 @@ export default {
     padding-top: 1.0938rem
     .header
         headerCss()
+    .noGoods
+            margin-top 60%
+            font-size 0.4688rem
+            text-align center
+            color #333
+            a
+                color #ea68a2
+                margin-top 0.3125rem
+                font-size 0.4375rem        
     .content-wrapper
         margin: 1.25rem 0 1.1875rem 0.5rem
         .content-item

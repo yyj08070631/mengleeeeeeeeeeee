@@ -14,7 +14,7 @@
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的订单</span>
                 <router-link to="/allOrder">
-                    <a href="javascript:;" class="content">查看更多订单</a>
+                    <a href="javascript:;" class="content" >查看更多订单</a>
                 </router-link>
                 <img class="more" src="./more.png" />
             </a>

@@ -89,7 +89,7 @@
 				</div>
 				<hr class="divider dividerThin">
 			</div>
-			<div class="viewMore">
+			<div class="viewMore" v-show="detailItemList.commentitem.comment.length > 0">
 				<span @click="addComMore">{{comNode}}</span>
 			</div>
 		</div>
@@ -449,7 +449,6 @@ export default {
 			justify-content center
 			align-items center
 			height 1.5313rem
-			margin-bottom 1.1875rem
 			img
 				display block
 				width 0.3438rem
