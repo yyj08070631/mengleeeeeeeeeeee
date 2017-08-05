@@ -40,7 +40,7 @@
         <div class="goods-wrapper">
             <div v-if="goodsItemList.gooditem.length < 1" class="noGoods">暂无商品&nbsp;:) <router-link to="/goods">->随便逛逛<-</router-link></div>
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
-                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click="collectGood(item.id, item.iscolitems)" />
+                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click="collectGood(item.id,item.colid,item.iscolitems)" />
                 <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
                     <img class="goodsMsg" :src="item.mainmap" />
                 </router-link>
@@ -117,12 +117,13 @@ export default {
             }
         },
         // 收藏商品
-        collectGood: function (id, iscol) {
+        collectGood: function (id,colid,iscol) {
             let collect = require('./collect.png');
             let collected = require('./collect-active.png');
+            let col=(iscol == 1?'colid='+colid:'gid='+id)//colid or gid
             this.$http({
                 method: 'get',
-                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&gid=' + id + '&type=1',
+                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&'+col+ '&type=1',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body

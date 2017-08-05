@@ -85,8 +85,6 @@
             <button class="btn2" @click="onHide();">取消</button>
             请确认删除
         </alert>
-
-       
     </div>
 </template>
  <script type="ecmascript-6">
