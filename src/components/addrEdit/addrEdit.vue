@@ -1,5 +1,5 @@
 <template>
-    <div class="goodDetail-wrapper">
+    <div class="addrEdit-wrapper">
         <!--头部-->
         <div class="header">
             <div class="header-content">
@@ -15,7 +15,7 @@
             <!-- 收货人 -->
             <div class="infoBox">
                 <div class="rowLeft">收货人：</div>
-                <input class="rowRight" placeholder="请填写收货人姓名" maxlength="8" v-model="name">
+                <input class="rowRight" placeholder="请填写收货人姓名" maxlength="4" v-model="name">
             </div>
             <!-- 手机号码 -->
             <div class="infoBox">
@@ -87,7 +87,6 @@ export default {
         }
     },
     mounted() {
-        
     }
 }
 </script>
@@ -101,9 +100,8 @@ span, a, img, input, textarea
     display block
 
 // 外层元素
-.goodDetail-wrapper
+.addrEdit-wrapper
     position absolute
-    top 1.25rem
     left 0
     width 100%
     height 100%
@@ -113,6 +111,7 @@ span, a, img, input, textarea
        headerCss()
     // 主体
     .main
+        margin-top 1.0938rem
         // 一般
         .infoBox
             display flex
@@ -124,7 +123,7 @@ span, a, img, input, textarea
             .rowLeft
                 display flex
                 justify-content flex-end
-                width 2.1875rem
+                width 2.3438rem !important
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight
@@ -138,7 +137,6 @@ span, a, img, input, textarea
                 height 60% !important
                 border 0
                 font-size 0.4375rem
-                font-family 'Microsoft YaHei'
                 color #262626
                 resize none
             .weui-cell

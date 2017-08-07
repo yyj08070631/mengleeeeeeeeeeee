@@ -45,7 +45,16 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
 
 Vue.use(Vuex)
-const store = new Vuex.Store();
+const store = new Vuex.Store({
+    state: {
+        isLoading: false
+    },
+    mutations: {
+        updateLoadingStatus(state, payload) {
+            state.isLoading = payload.isLoading
+        }
+    }
+});
 
 Vue.use(AMap)
 Vue.use(vuexI18n.plugin, store)
@@ -210,72 +219,61 @@ const router = new vueRouter({
     }
 });
 
+router.beforeEach((to, from, next) => {
+    // store.commit('updateLoadingStatus', { isLoading: true });
+    // Vue.http({
+    //     method: 'post',
+    //     url: global.Domain + '/test/test',
+    //     emulateJSON: true
+    // }).then(function (response) {
+    //     let res = response.data
+    //     console.log(res);
+    //     // res.app == 0
+    //     if (res.app == 0) {
+    //         location.href = res.url
+    //         return
+    //     } else {
+    //         store.commit('updateLoadingStatus', {isLoading: false})
+    //     }
+    // })
+    // console.log(store.state.isLoading)
+    next()
+})
+router.afterEach((to, from, next) => {
+    // console.log(to.meta.title)
+    // if (to.meta) {
+    //     if (to.meta.title) {
+    //         document.title = to.meta.title
+    //     } else {
+    //         document.title = to.meta
+    //     }
+    //     // if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+    //     //   this.iframe = '/favicon.ico' + Math.random()
+    //     // }
+    //     let ua = navigator.userAgent
+    //     // console.log(ua)
+    //     if (/ip(hone|od|ad)/i.test(ua)) {
+    //         var i = document.createElement('iframe')
+    //         // i.src = require('./commom/favicon.png')
+    //         i.style.display = 'none'
+    //         i.onload = function () {
+    //             setTimeout(function () {
+    //                 i.remove()
+    //             })
+    //         }
+    //         document.body.appendChild(i)
+    //     }
+    // }
+    // console.log(store.state.isLoading)
+})
+
 // 定义全局变量
 global.Domain = 'http://dde.dgxinn.cn/dream/index.php/Home'
 
 new Vue({
     el: '#app',
+    store,
     router: router,
     template: '<App/>',
     components: { App }
 })
-
-// 页面加载显示loading
-store.registerModule('vux', { // 名字自己定义
-    state: {
-        isLoading: false
-    },
-    mutations: {
-        updateLoadingStatus(state, payload) {
-            state.isLoading = payload.isLoading
-        }
-    }
-})
-
-// router.beforeEach((to, from, next) => {
-//     // Vue.http({
-//     //     method: 'post',
-//     //     url: global.Domain + '/test/test',
-//     //     emulateJSON: true
-//     // }).then(function (response) {
-//     //     let res = response.data
-//     //     // console.log(res);
-//     //     // res.app == 0
-//     //     if (false) {
-//     //         location.href = res.url
-//     //         return
-//     //     } else {
-//     //         Store.state.ifLoading = false
-//     //     }
-//     // })
-//     // next()
-//     store.commit('updateLoadingStatus', { isLoading: true })
-//     next()
-// })
-// router.afterEach((to, from, next) => {
-//     // console.log(to.meta.title)
-//     // if (to.meta) {
-//     //     if (to.meta.title) {
-//     //         document.title = to.meta.title
-//     //     } else {
-//     //         document.title = to.meta
-//     //     }
-//     //     // if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
-//     //     //   this.iframe = '/favicon.ico' + Math.random()
-//     //     // }
-//     //     let ua = navigator.userAgent
-//     //     // console.log(ua)
-//     //     if (/ip(hone|od|ad)/i.test(ua)) {
-//     //         var i = document.createElement('iframe')
-//     //         // i.src = require('./commom/favicon.png')
-//     //         i.style.display = 'none'
-//     //         i.onload = function () {
-//     //             setTimeout(function () {
-//     //                 i.remove()
-//     //             })
-//     //         }
-//     //         document.body.appendChild(i)
-//     //     }
-//     // }
-//     store.commit('updateLoadingStatus', {isLoading: false})
-// })

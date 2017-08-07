@@ -1,5 +1,5 @@
 <template>
-    <div class="goodDetail-wrapper">
+    <div class="addrManage-wrapper">
         <!--头部-->
         <div class="header">
             <div class="header-content">
@@ -59,7 +59,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                // console.log(res);
+                console.log(res);
                 this.data = res.data
             })
         },
@@ -96,9 +96,8 @@ span, a, img, input, textarea
     display block
 
 // 外层元素
-.goodDetail-wrapper
+.addrManage-wrapper
     position absolute
-    top 1.25rem
     left 0
     width 100%
     height 100%
@@ -109,6 +108,7 @@ span, a, img, input, textarea
     // 主体
     .main
         margin-bottom 1.4063rem
+        margin-top 1.0938rem
         // 无收货地址
         .emptyType
             display flex
@@ -141,6 +141,7 @@ span, a, img, input, textarea
                 .nameAndPhone
                     display flex
                     .name
+                        width 1.75rem
                         font-size 0.4375rem
                         color #333
                         margin-right 0.9375rem
@@ -159,6 +160,7 @@ span, a, img, input, textarea
                         width 1.0781rem
                         height 0.4219rem
                         background url('./images/default.png') no-repeat
+                        background-size 1.0781rem 0.4219rem
                 .icon
                     display flex
                     align-items center

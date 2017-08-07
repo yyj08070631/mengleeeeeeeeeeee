@@ -23,10 +23,14 @@ export default {
 
     },
     mounted() {
-        
+        // 修改 address 控件按钮名称
+        window.onload = function () {
+            document.querySelector('.vux-popup-picker-header-menu-right').innerHTML = '完成';
+            document.querySelector('.vux-popup-picker-cancel').innerHTML = '取消';
+        }
     },
     methods: {
-        
+
     },
     watch: {
         value: {
@@ -38,6 +42,7 @@ export default {
     },
     props: ['locArr'],
 }
+
 </script>
 
 <style lang="less" rel="stylesheet/less">
@@ -59,7 +64,11 @@ export default {
         .weui-cell__hd {
             display: flex;
             align-items: center;
-            margin: 0 0.7188rem 0 0.3125rem;
+            width: 2.3438rem;
+            margin: 0 0.75rem 0 0.3125rem;
+            .weui-label {
+                width: 2.3438rem;
+            }
         }
         .vux-cell-primary {
             display: flex;
@@ -94,7 +103,7 @@ export default {
 }
 
 .scroller-item {
-    font-size: 0.3rem !important;
+    font-size: 0.375rem !important;
     height: 0.66rem !important;
     line-height: 0.66rem !important;
 }
@@ -113,13 +122,17 @@ export default {
     line-height: 0.96rem!important;
     text-align: center!important;
     color: #333;
-    font-size: 0.34rem;
+    font-size: 0.375rem;
     background: #f6f6f6;
 }
 
 .vux-popup-picker-header-menu-right {
     background: #ea68a2;
     color: #fff;
-    font-size: 0.34rem;
+    font-size: 0.375rem;
+}
+
+.vux-popup-dialog {
+    overflow-y: auto !important;
 }
 </style>

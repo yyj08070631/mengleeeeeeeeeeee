@@ -52,7 +52,7 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">星座</span>
                 <div class="link-wrapper">
-                    <select class="selectBox msg" @change="changeConstellation($event)"  :value="data.constellation">
+                    <select class="selectBox msg" @change="changeConstellation($event)" :value="data.constellation">
                         <option value="1">白羊座</option>
                         <option value="2">金牛座</option>
                         <option value="3">双子座</option>
@@ -74,7 +74,7 @@
                 <span class="title">身高</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeHeight($event)" :value="data.height" @focus="textFocus1" ref="input1">
+                        <input class="msg" @change="changeHeight($event)" :value="data.height">
                         <span class="msg">cm</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -85,7 +85,7 @@
                 <span class="title">体重</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeWeight($event)" :value="data.weight" @focus="textFocus2" ref="input2">
+                        <input class="msg" @change="changeWeight($event)" :value="data.weight">
                         <span class="msg">kg</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -141,7 +141,7 @@
                         <option value="咨询/顾问/调研/数据分析">咨询/顾问/调研/数据分析</option>
                         <option value="教育/培训">教育/培训</option>
                         <option value="律师/法务/合规">律师/法务/合规</option>
-                        <option value="翻译（口译与笔译）">翻译（口译与笔译）</option>
+                        <option value="翻译-口译与笔译">翻译-口译与笔译</option>
                         <option value="商超/酒店/娱乐管理/服务">商超/酒店/娱乐管理/服务</option>
                         <option value="旅游/度假/出入境服务">旅游/度假/出入境服务</option>
                         <option value="烹饪/料理/食品研发">烹饪/料理/食品研发</option>
@@ -164,7 +164,7 @@
                 <span class="title">收入</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
-                        <input class="msg" @change="changeGain($event)" :value="data.gain" @focus="textFocus3" ref="input3">
+                        <input class="msg" @change="changeGain($event)" :value="data.gain">
                         <span class="msg">/月</span>
                     </div>
                     <img class="other" src="./more.png">
@@ -174,7 +174,7 @@
             <a href="javascript:void(0)" class="message-item">
                 <span class="title">兴趣爱好</span>
                 <div class="link-wrapper">
-                    <input class="inputBox msg" @change="changeHabbit($event)" :value="data.habbit" @focus="textFocus4" ref="input4"> 
+                    <input class="inputBox msg" @change="changeHabbit($event)" :value="data.habbit">
                     <img class="other" src="./more.png">
                 </div>
             </a>
@@ -197,7 +197,7 @@
         </div>
         <div>
             <toast v-model="hobby" type="text">仅包含汉字、字母</toast>
-       </div>
+        </div>
         <!-- 弹出框 -->
     </div>
 </template>
@@ -226,43 +226,26 @@ export default {
         })
     },
     methods: {
-            // // onChange (val) {
-            // // const _this = this
-            // // if (val) {
-            // //     this.$vux.toast.show({
-            // //     text: 'Hello World',
-            // //     onShow () {
-            // //         console.log('Plugin: I\'m showing')
-            // //     },
-            // //     onHide () {
-            // //         console.log('Plugin: I\'m hiding')
-            // //         _this.show9 = false
-            // //     }
-            // //     })
-            // // } else {
-            // //     this.$vux.toast.hide()
-            // // }
-            // },    
-        textFocus1: function(){
-            this.$refs.input1.selectionStart = 0;
-            this.$refs.input1.selectionEnd = this.$refs.input1.value.length
-            //input. = input.value.length
-        },    
-         textFocus2: function(){
-            this.$refs.input2.selectionStart = 0;
-            this.$refs.input2.selectionEnd = this.$refs.input2.value.length
-            //input. = input.value.length
-        }, 
-         textFocus3: function(){
-            this.$refs.input3.selectionStart = 0;
-            this.$refs.input3.selectionEnd = this.$refs.input3.value.length
-            //input. = input.value.length
-        }, 
-        textFocus4: function(){
-            this.$refs.input4.selectionStart = 0;
-            this.$refs.input4.selectionEnd = this.$refs.input.value.length
-            //input. = input.value.length
-        }, 
+        // textFocus1: function () {
+        //     this.$refs.input1.selectionStart = 0;
+        //     this.$refs.input1.selectionEnd = this.$refs.input1.value.length
+        //     //input. = input.value.length
+        // },
+        // textFocus2: function () {
+        //     this.$refs.input2.selectionStart = 0;
+        //     this.$refs.input2.selectionEnd = this.$refs.input2.value.length
+        //     //input. = input.value.length
+        // },
+        // textFocus3: function () {
+        //     this.$refs.input3.selectionStart = 0;
+        //     this.$refs.input3.selectionEnd = this.$refs.input3.value.length
+        //     //input. = input.value.length
+        // },
+        // textFocus4: function () {
+        //     this.$refs.input4.selectionStart = 0;
+        //     this.$refs.input4.selectionEnd = this.$refs.input.value.length
+        //     //input. = input.value.length
+        // },
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -282,14 +265,12 @@ export default {
                 url: global.Domain + '/user/userSet?userId===tPtcNLZARXEuvDhRSFGkQX&constellation=' + $event.target.value,
                 emulateJSON: true
             }).then(function (response) {
-                
                 let res = response.body;
-                
                 if (res.code == 200) {
-                   this.success = true
-            
+                    this.success = true
+                    this.getDataFromBackend();
                 } else {
-                   this.error = true   
+                    this.error = true
                     return
                 }
             })
@@ -307,8 +288,9 @@ export default {
                     // console.log($event.target.value)
                     if (res.code == 200) {
                         this.success = true
+                        this.getDataFromBackend();
                     } else {
-                        this.error = true;   
+                        this.error = true;
                         return
                     }
                 })
@@ -316,7 +298,7 @@ export default {
                 this.number = true
                 return
             }
-            $event.target.blur()
+            $event.target.blur();
         },
         // 修改体重
         changeWeight: function ($event) {
@@ -331,8 +313,9 @@ export default {
                     // console.log($event.target.value)
                     if (res.code == 200) {
                         this.success = true;
+                        this.getDataFromBackend();
                     } else {
-                        this.error = true;   
+                        this.error = true;
                         return
                     }
                 })
@@ -340,7 +323,7 @@ export default {
                 this.height = true
                 return
             }
-            $event.target.blur()
+            $event.target.blur();
         },
         // 修改职业
         changeCareer: function ($event) {
@@ -354,8 +337,9 @@ export default {
                 // console.log($event.target.value)
                 if (res.code == 200) {
                     this.success = true;
+                    this.getDataFromBackend();
                 } else {
-                    this.error = true;  
+                    this.error = true;
                     return
                 }
             })
@@ -373,8 +357,9 @@ export default {
                     // console.log($event.target.value)
                     if (res.code == 200) {
                         this.success = true;
+                        this.getDataFromBackend();
                     } else {
-                        this.error = true;  
+                        this.error = true;
                         return
                     }
                 })
@@ -382,7 +367,7 @@ export default {
                 this.weight = true
                 return
             }
-            $event.target.blur()
+            $event.target.blur();
         },
         // 修改兴趣爱好
         changeHabbit: function ($event) {
@@ -397,8 +382,9 @@ export default {
                     // console.log($event.target.value)
                     if (res.code == 200) {
                         this.success = true;
+                        this.getDataFromBackend();
                     } else {
-                        this.error = true; 
+                        this.error = true;
                         return
                     }
                 })
@@ -406,7 +392,7 @@ export default {
                 this.hobby = true
                 return
             }
-            $event.target.blur()
+            $event.target.blur();
         }
     },
     mounted() {
@@ -539,6 +525,7 @@ export default {
                         float: left
                         font-size: 0.3438rem
                         vertical-align: top
+                        outline 0
                     img        
                         display: inline-block
                         float: left
@@ -573,6 +560,7 @@ export default {
                     color #7e8c8d
                     text-align right
                     z-index 500
+                    outline 0
                     input, span
                         background-color transparent
                     input
