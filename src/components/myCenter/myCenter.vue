@@ -1,14 +1,7 @@
 <template>
     <div class="myCenter-wrapper">
-        <v-view class="route-item"></v-view>
         <!--头部  -->
-        <div class="header">
-            <div class="header-content">
-                <h1 class="title">个人中心</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-            </div>
-        </div>
-        <!--头部  -->
+        <v-header></v-header>
         <!--个人资料-->
         <a class="personal-wrapper" href="#settings">
             <img class="avator" :src="data.headimg">
@@ -51,6 +44,11 @@
                 <img class="more" src="./more.png">
             </a>
         </div>
+        <div class="order-wrapper">
+            <a href="#myCollect" class="item-cls">我的收藏
+                <img class="more" src="./more.png">
+            </a>
+        </div>
         <!--我的预约-->
         <div class="team-wrapper">
             <a href="#myTeam" class="item-cls">我的团队
@@ -72,13 +70,25 @@
                 <img class="more" src="./more.png">
             </a>
         </div>
+        <div class="footer">
+            <div class="rowUp">
+                <div class="logo"></div>
+            </div>
+            <div class="rowDown">
+                <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
+            </div>
+        </div>
+        <!-- footer -->
+    <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 export default {
     components: {
-        'v-view': view
+        'v-view': view,
+        'v-header': header
     },
     data() {
         return {
@@ -144,17 +154,14 @@ export default {
   color = #fff
   .myCenter-wrapper
         position: absolute
-        top: 1.0938rem
+        top: 1.4063rem
         left: 0
-        margin-bottom: 0.6719rem
+        padding-bottom: 1.25rem
         width: width
         font-size: 0
-        overflow: hidden
         background: #f0f0f0
         .route-item
             footerCss()
-        .header
-           headerCss()
     .personal-wrapper
         display: block
         position: relative
@@ -192,12 +199,13 @@ export default {
                 margin-right: 24px
             img
                 float: left
+                margin-right 0.1563rem
                 width: 0.375rem
                 height: 0.375rem
     .item-cls
         display: block
         margin-left: 0.5rem
-        width: width
+        width: 95%
         height: 1.3438rem
         line-height: 1.3438rem  
         border-bottom-1px(#e5e5e5)
@@ -207,7 +215,7 @@ export default {
             border-bottom-none()
     .notecase-wrapper .more,.order-wrapper .more,.team-wrapper .more,.helper .more
         position: absolute
-        right: 32px
+        right: 0.1406rem
         top: 50%
         margin-top: -0.1875rem
         margin-right: 0.5rem
@@ -218,7 +226,7 @@ export default {
         background: color
         .num
             float: right
-            margin-right: 1.625rem 
+            margin-right: 1.25rem 
             color: #909090  
     .order-wrapper
         margin: 18px 0
@@ -231,7 +239,32 @@ export default {
     .helper
         width: width
         background: color
-        margin: 18px 0 120px 0          
+        margin-top: 0.2813rem 
+    //脚注
+    .footer
+        width: 100%
+        height: 1.9063rem
+        background: #f0f0f0
+        padding 0.3125rem 0
+        .rowUp
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem
+            .logo  
+                width: 2.6563rem
+                height: 0.625rem
+                background: url("./logo.png")
+                background-size: 2.6563rem 0.625rem
+        .rowDown
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem        
+            .Copyright
+                text-align: center
+                font-size: 0.3438rem
+                color: #909090                 
      
 </style>
 

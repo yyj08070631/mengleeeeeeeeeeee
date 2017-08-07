@@ -1,15 +1,7 @@
 <template>
     <div class="goodDetail-wrapper">
         <!--头部-->
-        <div class="header">
-            <div class="header-content">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">收件信息</h1>
-            </div>
-        </div>
+        <v-header></v-header>
         <!-- 主体 -->
         <section class="main">
             <!-- 一个收货地址 -->
@@ -25,7 +17,7 @@
                         <router-link :to="{ path: '/addrEditReal', query: { id: val.id } }">
                             <img src="./images/edit.png">
                         </router-link>
-                        <div @click="delReceInfo(val.id)">
+                        <div @click="onShow">
                             <img src="./images/del.png">
                         </div>
                     </div>
@@ -33,22 +25,44 @@
                 <div class="rowDown">
                     {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
                 </div>
+                    <!-- 删除询问弹窗 -->
+                <alert v-model="show" title="提示" @on-show="onShow"  @on-hide="onHide">
+                    <button class="btn1" @click="onHide();delReceInfo(val.id)">确定</button>
+                    <button class="btn2" @click="onHide();">取消</button>
+                    请确认删除
+                </alert>
             </router-link>
             <!-- 新建地址 -->
             <div class="newAddr">
                 <router-link to="/addrEdit" class="newAddrItem">新建地址</router-link>
             </div>
         </section>
+            <!-- 弹窗 --> 
+		<div>
+            <toast v-model="success" type="text">删除成功</toast>
+        </div>
+		<div>
+            <toast v-model="error" type="text">删除失败</toast>
+        </div>
     </div>
 </template>
 <script type="ecmascript-6">
+import { Toast,Alert } from 'vux'
+import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
+import header from '../../components/header/header';
 export default {
     components: {
-
+        Toast,
+        Alert,
+        'v-header': header
+        
     },
     data() {
         return {
-            data: []
+            data: [],
+            show: false,
+            success: false,
+            error: false,
         }
     },
     methods: {
@@ -73,12 +87,18 @@ export default {
                 let res = response.body;
                 // console.log(res);
                 if (res.code == 200) {
-                    alert('删除成功')
+                    this.success = true
                     this.getDataFromBackend()
                 } else {
-                    alert('删除失败')
+                    this.error = true
                 }
             })
+        },
+        onShow: function(){
+            this.show = true
+        },
+        onHide: function(){
+            this.show = false
         }
     },
     mounted() {
@@ -102,7 +122,7 @@ span, a, img, input, textarea
     left 0
     width 100%
     height 100%
-    background #f0f0f0
+    background #fff
     // 详情页header
     .header
        headerCss()
@@ -163,17 +183,69 @@ span, a, img, input, textarea
                     display flex
                     align-items center
                     a
-                        display flex
+                        flex 1
                         justify-content center
                         align-items center
                         img
                             width 0.6875rem
                             height 0.6875rem
                     div
+                        flex 1
                         margin-left 0.6875rem
                         img
                             width 0.5625rem
-                            height 0.5625rem
+                            height 0.5625rem        
+            .weui-mask
+                background rgba(0,0,0,0.1)
+            .weui-dialog
+                width 12.5rem!important
+                min-width 80%
+                background #fff
+                border-radius 0.1875rem
+                .weui-dialog__hd
+                    padding 0.3125rem 0 0 0 
+                    .weui-dialog__title
+                        font-size 0.5rem !important
+                .weui-dialog__bd
+                    padding 0.9375rem  0 
+                    font-size 0.4688rem
+                    margin-bottom 0.5625rem
+                    
+                .btn1
+                    position:absolute
+                    left:0px;
+                    bottom:0px;
+                    background:#fff;
+                    width:50%;
+                    color:#ea6aa2;
+                    height:1.25rem;
+                    line-height: 40px;
+                    z-index: 1000;
+                    border:0;
+                    border-top:1px solid #909090
+                    font-size 0.4063rem
+                .btn2
+                    position:absolute
+                    left:50%;
+                    bottom:0px;
+                    background:#fff;
+                    width:50%;
+                    color:#ea6aa2;
+                    height:1.25rem;
+                    line-height: 40px;
+                    z-index: 1000;
+                    border:0;
+                    border-top:1px solid #909090
+                    font-size 0.4063rem    
+                    .weui-dialog__title
+                        font-size 0.4063rem !important
+                    .weui-dialog__ft
+                        background #3cf !important
+                        display none
+                        .weui-dialog__btn_primary
+                            color #ff0  !important
+                        .weui-dialog__btn    
+                            color #ff0  !important        
             .rowDown
                 width 9rem
                 font-size 0.375rem
@@ -196,4 +268,11 @@ span, a, img, input, textarea
                 border-radius 0.1563rem
                 font-size 0.4375rem
                 color #fff
+        .weui-toast  
+            width auto!important 
+            height 0.9375rem
+            line-height 0.7813rem
+            top 50%!important
+            p
+                padding 0.0625rem 0.3125rem 0 0.3125rem        
 </style>

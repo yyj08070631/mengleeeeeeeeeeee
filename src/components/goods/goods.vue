@@ -1,17 +1,10 @@
 <template>
     <div class="goods-wrapper">
+        <!--头部  -->
+        <v-header></v-header>
         <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
         </el-amap>
         <v-view class="route-item"></v-view>
-        <!--头部-->
-        <div class="header">
-            <div class="header-content">
-                <h1 class="title">商品分类</h1>
-                <a href="#search">
-                    <img class="search" src="./images/search.png">
-                </a>
-            </div>
-        </div>
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
@@ -54,18 +47,29 @@
                             <p>{{val.item}}</p>
                         </div>
                     </div>
-                    <hr class="divider dividerThinNoMargin">
+                    <hr class="divider dividerLine">
                 </router-link>
             </div>
             <hr class="divider dividerBig">
+            <div class="footer">
+                <div class="rowUp">
+                    <div class="logo"></div>
+                </div>
+                <div class="rowDown">
+                    <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
+                </div>
+            </div>
         </div>
+        
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 export default {
     components: {
         'v-view': view,
+        'v-header': header
     },
     data() {
         return {
@@ -141,12 +145,10 @@ export default {
     left 0
     width 100%
     background #fff
-    overflow hidden
+    padding-bottom 1.25rem
     // 头部
     .route-item
         footerCss()
-    .header
-        headerCss()
     // 分割线
     .divider
         margin 0
@@ -158,6 +160,9 @@ export default {
     .dividerThin
         border-width 0.0313rem
         margin-left 0.5rem
+    .dividerLine
+        border-width 1px  
+        border-color #909090 
     // 细分割线no-margin
     .dividerThinNoMargin
         border-width 0.0313rem
@@ -167,7 +172,6 @@ export default {
         border-color #f0f0f0
     // 主体
     .main
-        margin-bottom 1.3438rem
         a
             display block
         // 附近的项目实体店
@@ -276,4 +280,29 @@ export default {
         .storeFind:active
         .oneKind:active
             background-color #f0f0f0
+        //脚注
+        .footer
+            width: 100%
+            height: 1.9063rem
+            background: #f0f0f0
+            padding 0.3125rem 0
+            .rowUp
+                display flex
+                align-items center
+                justify-content center
+                padding-top 0.3125rem
+                .logo  
+                    width: 2.6563rem
+                    height: 0.625rem
+                    background: url("./images/logo.png")
+                    background-size: 2.6563rem 0.625rem
+            .rowDown
+                display flex
+                align-items center
+                justify-content center
+                padding-top 0.3125rem        
+                .Copyright
+                    text-align: center
+                    font-size: 0.3438rem
+                    color: #909090    
 </style>

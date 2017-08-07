@@ -1,16 +1,7 @@
 <template>
-      
   <div class="myQRcode-wrapper">
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">我的二维码</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-            </div>
-        </div> 
+        <!--头部  -->
+        <v-header></v-header>
         <div class="fuild-filter">
             <img class="avator" src="./avatar.png">
             <div class="personal">
@@ -24,20 +15,20 @@
         </div>
   </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+ import header from '../../components/header/header'; 
 export default {
-  
+  components: {
+     'v-header': header
+  }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-    .header
-        headerCss()
     .myQRcode-wrapper
         margin-top: 1.7188rem
         width: 100%
         height: 100%
-        overflow: hidden
         .fuild-filter
             position: relative
             margin: 30px auto

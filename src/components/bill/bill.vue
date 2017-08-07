@@ -1,17 +1,6 @@
 <template>
     <div class="bill-wrapper">
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">我的账单</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+        <v-header></v-header>
         <div class="tag-wrapper">
             <span class="title">本月</span>
             <img class="more" src="./__more.png" />
@@ -33,45 +22,14 @@
         </div>
     </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+import header from '../../components/header/header';
 export default {
+    components: {
+        'v-header': header
+    },
     data() {
         return {
-            appData: [{
-                day: '今天',
-                time: '08:00',
-                img: require('./minus.png'),
-                getMoney: '+2000.00',
-                desc: '头衔奖-2017.06.14-收益发放'
-            },
-            {
-                day: '明天',
-                time: '08:00',
-                img: require('./add.png'),
-                getMoney: '+2000.00',
-                desc: '头衔奖-2017.06.14-收益发放'
-            },
-            {
-                day: '今天',
-                time: '08:00',
-                img: require('./minus.png'),
-                getMoney: '+2000.00',
-                desc: '头衔奖-2017.06.14-收益发放'
-            },
-            {
-                day: '今天',
-                time: '08:00',
-                img: require('./add.png'),
-                getMoney: '+2000.00',
-                desc: '头衔奖-2017.06.14-收益发放'
-            },
-            {
-                day: '今天',
-                time: '08:00',
-                img: require('./minus.png'),
-                getMoney: '+2000.00',
-                desc: '头衔奖-2017.06.14-收益发放'
-            }],
             data: []
         }
     },
@@ -99,7 +57,7 @@ export default {
         position: absolute
         top: 0
         left:0
-        margin-top: 1.0938rem
+        margin-top: 1.4063rem
         width: 100%
         height: 100%
         overflow: hidden

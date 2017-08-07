@@ -1,12 +1,7 @@
     <template >
     <div class="home-wrapper">
-        <v-view class="route-item"></v-view>
-        <div class="header">
-            <div class="header-content">
-                <h1 class="title">美丽搜索</h1>
-                <a href="#search"><img class="search" src="./search.png"></a>
-            </div>
-        </div>
+         <!--头部  -->
+        <v-header></v-header>
         <!-- banner轮播 -->
         <div v-for="(val,key) in dataApp" :key="key">
              <!-- <div>{{val.groupId}}</div> -->
@@ -30,14 +25,21 @@
         <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a>
         <!-- logo & copyright -->
         <div class="footer">
-            <div class="logo"></div>
-            <p class="Copyright">Copyright © 2017 梦乐商城版权所有</p>
+            <div class="rowUp">
+                <div class="logo"></div>
+            </div>
+            <div class="rowDown">
+                <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
+            </div>
         </div>
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import mySwiper from '../mySwiper/mySwiper'
+import mySwiper from '../mySwiper/mySwiper';
+import header from '../../components/header/header';
 
 export default {
     data() {
@@ -50,7 +52,8 @@ export default {
     },
     components: {
         'v-view': view,
-        'mySwiper': mySwiper
+        'mySwiper': mySwiper,
+        'v-header': header
     },
     methods: {
         // 获取数据方法
@@ -126,17 +129,13 @@ export default {
     @import '../../commom/stylus/mixin'
     .home-wrapper
         position: absolute
-        top: 1.0938rem
+        top: 1.4063rem
         left: 0
         padding-bottom: 1.3438rem
         width: 100%
         height: 100%
-        overflow-x: hidden
-        background: #f0f0f0
         .route-item
             footerCss()
-        .header
-            headerCss()
         .bannerTitle
             display flex
             justify-content center
@@ -159,20 +158,30 @@ export default {
         border-top-1px(rgba(0,0,0,0.1))
         color: #ea68a2
         background: #fff
-    &.footer
-        position: relative
+    //脚注
+    .footer
         width: 100%
         height: 1.9063rem
         background: #f0f0f0
-        .logo
-            margin: 0.4688rem auto 0.1563rem auto
-            width: 2.6563rem
-            height: 0.625rem
-            background: url("./logo.png")
-            background-size: 2.6563rem 0.625rem
-        .Copyright
-            text-align: center
-            font-size: 0.3438rem
-            color: #909090
+        padding 0.3125rem 0
+        .rowUp
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem
+            .logo  
+                width: 2.6563rem
+                height: 0.625rem
+                background: url("./logo.png")
+                background-size: 2.6563rem 0.625rem
+        .rowDown
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem        
+            .Copyright
+                text-align: center
+                font-size: 0.3438rem
+                color: #909090 
     </style>
 

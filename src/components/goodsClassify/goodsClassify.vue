@@ -1,18 +1,7 @@
 <template>
     <div class="goodsClassify-wrapper">
-        <v-view class="route-item"></v-view>
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">营养食品</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+        <!-- header -->
+        <v-header></v-header>
         <div class="select-type">
             <a href="javascript:" @click="showList" class="screen">筛选</a>
             <a href="javascript:" @click="changeClass" class="sort">排列方式</a>
@@ -51,6 +40,8 @@
                 </div>
             </div>
         </div>
+        <!-- footer -->
+         <v-view class="route-item"></v-view>
         <div>
             <toast v-model="on" type="text">收藏成功</toast>
         </div>
@@ -63,10 +54,12 @@
         <div>
             <toast v-model="failedToCancCol" type="text">取消收藏失败</toast>
         </div>
+        
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 import { Toast, Group } from 'vux'
 export default {
     data() {
@@ -93,6 +86,7 @@ export default {
     props: ['id'],
     components: {
         'v-view': view,
+        'v-header': header,
         Toast,
         Group,
     },
@@ -253,7 +247,7 @@ export default {
 class1()
     margin-top: -0.0313rem
     width: 4.9688rem
-    border-bottom-1px(#e0e0e0)                  
+    border-bottom-1px(#e0e0e0)                   
     .collect
         position relative
         float: right
@@ -267,7 +261,6 @@ class1()
         margin-top: 0rem
         float: left
         width: 100%
-        height: 100%
         p
             margin: 0.2813rem 0
             font-size: 0.3438rem
@@ -318,7 +311,8 @@ class2()
             color: #909090
 // 这是什么
 .goodsClassify-wrapper
-    margin-top: 1.25rem
+    margin-top: 1.4063rem
+    padding-bottom 1.25rem
     .route-item
         footerCss()
     .header
@@ -360,11 +354,10 @@ class2()
                 div:last-child
                     flex: 1 
                     img
-                        margin-left: 0.3125rem
+                        margin-right: 0.3125rem
                         width: 0.25rem
 
     .goods-wrapper
-        margin: 0.9531rem 0 1.3438rem 0
         width: 100%
         display flex
         flex-wrap wrap

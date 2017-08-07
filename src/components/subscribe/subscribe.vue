@@ -1,16 +1,7 @@
 <template>
     <div class="subscribe-wrapper">
-        <v-view class="route-item"></v-view>
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">我的预约</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-            </div>
-        </div> 
+         <!--头部  -->
+        <v-header></v-header>
         <div class="activity-wrapper">
             <a href="#subscribeNow" class="activity-item">
                 <div class="picture">
@@ -44,14 +35,17 @@
             </div>
             <div class="line"></div>
         </div>
-             
+        <!-- footer -->
+        <v-view class="route-item"></v-view>     
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 export default {
     components :{
-        'v-view': view
+        'v-view': view,
+        'v-header': header
     } 
 }
 </script>
@@ -61,7 +55,7 @@ export default {
   color = #fff
   .subscribe-wrapper
         position: absolute
-        top: 1.0938rem
+        top: 1.4063rem
         left: 0
         margin-bottom: 0.6719rem
         width: width

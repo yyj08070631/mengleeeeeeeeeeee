@@ -6,6 +6,7 @@ import goods from './components/goods/goods';
 import home from './components/home/home';
 import myCenter from './components/myCenter/myCenter';
 import orderFrom from './components/orderFrom/orderFrom';
+import header from './components/header/header';
 import goodDetail from './components/goodDetail/goodDetail';
 import myTeam from './components/myTeam/myTeam';
 import settings from './components/settings/settings';
@@ -83,6 +84,10 @@ const routes = [{
             path: '/orderFrom/evaluate',
             component: evaluate
         }]
+    },
+    {
+        path: '/header',
+        component: header
     },
     {
         path: '/goodDetail',

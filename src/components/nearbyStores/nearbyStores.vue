@@ -1,16 +1,7 @@
 <template>
     <div class="store-wrapper">
-        <v-view class="route-item"></v-view>
-        <div class="header">
-            <div class="header-content">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">查找实体店</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-             </div>
-        </div>
+          <!--头部  -->
+        <v-header></v-header>
         <div class="store-message">
             <div href="javascript:void(0)" class="store-computed">
                 <span class="computed">附近的项目实体店</span>
@@ -34,14 +25,17 @@
                 <img class="more" src="./more.png">
             </router-link>
         </div>     
-        
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 export default {
     components :{
         'v-view': view,
+        'v-header': header
     },
     data() {
         return {
@@ -72,7 +66,7 @@ export default {
 @import '../../commom/stylus/mixin'
     .store-wrapper
         position: absolute
-        top: 1.25rem
+        top: 1.4063rem
         left: 0
         width: 100%
         height: 100%

@@ -1,20 +1,7 @@
 <template>
     <div class="myTeam-wrapper">
-        <!--头部-->
-        <header class="header">
-            <div class="goBack">
-                <a href="javascript:history.back(1)">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-            </div>
-            <div class="title">我的钱包</div>
-            <div class="search">
-                <a href="#search">
-                    <img src="./images/search.png">
-                </a>
-            </div>
-        </header>
+          <!--头部  -->
+        <v-header></v-header>
         <!--主体-->
         <section class="main">
             <!-- 乐宝余额 -->
@@ -114,7 +101,7 @@
 <script type="ecmascript-6">
 import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Checker, CheckerItem, Popup } from 'vux'
-
+import header from '../../components/header/header';
 
 export default {
     directives: {
@@ -125,7 +112,8 @@ export default {
         XButton,
         Checker,
         CheckerItem,
-        Popup
+        Popup,
+        'v-header': header
     },
     data() {
         return {
@@ -279,8 +267,6 @@ img, span, a
     height 100%
     background #f0f0f0
     // 头部
-    .header
-        headerFlex()
     // 主体
     .main
         background-color #f0f0f0

@@ -1,16 +1,9 @@
 <template>
     <div class="orderFrom-wrapper">
-        <v-view class="route-item"></v-view>
-        <!-- 头部 -->
-        <div class="header">
-            <div class="header-content">
-                <h1 class="title">查看订单</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+       <!--头部  -->
+        <v-header></v-header>
         <div class="content-wrapper item-cls">
+            <!-- 查看更多块 -->
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的订单</span>
                 <router-link to="/allOrder">
@@ -18,6 +11,9 @@
                 </router-link>
                 <img class="more" src="./more.png" />
             </a>
+            <!-- 分割线 -->
+            <hr class="dirLine">
+            <!-- 商品板块 -->
             <div class="order-content">
                 <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
@@ -37,7 +33,10 @@
                     <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
                         <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
                     </div>
+                    
                 </div>
+                <!-- 分割线 -->
+            <hr class="dirLine">
                 <div class="content-item content-item-top" v-for="(val,key) in moreData">
                     <img class="product" :src="val.mainmap" />
                     <div class="product-message">
@@ -52,7 +51,7 @@
                     <div class="handle">
                         <router-link class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
-                    <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
+                    <div class="handle pos-left" v-if="val.status == 1 || val.status == 3 || val.status == 2">
                         <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
                     </div>
                 </div>
@@ -61,13 +60,7 @@
             </div>
             <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()" v-show="orderList.orderitem.length > 0">{{goodsNode}}</a>
             <div class="line"></div>
-            <a href="javascript:void(0)" class="order-title">
-                <span class="title">我的收藏</span>
-                <router-link to="/myCollect">
-                    <a href="#myCollect" class="content">查看所有收藏</a>
-                </router-link>
-                <img class="more" src="./more.png" />
-            </a>
+            <!-- 分割线 -->
         </div>
         <div class="swiper-pos">
             <p class="noCollect" v-if="orderList.collectitem.length < 1">没有任何收藏哦&nbsp;:)</p>
@@ -82,19 +75,31 @@
             <!-- 这是轮播的小圆点 -->
             <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
+            <div class="footer">
+            <div class="rowUp">
+                <div class="logo"></div>
+            </div>
+            <div class="rowDown">
+                <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
+            </div>
+            </div>
         </div>
+        <!-- 脚注 -->
+        <!-- 脚部控制面板 -->
+        <v-view class="route-item"></v-view>
         <router-view></router-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-
+import header from '../../components/header/header';
 export default {
     components: {
         'v-view': view,
         swiper,
-        swiperSlide
+        swiperSlide,
+        'v-header': header
     },
     ready() {
 
@@ -150,7 +155,13 @@ export default {
                     link1: '/goodDetail',
                     link2: '/buyGoods'
                 },
-                'err',
+                {
+                    btnInfo: '去评价',
+                    btnInfo2: '再次购买',
+                    type: '待收货',
+                    link1: '/orderFrom/evaluate',
+                    link2: '/goodDetail'
+                },
                 {
                     btnInfo: '去评价',
                     btnInfo2: '再次购买',
@@ -204,38 +215,38 @@ export default {
 mg-width = 1.125rem
 width100 = 100%
   .orderFrom-wrapper
-    margin-top: 1.0938rem
+    margin-top: 1.4063rem
     padding-bottom: 1.3438rem
     width: 100%
     height: 100%
     background: #fff
-    overflow-x: hidden
+    // overflow-x: hidden
     .route-item
         footerCss()
-    .header
-        headerCss()
     .noGoods
         margin 20% 0
         font-size 0.4688rem
         text-align center
         color #333
      .item-cls
+       margin 0 !important
        position: relative   
        display: block
      .content-wrapper
-        margin-left: 0.5rem
         float: left
         width: 100%
-        height: 100%
+        height: auto
         font-size: 0
         .order-title
             display: flex
             width: 100%
             height: 1.3125rem
             line-height: 1.3125rem
-            border-bottom-1px(#e6e6e6)
+            justify-content center
+            align-items center
             .title 
                 flex 1
+                margin-left 0.5625rem
                 float: left
                 font-size: 0.375rem   
                 color: #333
@@ -243,15 +254,12 @@ width100 = 100%
                 flex 1
                 display: block    
                 float: right
-                margin-right: 1.625rem
+                margin-right: 18px
                 font-size: 0.375rem
                 color: #909090
                 align-item flex-end
             .more 
-                position: absolute
-                right: 0.7813rem
-                top: 50%
-                margin-top: -0.1875rem  
+                margin-right 0.5rem
                 width: 0.375rem
                 height: 0.375rem        
         .order-content
@@ -262,14 +270,13 @@ width100 = 100%
                 height: 3.4375rem
             .content-item
                 display: flex
-                position: relative
-                border-bottom-1px(#e6e6e6)           
+                position: relative       
                 .product
                     display block
                     float: left
                     width: 1.625rem 
                     height: 1.625rem
-                    margin: 0.5625rem 0.5625rem 0 0    
+                    margin: 0.5625rem 0.5625rem 0 0.5625rem  
                 .product-message
                     margin-top: 0.5rem
                     float: left
@@ -284,7 +291,7 @@ width100 = 100%
                         color: #909090
                 .for-to-paid
                     display: inline-block
-                    margin: 0.5rem mg-width 0 0 
+                    margin: 0.5rem 0.5625rem 0 0 
                     vertical-align: top
                     float: right
                     height: 0.6875rem
@@ -294,7 +301,7 @@ width100 = 100%
                     color: #ea6aa2
                 .orderPrice
                     display: inline-block
-                    margin: 0 mg-width 0 0 
+                    margin: 0 0.5625rem 0 0 
                     vertical-align: top
                     float: right
                     height: 0.6875rem
@@ -305,7 +312,7 @@ width100 = 100%
                 .handle
                     display: block
                     position: absolute
-                    right: mg-width
+                    right: 0.5625rem
                     bottom: 0.5rem
                     width: 1.8438rem   
                     height: 0.5625rem
@@ -328,7 +335,6 @@ width100 = 100%
             text-align: center
             color: #ea6aa2
         .line
-            margin-left: -0.5rem
             width: 100%
             height: 0.3438rem
             background: #f0f0f0  
@@ -343,7 +349,7 @@ width100 = 100%
             color: #333
         .swiper-container
             position: relative
-            height: 8.125rem !important
+            height: 7.5rem !important
             .swiper-pagination
                 left 0% !important
                 width 100% !important
@@ -372,6 +378,36 @@ width100 = 100%
             height 0.0156rem !important
         .swiper-pagination-bullet-active   
             height 0.0313rem !important      
+    //脚注
+    .footer
+        width: 100%
+        height: 1.9063rem
+        background: #f0f0f0
+        padding 0.3125rem 0
+        margin-bottom 1.3438rem
+        .rowUp
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem
+            .logo  
+                width: 2.6563rem
+                height: 0.625rem
+                background: url("./logo.png")
+                background-size: 2.6563rem 0.625rem
+        .rowDown
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem        
+            .Copyright
+                text-align: center
+                font-size: 0.3438rem
+                color: #909090     
+    .dirLine
+        border-width 1px
+        border-color rgba(#e0e0e0)
+        margin-left 0.5rem        
                                  
 </style>    
 

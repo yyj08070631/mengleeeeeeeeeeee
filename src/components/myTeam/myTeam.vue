@@ -1,20 +1,7 @@
 <template>
     <div class="myTeam-wrapper">
-        <!--头部-->
-        <header class="header">
-            <div class="goBack">
-                <a href="javascript:history.back(1)">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-            </div>
-            <div class="title">我的团队</div>
-            <div class="search">
-                <a href="#search">
-                    <img src="./images/search.png">
-                </a>
-            </div>
-        </header>
+        <!--头部  -->
+        <v-header></v-header>
         <!--主体-->
         <section class="main">
             <!--概览-->
@@ -54,8 +41,12 @@
         </section>
     </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+import header from '../../components/header/header';
 export default {
+    components: {
+        'v-header': header
+    },
     data() {
         return {
             data: []

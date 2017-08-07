@@ -1,17 +1,7 @@
 <template>
     <div class="integral-wrapper">
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./arrow_left.png" height="16">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">我的积分</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+         <!--头部  -->
+        <v-header></v-header>
         <div class="integral-board" v-for="dataItem in appData">
             <span class="rank-title">{{dataItem.rank}}</span>
             <span class="rank-question">等级特权?</span>
@@ -45,52 +35,14 @@
         </div>
     </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+import header from '../../components/header/header';
 export default {
+    components: {
+        'v-header': header
+    },
     data() {
         return {
-            appData: [
-                {
-                    rank: '皇冠会员',
-                    integral: 58000,
-                    countIntegral: 6880.00,
-                    userMsg: [{
-                        expense: '友善猪消费-直属',
-                        date: '2017-6-14',
-                        getMoney: '+80.00'
-                    },
-                    {
-                        expense: '友善猪消费-直属',
-                        date: '2017-6-14',
-                        getMoney: '+80.00'
-                    },
-                    {
-                        expense: '友善猪消费-直属',
-                        date: '2017-6-14',
-                        getMoney: '+80.00'
-                    },
-                    {
-                        expense: '友善猪消费-直属',
-                        date: '2017-6-14',
-                        getMoney: '+80.00'
-                    },
-                    {
-                        expense: '友善猪消费-直属',
-                        date: '2017-6-14',
-                        getMoney: '+80.00'
-                    },
-                    {
-                        expense: '友善猪消费-直属',
-                        date: '2017-6-14',
-                        getMoney: '+80.00'
-                    },
-                    {
-                        expense: '友善猪消费-直属',
-                        date: '2017-6-14',
-                        getMoney: '+80.00'
-                    }]
-                }
-            ],
             data: []
         }
     },
@@ -123,10 +75,7 @@ export default {
         width: 100%
         height: 100%
         font-size: 0
-        overflow-x: hidden
         background: #f0f0f0
-        .header
-            headerCss()
         .integral-board
             padding: 0.75rem 0 0 0.5rem
             width: width

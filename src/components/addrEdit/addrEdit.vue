@@ -1,20 +1,12 @@
 <template>
     <div class="goodDetail-wrapper">
-        <!--头部-->
-        <div class="header">
-            <div class="header-content">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">新增地址</h1>
-            </div>
-        </div>
+        <!-- header -->
+        <v-header></v-header>
         <!-- 主体 -->
         <section class="main">
             <!-- 收货人 -->
             <div class="infoBox">
-                <div class="rowLeft">收货人：</div>
+                <div class="rowLeft">收&nbsp;货&nbsp;&nbsp;人：</div>
                 <input class="rowRight" placeholder="请填写收货人姓名" maxlength="8" v-model="name">
             </div>
             <!-- 手机号码 -->
@@ -41,14 +33,24 @@
                 <div class="saveAddrItem">保存</div>
             </div>
         </section>
+             <!-- 弹窗 -->
+        <div>
+            <toast v-model="success" type="text">添加成功</toast>
+        </div>
+        <div>
+            <toast v-model="error" type="text">添加失败</toast>
+        </div>
     </div>
 </template>
  <script type="ecmascript-6">
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-
+import header from '../../components/header/header';
+import { Toast,Alert } from 'vux'
 export default {
     components: {
-        vuxAddress
+        vuxAddress,
+        Toast,
+        'v-header': header
     },
     data() {
         return {
@@ -56,7 +58,9 @@ export default {
             phone: '',
             name: '',
             street: '',
-            defaultLoc: ''
+            defaultLoc: '',
+            success: false,
+            error: false
         }
     },
     methods: {
@@ -72,10 +76,14 @@ export default {
                 // console.log(res);
                 this.data = res.data;
                 if(res.code == 200){
-                    alert('添加成功!');
-                    this.$router.push('addrManage');
+                    this.success = true
+                    setTimeout(function(){
+                        //this.$router.push('addrManage');
+                        window.history.back(1)
+                    },1000)
+                    
                 } else {
-                    alert('添加失败！');
+                    this.error = true
                 }
             })
         },
@@ -107,10 +115,7 @@ span, a, img, input, textarea
     left 0
     width 100%
     height 100%
-    background #f0f0f0
-    // 详情页header
-    .header
-       headerCss()
+    background #fff
     // 主体
     .main
         // 一般
@@ -123,8 +128,8 @@ span, a, img, input, textarea
             border-bottom-1px(#e0e0e0)
             .rowLeft
                 display flex
-                justify-content flex-end
-                width 2.1875rem
+                justify-content flex-start
+                width 2.5rem
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight
@@ -188,4 +193,11 @@ span, a, img, input, textarea
                 width 0.4688rem
                 height 0.4688rem
                 margin-left 0.2813rem
+        .weui-toast  
+            width auto!important 
+            height 0.9375rem
+            line-height 0.7813rem
+            top 50%!important
+            p
+                padding 0.0625rem 0.3125rem 0 0.3125rem           
 </style>

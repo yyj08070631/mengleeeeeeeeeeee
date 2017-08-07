@@ -1,17 +1,7 @@
 <template>
     <div class="expand-wrapper">
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./arrow_left.png" height="16">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">拓展统计</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+        <!--头部  -->
+        <v-header></v-header>
         <div class="expand-board">
             <span class="rank-title">拓展总收益（元）</span>
             <h1 class="myExpand">{{data.total_money | num}}</h1>
@@ -46,8 +36,12 @@
     
     </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+import header from '../../components/header/header';
 export default {
+    components: {
+        'v-header': header
+    },
     data() {
         return {
             data: []
@@ -101,8 +95,6 @@ export default {
         height: 100%
         font-size: 0
         background: #f0f0f0
-        .header
-            headerCss()
         .expand-board
             height 4.375rem
             padding-top 1.0938rem

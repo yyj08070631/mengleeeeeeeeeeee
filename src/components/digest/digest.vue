@@ -1,16 +1,7 @@
 <template>
     <div class="digest-wrapper">
-        <v-view class="route-item"></v-view>
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">摘要</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-            </div>
-        </div>
+        <!-- header -->
+        <v-header></v-header>
         <div class="serve"></div>
         <div class="serve-desc">
             <h2 class="desc-title">{{appData.sericeitem.name}}</h2>
@@ -36,13 +27,17 @@
         </div>
         <div class="divider"></div>
         <a href="#subscribeNow" class="link">我要预约</a>
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 export default {
     components :{
-        'v-view': view
+        'v-view': view,
+        'v-header': header
     },
     data(){
         return {
@@ -92,12 +87,10 @@ export default {
         .dividerMarginpx
         .route-item
             footerCss()
-        .header
-            headerCss()
         .serve
             width: 100%
             height: 6.6875rem
-            margin-top 1.0938rem
+            margin-top 1.4063rem
             background: url(./serve.png)
             background-size: 100% 6.6875rem
         .serve-desc

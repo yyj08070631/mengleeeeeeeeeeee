@@ -63,7 +63,7 @@
                 <p class="price">￥{{totalPrice}}</p>
             </div>
             <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a>
-            <a href="javascript:void(0)" class="del" v-show="showWrite" @click="delCartList">删除</a>
+            <a href="javascript:void(0)" class="del" v-show="showWrite" @click="onShow" >删除</a>
         </footer>
         <!-- 脚部 -->
         <!-- 页面所有弹窗 -->
@@ -76,15 +76,21 @@
         <div>
             <toast v-model="writeAfter" type="text">已修改</toast>
         </div>
+        <alert v-model="show" title="提示" @on-show="onShow"  @on-hide="onHide">
+            <button class="btn1" @click="onHide();delCartList();">确定</button>
+            <button class="btn2" @click="onHide();">取消</button>
+            请确认删除
+        </alert>
         <!-- 页面所有弹窗 -->
     </div>
 </template>
 <script type="ecmascript-6">
-import { Toast, Group } from 'vux'
+import { Toast, Group, Alert } from 'vux'
 export default {
     components: {
         Toast,
-        Group
+        Group,
+        Alert
     },
     data() {
         return {
@@ -104,7 +110,8 @@ export default {
             successAlert: false,//获取成功弹窗
             errorAlert: false,//获取数据失败弹窗
             writeAfter: false,//编辑成功弹窗
-            arr: []
+            arr: [],
+            show: false//询问弹窗
         }
     },
     methods: {
@@ -331,6 +338,12 @@ export default {
                 this.showPay = true
             }
         },
+        onShow: function(){
+            this.show = true
+        },
+        onHide: function(){
+            this.show = false
+        }
     },
     mounted() {
         this.getDataFromBackend()
@@ -482,7 +495,7 @@ span, a, img, input, textarea
             height 100%
             margin-left 1.25rem
             .total
-                font-size 0.5rem
+                font-size 0.4063rem
                 color #333
             .price
                 font-size 0.5rem
@@ -514,4 +527,53 @@ span, a, img, input, textarea
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
             font-size 0.375rem     
+    .weui-dialog
+        width 12.5rem!important
+        min-width 80%
+        background #fff
+        border-radius 0.1875rem
+        .weui-dialog__hd
+            padding 0.3125rem 0 0 0 
+            .weui-dialog__title
+                font-size 0.5rem !important
+        .weui-dialog__bd
+            padding 0.9375rem  0 
+            font-size 0.4688rem
+            margin-bottom 0.5625rem
+             
+        .btn1
+            position:absolute
+            left:0px;
+            bottom:0px;
+            background:#fff;
+            width:50%;
+            color:#ea6aa2;
+            height:1.25rem;
+            line-height: 40px;
+            z-index: 1000;
+            border:0;
+            border-top:1px solid #909090
+            font-size 0.4063rem
+        .btn2
+            position:absolute
+            left:50%;
+            bottom:0px;
+            background:#fff;
+            width:50%;
+            color:#ea6aa2;
+            height:1.25rem;
+            line-height: 40px;
+            z-index: 1000;
+            border:0;
+            border-top:1px solid #909090
+            font-size 0.4063rem    
+            .weui-dialog__title
+                font-size 0.4063rem !important
+            .weui-dialog__ft
+                background #3cf !important
+                display none
+                .weui-dialog__btn_primary
+                    color #ff0  !important
+                .weui-dialog__btn    
+                    color #ff0  !important        
 </style>

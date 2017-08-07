@@ -1,17 +1,7 @@
 <template>
     <div class="settings-wrapper">
-        <div class="header">
-            <div class="header-content">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">个人设置</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+         <!--头部  -->
+        <v-header></v-header>
         <div class="avatar-wrapper">
             <img class="avatar-cover" width="100%" height="100%" :src="data.headimg" />
             <div class="filter"></div>
@@ -204,10 +194,12 @@
 
 <script type="ecmascript-6">
 import { Toast, Group } from 'vux'
+import header from '../../components/header/header';
 export default {
     components: {
         Toast,
         Group,
+        'v-header': header
     },
     data() {
         return {
@@ -260,7 +252,7 @@ export default {
         }, 
         textFocus4: function(){
             this.$refs.input4.selectionStart = 0;
-            this.$refs.input4.selectionEnd = this.$refs.input.value.length
+            this.$refs.input4.selectionEnd = this.$refs.input4.value.length
             //input. = input.value.length
         }, 
         getDataFromBackend: function () {
@@ -460,11 +452,9 @@ export default {
         height: 100%
         background: #f0f0f0
         padding-bottom: 0.6875rem
-        .header
-            headerCss()
         .avatar-wrapper
             position: relative
-            margin-top: 1.0938rem
+            margin-top: 1.4063rem
             width: 100% 
             height: 7.375rem
             overflow: hidden

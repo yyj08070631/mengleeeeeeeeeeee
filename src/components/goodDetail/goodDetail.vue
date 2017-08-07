@@ -1,20 +1,7 @@
 <template>
 	<div class="collect-wrapper">
-		<!--头部-->
-		<header class="header">
-			<div class="goBack">
-				<a href="javascript:history.back(1)">
-					<img src="./images/arrow_left.png">
-					<span>返回</span>
-				</a>
-			</div>
-			<div class="title">商品详情</div>
-			<div class="search">
-				<a href="#search">
-					<img src="./images/search.png">
-				</a>
-			</div>
-		</header>
+		<!--头部  -->
+        <v-header></v-header>
 		<!--图片轮播-->
 		<swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
 			<swiper-item class="swiper-demo-img" v-for="(item, index) in detailItemList.albumitem" :key="index">
@@ -183,7 +170,8 @@
 		</div>
 	</div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+import header from '../../components/header/header';
 import { Swiper, SwiperItem, Divider, Toast, Group } from 'vux'
 export default {
 	components: {
@@ -191,7 +179,8 @@ export default {
 		SwiperItem,
 		Divider,
 		Toast,
-		Group
+		Group,
+		'v-header': header
 	},
 	data() {
 		return {
@@ -243,6 +232,7 @@ export default {
 				emulateJSON: true
 			}).then(function (response) {
 				this.detailItemList = response.body
+				console.log('--------------------'+this.$route.query.gid)
 				console.log(this.detailItemList)
 			})
 		},
@@ -338,7 +328,7 @@ export default {
 	// 外层元素
 	.collect-wrapper
 		position absolute
-		top 1.0938rem
+		top 1.4063rem
 		left 0
 		width 100%
 		height 100%

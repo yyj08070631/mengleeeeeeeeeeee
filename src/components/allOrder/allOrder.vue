@@ -1,16 +1,7 @@
 <template>
     <div class="orderFrom-wrapper">
         <!--头部  -->
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">查看全部订单</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-            </div>
-        </div>
+        <v-header></v-header>
         <div class="order-content-wrapper item-cls">
             <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
             <div class="order-content">
@@ -28,7 +19,7 @@
                     <div class="handle">
                         <router-link class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: 11 } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
                     </div>
-                    <div class="handle pos-left" v-if="val.status==1 || val.status == 3">
+                    <div class="handle pos-left" v-if="val.status==1 || val.status == 3 || val.status == 2">
                         <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: 11 } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
                     </div>
                 </div>
@@ -39,6 +30,7 @@
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
 
 export default {
@@ -48,7 +40,8 @@ export default {
         GroupTitle,
         XButton,
         Divider,
-        'v-view': view
+        'v-view': view,
+        'v-header': header
     },
     ready() {
 
@@ -77,7 +70,13 @@ export default {
                     link1: '/goodDetail',
                     link2: '/buyGoods'
                 },
-                'err',
+                {
+                    btnInfo: '去评价',
+                    btnInfo2: '再次购买',
+                    type: '待收货',
+                    link1: '/orderFrom/evaluate',
+                    link2: '/goodDetail'
+                },
                 {
                     btnInfo: '去评价',
                     btnInfo2: '再次购买',
@@ -119,7 +118,9 @@ export default {
 @import '../../commom/stylus/mixin'
 mg-width = 1.125rem
 width100 = 100%
-  .orderFrom-wrapper    
+  .orderFrom-wrapper   
+    margin-top: 1.0938rem
+    padding-bottom: 1.3438rem 
     width: 100%
     height: 100%
     background: #fff
@@ -132,7 +133,6 @@ width100 = 100%
      .order-content-wrapper
         width: 100%
         height 100%
-        margin-left: 0.5rem
         font-size: 0
         .order-title
             display: block
@@ -172,7 +172,7 @@ width100 = 100%
                     float: left
                     width: 1.625rem 
                     height: 1.625rem
-                    margin: 0.5625rem 0.5625rem 0 0    
+                    margin: 0.5625rem 0.5625rem 0 0.5rem    
                 .product-message
                     margin-top: 0.5rem
                     float: left
@@ -187,7 +187,7 @@ width100 = 100%
                         color: #909090
                 .for-to-paid
                     display: inline-block
-                    margin: 0.5rem mg-width 0 0 
+                    margin: 0.5rem 0.5rem 0 0 
                     vertical-align: top
                     float: right
                     height: 0.6875rem
@@ -197,7 +197,7 @@ width100 = 100%
                     color: #ea6aa2
                 .orderPrice
                     display: inline-block
-                    margin: 0 mg-width 0 0 
+                    margin: 0 0.5rem 0 0 
                     vertical-align: top
                     float: right
                     height: 0.6875rem
@@ -208,7 +208,7 @@ width100 = 100%
                 .handle
                     display: block
                     position: absolute
-                    right: mg-width
+                    right: 0.5rem
                     bottom: 0.5rem
                     width: 1.8438rem   
                     height: 0.5625rem

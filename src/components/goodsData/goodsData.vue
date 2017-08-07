@@ -1,15 +1,7 @@
 <template>
     <div class="goodsData-wrapper">
-         <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">产品参数</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-            </div>
-        </div>
+         <!--头部  -->
+        <v-header></v-header>
          <div  class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
          <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)"  v-else>
         </div>
@@ -68,10 +60,12 @@
 </template>
 <script type="ecmascript-6">
 import { Toast, Group } from 'vux'
+import header from '../../components/header/header';
 export default {
   components: {
         Toast,
-        Group
+        Group,
+        'v-header': header
     },
   data(){
       return {
@@ -205,6 +199,7 @@ export default {
                 font-size 0.4375rem        
     .content-wrapper
         margin: 1.25rem 0 1.1875rem 0.5rem
+        font-size 0.4063rem
         .content-item
             padding: 0.2031rem 0.25rem 0.2031rem 0
             border-bottom-1px(#e0e0e0)

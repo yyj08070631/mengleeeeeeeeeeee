@@ -1,16 +1,7 @@
 <template>
     <div class="subscribe-wrapper">
-        <v-view class="route-item"></v-view>
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png" height="16">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">我要预约</h1>
-                <a href="#search"><img class="search" src="./search.png"/></a>
-            </div>
-        </div> 
+         <!--头部  -->
+        <v-header></v-header>
         <div class="activity-wrapper">
             <div class="subscribe-item">
                 <div class="pullLeft">服务</div>
@@ -30,7 +21,7 @@
             </div>
              <div class="subscribe-item">
                 <div class="pullLeft noLine">时间</div>
-                <div class="pullRight"><P>单人泡澡+臀部疗保养+面部补水三项套餐</P></div>
+                <div class="pullRight"><P>单人泡澡+臀部疗保养</P></div>
             </div>
              <div class="subscribe-item">
                 <div class="pullLeft noLine">地点</div>
@@ -57,13 +48,17 @@
                 <div class="dump" @click="closeTab">确定</div>
             </div>
         </div>
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
+import header from '../../components/header/header';
 export default {
     components :{
-        'v-view': view
+        'v-view': view,
+        'v-header': header
     },
     data(){
         return {
@@ -96,7 +91,7 @@ export default {
   color = #fff
   .subscribe-wrapper
         position: absolute
-        top: 1.0938rem
+        top: 1.4063rem
         left: 0
         margin-bottom: 0.6719rem
         width: width
@@ -115,21 +110,22 @@ export default {
                 display: flex
                 margin-left: 0.5rem
                 width: 100%
-                height: 1.625rem
+                min-height: 1.9375rem
                 div
-                    font-size: 0.3438rem
+                    font-size: 0.375rem
                     border-bottom-1px(#e0e0e0)
                 .noLine
                     border-bottom-none()
                 .pullLeft
                     width: 3.125rem
-                    line-height: 1.625rem
+                    line-height: 1.9375rem
                     color: #909090
                 .pullRight
                     flex: 1
                     margin-right: 0.5rem
                     p    
                         margin: 0.4688rem 0.5rem 0 0 
+                        line-height 0.4375rem
                     .userinfo
                         width: 100%
                         margin-bottom: 0.25rem
@@ -143,12 +139,12 @@ export default {
                                 height: 0.4688rem
                                 display: inline-block
                                 float: left   
-                                line-height: 0.4688rem !important
+                                line-height: 0.75rem !important
                          .write
                             margin-right: 0.5rem
                             float: right       
                             color: #ea6aa2
-                            line-height: 1.625rem
+                            line-height:  1.9375rem
         .subscribe
             display: flex
             width: 100%

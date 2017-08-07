@@ -1,17 +1,7 @@
 <template>
     <div class="buyGoods-wrapper">
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">确认订单</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+        <!-- header -->
+        <v-header></v-header>
         <router-link to="/addrManage" class="userInfo">
             <div>
                 <img src="./location.png">
@@ -72,6 +62,7 @@
 import view from '../../components/view/view';
 import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Checker, CheckerItem, Popup } from 'vux'
+import header from '../../components/header/header';
 export default {
     directives: {
         TransferDom
@@ -81,7 +72,8 @@ export default {
         XButton,
         Checker,
         CheckerItem,
-        Popup
+        Popup,
+        'v-header': header
     },
     data() {
         return {
@@ -220,8 +212,6 @@ export default {
     bottom: 0
     width 100%
     background: #f0f0f0
-    .header
-        headerCss()
     .userInfo    
         display: flex
         height: 2.4688rem

@@ -1,15 +1,8 @@
 <template>
     <div class="goodDetail-wrapper">
         <!--头部-->
-        <div class="header">
-            <div class="header-content">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">修改地址</h1>
-            </div>
-        </div>
+         <!-- header -->
+        <v-header></v-header>
         <!-- 主体 -->
         <section class="main">
             <!-- 收货人 -->
@@ -45,10 +38,11 @@
 </template>
  <script type="ecmascript-6">
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-
+import header from '../../components/header/header';
 export default {
     components: {
-        vuxAddress
+        vuxAddress,
+        'v-header': header
     },
     data() {
         return {
@@ -133,9 +127,6 @@ span, a, img, input, textarea
     width 100%
     height 100%
     background #f0f0f0
-    // 详情页header
-    .header
-       headerCss()
     // 主体
     .main
         // 一般

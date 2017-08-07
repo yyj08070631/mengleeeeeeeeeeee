@@ -1,17 +1,7 @@
 <template>
     <div class="title-wrapper">
-        <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">头衔统计</h1>
-                <a href="#search">
-                    <img class="search" src="./search.png" />
-                </a>
-            </div>
-        </div>
+        <!--头部  -->
+        <v-header></v-header>
         <div class="title-board">
             <span class="rank-title">头衔总收益（元）</span>
             <h1 class="myTitle">13,480.00</h1>
@@ -42,8 +32,12 @@
         <div class="line"></div>
     </div>
 </template>
-<script type="ecmascript-6">
+ <script type="ecmascript-6">
+import header from '../../components/header/header';
 export default {
+    components: {
+        'v-header': header
+    },
     data() {
         return {
             data: []
@@ -72,7 +66,7 @@ export default {
     width = 100%
     .title-wrapper
         position: absolute
-        top: 1.0938rem
+        top: 1.4063rem
         width: 100%
         height: 100%
         font-size: 0

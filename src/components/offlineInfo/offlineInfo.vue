@@ -1,18 +1,7 @@
 <template>
     <div class="offlineInfo-wrapper">
-        <!--头部-->
-       <div class="header">
-            <div class="header-content">
-                <a href="javascript:history.back(-1)" class="goBack">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-                <h1 class="title">线下信息</h1>
-                <a href="#search">
-                    <img class="search" src="./images/search.png" />
-                </a>
-            </div>
-        </div>
+       <!--头部  -->
+        <v-header></v-header>
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
@@ -128,11 +117,12 @@
 </template>
 <script type="ecmascript-6">
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-
+import header from '../../components/header/header';
 export default {
     components: {
         swiper,
         swiperSlide,
+        'v-header': header
     },
     data() {
         return {
@@ -261,17 +251,13 @@ img, span, a
     font-size 0.5rem
     color #333
     border-bottom-1px(#e0e0e0)
-
 // 外层元素
 .offlineInfo-wrapper
     position absolute
-    top 1.25rem
+    top 1.4063rem
     left 0
     width width
     background #fff
-    // 详情页header
-    .header
-       headerCss()
     // 主体
     .main
         // 分割线
@@ -279,6 +265,34 @@ img, span, a
             margin 0
             border-top-1px(#f0f0f0)
         // 评论
+        .swiper-container
+            position: relative
+            height: 8.125rem !important
+            .swiper-pagination
+                left 0% !important
+                width 100% !important
+            .swiper-wrapper
+                .swiper-pagination-bullet
+                img
+                    width: 100% !important   
+                    height: 100% !important
+                p
+                    margin-top: 0.3125rem 
+                    width: 5.4063rem !important   
+                    font-size: 0.3438rem   
+                    text-align: center
+            .swiper-pagination
+                height: 0.0313rem  !important 
+                background: #ccc
+                bottom: 0 !important 
+                margin 0 !important
+                span
+                    height: 0.0313rem
+        .swiper-pagination-bullet
+            margin 0 !important
+            height 0.0156rem !important
+        .swiper-pagination-bullet-active   
+            height 0.0313rem !important      
         .comment
             margin-left 0.5rem
             .titleDown
@@ -442,4 +456,5 @@ img, span, a
                     justify-content center
                     width 2.5625rem
                     color #ea68a2
+
 </style>

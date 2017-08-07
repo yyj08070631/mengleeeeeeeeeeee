@@ -1,20 +1,8 @@
 <template>
     <div class="goodDetail-wrapper">
         <!--头部-->
-        <header class="header">
-            <div class="goBack">
-                <a href="javascript:history.back(1)">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
-            </div>
-            <div class="title">我的收藏</div>
-            <div class="search">
-                <a href="#search">
-                    <img src="./images/search.png">
-                </a>
-            </div>
-        </header>
+         <!--头部  -->
+        <v-header></v-header>
         <!-- 主体 -->
         <section class="main">
             <!-- 正常收藏件 -->
@@ -89,10 +77,12 @@
 </template>
  <script type="ecmascript-6">
  import { Toast,Alert } from 'vux'
+import header from '../../components/header/header';
 export default {
     components: {
         Toast,
         Alert,
+        'v-header': header
     },
     data() {
         return {
@@ -247,10 +237,6 @@ color = #fff
     width width
     height width
     background #fff!important
-    // 详情页header
-    .header
-        headerFlex()
-        height 1.0938rem
     // 主体
     .main
         background #fff

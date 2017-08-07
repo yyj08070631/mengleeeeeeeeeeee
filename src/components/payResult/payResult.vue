@@ -1,14 +1,7 @@
 <template>
     <div class="payResult-wrapper">
-          <div class="header">
-            <div class="header-content border-bottom-1px">
-                <a href="javascript:history.back(-1)" class="goBack">
-				    <img src="./arrow_left.png">
-				    <span>返回</span>
-			    </a>
-                <h1 class="title">支付成功</h1>
-            </div>
-        </div> 
+          <!--头部  -->
+        <v-header></v-header>
         <div class="payType">
             <div></div>
             <div><img src="./success.png"><span>支付成功！</span></div>
@@ -28,7 +21,11 @@
     </div>    
 </template>
  <script type="ecmascript-6">
+import header from '../../components/header/header';
 export default {
+    components: {
+        'v-header': header
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -36,11 +33,9 @@ export default {
 .payResult-wrapper 
     width =  100%
     height = 100%
-    padding: 1.0938rem 0 1.25rem 0
+    padding: 1.4063rem 0 1.25rem 0
     width width
     height height
-    .header
-        headerCss()
     .payType
         display flex
         margin-top 1.7188rem  
