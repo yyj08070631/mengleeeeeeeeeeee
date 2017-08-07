@@ -6,14 +6,14 @@
             <div href="javascript:void(0)" class="store-computed border-bottom-1px">
                 <span class="computed">所有项目实体店</span>
             </div>
-            <a href="#offlineInfo" class="store-item">
+            <a href="#offlineInfo" class="store-item" v-for="(val, key) in data">
                 <div>
-                    <img :src="data.mainmap">
+                    <img :src="val.mainmap">
                 </div>
                 <div>
-                    <p class="title">{{data.name}}</p>
-                    <p>{{data.trade_time}}，{{data.day_time}}</p>
-                    <p>{{data.distance}}公里 | {{data.minute}}分钟</p>
+                    <p class="title">{{val.name}}</p>
+                    <p>{{val.trade_time}}，{{val.day_time}}</p>
+                    <p>{{val.distance}}公里 | {{val.minute}}分钟</p>
                 </div>
                 <div>
                     <img class="more" width="32" height="32" src="./more.png">
@@ -52,7 +52,7 @@ export default {
                 let res = response.body;
                 // console.log(res);
                 this.data = res.nearbyitem
-                console.log(this.data)
+                // console.log(this.data)
             });
         }
     },

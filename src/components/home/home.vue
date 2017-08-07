@@ -10,15 +10,15 @@
             <div class="bannerDivider" v-else-if="key != 0"></div>
             <!-- main -->
             <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'">
-                <img :src="val.product[0].src" width="100%" height="100%">
+                <img :src="val.product[0].src" class="singleImg">
             </router-link>
             <router-link :to="{ path: '/offlineInfo', query: { nid: val.product[0].id } }" v-else-if="val.product.length == 1 && val.linkType == 'aid'">
-                <img :src="val.product[0].src" width="100%" height="100%">
+                <img :src="val.product[0].src" class="singleImg">
             </router-link>
             <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'gid'"></mySwiper>
             <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'aid'"></mySwiper>
             <router-link to="/home" v-else-if="val.linkType == 'app'">
-                <img :src="val.product.src" width="100%" height="100%">
+                <img :src="val.product.src" class="singleImg">
             </router-link>
         </div>
         <!-- 查看更多活动 -->
@@ -134,6 +134,10 @@ export default {
         padding-bottom: 1.3438rem
         width: 100%
         height: 100%
+        background: #f0f0f0
+        .singleImg
+            width 100%
+            height 10rem
         .route-item
             footerCss()
         .bannerTitle

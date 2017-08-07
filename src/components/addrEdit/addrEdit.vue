@@ -95,7 +95,6 @@ export default {
         }
     },
     mounted() {
-        
     }
 }
 </script>
@@ -109,15 +108,15 @@ span, a, img, input, textarea
     display block
 
 // 外层元素
-.goodDetail-wrapper
+.addrEdit-wrapper
     position absolute
-    top 1.25rem
     left 0
     width 100%
     height 100%
     background #fff
     // 主体
     .main
+        margin-top 1.0938rem
         // 一般
         .infoBox
             display flex
@@ -128,8 +127,8 @@ span, a, img, input, textarea
             border-bottom-1px(#e0e0e0)
             .rowLeft
                 display flex
-                justify-content flex-start
-                width 2.5rem
+                justify-content flex-end
+                width 2.3438rem !important
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight
@@ -143,7 +142,6 @@ span, a, img, input, textarea
                 height 60% !important
                 border 0
                 font-size 0.4375rem
-                font-family 'Microsoft YaHei'
                 color #262626
                 resize none
             .weui-cell

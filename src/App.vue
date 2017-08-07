@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		  <!-- <my-loading v-model="isLoading"></my-loading>   -->
+		<my-loading v-show="isLoading"></my-loading>  
 		<router-view></router-view>
 	</div>
 </template>
@@ -23,7 +23,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			isLoading: state => state.vux.isLoading
+			isLoading: state => (state.isLoading)
 		})
 	}
 }

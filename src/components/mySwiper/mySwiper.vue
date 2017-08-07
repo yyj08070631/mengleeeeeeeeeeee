@@ -35,7 +35,8 @@ export default {
                 paginationType: "bullets",
                 pagination: '.swiper-pagination',
                 paginationBulletRender: function (swiper, index, className) {
-                    let width = ( isFinite(100/(parseInt(swiper.imagesLoaded / 2))) ? 100/(parseInt(swiper.imagesLoaded / 2)) : 100 ) + '%';
+                    // console.log(swiper.bullets ? swiper.bullets.length : 0);
+                    let width = ( isFinite(100/(parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100/(parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100 ) + '%';
                     // console.log(width);
                     return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
                 }
@@ -67,7 +68,7 @@ img, span, a
 .swiper-slide
     img
         width 100%
-        height 100%
+        height 10rem
 .swiper-pagination
     display flex
     left 50% !important
@@ -79,9 +80,9 @@ img, span, a
         margin 0 !important
         background-color rgba(255,255,255,0)
         border-radius 0
-        height 0.0625rem   !important 
+        height 0.0625rem !important 
         margin-left 0.3125rem !important
     .swiper-pagination-bullet-active
         background rgba(0,0,0,0.7)
-        height 0.0625rem   !important         
+        height 0.0625rem !important
 </style>

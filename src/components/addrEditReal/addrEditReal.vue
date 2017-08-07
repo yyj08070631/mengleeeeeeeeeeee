@@ -1,5 +1,5 @@
 <template>
-    <div class="goodDetail-wrapper">
+    <div class="addrEditReal-wrapper">
         <!--头部-->
          <!-- header -->
         <v-header></v-header>
@@ -8,7 +8,7 @@
             <!-- 收货人 -->
             <div class="infoBox">
                 <div class="rowLeft">收货人：</div>
-                <input type="text" class="rowRight" placeholder="请填写收货人姓名" maxlength="8" v-model="name">
+                <input type="text" class="rowRight" placeholder="请填写收货人姓名" maxlength="4" v-model="name">
             </div>
             <!-- 手机号码 -->
             <div class="infoBox">
@@ -120,15 +120,15 @@ span, a, img, input, textarea
     display block
 
 // 外层元素
-.goodDetail-wrapper
+.addrEditReal-wrapper
     position absolute
-    top 1.25rem
     left 0
     width 100%
     height 100%
     background #f0f0f0
     // 主体
     .main
+        margin-top 1.0938rem
         // 一般
         .infoBox
             display flex

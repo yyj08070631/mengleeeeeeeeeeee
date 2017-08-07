@@ -3,10 +3,12 @@
 		<!--头部  -->
         <v-header></v-header>
 		<!--图片轮播-->
-		<swiper :aspect-ratio="640/800" loop auto @on-index-change="onIndexChange">
-			<swiper-item class="swiper-demo-img" v-for="(item, index) in detailItemList.albumitem" :key="index">
-				<img :src="item.src" width="100%" height="100%">
-			</swiper-item>
+		<swiper :options="swiperOption" ref="mySwiper">
+			<swiper-slide v-for="(item, index) in detailItemList.albumitem">
+					<img :src="item.src" width="100%" heigh="100%">
+			</swiper-slide>
+			<!-- 这是轮播的小圆点 -->
+			<div class="swiper-pagination" slot="pagination"></div>
 		</swiper>
 		<!--导航按钮-->
 		<div class="detailNav">
@@ -175,9 +177,6 @@ import header from '../../components/header/header';
 import { Swiper, SwiperItem, Divider, Toast, Group } from 'vux'
 export default {
 	components: {
-		Swiper,
-		SwiperItem,
-		Divider,
 		Toast,
 		Group,
 		'v-header': header
@@ -203,7 +202,20 @@ export default {
 			number: 1,
 			numBuy: 1,
 			success: false,
-			error: false
+			error: false,
+			swiperOption: {
+                notNextTick: true,
+                autoplay: 3000,
+                loop : true,
+                paginationType: "bullets",
+                pagination: '.swiper-pagination',
+                paginationBulletRender: function (swiper, index, className) {
+                    // console.log(swiper.bullets ? swiper.bullets.length : 0);
+                    let width = ( isFinite(100/(parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100/(parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100 ) + '%';
+                    // console.log(width);
+                    return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
+                }
+            }
 		}
 	},
 	methods: {
@@ -286,18 +298,18 @@ export default {
 			}
 		},
 		//添加到购物车
-		addCartList: function(){
-                this.$http.post(
-					global.Domain + '/Order/addcart',
-					{
-						gid:this.detailItemList.gooditem.id,
-						number:this.number
-					},
-					{
-						emulateJSON:true
-					}).then(response=>{
-                    let data = response.body;
-                    if(data === 1){
+		addCartList: function () {
+			this.$http.post(
+				global.Domain + '/Order/addcart',
+				{
+					gid: this.detailItemList.gooditem.id,
+					number: this.number
+				},
+				{
+					emulateJSON: true
+				}).then(response => {
+					let data = response.body;
+					if (data === 1) {
 						this.success = true
 					} else {
 						this.error = true
@@ -312,8 +324,8 @@ export default {
 		})
 	},
 	watch: {
-		numBuy: function(val){
-			if(this.numBuy < 1 || typeof(this.numBuy) != 'number'){
+		numBuy: function (val) {
+			if (this.numBuy < 1 || typeof (this.numBuy) != 'number') {
 				this.numBuy = 1
 			}
 		}
@@ -333,10 +345,34 @@ export default {
 		width 100%
 		height 100%
 		background #f0f0f0
+		// 分页器
+		.swiper-container
+			margin-top 1.0938rem
+		.swiper-slide
+			img
+				width 100%
+				height 10rem
+		.swiper-pagination
+			display flex
+			left 50% !important
+			margin-left -25%
+			width 50% !important
+			.swiper-pagination-bullet
+				changeHeight(0.0938rem)
+				margin 0 !important
+				background-color rgba(255,255,255,0)
+				border-radius 0
+				height 0.0625rem !important 
+				margin-left 0.3125rem !important
+			.swiper-pagination-bullet-active
+				background rgba(0,0,0,0.7)
+				height 0.0625rem !important
 		// 详情页header
 		.header
 			height 1.0938rem!important
 			headerFlex()
+		.vux-slider
+			margin-top 1.0938rem
 		// 详情页导航
 		.detailNav
 			display flex
@@ -365,7 +401,6 @@ export default {
 			border-top 0.3125rem solid #f0f0f0
 			background color
 		// 评论
-		
 		.comment
 			padding-left 0.5rem
 			background color
