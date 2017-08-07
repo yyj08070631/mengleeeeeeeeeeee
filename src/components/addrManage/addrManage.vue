@@ -141,7 +141,7 @@ span, a, img, input, textarea
                 .nameAndPhone
                     display flex
                     .name
-                        width 1.75rem
+                        width 1.875rem
                         font-size 0.4375rem
                         color #333
                         margin-right 0.9375rem
