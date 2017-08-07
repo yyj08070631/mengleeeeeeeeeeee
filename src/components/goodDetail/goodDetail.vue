@@ -18,7 +18,7 @@
 		<!--图片轮播-->
 		<swiper :options="swiperOption" ref="mySwiper">
 			<swiper-slide v-for="(item, index) in detailItemList.albumitem">
-				<img :src="item.src" width="100%" heigh="100%">
+					<img :src="item.src" width="100%" heigh="100%">
 			</swiper-slide>
 			<!-- 这是轮播的小圆点 -->
 			<div class="swiper-pagination" slot="pagination"></div>
@@ -186,10 +186,13 @@
 	</div>
 </template>
 <script type="ecmascript-6">
+import { Toast, Group } from 'vux'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
 	components: {
+		Toast,
+		Group,
 		swiper,
         swiperSlide,
 	},
@@ -345,29 +348,9 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 	@import '../../commom/stylus/mixin'
+
 	width = 100%
 	color = #fff
-	// 分页器
-	.swiper-slide
-		img
-			width 100%
-			height 100%
-	.swiper-pagination
-		display flex
-		left 50% !important
-		margin-left -25%
-		bottom 0.0156rem !important
-		width 50% !important
-		.swiper-pagination-bullet
-			changeHeight(0.0938rem)
-			margin 0 !important
-			background-color rgba(255,255,255,0)
-			border-radius 0
-			height 0.0625rem   !important 
-			margin-left 0.3125rem !important
-		.swiper-pagination-bullet-active
-			background rgba(0,0,0,0.7)
-			height 0.0625rem   !important
 	// 外层元素
 	.collect-wrapper
 		position absolute
@@ -375,6 +358,28 @@ export default {
 		width 100%
 		height 100%
 		background #f0f0f0
+		// 分页器
+		.swiper-container
+			margin-top 1.0938rem
+		.swiper-slide
+			img
+				width 100%
+				height 10rem
+		.swiper-pagination
+			display flex
+			left 50% !important
+			margin-left -25%
+			width 50% !important
+			.swiper-pagination-bullet
+				changeHeight(0.0938rem)
+				margin 0 !important
+				background-color rgba(255,255,255,0)
+				border-radius 0
+				height 0.0625rem !important 
+				margin-left 0.3125rem !important
+			.swiper-pagination-bullet-active
+				background rgba(0,0,0,0.7)
+				height 0.0625rem !important
 		// 详情页header
 		.header
 			height 1.0938rem!important
