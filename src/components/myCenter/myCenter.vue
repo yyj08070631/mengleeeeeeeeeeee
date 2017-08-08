@@ -18,7 +18,7 @@
         <!--个人资料-->
         <!--购物车-->
         <div class="order-wrapper">
-            <a href="#cart" class="item-cls">我的购物车
+            <a href="#cart" class="item-cls">我的订单
                 <img class="more" src="./more.png">
             </a>
         </div>
@@ -152,7 +152,7 @@ export default {
 @import '../../commom/stylus/mixin'
   width = 100%
   color = #fff
-  .myCenter-wrapper
+.myCenter-wrapper
         position: absolute
         top: 1.4063rem
         left: 0

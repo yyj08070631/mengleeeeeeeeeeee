@@ -11,7 +11,7 @@
             </div>
                 <img class="append" width="84" height="84" src="./append.png"/>
             <img class="QRcode" width="446" height="446" src="./QRcode.png"/>
-            <p class="desc">识别二维码，加入我的女神行列</p>
+            <p class="desc">识别二维码，加入我的梦乐城</p>
         </div>
   </div>
 </template>

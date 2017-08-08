@@ -10,7 +10,7 @@
                 <router-link to="/myCenter" active-class="myCenter-link--Active" :class="{'myCenter-link--Active':$route.path=='/subscribe'|| $route.path=='/subscribeNow'}"><div class="myCenter"></div>个人中心</router-link>
             </div>
             <div class="tag-list">
-                <router-link to="/orderFrom" active-class="orderFrom-link--Active"><div class="orderFrom"></div>查看订单</router-link>
+                <router-link to="/orderFrom" active-class="orderFrom-link--Active"><div class="orderFrom"></div>购物袋</router-link>
             </div>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="goodDetail-wrapper">
+    <div class="addrEdit-wrapper">
         <!-- header -->
         <v-header></v-header>
         <!-- 主体 -->

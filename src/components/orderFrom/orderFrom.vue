@@ -33,10 +33,7 @@
                     <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
                         <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
                     </div>
-                    
                 </div>
-                <!-- 分割线 -->
-            <hr class="dirLine">
                 <div class="content-item content-item-top" v-for="(val,key) in moreData">
                     <img class="product" :src="val.mainmap" />
                     <div class="product-message">
@@ -270,7 +267,16 @@ width100 = 100%
                 height: 3.4375rem
             .content-item
                 display: flex
-                position: relative       
+                position: relative 
+                border-bottom-1px(#e0e0e0) 
+                &:before
+                    content '' 
+                    position absolute
+                    width 0.5625rem
+                    height 0.0625rem
+                    background #fff
+                    bottom 0
+                    z-index 1000
                 .product
                     display block
                     float: left

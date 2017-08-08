@@ -270,7 +270,7 @@ img, span, a
     // 主体
     .main
         background-color #f0f0f0
-        margin-top 1.25rem
+        margin-top 1.4063rem
         // 分割线
         .divider
             border-bottom 0.3125rem solid #e0e0e0

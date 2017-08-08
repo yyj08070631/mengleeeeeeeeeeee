@@ -24,14 +24,14 @@
         <!-- 查看更多活动 -->
         <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a>
         <!-- logo & copyright -->
-        <div class="footer">
+        <footer id="footer">
             <div class="rowUp">
                 <div class="logo"></div>
             </div>
             <div class="rowDown">
                 <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
             </div>
-        </div>
+        </footer>
         <!-- footer -->
         <v-view class="route-item"></v-view>
     </div>
@@ -163,11 +163,11 @@ export default {
         color: #ea68a2
         background: #fff
     //脚注
-    .footer
+    #footer
         width: 100%
         height: 1.9063rem
         background: #f0f0f0
-        padding 0.3125rem 0
+        padding 0.3125rem 0 1.875rem 0
         .rowUp
             display flex
             align-items center
