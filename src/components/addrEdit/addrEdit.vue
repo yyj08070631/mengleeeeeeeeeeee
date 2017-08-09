@@ -1,12 +1,13 @@
 <template>
-    <div class="goodDetail-wrapper">
+    <div class="addrEdit-wrapper">
         <!-- header -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
+            <div class="divider"></div>
             <!-- 收货人 -->
             <div class="infoBox">
-                <div class="rowLeft">收&nbsp;货&nbsp;&nbsp;人：</div>
+                <div class="rowLeft">收货人：</div>
                 <input class="rowRight" placeholder="请填写收货人姓名" maxlength="8" v-model="name">
             </div>
             <!-- 手机号码 -->
@@ -44,13 +45,13 @@
 </template>
  <script type="ecmascript-6">
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 import { Toast,Alert } from 'vux'
 export default {
     components: {
         vuxAddress,
         Toast,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -113,10 +114,12 @@ span, a, img, input, textarea
     left 0
     width 100%
     height 100%
-    background #fff
+    background #f0f0f0
     // 主体
     .main
-        margin-top 1.0938rem
+        // 分割线
+        .divider
+            border-top 0.3125rem solid #f0f0f0
         // 一般
         .infoBox
             display flex
@@ -128,7 +131,7 @@ span, a, img, input, textarea
             .rowLeft
                 display flex
                 justify-content flex-end
-                width 2.3438rem !important
+                width 2.8125rem !important
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight

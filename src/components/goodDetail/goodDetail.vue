@@ -1,11 +1,13 @@
 <template>
-	<div class="collect-wrapper">
+	<div class="collect-wrapper" v-infinite-scroll="loadDetail">
 		<!--头部  -->
         <v-header></v-header>
 		<!--图片轮播-->
-		<swiper :options="swiperOption" ref="mySwiper">
+		<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-if="detailItemList.albumitem.length == 0">
+		<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-else-if="detailItemList.albumitem.length == 1">
+		<swiper :options="swiperOption" ref="mySwiper" v-else>
 			<swiper-slide v-for="(item, index) in detailItemList.albumitem">
-					<img :src="item.src" width="100%" heigh="100%">
+					<img :src="item.src" class="imgShow">
 			</swiper-slide>
 			<!-- 这是轮播的小圆点 -->
 			<div class="swiper-pagination" slot="pagination"></div>
@@ -44,6 +46,7 @@
 				</div>
 			</div>
 			<hr class="divider dividerThin">
+			<div class="noComment" v-show="detailItemList.commentitem.comment.length == 0">还没有评论哦:-D</div>
 			<div class="commentDetailContainer" v-for="(val,key) in detailItemList.commentitem.comment">
 				<div class="commentDetail">
 					<div class="colLeft">
@@ -85,7 +88,8 @@
 		<!--超粗分割线-->
 		<hr class="divider dividerBig">
 		<!--继续拖动，查看图文详情-->
-		<div class="dragToView">
+		<div class="dragHelp" v-show="noDragToView"></div>
+		<div class="dragToView" v-show="dragToView">
 			<img src="./images/arrow_up.png">
 			<p>继续拖动，查看图文详情</p>
 		</div>
@@ -215,7 +219,9 @@ export default {
                     // console.log(width);
                     return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
                 }
-            }
+			},
+			dragToView: false,
+			noDragToView: true
 		}
 	},
 	methods: {
@@ -317,6 +323,20 @@ export default {
 				})
 			this.closeCart()
 		},
+		// 下拉显示图文详情：使用infinite-scroll
+		loadDetail: function(){
+			let that = this;
+			if(!that.dragToView){
+				setTimeout(function(){
+					that.dragToView = true;
+					that.noDragToView = false;
+				},500);
+			} else {
+				setTimeout(function(){
+					that.$router.push({ path: 'imageText', query: { gid: that.$route.query.gid }});
+				},500);
+			}
+		}
 	},
 	mounted() {
 		this.$nextTick(function () {
@@ -346,12 +366,11 @@ export default {
 		height 100%
 		background #f0f0f0
 		// 分页器
+		.imgShow
+			width 100%
+			height 10rem
 		.swiper-container
-			margin-top 1.0938rem
-		.swiper-slide
-			img
-				width 100%
-				height 10rem
+			margin-top 1.4063rem
 		.swiper-pagination
 			display flex
 			left 50% !important
@@ -490,6 +509,14 @@ export default {
 						margin-right 0.625rem
 						text-align justify
 						color #333
+			// 没有评论
+			.noComment
+				display flex
+				align-items center
+				justify-content center
+				height 1.5313rem
+				width 100%
+				font-size 0.4063rem
 			.viewMore
 				color #ea68a2
 				display flex
@@ -504,11 +531,17 @@ export default {
 		.dividerBig
 			border-width 23px
 		// 继续拖动，查看图文详情
+		.dragHelp
+			width 100%
+			height 1.2031rem
+			background-color #f0f0f0
 		.dragToView
 			display flex
 			justify-content center
 			align-items center
 			height 1.5313rem
+			margin-bottom 1.1875rem
+			background-color #f0f0f0
 			img
 				display block
 				width 0.3438rem

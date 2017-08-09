@@ -44,6 +44,9 @@ import Vuex from 'vuex';
 import AMap from 'vue-amap'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
+import { InfiniteScroll } from 'mint-ui';
+
+Vue.use(InfiniteScroll);
 Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {

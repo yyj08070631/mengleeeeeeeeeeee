@@ -372,7 +372,7 @@ class2()
                 margin-top 0.3125rem
                 font-size 0.4375rem
         .goods-item1:nth-child(odd),.goods-item2:nth-child(odd)
-             border-right: 0.0313rem solid #e0e0e0  
+            border-right: 0.0313rem solid #e0e0e0  
         .goods-item1
             class1()
         .goods-item2

@@ -2,7 +2,7 @@
     <div class="addrEditReal-wrapper">
         <!--头部-->
          <!-- header -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
             <!-- 收货人 -->
@@ -38,11 +38,11 @@
 </template>
  <script type="ecmascript-6">
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
         vuxAddress,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -128,7 +128,7 @@ span, a, img, input, textarea
     background #f0f0f0
     // 主体
     .main
-        margin-top 1.0938rem
+        border-top 0.3125rem solid #f0f0f0
         // 一般
         .infoBox
             display flex
@@ -140,7 +140,7 @@ span, a, img, input, textarea
             .rowLeft
                 display flex
                 justify-content flex-end
-                width 2.1875rem
+                width 2.8125rem !important
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight

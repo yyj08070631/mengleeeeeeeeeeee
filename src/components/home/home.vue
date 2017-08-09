@@ -24,7 +24,7 @@
         <!-- 查看更多活动 -->
         <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a>
         <!-- logo & copyright -->
-        <div class="footer">
+        <div class="footerLogo">
             <div class="rowUp">
                 <div class="logo"></div>
             </div>
@@ -163,7 +163,7 @@ export default {
         color: #ea68a2
         background: #fff
     //脚注
-    .footer
+    .footerLogo
         width: 100%
         height: 1.9063rem
         background: #f0f0f0

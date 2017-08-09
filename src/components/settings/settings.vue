@@ -1,7 +1,7 @@
 <template>
     <div class="settings-wrapper">
-         <!--头部  -->
-        <v-header></v-header>
+        <!-- header -->
+        <!-- <v-header></v-header> -->
         <div class="avatar-wrapper">
             <img class="avatar-cover" width="100%" height="100%" :src="data.headimg" />
             <div class="filter"></div>
@@ -194,12 +194,12 @@
 
 <script type="ecmascript-6">
 import { Toast, Group } from 'vux'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
         Toast,
         Group,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -440,24 +440,24 @@ export default {
         padding-bottom: 0.6875rem
         .avatar-wrapper
             position: relative
-            margin-top: 1.4063rem
             width: 100% 
-            height: 7.375rem
+            height: 6.5625rem
             overflow: hidden
             font-size: 0
             .avatar-cover
                 position: absolute
-                left: 0
-                top: 0
+                right 0
+                bottom 0
+                width 100%
+                height 10rem
                 filter: blur(0.1563rem)
             .filter
                 position: absolute
                 left: 0
                 top: 0
-                width: width
-                height: width
-                filter: blur(0.1563rem)
-                background: linear-gradient(rgba(0,0,0,0) 60%,rgba(255,255,255,0.3) 30%,rgba(255,255,255,1))
+                width: 100%
+                height: 100%
+                background: linear-gradient(rgba(0,0,0,0) 20%, rgba(255,255,255,1))
             .avatar
                 position: absolute
                 left: 50%

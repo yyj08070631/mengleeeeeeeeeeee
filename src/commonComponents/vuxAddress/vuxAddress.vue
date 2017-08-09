@@ -63,9 +63,10 @@ export default {
         height: 100%;
         .weui-cell__hd {
             display: flex;
+            justify-content: flex-end;
             align-items: center;
-            width: 2.3438rem;
-            margin: 0 0.75rem 0 0.3125rem;
+            width: 2.8125rem;
+            margin: 0 0.5781rem 0 0.3125rem;
             .weui-label {
                 width: 2.3438rem;
             }

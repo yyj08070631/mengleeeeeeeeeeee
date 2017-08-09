@@ -1,7 +1,7 @@
 <template>
     <div class="orderFrom-wrapper">
         <!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <div class="order-content-wrapper item-cls">
             <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
             <div class="order-content">
@@ -30,7 +30,7 @@
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
 
 export default {
@@ -41,7 +41,7 @@ export default {
         XButton,
         Divider,
         'v-view': view,
-        'v-header': header
+        // 'v-header': header
     },
     ready() {
 

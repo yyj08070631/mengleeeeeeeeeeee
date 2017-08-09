@@ -277,7 +277,7 @@ export default {
         position: fixed
         height 1.1563rem !important
         bottom 0
-        left: 0        
+        left: 0
         .buy-tag
             display: flex
             justify-content flex-end

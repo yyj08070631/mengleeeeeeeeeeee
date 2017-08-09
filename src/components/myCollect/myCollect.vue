@@ -1,7 +1,6 @@
 <template>
-    <div class="goodDetail-wrapper">
-        <!--头部-->
-         <!--头部  -->
+    <div class="myCollect-wrapper">
+        <!-- 头部 -->
         <v-header></v-header>
         <!-- 主体 -->
         <section class="main">
@@ -14,7 +13,8 @@
                     <div class="rowUp">{{val.name}}</div>
                     <div class="rowMiddle" v-if="val.type == 1">
                         <span>￥</span>  
-                        <span>{{val.price}}</span>
+                        <span>{{val.price | numBig}}</span>
+                        <span>.{{val.price | numSmall}}</span>
                     </div>
                     <div class="rowDown">
                         <a href="javascript:void(0)" class="add" v-if="val.type == 1"> 
@@ -35,8 +35,8 @@
 						 </div>
 					</div>
 					<div>
-						   <span>{{saveData.name}}</span>  
-						  <span>￥{{saveData.price}}</span>   
+                        <span>{{saveData.name}}</span>
+                        <span>￥{{saveData.price | num}}</span>
 					</div>
 					<div>
 						<img src="./images/close.png" @click="closeCart">
@@ -217,12 +217,27 @@ export default {
         onShow () {
             this.show = true  
             }
+    },
+    mounted(){
+        this.$nextTick(function(){
+            this.getDataFromBackend()
+        })
+    },
+    filters: {
+        numBig: function (value) {
+            value = parseFloat(value).toFixed(2).split('.')[0];
+            return value
         },
-        mounted(){
-            this.$nextTick(function(){
-                this.getDataFromBackend()
-            })
-        }
+        numSmall: function(value){
+            value = parseFloat(value).toFixed(2).split('.')[1];
+            return value
+        },
+        // 1025.00
+        num: function(value){
+            value = parseFloat(value).toFixed(2);
+            return value
+        },
+    },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -231,7 +246,7 @@ export default {
 width = 100%
 color = #fff
 // 外层元素
-.goodDetail-wrapper
+.myCollect-wrapper
     margin-top 1.5rem
     padding-bottom 0.5625rem
     width width
@@ -256,7 +271,6 @@ color = #fff
             width 100%
             margin-top 0.3125rem
             & > img
-                margin-left 0.5rem
                 width 3.25rem
                 height 3.25rem
             .info
@@ -271,9 +285,9 @@ color = #fff
                     padding 0 0 0.3125rem 0.25rem
                     color #ea68a2
                     span:first-child, span:last-child
-                        font-size 0.4375rem
+                        font-size 0.375rem
                     span:nth-child(2)
-                        font-size 0.5rem
+                        font-size 0.4375rem
                 .rowDown
                     display flex
                     justify-content flex-end
@@ -391,7 +405,7 @@ color = #fff
                 display flex
                 width 100%
                 height 2.8438rem
-                border-bottom-1px(#e0e0e0)
+                border-bottom 1px solid #e0e0e0
                 font-size 0.375rem
                 div:first-child
                     position relative

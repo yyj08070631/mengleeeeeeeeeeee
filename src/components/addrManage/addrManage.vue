@@ -1,7 +1,7 @@
 <template>
     <div class="addrManage-wrapper">
         <!--头部-->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
             <!-- 一个收货地址 -->
@@ -49,12 +49,12 @@
 <script type="ecmascript-6">
 import { Toast,Alert } from 'vux'
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
         Toast,
         Alert,
-        'v-header': header
+        // 'v-header': header
         
     },
     data() {
@@ -121,14 +121,13 @@ span, a, img, input, textarea
     left 0
     width 100%
     height 100%
-    background #fff
+    background #f0f0f0
     // 详情页header
     .header
        headerCss()
     // 主体
     .main
-        margin-bottom 1.4063rem
-        margin-top 1.0938rem
+        border-top 0.3125rem solid #f0f0f0
         // 无收货地址
         .emptyType
             display flex

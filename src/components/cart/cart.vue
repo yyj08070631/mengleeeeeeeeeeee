@@ -1,5 +1,5 @@
 <template>
-    <div class="goodDetail-wrapper">
+    <div class="cart-wrapper">
         <!--头部-->
         <header class="header">
             <div class="goBack">
@@ -370,7 +370,7 @@ span, a, img, input, textarea
     display block
 
 // 外层元素
-.goodDetail-wrapper
+.cart-wrapper
     position absolute
     top 1.0938rem
     left 0
