@@ -31,7 +31,7 @@
             <div class="rowDown">
                 <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
             </div>
-        </div>
+        </footer>
         <!-- footer -->
         <v-view class="route-item"></v-view>
     </div>
@@ -167,7 +167,7 @@ export default {
         width: 100%
         height: 1.9063rem
         background: #f0f0f0
-        padding 0.3125rem 0
+        padding 0.3125rem 0 1.875rem 0
         .rowUp
             display flex
             align-items center

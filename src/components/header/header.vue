@@ -1,6 +1,6 @@
 <template>
     <div class="header-bar">
-        <a href="#home"><img src="./home.png"></a>
+        <a href="javascript:history.back(1)"><img src="./home.png"></a>
         <div></div>
         <a href="#search"><img src="./search.png"></a>
         <a href="#myCenter"><img src="./center.png"></a>

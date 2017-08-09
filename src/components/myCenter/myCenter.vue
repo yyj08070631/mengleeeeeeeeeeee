@@ -18,8 +18,12 @@
         <!--个人资料-->
         <!--购物车-->
         <div class="order-wrapper">
+<<<<<<< HEAD
             <a href="#cart" class="item-cls">
                 <p>我的购物车</p>
+=======
+            <a href="#cart" class="item-cls">我的订单
+>>>>>>> 133986aeac8e04b9def5c4ccd80a5203582d5929
                 <img class="more" src="./more.png">
             </a>
         </div>

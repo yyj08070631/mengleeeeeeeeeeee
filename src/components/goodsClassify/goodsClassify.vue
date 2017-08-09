@@ -2,7 +2,8 @@
     <div class="goodsClassify-wrapper">
         <!-- header -->
         <v-header></v-header>
-        <div class="select-type">
+        <div class="screenWrapper">
+            <div class="select-type">
             <a href="javascript:" @click="showList" class="screen">筛选</a>
             <a href="javascript:" @click="changeClass" class="sort">排列方式</a>
             <div id="screenType" v-show="isShow">
@@ -26,7 +27,8 @@
                 </a>
             </div>
         </div>
-        <div class="goods-wrapper">
+        </div>
+        <div class="good-wrapper">
             <div v-if="goodsItemList.gooditem.length < 1" class="noGoods">暂无商品&nbsp;:) <router-link to="/goods">->随便逛逛<-</router-link></div>
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
                 <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click="collectGood(item.id,item.colid,item.iscolitems)" />
@@ -311,20 +313,27 @@ class2()
             color: #909090
 // 这是什么
 .goodsClassify-wrapper
-    margin-top: 1.4063rem
+    margin-top: 2.3438rem
     padding-bottom 1.25rem
     .route-item
         footerCss()
     .header
         headerCss()
+    .screenWrapper
+        position fixed
+        top 1.4063rem    
+        width 100%
+        background rgba(255,255,255,0.4)
+        z-index 1000
     .select-type
         position: relative
+        top 0 
+        left 0
         width: 100%
         height: 0.9688rem
         line-height: 0.9688rem
         font-size: 0.4063rem
-        z-index: 100
-        border-bottom-1px(#e0e0e0)  
+        border-bottom-1px(#e0e0e0)
         .screen
             color: #ea68a2
             margin-left: 0.5rem
@@ -341,7 +350,7 @@ class2()
             height: 0.9375rem
             line-height: 0.9375rem
             text-align: right
-            background: #fff
+            background: rgba(255,255,255,0.8)
             border-bottom: 0.0313rem solid #e0e0e0
             a
                 display: flex
@@ -354,10 +363,10 @@ class2()
                 div:last-child
                     flex: 1 
                     img
-                        margin-right: 0.3125rem
+                        margin-right: 0.625rem
                         width: 0.25rem
 
-    .goods-wrapper
+    .good-wrapper
         width: 100%
         display flex
         flex-wrap wrap

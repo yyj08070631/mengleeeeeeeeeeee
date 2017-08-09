@@ -75,7 +75,7 @@ export default {
         .header
             headerCss()
         .title-board
-            padding: 0.8438rem 0 0 0.3375rem
+            padding: 1.8438rem 0 0 0.3375rem
             width: width
             height: 3.5313rem
             background: #ea6aa2
@@ -84,7 +84,7 @@ export default {
                 font-size: 0.4063rem
                 vertical-align: top
             .myTitle
-                margin-top: 0.75rem
+                // margin-top: 0.75rem
                 font-size: 1.6875rem
         .get-title
             display: block

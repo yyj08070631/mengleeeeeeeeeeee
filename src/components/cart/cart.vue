@@ -53,7 +53,7 @@
             <div class="dividerBig"></div>
         </section>
         <!-- 脚部 -->
-        <footer class="footer">
+        <footer class="foot">
             <div class="colLeft">
                 <img src="./images/unchecked.png" @click="checkAllBox" ref="allCheckHook">
                 <p class="selAll">全选</p>
@@ -372,7 +372,7 @@ span, a, img, input, textarea
 // 外层元素
 .cart-wrapper
     position absolute
-    top 1.0938rem
+    top 0
     left 0
     width width
     height: 100%
@@ -424,8 +424,10 @@ span, a, img, input, textarea
                 width 100%
                 margin-left 0.2188rem
                 .rowUp
+                    margin-top 0.3125rem
                     font-size 0.4063rem
                 .rowDown
+                    margin-bottom 0.3125rem
                     display flex
                     justify-content space-between
                     .price
@@ -467,7 +469,7 @@ span, a, img, input, textarea
                         font-size 0.5rem
                         margin-right 0.5rem    
     // 脚部
-    .footer
+    .foot
         display flex
         align-items center
         justify-content space-between

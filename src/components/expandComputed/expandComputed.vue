@@ -100,6 +100,7 @@ export default {
             padding-top 1.0938rem
             background-color #ea68a2
             .rank-title
+                display block 
                 padding .8438rem 0 .75rem .5rem
                 font-size .4063rem
                 color #fff

@@ -85,9 +85,10 @@ export default {
         background: #f0f0f0
         .title-board
             height 4.375rem
-            padding-top 1.0938rem
+            padding-top 1.4063rem
             background-color #ea68a2
             .rank-title
+                display block !important
                 padding .8438rem 0 .75rem .5rem
                 font-size .4063rem
                 color #fff
@@ -105,6 +106,7 @@ export default {
             font-size: 0
             border-bottom-1px(#e0e0e0)
             .title
+                margin-top 0 !important
                 margin-left: 0.5rem
                 float: left 
                 font-size: 0.4063rem
