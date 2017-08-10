@@ -3,12 +3,14 @@
         <!--头部-->
         <header class="header">
             <div class="goBack">
-                <a href="javascript:history.back(1)">
+                <!-- <a href="javascript:history.back(1)">
                     <img src="./images/arrow_left.png">
-                    <span>返回</span>
-                </a>
+                    <span>返回</span> 
+                </a> -->
             </div>
-            <div class="title">我的购物袋</div>
+            <div class="title">
+                <!-- 我的购物袋 -->
+            </div>
             <div class="search" @click="writeCart()">
                 <p v-show="writeType == 0" @click="finish(false)">编辑</p>
                 <p v-show="writeType == 1" @click="finish();changeNum()">完成</p>
@@ -16,9 +18,10 @@
         </header>
         <!-- 主体 -->
         <section class="main">
-            <p v-show="data.data.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
             <!-- 超大分割线 -->
             <div class="dividerBig"></div>
+            <!-- 购物车为空 -->
+            <p v-show="data.data.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
             <!-- 一个商品 -->
             <div class="oneProduct" v-for="(val,key) in data.data">
                 <!-- 选择框 -->
@@ -36,7 +39,8 @@
                     <div class="rowDown">
                         <span class="price">
                             <span>￥</span>
-                            <span>{{val.price}}</span>
+                            <span>{{val.price | numBig}}</span>
+                            <span>.{{val.price | numSmall}}</span>
                         </span>
                         <div class="count" v-show="showWrite">
                             <a href="javascript:void(0)" @click="numberSub(val.id)">-</a>
@@ -48,9 +52,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 一个商品 -->
-            <!-- 超大分割线 -->
-            <div class="dividerBig"></div>
         </section>
         <!-- 脚部 -->
         <footer class="foot">
@@ -63,7 +64,7 @@
                 <p class="price">￥{{totalPrice}}</p>
             </div>
             <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a>
-            <a href="javascript:void(0)" class="del" v-show="showWrite" @click="onShow" >删除</a>
+            <a href="javascript:void(0)" class="del" v-show="showWrite" @click="onShow">删除</a>
         </footer>
         <!-- 脚部 -->
         <!-- 页面所有弹窗 -->
@@ -76,7 +77,7 @@
         <div>
             <toast v-model="writeAfter" type="text">已修改</toast>
         </div>
-        <alert v-model="show" title="提示" @on-show="onShow"  @on-hide="onHide">
+        <alert v-model="show" title="提示" @on-show="onShow" @on-hide="onHide">
             <button class="btn1" @click="onHide();delCartList();">确定</button>
             <button class="btn2" @click="onHide();">取消</button>
             请确认删除
@@ -338,10 +339,10 @@ export default {
                 this.showPay = true
             }
         },
-        onShow: function(){
+        onShow: function () {
             this.show = true
         },
-        onHide: function(){
+        onHide: function () {
             this.show = false
         }
     },
@@ -357,7 +358,17 @@ export default {
             }
             return sum
         }
-    }
+    },
+    filters: {
+        numBig: function (value) {
+            value = parseFloat(value).toFixed(2).split('.')[0];
+            return value
+        },
+        numSmall: function(value){
+            value = parseFloat(value).toFixed(2).split('.')[1];
+            return value
+        }
+    },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -382,6 +393,7 @@ span, a, img, input, textarea
         headerFlex()
     // 主体
     .main
+        margin-top 1.25rem
         margin-bottom 1.4063rem
         //没有商品
         .noGoods
@@ -389,11 +401,11 @@ span, a, img, input, textarea
             font-size 0.4688rem
             text-align center
             color #333
-        // 分割线    
-        // .dividerBig
-        //     width 100%
-        //     height 0.3125rem
-        //     background-color #f0f0f0
+        // 大分割线    
+        .dividerBig
+            width 100%
+            height 0.3125rem
+            background-color #e0e0e0
         // 一个产品
         .oneProduct
             display flex
@@ -436,9 +448,9 @@ span, a, img, input, textarea
                         margin-bottom 0.125rem
                         color #ea68a2
                         span:first-child, span:last-child
-                            font-size 0.4375rem
+                            font-size 0.375rem
                         span:nth-child(2)
-                            font-size 0.5rem
+                            font-size 0.4375rem
                     .count
                         display flex
                         margin-right 0.4063rem
@@ -489,7 +501,7 @@ span, a, img, input, textarea
                 height 0.6719rem
                 margin-right 0.3125rem
             .selAll
-                font-size 0.4063rem
+                font-size 0.5rem
                 color #333
         .colMiddle
             display flex
@@ -497,7 +509,7 @@ span, a, img, input, textarea
             height 100%
             margin-left 1.25rem
             .total
-                font-size 0.4063rem
+                font-size 0.5rem
                 color #333
             .price
                 font-size 0.5rem

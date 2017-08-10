@@ -1,7 +1,7 @@
 <template>
     <div class="buyGoods-wrapper">
         <!-- header -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <router-link to="/addrManage" class="userInfo">
             <div>
                 <img src="./location.png">
@@ -62,7 +62,7 @@
 import view from '../../components/view/view';
 import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Checker, CheckerItem, Popup } from 'vux'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     directives: {
         TransferDom
@@ -73,7 +73,7 @@ export default {
         Checker,
         CheckerItem,
         Popup,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -218,8 +218,7 @@ export default {
         background: #fff
         font-size: 0
         align-items: center
-        border-bottom-1px(#e0e0e0)
-        padding-top 1.0938rem
+        border-bottom 1px soild #e0e0e0
         margin-bottom: 0.3125rem
         div:not(:nth-child(2))
             display flex
@@ -276,12 +275,14 @@ export default {
     .footer
         position: fixed
         height 1.1563rem !important
+        width 100%
         bottom 0
         left: 0
         .buy-tag
             display: flex
             justify-content flex-end
             height: 1.1563rem
+            width 100%
             background: #fff
             font-size: 0
             border-top-1px(#e0e0e0)

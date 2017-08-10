@@ -1,7 +1,8 @@
 <template>
     <div class="goodsClassify-wrapper">
         <!-- header -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
+        <v-search-head></v-search-head>
         <div class="screenWrapper">
             <div class="select-type">
             <a href="javascript:" @click="showList" class="screen">筛选</a>
@@ -61,7 +62,8 @@
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
+import searchHead from '../../commonComponents/searchHead/searchHead';
 import { Toast, Group } from 'vux'
 export default {
     data() {
@@ -88,9 +90,10 @@ export default {
     props: ['id'],
     components: {
         'v-view': view,
-        'v-header': header,
+        // 'v-header': header,
         Toast,
         Group,
+        'v-search-head': searchHead,
     },
     methods: {
         changeClass: function () {

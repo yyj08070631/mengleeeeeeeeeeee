@@ -1,8 +1,8 @@
 <template>
     <div class="goodsData-wrapper">
          <!--头部  -->
-        <v-header></v-header>
-         <div  class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
+        <!-- <v-header></v-header> -->
+         <div class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
          <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)"  v-else>
         </div>
         <footer class="myFooter">
@@ -60,12 +60,12 @@
 </template>
 <script type="ecmascript-6">
 import { Toast, Group } from 'vux'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
   components: {
         Toast,
         Group,
-        'v-header': header
+        // 'v-header': header
     },
   data(){
       return {
@@ -182,21 +182,18 @@ export default {
 @import '../../commom/stylus/mixin'
 .menu-wrapper
     display: none    
-.goodsData-wrapper 
-    width =  100%
-    height = 100%
-    padding-top: 1.0938rem
-    .header
-        headerCss()
+.goodsData-wrapper
+    // .header
+    //     headerCss()
     .noGoods
-            margin-top 60%
-            font-size 0.4688rem
-            text-align center
-            color #333
-            a
-                color #ea68a2
-                margin-top 0.3125rem
-                font-size 0.4375rem        
+        margin-top 60%
+        font-size 0.4688rem
+        text-align center
+        color #333
+        a
+            color #ea68a2
+            margin-top 0.3125rem
+            font-size 0.4375rem        
     .content-wrapper
         margin: 1.25rem 0 1.1875rem 0.5rem
         font-size 0.4063rem
@@ -227,7 +224,7 @@ export default {
         align-items center
         justify-content flex-end
         height 1.1875rem
-        width width
+        width 100%
         background-color #f9f9f9
         border-top 0.0313rem solid #e0e0e0
         >a:nth-child(1)

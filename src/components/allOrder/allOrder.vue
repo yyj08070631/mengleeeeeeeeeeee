@@ -1,15 +1,15 @@
 <template>
     <div class="orderFrom-wrapper">
-        <!--头部  -->
+        <!-- 头部 -->
         <!-- <v-header></v-header> -->
         <div class="order-content-wrapper item-cls">
             <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
             <div class="order-content">
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
-                    <img class="product" width=104 height=104 :src="val.mainmap" />
+                    <img class="product" :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
-                        <p class="num">单价:{{val.price}}</p>
+                        <p class="num">单价:￥{{val.price}}</p>
                         <p class="price">总价:￥{{val.price*val.number}}</p>
                     </div>
                     <div>
@@ -25,7 +25,6 @@
                 </div>
             </div>
         </div>
-        <!--头部  -->
     </div>
 </template>
 <script type="ecmascript-6">
@@ -116,14 +115,11 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-mg-width = 1.125rem
-width100 = 100%
-  .orderFrom-wrapper   
-    margin-top: 1.0938rem
+.orderFrom-wrapper
     padding-bottom: 1.3438rem 
     width: 100%
     height: 100%
-    background: #fff
+    background: #f0f0f0
     .route-item
         footerCss()
     .header
@@ -167,7 +163,8 @@ width100 = 100%
             .content-item
                 display flex
                 position: relative
-                border-bottom-1px(#e6e6e6)           
+                border-bottom 1px solid #e0e0e0
+                background-color #fff
                 .product
                     float: left
                     width: 1.625rem 
@@ -234,8 +231,6 @@ width100 = 100%
             margin-left: -0.4688rem
             width: 100%
             height: 11px
-            background: #f0f0f0   
-             
-                            
+            background: #f0f0f0
 </style>    
 

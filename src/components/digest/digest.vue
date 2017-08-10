@@ -1,7 +1,7 @@
 <template>
     <div class="digest-wrapper">
         <!-- header -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <div class="serve"></div>
         <div class="serve-desc">
             <h2 class="desc-title">{{appData.sericeitem.name}}</h2>
@@ -17,7 +17,7 @@
                 <span class="mg-top">{{appData.timeitem.date}}</span>
             </div>
         </div>
-        <div class="divider"></div>
+        <div class="divider dividerShort"></div>
         <div class="serve-date-address">
             <span class="date">地址</span>
             <div class="details">
@@ -33,11 +33,11 @@
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components :{
         'v-view': view,
-        'v-header': header
+        // 'v-header': header
     },
     data(){
         return {
@@ -70,27 +70,23 @@ export default {
     @import '../../commom/stylus/mixin'
     // init
     *
-        letter-spacing 0.0313rem
+        letter-spacing 1px
     img, span, a
         display block
-    changeDividerMargin($n)
-        margin-left $n
 
     .digest-wrapper
         margin-bottom: 1.3438rem
         width: 100%
         height: 100%
         .divider
-            border-top-1px(#e0e0e0)
-        .dividerMargin16px
-            changeDividerMargin(0.5rem)
-        .dividerMarginpx
+            border-top 1px solid #e0e0e0
+        .dividerShort
+            margin-left 3.8125rem
         .route-item
             footerCss()
         .serve
             width: 100%
             height: 6.6875rem
-            margin-top 1.4063rem
             background: url(./serve.png)
             background-size: 100% 6.6875rem
         .serve-desc
@@ -128,7 +124,7 @@ export default {
         .link
             display flex
             justify-content center
-            height 1.875rem
+            height 1.4375rem
             padding-top 0.4375rem
             font-size 0.4063rem
             color #ea68a2

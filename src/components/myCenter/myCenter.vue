@@ -1,7 +1,7 @@
 <template>
     <div class="myCenter-wrapper">
         <!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!--个人资料-->
         <a class="personal-wrapper" href="#settings">
             <img class="avator" :src="data.headimg">
@@ -15,7 +15,6 @@
                 <img src="./more.png">
             </div>
         </a>
-        <!--个人资料-->
         <!--购物车-->
         <div class="order-wrapper">
             <a href="#cart" class="item-cls">
@@ -23,7 +22,6 @@
                 <img class="more" src="./more.png">
             </a>
         </div>
-        <!--购物车-->
         <!--账单积分-->
         <div class="notecase-wrapper">
             <a href="#bill" class="item-cls">
@@ -45,21 +43,18 @@
                 </div>
             </a>
         </div>
-        <!--账单积分-->
-        <!--我的预约-->
+        <!--预约&收藏-->
         <div class="order-wrapper">
             <a href="#subscribe" class="item-cls">
                 <p>我的预约</p>
                 <img class="more" src="./more.png">
             </a>
-        </div>
-        <div class="order-wrapper">
             <a href="#myCollect" class="item-cls">
                 <p>我的收藏</p>
                 <img class="more" src="./more.png">
             </a>
         </div>
-        <!--我的预约-->
+        <!--统计-->
         <div class="team-wrapper">
             <a href="#myTeam" class="item-cls">
                 <p>我的团队</p>
@@ -78,7 +73,7 @@
                 <img class="more" src="./more.png">
             </a>
         </div>
-        <!--我的预约-->
+        <!--获得帮助-->
         <div class="helper">
             <a href="javascript:void(0)" class="item-cls">
                 <p>获得帮助</p>
@@ -99,18 +94,18 @@
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
         'v-view': view,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
             data: []
         }
     },
-    created() {
+    mounted() {
         this.getDataFromBackend()
     },
     methods: {
@@ -165,7 +160,6 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-width = 100%
 color = #fff
 // 初始化样式
 img, span, a
@@ -173,119 +167,118 @@ img, span, a
 // 主容器
 .myCenter-wrapper
     position: absolute
-    top: 1.4063rem
     left: 0
     padding-bottom: 1.25rem
-    width: width
+    width: 100%
     font-size: 0
     background: #f0f0f0
     .route-item
         footerCss()
-.personal-wrapper
-    display: block
-    position: relative
-    margin-bottom: 0.2813rem
-    width: 100%
-    height: 2.5625rem
-    background: color
-    .avator
-        margin: 0.4688rem 0.3125rem 0.4688rem 0.5rem
-        float: left
-        width: 1.625rem
-        height: 1.625rem
-    .personal
-        width: 6.25rem
-        float: left
-    .name
-        display: inline-block
-        margin: 0.4688rem 0 0.1875rem 0
-        font-size: 0.4375rem
-        color: #000
-    .mobile
+    .personal-wrapper
         display: block
-        font-size: 0.375rem
-        color: #909090
+        position: relative
         margin-bottom: 0.2813rem
-    .rank
-        width: 1.125rem
-        height: 0.375rem    
-    .more-link
-        position: absolute
-        right: 0.5rem
-        top: 50%
-        margin-top: -0.1875rem
-        .qr-code
-            margin-right: 0.375rem
-        img
+        width: 100%
+        height: 2.5625rem
+        background: color
+        .avator
+            margin: 0.4688rem 0.3125rem 0.4688rem 0.5rem
             float: left
-            margin-right 0.1563rem
-            width: 0.375rem
-            height: 0.375rem
-.notecase-wrapper
-    width: 100%
-    background: color
-.order-wrapper
-    margin: 0.2813rem 0
-    width: 100%
-    font-size: 26px 
-    background: color
-// 单功能
-.item-cls
-    display flex
-    justify-content space-between
-    align-items center
-    margin-left 0.5rem
-    width 95%
-    height 1.3438rem
-    border-bottom 1px solid #e0e0e0
-    font-size 0.4063rem
-    color #333
-    &:last-child
-        border 0
-    &>.more
-        margin-right: 0.5rem
-        width: 0.375rem
-        height: 0.375rem
-    div
-        display flex
-        margin-right: 0.5rem
-        &>.more
-            width: 0.375rem
-            height: 0.375rem
-        .num
-            margin-right 0.3438rem
-            color #909090
-.team-wrapper 
-    width: 100%
-    background: color
-.helper
-    width: 100%
-    background: color
-    margin-top: 0.2813rem 
-//脚注
-.footer
-    width: 100%
-    height: 1.9063rem
-    background: #f0f0f0
-    padding 0.3125rem 0
-    .rowUp
-        display flex
-        align-items center
-        justify-content center
-        padding-top 0.3125rem
-        .logo  
-            width: 2.6563rem
-            height: 0.625rem
-            background: url("./logo.png")
-            background-size: 2.6563rem 0.625rem
-    .rowDown
-        display flex
-        align-items center
-        justify-content center
-        padding-top 0.3125rem        
-        .Copyright
-            text-align: center
-            font-size: 0.3438rem
+            width: 1.625rem
+            height: 1.625rem
+        .personal
+            width: 6.25rem
+            float: left
+        .name
+            display: inline-block
+            margin: 0.4688rem 0 0.1875rem 0
+            font-size: 0.4375rem
+            color: #000
+        .mobile
+            display: block
+            font-size: 0.375rem
             color: #909090
+            margin-bottom: 0.2813rem
+        .rank
+            width: 1.125rem
+            height: 0.375rem    
+        .more-link
+            position: absolute
+            right: 0.5rem
+            top: 50%
+            margin-top: -0.1875rem
+            .qr-code
+                margin-right: 0.375rem
+            img
+                float: left
+                margin-right 0.1563rem
+                width: 0.375rem
+                height: 0.375rem
+    .notecase-wrapper
+        width: 100%
+        background: color
+    .order-wrapper
+        margin: 0.2813rem 0
+        width: 100%
+        font-size: 26px 
+        background: color
+    // 单功能
+    .item-cls
+        display flex
+        justify-content space-between
+        align-items center
+        margin-left 0.5rem
+        width 95%
+        height 1.3438rem
+        border-bottom 1px solid #e0e0e0
+        font-size 0.4063rem
+        color #333
+        &:last-child
+            border 0
+        &>.more
+            margin-right: 0.5rem
+            width: 0.375rem
+            height: 0.375rem
+        div
+            display flex
+            margin-right: 0.5rem
+            &>.more
+                width: 0.375rem
+                height: 0.375rem
+            .num
+                margin-right 0.3438rem
+                color #909090
+    .team-wrapper 
+        width: 100%
+        background: color
+    .helper
+        width: 100%
+        background: color
+        margin-top: 0.2813rem 
+    //脚注
+    .footer
+        width: 100%
+        height: 1.9063rem
+        background: #f0f0f0
+        padding 0.3125rem 0
+        .rowUp
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem
+            .logo  
+                width: 2.6563rem
+                height: 0.625rem
+                background: url("./logo.png")
+                background-size: 2.6563rem 0.625rem
+        .rowDown
+            display flex
+            align-items center
+            justify-content center
+            padding-top 0.3125rem        
+            .Copyright
+                text-align: center
+                font-size: 0.3438rem
+                color: #909090
 </style>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="goodsData-wrapper">
-          <!--头部  -->
-        <v-header></v-header>
+        <!-- 头部 -->
+        <!-- <v-header></v-header> -->
         <div class="activity-wrapper">
             <!-- v-if="orderList.collectitem.length == 0" -->
                 <div  class="noGoods" v-if="imageTextList.imageitem.content == ''">暂无商品信息&nbsp;:)</div>
@@ -11,7 +11,7 @@
         </div>
         <footer class="myFooter">
 			<a href="javascript:void(0)">
-				<img src="./share.png" height="32">
+				<img src="./share.png">
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
@@ -62,9 +62,9 @@
         </div>
     </div>
 </template>
- <script type="ecmascript-6">
- import { Toast, Group } from 'vux'
- import header from '../../components/header/header';
+<script type="ecmascript-6">
+import { Toast, Group } from 'vux'
+// import header from '../../components/header/header';
 export default {
   data(){
       return {
@@ -82,7 +82,7 @@ export default {
     components: {
         Toast,
         Group,
-        'v-header': header
+        // 'v-header': header
     },
   methods: {
         //改变收藏图标
@@ -179,10 +179,8 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-.goodsData-wrapper 
-    width =  100%
-    height = 100%
-    padding: 1.4063rem 0 1.25rem 0
+.goodsData-wrapper
+    padding: 0 0 1.25rem 0
     .activity-wrapper
         .noGoods
             margin-top 60%
@@ -204,7 +202,7 @@ export default {
         align-items center
         justify-content flex-end
         height 1.1875rem
-        width width
+        width 100%
         background-color #f9f9f9
         border-top 0.0156rem solid #e0e0e0
         >a:nth-child(1)

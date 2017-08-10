@@ -1,7 +1,7 @@
 <template>
     <div class="offlineInfo-wrapper">
-       <!--头部  -->
-        <v-header></v-header>
+        <!-- 头部 -->
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
@@ -117,12 +117,12 @@
 </template>
 <script type="ecmascript-6">
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
         swiper,
         swiperSlide,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -254,7 +254,6 @@ img, span, a
 // 外层元素
 .offlineInfo-wrapper
     position absolute
-    top 1.4063rem
     left 0
     width width
     background #fff

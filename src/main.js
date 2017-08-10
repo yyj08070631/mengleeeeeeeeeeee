@@ -169,10 +169,10 @@ const routes = [{
         path: '/subscribeNow',
         component: subscribeNow
     },
-    {
-        path: '/search',
-        component: search
-    },
+    // {
+    //     path: '/search',
+    //     component: search
+    // },
     {
         path: '/buyGoods',
         component: buyGoods

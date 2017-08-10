@@ -1,7 +1,7 @@
     <template >
     <div class="home-wrapper">
         <!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- banner轮播 -->
         <div v-for="(val,key) in dataApp" :key="key">
             <!-- <div>{{val.groupId}}</div> -->
@@ -23,24 +23,14 @@
         </div>
         <!-- 查看更多活动 -->
         <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a>
-        <!-- logo & copyright -->
-        <div class="footerLogo">
-            <div class="rowUp">
-                <div class="logo"></div>
-            </div>
-            <div class="rowDown">
-                <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
-            </div>
-            </footer>
-            <!-- footer -->
-            <v-view class="route-item"></v-view>
-        </div>
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 import mySwiper from '../mySwiper/mySwiper';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 
 export default {
     data() {
@@ -54,7 +44,7 @@ export default {
     components: {
         'v-view': view,
         'mySwiper': mySwiper,
-        'v-header': header
+        // 'v-header': header
     },
     methods: {
         // 获取数据方法
@@ -125,68 +115,42 @@ export default {
 }
 
 </script>
-    
-    <style lang="stylus" rel="stylesheet/stylus">
-    @import '../../commom/stylus/mixin'
-    .home-wrapper
-        position: absolute
-        top: 1.4063rem
-        left: 0
-        padding-bottom: 1.3438rem
-        width: 100%
-        height: 100%
-        background: #f0f0f0
-        .singleImg
-            width 100%
-            height 10rem
-        .route-item
-            footerCss()
-        .bannerTitle
-            display flex
-            justify-content center
-            align-items center
-            padding 0.625rem 0
-            font-size 0.8125rem
-            color #000
-            background-color #fff
-        .bannerDivider
-            width 100%
-            height 0.3125rem
-            background-color #f6f6f6
-    &.more-activity
-        display: block
-        width: 100%
-        height: 1.3125rem
-        line-height: 1.3125rem
-        font-size: 0.4688rem
-        text-align: center
-        border-top-1px(rgba(0,0,0,0.1))
-        color: #ea68a2
-        background: #fff
-    //脚注
-    .footerLogo
-        width: 100%
-        height: 1.9063rem
-        background: #f0f0f0
-        padding 0.3125rem 0 1.875rem 0
-        .rowUp
-            display flex
-            align-items center
-            justify-content center
-            padding-top 0.3125rem
-            .logo  
-                width: 2.6563rem
-                height: 0.625rem
-                background: url("./logo.png")
-                background-size: 2.6563rem 0.625rem
-        .rowDown
-            display flex
-            align-items center
-            justify-content center
-            padding-top 0.3125rem        
-            .Copyright
-                text-align: center
-                font-size: 0.3438rem
-                color: #909090 
-    </style>
+
+<style lang="stylus" rel="stylesheet/stylus">
+@import '../../commom/stylus/mixin'
+.home-wrapper
+    position: absolute
+    left: 0
+    padding-bottom: 1.3438rem
+    width: 100%
+    height: 100%
+    background: #f0f0f0
+    .singleImg
+        width 100%
+    .route-item
+        footerCss()
+    .bannerTitle
+        display flex
+        justify-content center
+        align-items center
+        padding 0.625rem 0
+        font-size 0.8125rem
+        color #000
+        background-color #fff
+    .bannerDivider
+        width 100%
+        height 0.3125rem
+        background-color #f6f6f6
+&.more-activity
+    display: block
+    width: 100%
+    height: 1.3125rem
+    margin-bottom 1.3438rem
+    line-height: 1.3125rem
+    font-size: 0.4688rem
+    text-align: center
+    border-top-1px(rgba(0,0,0,0.1))
+    color: #ea68a2
+    background: #fff
+</style>
 

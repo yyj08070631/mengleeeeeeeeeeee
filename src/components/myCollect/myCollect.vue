@@ -1,7 +1,7 @@
 <template>
     <div class="myCollect-wrapper">
         <!-- 头部 -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
             <!-- 正常收藏件 -->
@@ -75,14 +75,14 @@
         </alert>
     </div>
 </template>
- <script type="ecmascript-6">
- import { Toast,Alert } from 'vux'
-import header from '../../components/header/header';
+<script type="ecmascript-6">
+import { Toast,Alert } from 'vux'
+// import header from '../../components/header/header';
 export default {
     components: {
         Toast,
         Alert,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -243,15 +243,11 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
 
-width = 100%
-color = #fff
 // 外层元素
 .myCollect-wrapper
-    margin-top 1.5rem
-    padding-bottom 0.5625rem
-    width width
-    height width
-    background #fff!important
+    width 100%
+    height 100%
+    background #fff
     // 主体
     .main
         background #fff
@@ -266,10 +262,13 @@ color = #fff
                 font-size 0.4375rem
 
         // 正常收藏件
+        .oneCollect:first-child
+            padding 0 !important
         .oneCollect
             display flex
             width 100%
-            margin-top 0.3125rem
+            padding-top 0.3125rem
+            background-color #fff
             & > img
                 width 3.25rem
                 height 3.25rem

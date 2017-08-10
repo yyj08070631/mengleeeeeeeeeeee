@@ -1,14 +1,14 @@
 <template>
     <div class="myTeam-wrapper">
-          <!--头部  -->
-        <v-header></v-header>
+        <!--头部  -->
+        <!-- <v-header></v-header> -->
         <!--主体-->
         <section class="main">
             <!-- 乐宝余额 -->
             <div class="onePanel">
                 <div class="dataBox">
                     <p>乐宝余额（点）</p>
-                    <span>3,480.00</span>
+                    <span>{{num(data.virtual)}}</span>
                 </div>
                 <div class="operatList">
                     <div class="operatItem">
@@ -25,7 +25,7 @@
             <div class="onePanel bluePanel">
                 <div class="dataBox">
                     <p>可提现金额（元）</p>
-                    <span>99,999.00</span>
+                    <span>{{num(data.wallet)}}</span>
                 </div>
                 <div class="operatList">
                     <div class="operatItem">
@@ -101,7 +101,7 @@
 <script type="ecmascript-6">
 import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Checker, CheckerItem, Popup } from 'vux'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 
 export default {
     directives: {
@@ -113,7 +113,7 @@ export default {
         Checker,
         CheckerItem,
         Popup,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -127,14 +127,14 @@ export default {
         }
     },
     mounted() {
-        // this.getDataFromBackend()
+        this.getDataFromBackend()
     },
     methods: {
         // 获取数据
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/myTeam?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
@@ -143,11 +143,11 @@ export default {
             })
         },
         // 充值
-        chongZhi:function(){
+        chongZhi: function () {
             alert('充值' + this.moneyValue + '元')
         },
         // 提现
-        tixian: function(){
+        tixian: function () {
             // alert('从' + this.tixianAcouType + ' ' + this.tixianAcouTxt + ' 账户中提取' + this.tixianValue + '元')
             this.$http({
                 method: 'get',
@@ -156,27 +156,58 @@ export default {
             }).then(function (response) {
                 let res = response.body;
                 console.log(res);
-                if(res.code == 200){
+                if (res.code == 200) {
                     alert('提现申请成功！');
                     this.showTixian = false;
                 } else {
                     alert('提现申请失败：' + res.msg)
                 }
             })
+        },
+        // 1,020.00
+        outputdollars: function (number) {
+            if (number.length <= 3)
+                return (number == '' ? '0' : number);
+            else {
+                var mod = number.length % 3;
+                var output = (mod == 0 ? '' : (number.substring(0, mod)));
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if ((mod == 0) && (i == 0))
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                }
+                return (output);
+            }
+        },
+        outputcents: function (amount) {
+            amount = Math.round(((amount) - Math.floor(amount)) * 100);
+            return (amount < 10 ? '.0' + amount : '.' + amount);
+        },
+        num: function (number) {
+            number = String(number).replace(/\,/g, "");
+            if (isNaN(number) || number == "") return "";
+            number = Math.round(number * 100) / 100;
+            if (number < 0)
+                return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+            else
+                return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
     computed: {
 
     },
     watch: {
-        tixianValue: function(val){
-            if(/^[0-9]/.test(val) || val == ''){
+        tixianValue: function (val) {
+            if (/^[0-9]/.test(val) || val == '') {
                 // console.log('提现金额输入正确');
             } else {
                 alert('请输入正确的提现金额！');
                 this.tixianValue = '';
             }
         }
+    },
+    filters: {
     }
 }
 </script>
@@ -270,7 +301,6 @@ img, span, a
     // 主体
     .main
         background-color #f0f0f0
-        margin-top 1.4063rem
         // 分割线
         .divider
             border-bottom 0.3125rem solid #e0e0e0

@@ -1,7 +1,7 @@
 <template>
 	<div class="collect-wrapper" v-infinite-scroll="loadDetail">
 		<!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
 		<!--图片轮播-->
 		<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-if="detailItemList.albumitem.length == 0">
 		<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-else-if="detailItemList.albumitem.length == 1">
@@ -177,13 +177,13 @@
 	</div>
 </template>
  <script type="ecmascript-6">
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 import { Swiper, SwiperItem, Divider, Toast, Group } from 'vux'
 export default {
 	components: {
 		Toast,
 		Group,
-		'v-header': header
+		// 'v-header': header
 	},
 	data() {
 		return {
@@ -360,7 +360,6 @@ export default {
 	// 外层元素
 	.collect-wrapper
 		position absolute
-		top 1.4063rem
 		left 0
 		width 100%
 		height 100%

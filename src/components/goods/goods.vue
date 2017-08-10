@@ -1,7 +1,8 @@
 <template>
     <div class="goods-wrapper">
         <!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
+        <v-search-head></v-search-head>
         <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
         </el-amap>
         <v-view class="route-item"></v-view>
@@ -60,16 +61,17 @@
                 </div>
             </div>
         </div>
-        
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
+import searchHead from '../../commonComponents/searchHead/searchHead';
 export default {
     components: {
         'v-view': view,
-        'v-header': header
+        // 'v-header': header
+        'v-search-head': searchHead,
     },
     data() {
         return {
@@ -141,12 +143,11 @@ export default {
 @import '../../commom/stylus/mixin'
 .goods-wrapper
     position absolute
-    top 1.25rem
     left 0
     width 100%
     background #fff
     padding-bottom 1.25rem
-    // 头部
+    // 脚部
     .route-item
         footerCss()
     // 分割线
@@ -172,6 +173,7 @@ export default {
         border-color #f0f0f0
     // 主体
     .main
+        margin-top 1.25rem
         a
             display block
         // 附近的项目实体店

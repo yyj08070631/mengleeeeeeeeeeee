@@ -1,7 +1,7 @@
 <template>
     <div class="myTeam-wrapper">
         <!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!--主体-->
         <section class="main">
             <!--概览-->
@@ -42,10 +42,10 @@
     </div>
 </template>
  <script type="ecmascript-6">
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -110,7 +110,6 @@ img, span, a
         headerFlex()
     // 主体
     .main
-        margin-top 1.25rem
         // 总览
         .overview
             display flex
@@ -172,13 +171,9 @@ img, span, a
                             width 0.2188rem
                             height 0.3906rem
                 .line       
-                    margin: -0.0313rem 0 0 0.5rem         
-                    width: 100%
-                    height: 0.0313rem
+                    margin: 0 0 0 0.5rem         
+                    width: 9.5rem
+                    height: 1px
                     background: #e0e0e0
-    
-                    
-                    
-                            
 </style>
 

@@ -1,12 +1,12 @@
 <template>
     <div class="store-wrapper">
-          <!--头部  -->
-        <v-header></v-header>
+        <!-- 头部 -->
+         <v-header></v-header> 
         <div class="store-message">
             <div href="javascript:void(0)" class="store-computed">
                 <span class="computed">附近的项目实体店</span>
             </div>
-            <a href="#offlineInfo" class="store-item" v-for="(val, key) in data">
+            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id } }" class="store-item" v-for="(val, key) in data">
                 <div>
                     <img :src="val.mainmap">
                 </div>
@@ -18,10 +18,10 @@
                 <div>
                     <img class="more" src="./more.png">
                 </div>
-            </a>
+            </router-link>
             <div class="line"></div>
             <router-link to="/nearbyStoresAll" class="all-stores">
-                浏览所有线下项目实体店
+                <p>浏览所有线下项目实体店</p>
                 <img class="more" src="./more.png">
             </router-link>
         </div>     
@@ -31,11 +31,11 @@
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components :{
         'v-view': view,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -64,88 +64,83 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-    .store-wrapper
-        position: absolute
-        top: 1.4063rem
-        left: 0
-        width: 100%
-        height: 100%
-        font-size: 0
-        overflow-x: hidden
-        background: #f0f0f0
-        .route-item
-            footerCss()
-        .header
-            headerCss()
-    .store-computed
-        display: block
-        width: 100%
-        height: 1.1563rem
-        background: #fff
-        border-bottom-1px(#e0e0e0)
-        .computed
-            display: inline-block
-            margin: 0.375rem 0 0 0.5625rem
-            height: 0.4375rem
-            border-left: 0.0938rem solid #909090
-            font-size: 0.4063rem
-            font-weight: bold
-            text-indent: 0.1875rem
-            color: #909090 
-    .store-message
-        width: 100%
-        background: #fff         
-        .store-item
-                display: flex
-                position: relative
-                margin-left: 0.5rem
-                width: 100%
-                height: 2.8125rem
-                algin-items: center
-                justify-content: center
-                background: #fff
-                font-size: 0
-                border-bottom-1px(#e0e0e0) 
-                div:first-child
-                    width: 1.9375rem
-                    img
-                        margin: 0.5313rem 0.3125rem 0.5313rem 0
-                        width: 1.625rem
-                        height: 1.625rem
-                div:nth-child(2)
-                    flex: 1
-                    padding-top: 0.5313rem
-                    p:first-child    
-                        color: #333 
-                        font-size: 0.375rem
-                    p
-                        font-size: 0.3438rem
-                        line-height: 0.5625rem
-                        color: #909090
-                div:last-child
-                    width: 1.375rem
-                    img
-                        margin-top: 1.0625rem
-                        width: 0.5rem
-                        height: 0.5rem           
-        .line
-            width: 100%
-            height: 0.1563rem
-            background: #f0f0f0
-        .all-stores
+.store-wrapper
+    position: absolute
+    left: 0
+    width: 100%
+    height: 100%
+    font-size: 0
+    overflow-x: hidden
+    background: #f0f0f0
+    .route-item
+        footerCss()
+    .header
+        headerCss()
+.store-computed
+    display: block
+    width: 100%
+    height: 1.1563rem
+    background: #fff
+    border-bottom-1px(#e0e0e0)
+    .computed
+        display: inline-block
+        margin: 0.375rem 0 0 0.5625rem
+        height: 0.4375rem
+        border-left: 0.0938rem solid #909090
+        font-size: 0.4063rem
+        font-weight: bold
+        text-indent: 0.1875rem
+        color: #909090 
+.store-message
+    width: 100%
+    background: #fff         
+    .store-item
+            display: flex
             position: relative
             margin-left: 0.5rem
-            height: 1.3438rem
-            line-height: 1.3438rem
+            width: 100%
+            height: 2.8125rem
+            align-items: center
+            justify-content: center
+            background: #fff
+            font-size: 0
+            border-bottom 1px solid #e0e0e0
+            div:first-child
+                width: 1.9375rem
+                img
+                    margin: 0.5313rem 0.3125rem 0.5313rem 0
+                    width: 1.625rem
+                    height: 1.625rem
+            div:nth-child(2)
+                flex: 1
+                p:first-child
+                    color: #333
+                    font-size: 0.375rem
+                p
+                    font-size: 0.3438rem
+                    line-height: 0.5625rem
+                    color: #909090
+            div:last-child
+                width: 1.375rem
+                img
+                    width: 0.5rem
+                    height: 0.5rem
+    .line
+        width: 100%
+        height: 0.1563rem
+        background: #f0f0f0
+    .all-stores
+        display flex
+        justify-content space-between
+        align-items center
+        height: 1.3438rem
+        color: #333
+        p
             font-size: 0.375rem
-            color: #333
-            .more
-                position: absolute
-                right: 0.375rem
-                top: 50%
-                margin-top: -0.25rem
-                width: 0.5rem
-                height: 0.5rem          
-
+            margin-left: 0.5rem
+        .more
+            width: 0.5rem
+            height: 0.5rem
+            margin-right 0.5rem
 </style>
 
