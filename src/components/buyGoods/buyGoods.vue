@@ -172,7 +172,7 @@ export default {
     width 100%
     margin-bottom 0.25rem
     border .0313rem solid #ff8b00
-    font-size .5rem
+    font-size fs + 0.0625rem
     color #d54600
     background-color #fff
 .noMargin
@@ -198,12 +198,12 @@ export default {
             width 100%
             height 1.25rem
             margin 1rem 0 0.4688rem 0
-            font-size 0.5rem
+            font-size fs + 0.0625rem
             color #fff
             background-color #ff8b00
         p
             margin 0.4063rem 0 0.3438rem 0
-            font-size 0.4375rem
+            font-size fs
             color #555
 
 .buyGoods-wrapper
@@ -225,7 +225,7 @@ export default {
             align-items center
             height 100%
         p
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             line-height: 0.5625rem
         div:first-child
             margin: 0 0.375rem 0 0.3438rem
@@ -251,7 +251,7 @@ export default {
                     margin: 0.2813rem
             .col2
                 p
-                    font-size: 0.375rem
+                    font-size fs - 0.0625rem
                     line-height: 0.5625rem
                     color: #909090
                 p:first-child
@@ -259,7 +259,7 @@ export default {
         .colRight
             padding-right 0.5rem
             padding-top: 0.2813rem
-            font-size: 0.375rem
+            font-size: fs - 0.0625rem
             line-height: 0.5625rem
     .countInfo
         width: 100%
@@ -269,7 +269,7 @@ export default {
         p
             margin-right: 0.5625rem
             text-align: right
-            font-size: 0.375rem
+            font-size: fs - 0.0625rem
             line-height: 1.1563rem
             color: #333
     .footer
@@ -285,24 +285,24 @@ export default {
             width 100%
             background: #fff
             font-size: 0
-            border-top-1px(#e0e0e0)
+            border-top 1px solid #e0e0e0
             div
                 padding-top 0.1875rem
                 padding-right 0.25rem
                 color #333
                 p
-                    font-size 0.3438rem  
+                    font-size fs - 0.0938rem
                     line-height 0.4688rem
                     color #909090
                 span
                     display inline
-                    font-size 0.375rem
+                    font-size fs - 0.0625rem
                     line-height 0.4688rem
                     color red
             a
                 line-height: 1.1563rem 
                 width: 2.5625rem
-                font-size: 0.375rem  
+                font-size: fs - 0.0625rem
                 background: #ea68a2
                 color: #fff
                 text-align: center

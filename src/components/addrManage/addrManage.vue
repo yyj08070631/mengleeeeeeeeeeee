@@ -136,7 +136,7 @@ span, a, img, input, textarea
             width 100%
             height 3.125rem
             background-color #fff
-            font-size 0.5rem
+            font-size fs + 0.0625rem
         // 分割线
         .dividerBig
             width 100%
@@ -149,7 +149,7 @@ span, a, img, input, textarea
             justify-content center
             align-items center
             padding-bottom 0.3125rem
-            border-bottom-1px(#e0e0e0)
+            border-bottom 1px solid #e0e0e0
             background-color #fff
             .rowUp
                 display flex
@@ -161,14 +161,14 @@ span, a, img, input, textarea
                     display flex
                     .name
                         width 1.875rem
-                        font-size 0.4375rem
+                        font-size fs
                         color #333
                         margin-right 0.9375rem
                     // 电话
                     .phone
                         display flex
                         position relative
-                        font-size 0.4375rem
+                        font-size fs
                         color #333
                     // 带 "默认" 的电话
                     .default:after
@@ -206,10 +206,10 @@ span, a, img, input, textarea
                 .weui-dialog__hd
                     padding 0.3125rem 0 0 0 
                     .weui-dialog__title
-                        font-size 0.5rem !important
+                        font-size fs + 0.0625rem !important
                 .weui-dialog__bd
                     padding 0.9375rem  0 
-                    font-size 0.4688rem
+                    font-size fs + 0.0313rem
                     margin-bottom 0.5625rem
                     
                 .btn1
@@ -224,7 +224,7 @@ span, a, img, input, textarea
                     z-index: 1000;
                     border:0;
                     border-top:1px solid #909090
-                    font-size 0.4063rem
+                    font-size fs - 0.0313rem
                 .btn2
                     position:absolute
                     left:50%;
@@ -237,9 +237,9 @@ span, a, img, input, textarea
                     z-index: 1000;
                     border:0;
                     border-top:1px solid #909090
-                    font-size 0.4063rem    
+                    font-size fs - 0.0313rem
                     .weui-dialog__title
-                        font-size 0.4063rem !important
+                        font-size fs - 0.0313rem !important
                     .weui-dialog__ft
                         background #3cf !important
                         display none
@@ -249,7 +249,7 @@ span, a, img, input, textarea
                             color #ff0  !important        
             .rowDown
                 width 9rem
-                font-size 0.375rem
+                font-size fs - 0.0625rem
                 color #909090
                 text-align justify
                 line-height 1.5
@@ -267,7 +267,7 @@ span, a, img, input, textarea
                 margin-top 1.2344rem
                 background-color #ea68a2
                 border-radius 0.1563rem
-                font-size 0.4375rem
+                font-size fs
                 color #fff
         .weui-toast  
             width auto!important 

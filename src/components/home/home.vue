@@ -6,8 +6,8 @@
         <div v-for="(val,key) in dataApp" :key="key">
             <!-- <div>{{val.groupId}}</div> -->
             <!-- title -->
-            <div class="bannerTitle" v-if="val.name != '-' && val.product.length != 0">{{val.name}}</div>
-            <div class="bannerDivider" v-else-if="key != 0"></div>
+            <div class="bannerDivider" v-if="key != 0"></div>
+            <div class="bannerTitle" v-show="val.name != '-' && val.product.length != 0">{{val.name}}</div>
             <!-- main -->
             <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'">
                 <img :src="val.product[0].src" class="singleImg">
@@ -57,7 +57,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                // console.log(res)
+                console.log(res)
                 // console.log(response)
                 for (var key in res) {
                     if (res[key].banner) {
@@ -133,8 +133,8 @@ export default {
         display flex
         justify-content center
         align-items center
-        padding 0.625rem 0
-        font-size 0.8125rem
+        padding 0.4375rem 0
+        font-size fs + 0.1875rem
         color #000
         background-color #fff
     .bannerDivider
@@ -147,7 +147,7 @@ export default {
     height: 1.3125rem
     margin-bottom 1.3438rem
     line-height: 1.3125rem
-    font-size: 0.4688rem
+    font-size fs + 0.0313rem
     text-align: center
     border-top-1px(rgba(0,0,0,0.1))
     color: #ea68a2

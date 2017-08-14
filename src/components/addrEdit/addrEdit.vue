@@ -125,7 +125,7 @@ span, a, img, input, textarea
             display flex
             align-items center
             height 1.3438rem
-            font-size 0.4375rem
+            font-size fs
             background-color #fff
             border-bottom-1px(#e0e0e0)
             .rowLeft
@@ -144,7 +144,7 @@ span, a, img, input, textarea
             textarea
                 height 60% !important
                 border 0
-                font-size 0.4375rem
+                font-size fs
                 color #262626
                 resize none
             .weui-cell
@@ -176,11 +176,12 @@ span, a, img, input, textarea
                 margin-top 1.2344rem
                 background-color #ea68a2
                 border-radius 0.1563rem
-                font-size 0.5rem
+                font-size fs + 0.0625rem
                 color #fff
         // 默认地址
         .selDefault
             display flex
+            align-items center
             margin-top 0.5625rem
             // img
             //     width 0.4688rem
@@ -189,7 +190,7 @@ span, a, img, input, textarea
             p
                 height 100%
                 margin-left 0.2188rem
-                font-size 0.4688rem
+                font-size fs + 0.0313rem
             input 
                 width 0.4688rem
                 height 0.4688rem

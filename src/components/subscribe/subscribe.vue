@@ -83,7 +83,7 @@ export default {
                 margin-right: 0.4375rem
                 p:first-child
                     margin-bottom: 0.375rem
-                    font-size: 0.375rem
+                    font-size: fs - 0.0625rem
                     color: #333
                     width: 90%
                     height: 0.5rem
@@ -92,14 +92,14 @@ export default {
                     text-overflow: ellipsis
                 p
                     line-height: 0.5625rem
-                    font-size: 0.375rem
+                    font-size: fs - 0.0625rem
                     color: #909090                          
                 div
                     margin-bottom:  -0.0781rem
                     width: 1.5625rem
                     height: 0.4688rem
                     line-height: 0.4688rem
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0938rem
                     background: #ea68a2
                     border-radius: 0.0781rem
                     color: #fff
@@ -111,13 +111,13 @@ export default {
             p
                 margin-right: 0.4375rem
                 line-height: 0.9375rem
-                font-size: 0.375rem
+                font-size: fs - 0.0625rem
                 text-align: right
                 color: #ea68a2
             div
                 margin-right: 0.2188rem
                 a
-                    font-size: 0.375rem
+                    font-size: fs - 0.0625rem
                     color: #fff
                     width: 1.8438rem
                     height: 0.5625rem

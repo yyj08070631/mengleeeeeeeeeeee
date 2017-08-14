@@ -84,17 +84,17 @@
         </div> -->
         <!-- 脚注 -->
         <!-- 脚部控制面板 -->
-        <v-view class="route-item"></v-view>
+        <!-- <v-view class="route-item"></v-view> -->
         <router-view></router-view>
     </div>
 </template>
 <script type="ecmascript-6">
-import view from '../../components/view/view';
+// import view from '../../components/view/view';
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 // import header from '../../components/header/header';
 export default {
     components: {
-        'v-view': view,
+        // 'v-view': view,
         swiper,
         swiperSlide,
         // 'v-header': header
@@ -110,6 +110,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
+                console.log(this.orderList)
             })
         },
         getMoreData: function () {
@@ -215,11 +216,11 @@ export default {
     height: 100%
     background: #fff
     // overflow-x: hidden
-    .route-item
-        footerCss()
+    // .route-item
+    //     footerCss()
     .noGoods
         margin 20% 0
-        font-size 0.4688rem
+        font-size fs + 0.0313rem
         text-align center
         color #333
      .item-cls
@@ -242,14 +243,14 @@ export default {
                 flex 1
                 margin-left 0.5625rem
                 float: left
-                font-size: 0.375rem   
+                font-size: fs - 0.0625rem
                 color: #333
             .content
                 flex 1
                 display: block    
                 float: right
                 margin-right: 18px
-                font-size: 0.375rem
+                font-size: fs - 0.0625rem
                 color: #909090
                 align-items flex-end
             .more 
@@ -285,7 +286,7 @@ export default {
                     float: left
                     width: 5.25rem
                     line-height: 0.625rem
-                    font-size: 0.375rem 
+                    font-size: fs - 0.0625rem
                     .desc
                         color: #333
                     .num
@@ -300,7 +301,7 @@ export default {
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.375rem
+                    font-size: fs - 0.0625rem
                     color: #ea6aa2
                 .orderPrice
                     display: inline-block
@@ -310,7 +311,7 @@ export default {
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.375rem
+                    font-size: fs - 0.0625rem
                     color: #909090            
                 .handle
                     display: block
@@ -320,7 +321,7 @@ export default {
                     width: 1.8438rem   
                     height: 0.5625rem
                     line-height: 0.5625rem
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0938rem
                     text-align: center
                     border-radius: 0.1563rem
                     color: #fff 
@@ -335,7 +336,7 @@ export default {
             height: 1.2188rem
             margin-bottom 1.3438rem
             line-height: 1.2188rem
-            font-size: 0.375rem
+            font-size: fs - 0.0625rem
             text-align: center
             color: #ea6aa2
         .line

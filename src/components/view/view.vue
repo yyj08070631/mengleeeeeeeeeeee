@@ -13,8 +13,8 @@
 				<div class="myCenter"></div>个人中心</router-link>
 		</div>
 		<div class="tag-list">
-			<router-link to="/orderFrom" active-class="orderFrom-link--Active">
-				<div class="orderFrom"></div>查看订单</router-link>
+			<router-link to="/cart" active-class="orderFrom-link--Active">
+				<div class="orderFrom"></div>购物袋</router-link>
 		</div>
 	</div>
 </template>
@@ -31,11 +31,11 @@ export default {
 			width: 100%
 			height: 1.3438rem
 			font-size: 0
-			border-top-1px(#e5e5e5)
+			border-top 1px solid #e0e0e0
 			background: rgba(255,255,255,0.95)
 		.tag-list
 			flex: 1
-			font-size: 0.25rem
+			font-size: fs - 0.0938rem
 			text-align: center
 			.home-link--Active
 				color: active-color

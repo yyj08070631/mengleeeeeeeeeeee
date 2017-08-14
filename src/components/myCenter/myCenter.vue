@@ -17,8 +17,8 @@
         </a>
         <!--购物车-->
         <div class="order-wrapper">
-            <a href="#cart" class="item-cls">
-                <p>我的购物车</p>
+            <a href="#orderFrom" class="item-cls">
+                <p>我的订单</p>
                 <img class="more" src="./more.png">
             </a>
         </div>
@@ -31,14 +31,14 @@
             <a href="#integral" class="item-cls">
                 <p>我的积分</p>
                 <div>
-                    <span class="num">{{data.integral|num}}&nbsp;积分</span>
+                    <span class="num">{{outputdollars(data.integral)}}&nbsp;积分</span>
                     <img class="more" src="./more.png">
                 </div>
             </a>
             <a href="#myWallet" class="item-cls">
                 <p>我的钱包</p>
                 <div>
-                    <span class="num">{{data.wallet|num}}&nbsp;元</span>
+                    <span class="num">{{outputdollars(data.wallet)}}&nbsp;元</span>
                     <img class="more" src="./more.png">
                 </div>
             </a>
@@ -75,7 +75,7 @@
         </div>
         <!--获得帮助-->
         <div class="helper">
-            <a href="javascript:void(0)" class="item-cls">
+            <a href="#myCenterHelp" class="item-cls">
                 <p>获得帮助</p>
                 <img class="more" src="./more.png">
             </a>
@@ -88,8 +88,8 @@
                 <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
             </div>
         </div>
-    <!-- footer -->
-    <v-view class="route-item"></v-view>
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -122,20 +122,49 @@ export default {
                 console.log(res);
                 this.data = res.data;
             })
+        },
+        // 1,020.00
+        outputdollars: function (number) {
+            if (number.length <= 3)
+                return (number == '' ? '0' : number);
+            else {
+                var mod = number.length % 3;
+                var output = (mod == 0 ? '' : (number.substring(0, mod)));
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if ((mod == 0) && (i == 0))
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                }
+                return (output);
+            }
+        },
+        outputcents: function (amount) {
+            amount = Math.round(((amount) - Math.floor(amount)) * 100);
+            return (amount < 10 ? '.0' + amount : '.' + amount);
+        },
+        num: function (number) {
+            number = String(number).replace(/\,/g, "");
+            if (isNaN(number) || number == "") return "";
+            number = Math.round(number * 100) / 100;
+            if (number < 0)
+                return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+            else
+                return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
     filters: {
-        num: function (value) {
-            // console.log(value)
-            value = String(value);
-            let result = '';
-            let i = 0;
-            for (i = 3; i < value.length; i += 3) {
-                result = ',' + value.slice(-i) + result;
-            }
-            result = value.slice(0, value.length % 3) + result;
-            return result
-        }
+        // num: function (value) {
+        //     // console.log(value)
+        //     value = String(value);
+        //     let result = '';
+        //     let i = 0;
+        //     for (i = 3; i < value.length; i += 3) {
+        //         result = ',' + value.slice(-i) + result;
+        //     }
+        //     result = value.slice(0, value.length % 3) + result;
+        //     return result
+        // }
     },
     computed: {
         computeImg: function () {
@@ -175,7 +204,8 @@ img, span, a
     .route-item
         footerCss()
     .personal-wrapper
-        display: block
+        display flex
+        align-items center
         position: relative
         margin-bottom: 0.2813rem
         width: 100%
@@ -191,12 +221,12 @@ img, span, a
             float: left
         .name
             display: inline-block
-            margin: 0.4688rem 0 0.1875rem 0
-            font-size: 0.4375rem
+            margin: 0 0 0.1875rem 0
+            font-size: fs
             color: #000
         .mobile
             display: block
-            font-size: 0.375rem
+            font-size: fs - 0.0625rem
             color: #909090
             margin-bottom: 0.2813rem
         .rank
@@ -220,7 +250,6 @@ img, span, a
     .order-wrapper
         margin: 0.2813rem 0
         width: 100%
-        font-size: 26px 
         background: color
     // 单功能
     .item-cls
@@ -231,7 +260,7 @@ img, span, a
         width 95%
         height 1.3438rem
         border-bottom 1px solid #e0e0e0
-        font-size 0.4063rem
+        font-size fs - 0.0313rem
         color #333
         &:last-child
             border 0
@@ -278,7 +307,7 @@ img, span, a
             padding-top 0.3125rem        
             .Copyright
                 text-align: center
-                font-size: 0.3438rem
+                font-size: fs - 0.0938rem
                 color: #909090
 </style>
 

@@ -111,11 +111,11 @@ span
         background: #ea6aa2
         color: #fff
         .rank-title
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             vertical-align: top
         .myTitle
             margin-top: 0.75rem
-            font-size: 1.6875rem
+            font-size: fs + 1.25rem
     .get-title
         display: block
         position: relative
@@ -128,7 +128,7 @@ span
         .title
             margin-left: 0.5rem
             float: left 
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             color: #333
         .link-wrapper
             float: right
@@ -148,7 +148,7 @@ span
             margin: 0.375rem 0 0 0.5rem
             height: 0.4375rem
             border-left: 0.0938rem solid #909090
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             font-weight: bold
             text-indent: 0.1563rem
             color: #909090
@@ -157,7 +157,7 @@ span
             margin: 0 0.5rem 0 0
             height: 100%
             line-height: 1.1563rem
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             span
                 float: left
                 color: #333
@@ -175,21 +175,21 @@ span
         border-bottom 1px solid #e0e0e0
         .title-msg
             .from
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
                 color: #333
             .date
                 margin: 0.1875rem 0 0 0
-                font-size: 0.3438rem
+                font-size: fs - 0.0938rem
         .get-number
             display flex
             align-items center
             margin-right: 0.5rem
-            font-size: 0.4063rem    
+            font-size: fs - 0.0313rem
             color: #333
     .title-item-empty
         display flex
         justify-content center
         align-items center
-        font-size 0.4063rem !important
+        font-size fs - 0.0313rem !important
 </style>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="store-wrapper">
         <!-- 头部 -->
-         <v-header></v-header> 
+        <!-- <v-header></v-header>  -->
         <div class="store-message">
             <div href="javascript:void(0)" class="store-computed">
                 <span class="computed">附近的项目实体店</span>
@@ -87,7 +87,7 @@ export default {
         margin: 0.375rem 0 0 0.5625rem
         height: 0.4375rem
         border-left: 0.0938rem solid #909090
-        font-size: 0.4063rem
+        font-size: fs - 0.0313rem
         font-weight: bold
         text-indent: 0.1875rem
         color: #909090 
@@ -115,9 +115,9 @@ export default {
                 flex: 1
                 p:first-child
                     color: #333
-                    font-size: 0.375rem
+                    font-size: fs - 0.0625rem
                 p
-                    font-size: 0.3438rem
+                    font-size fs - 0.0313rem
                     line-height: 0.5625rem
                     color: #909090
             div:last-child
@@ -136,7 +136,7 @@ export default {
         height: 1.3438rem
         color: #333
         p
-            font-size: 0.375rem
+            font-size: fs - 0.0625rem
             margin-left: 0.5rem
         .more
             width: 0.5rem

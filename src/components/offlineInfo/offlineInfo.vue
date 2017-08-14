@@ -25,7 +25,7 @@
                 </div>
                 <hr class="divider dividerMargin">
                 <div class="rowMiddle">
-                    <p class="tel">{{data.nearbyitem.phone}}</p>
+                    <a :href="'tel:' + data.nearbyitem.phone" class="tel">{{data.nearbyitem.phone}}</a>
                     <p class="time">
                         营业时间：{{data.nearbyitem.trade_time}}，{{data.nearbyitem.day_time}}
                     </p>
@@ -54,7 +54,9 @@
                     <span>线下服务</span>
                 </h1>
                 <hr class="divider dividerMargin">
-                <router-link :to="{ path: '/digest', query: { sid: val.id,nid: $route.query.nid } }" v-for="(val,key) in data.sericeitem">
+                <!-- 线下服务列表 -->
+                <div class="noOffService" v-if="data.sericeitem.length == 0">对不起，该店尚无线下服务:-D</div>
+                <router-link :to="{ path: '/digest', query: { sid: val.id,nid: $route.query.nid } }" v-for="(val,key) in data.sericeitem" v-else>
                     <span>{{val.name}}</span>
                     <span>￥{{parseFloat(val.price).toFixed(2)}}</span>
                 </router-link>
@@ -224,45 +226,45 @@ color = #fff
 // 初始化样式
 img, span, a
     display block
-// 分页器
-.swiper-slide
-    img
-        width 100%
-        height 100%
-.swiper-pagination
-    display flex
-    left 5% !important
-    width 90% !important
-    .swiper-pagination-bullet
-        height 0.0938rem
-        background-color #fff
-        border-radius 0
-    .swiper-pagination-bullet-active
-        background #606060
-.swiper-container
-    height 7.5rem
-.swiper-instead
-    display flex
-    justify-content center
-    align-items center
-    width 100%
-    height 7.5rem
-    background-color #fff
-    font-size 0.5rem
-    color #333
-    border-bottom-1px(#e0e0e0)
 // 外层元素
 .offlineInfo-wrapper
     position absolute
     left 0
     width width
     background #fff
+    // 分页器
+    .swiper-slide
+        img
+            width 100%
+            height 100%
+    .swiper-pagination
+        display flex
+        left 5% !important
+        width 90% !important
+        .swiper-pagination-bullet
+            height 0.0938rem
+            background-color #fff
+            border-radius 0
+        .swiper-pagination-bullet-active
+            background #606060
+    .swiper-container
+        height 7.5rem
+    .swiper-instead
+        display flex
+        justify-content center
+        align-items center
+        width 100%
+        height 7.5rem
+        background-color #fff
+        font-size fs + 0.125rem
+        color #333
+        border-bottom 1px solid #e0e0e0
     // 主体
     .main
         // 分割线
         .divider
             margin 0
-            border-top-1px(#f0f0f0)
+            border-top 1px solid #e0e0e0
         // 评论
         .swiper-container
             position: relative
@@ -278,7 +280,7 @@ img, span, a
                 p
                     margin-top: 0.3125rem 
                     width: 5.4063rem !important   
-                    font-size: 0.3438rem   
+                    font-size: fs - 0.0313rem
                     text-align: center
             .swiper-pagination
                 height: 0.0313rem  !important 
@@ -303,13 +305,13 @@ img, span, a
                     display flex
                     align-items center
                     p
-                        font-size 0.4063rem
+                        font-size fs
                         color #909090
                         font-weight bold
                     p:last-child
                         margin-left 0.1563rem
                 .colRight
-                    font-size 0.4063rem
+                    font-size fs
                     color #ea68a2
                     margin-right 0.625rem
                     img
@@ -338,9 +340,9 @@ img, span, a
                             height 0.375rem
                             margin-left 0.0938rem
                         p
-                            font-size 0.4063rem
+                            font-size fs + 0.0313rem
                     .rowDown
-                        font-size 0.4063rem
+                        font-size fs + 0.0313rem
                         margin-top 0.1875rem
                         letter-spacing 0.0313rem
                         line-height 0.5rem
@@ -352,7 +354,7 @@ img, span, a
                 justify-content center
                 align-items center
                 height 1.3438rem
-                font-size 0.4063rem
+                font-size fs + 0.0313rem
                 a
                     display block
                     margin-left 0.1563rem
@@ -375,7 +377,7 @@ img, span, a
                 align-items center
                 p
                     padding-left 0.5rem
-                    font-size 0.5rem
+                    font-size fs + 0.0625rem
                     color #333
                 a
                     display flex
@@ -384,9 +386,10 @@ img, span, a
                     align-items center
                     flex-direction column
                     img
+                        width (fs - 0.0625rem) * 2
                         margin-bottom 0.0938rem
                     span
-                        font-size 0.3125rem
+                        font-size fs - 0.0625rem
             .rowMiddle
                 display flex
                 height 1.6875rem
@@ -395,11 +398,11 @@ img, span, a
                 margin-left 0.5rem
                 .tel
                     color #ea68a2
-                    font-size 0.4063rem
+                    font-size fs + 0.0313rem
                 .time
                     margin-top 0.2813rem
                     color #909090
-                    font-size 0.3438rem
+                    font-size fs - 0.0313rem
             .rowDown
                 display flex
                 height 1.6875rem
@@ -412,12 +415,12 @@ img, span, a
                     margin-left 0.5rem
                     .loc
                         color #333
-                        font-size 0.4063rem
+                        font-size fs
                     .dis
                         display flex
                         margin-top 0.2813rem
                         color #909090
-                        font-size 0.3438rem
+                        font-size fs - 0.0313rem
                 .colRight
                     padding-right 0.5rem
                     img
@@ -434,7 +437,7 @@ img, span, a
                 align-items center
                 height 1.1875rem
                 margin-left 0.5rem
-                font-size 0.4063rem
+                font-size fs
                 color #909090
                 span
                     font-weight bold
@@ -446,14 +449,20 @@ img, span, a
                 align-items center
                 height 1.6875rem
                 margin-left 0.5rem
-                font-size 0.3438rem
+                font-size fs
                 span:first-child
-                    width 6.9375rem
                     color #333
                 span:last-child
                     display flex
                     justify-content center
-                    width 2.5625rem
+                    margin-right 0.5rem
                     color #ea68a2
-
+            .noOffService
+                display flex
+                justify-content center
+                align-items center
+                width 100%
+                height 1.1875rem
+                background-color #fff
+                font-size fs
 </style>

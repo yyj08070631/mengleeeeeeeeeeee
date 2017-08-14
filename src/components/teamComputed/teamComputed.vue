@@ -6,7 +6,7 @@
             <span class="rank-title">团队总收益（元）</span>
             <h1 class="myTitle">{{num(data.total_income)}}</h1>
         </div>
-        <a href="javascript:void(0)" class="get-title indent">
+        <a href="#myTeam" class="get-title indent">
             <span class="title">我的团队</span>
             <div class="link-wrapper">
                 <img class="more" src="./more.png">
@@ -30,8 +30,8 @@
         </a>
     </div>
 </template>
- <script type="ecmascript-6">
- import header from '../../components/header/header';
+<script type="ecmascript-6">
+import header from '../../components/header/header';
 export default {
     components: {
         'v-header': header
@@ -101,11 +101,11 @@ export default {
         .rank-title
             display block !important
             padding .8438rem 0 .75rem .5rem
-            font-size .4063rem
+            font-size fs - 0.0313rem
             color #fff
         .myTitle
             padding-left .5rem
-            font-size 1.625rem
+            font-size fs + 1.1875rem
             color #fff
     .get-title
         display: block
@@ -115,48 +115,50 @@ export default {
         line-height: 1.3438rem
         background: #fff
         font-size: 0
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         .title
             margin-top 0 !important
             margin-left: 0.5rem
             float: left 
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             color: #333   
         .link-wrapper
+            display flex
+            align-items center
             float: right
             margin: 0 0.25rem 0 0
             height: 100% 
             .more
-                margin: 0.375rem 0 0 0.25rem 
-                width: 0.1875rem
-                height: 0.1875rem        
+                width: 0.375rem
+                height: 0.375rem
     .indent
-        margin-bottom: 0.625rem
+        margin-bottom: 0.3125rem
     .title-computed
-        display: block
+        display flex
+        justify-content space-between
+        align-items center
         width: 100%
         height: 1.1563rem
         background: #fff
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         overflow hidden
         .computed
-            display: inline-block
-            margin: 0.375rem 0 0 0.5rem
+            display flex
+            align-items center
+            margin: 0 0 0 0.5rem
             height: 0.4375rem
             border-left: 0.0938rem solid #909090
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             font-weight: bold
             text-indent: 0.1563rem
             color: #909090
         .link-wrapper
-            float: right
-            margin: 0 -0.3125rem 0 0
-            width: 5.625rem
+            display flex
+            margin: 0 .5rem 0 0
             height: 100%
             line-height: 1.1563rem
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             span
-                float: left
                 color: #333
             .number
                 float: left
@@ -167,7 +169,7 @@ export default {
                 padding: 0 0.0625rem
                 height: 0.625rem
                 line-height: 0.625rem
-                font-size: 0.375rem
+                font-size: fs - 0.0625rem
                 color: #fff
                 background: #909090
                 border-radius: 0.0938rem
@@ -175,7 +177,7 @@ export default {
         display flex !important
         justify-content center
         align-items center
-        font-size 0.4063rem !important
+        font-size fs - 0.0313rem !important
         padding 0 !important
         line-height inherit !important
     .title-item
@@ -186,7 +188,7 @@ export default {
         line-height: 1.3438rem
         background: #fff
         font-size: 0
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         .title-msg
             display: inline-block
             width: 3.75rem
@@ -196,17 +198,17 @@ export default {
                 margin: -0.0938rem 0 0 0.5rem
                 float: left 
                 height: 0.4063rem
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
                 color: #333
             .date
                 margin: 0.1875rem 0 0 0.5rem
                 float: left
-                font-size: 0.3438rem
+                font-size: fs - 0.0938rem
         .get-number
             margin-right: 0.5rem
             float: right
             line-height: 1.6875rem 
-            font-size: 0.4063rem    
+            font-size: fs - 0.0313rem
             color: #333
     .title-item:last-child:after
             border 0

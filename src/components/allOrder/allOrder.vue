@@ -1,5 +1,5 @@
 <template>
-    <div class="orderFrom-wrapper">
+    <div class="allOrder-wrapper">
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
         <div class="order-content-wrapper item-cls">
@@ -115,8 +115,7 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-.orderFrom-wrapper
-    padding-bottom: 1.3438rem 
+.allOrder-wrapper
     width: 100%
     height: 100%
     background: #f0f0f0
@@ -124,9 +123,15 @@ export default {
         footerCss()
     .header
         headerCss()
-     .item-cls
-       position: relative            
-     .order-content-wrapper
+    .item-cls
+        position: relative
+    .noGoods
+        padding 20% 0
+        background-color #fff
+        font-size fs + 0.0313rem
+        text-align center
+        color #333
+    .order-content-wrapper
         width: 100%
         height 100%
         font-size: 0
@@ -135,16 +140,16 @@ export default {
             width: 100%
             height: 1.125rem
             line-height: 1.125rem
-            border-bottom-1px(#e6e6e6)
+            border-bottom 1px solid #e0e0e0
             .title 
                 float: left
-                font-size: 0.3438rem   
+                font-size fs - 0.0938rem
                 color: #333
             .content
                 display: inline-block    
                 float: right
                 margin-right: 1.625rem
-                font-size: 0.3438rem
+                font-size: fs - 0.0938rem
                 color: #909090
             .more 
                 position: absolute
@@ -175,7 +180,7 @@ export default {
                     float: left
                     width: 5.25rem
                     line-height: 0.625rem
-                    font-size: 0.3438rem 
+                    font-size: fs - 0.0938rem
                     .desc
                         color: #333
                     .num
@@ -190,7 +195,7 @@ export default {
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0938rem
                     color: #ea6aa2
                 .orderPrice
                     display: inline-block
@@ -200,7 +205,7 @@ export default {
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0938rem
                     color: #909090            
                 .handle
                     display: block
@@ -210,7 +215,7 @@ export default {
                     width: 1.8438rem   
                     height: 0.5625rem
                     line-height: 0.5625rem
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0938rem
                     text-align: center
                     border-radius: 0.1563rem
                     color: #fff 
@@ -224,7 +229,7 @@ export default {
             width: 100%
             height: 1.2188rem
             line-height: 1.2188rem
-            font-size: 0.3438rem
+            font-size: fs - 0.0938rem
             text-align: center
             color: #ea6aa2
         .line

@@ -47,7 +47,7 @@ export default {
             span
                 flex 1
                 margin-left 0.4063rem
-                font-size 0.5313rem
+                font-size fs + 0.0938rem
                 vertical-align top
                 color #fb8800
     .payPrice
@@ -56,7 +56,7 @@ export default {
         justify-content center
         margin-top 1.0625rem
         margin-bottom 0.3438rem
-        font-size 0.7188rem
+        font-size fs + 0.2813rem
         color #40474e
     .gathering
         display flex
@@ -68,7 +68,7 @@ export default {
             display flex
             span
                 flex 1
-                font-size 0.4063rem 
+                font-size fs - 0.0313rem
             span:first-child 
                 color #909090
             span:last-child 
@@ -85,6 +85,6 @@ export default {
         border-radius 0.1875rem
         a
             display block
-            font-size 0.4688rem
+            font-size fs + 0.0313rem
             color #fff
 </style>

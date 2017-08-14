@@ -34,6 +34,7 @@ export default {
                 loop : true,
                 paginationType: "bullets",
                 pagination: '.swiper-pagination',
+                autoplayDisableOnInteraction : false,
                 paginationBulletRender: function (swiper, index, className) {
                     // console.log(swiper.bullets ? swiper.bullets.length : 0);
                     let width = ( isFinite(100/(parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100/(parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100 ) + '%';
@@ -65,24 +66,25 @@ changeHeight($height)
 img, span, a
     display block
 // 分页器
-.swiper-slide
-    img
-        width 100%
-        height 10rem
-.swiper-pagination
-    display flex
-    left 50% !important
-    margin-left -25%
-    bottom 0.0156rem !important
-    width 50% !important
-    .swiper-pagination-bullet
-        changeHeight(0.0938rem)
-        margin 0 !important
-        background-color rgba(255,255,255,0)
-        border-radius 0
-        height 0.0625rem !important 
-        margin-left 0.3125rem !important
-    .swiper-pagination-bullet-active
-        background rgba(0,0,0,0.7)
-        height 0.0625rem !important
+.home-wrapper
+    .swiper-slide
+        img
+            width 100%
+            height 10rem
+    .swiper-pagination
+        display flex
+        left 50% !important
+        margin-left -25% !important
+        bottom 0.0156rem !important
+        width 50% !important
+        .swiper-pagination-bullet
+            changeHeight(0.0938rem)
+            margin 0 !important
+            background-color rgba(255,255,255,0)
+            border-radius 0
+            height 0.0625rem !important 
+            margin-left 0.3125rem !important
+        .swiper-pagination-bullet-active
+            background rgba(0,0,0,0.7)
+            height 0.0625rem !important
 </style>

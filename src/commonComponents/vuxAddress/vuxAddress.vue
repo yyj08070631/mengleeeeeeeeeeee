@@ -49,10 +49,9 @@ export default {
 .vux-cell-box {
     display: flex;
     align-items: center;
-    position: absolute !important;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 1.3438rem !important;
     color: #525252;
     width: 100%;
     line-height: 0.94rem;
@@ -66,9 +65,10 @@ export default {
             justify-content: flex-end;
             align-items: center;
             width: 2.8125rem;
-            margin: 0 0.5781rem 0 0.3125rem;
+            margin: 0 0.75rem 0 0.1875rem;
             .weui-label {
                 width: 2.3438rem;
+                text-align: right;
             }
         }
         .vux-cell-primary {
@@ -83,7 +83,7 @@ export default {
             display: none;
         }
         .vux-popup-picker-value {
-            font-size: 0.4375rem !important;
+            font-size: fs !important;
         }
     }
     &:before {
@@ -104,7 +104,7 @@ export default {
 }
 
 .scroller-item {
-    font-size: 0.375rem !important;
+    font-size: fs - 0.0625rem !important;
     height: 0.66rem !important;
     line-height: 0.66rem !important;
 }
@@ -123,14 +123,14 @@ export default {
     line-height: 0.96rem!important;
     text-align: center!important;
     color: #333;
-    font-size: 0.375rem;
+    font-size: fs - 0.0625rem;
     background: #f6f6f6;
 }
 
 .vux-popup-picker-header-menu-right {
     background: #ea68a2;
     color: #fff;
-    font-size: 0.375rem;
+    font-size: fs - 0.0625rem;
 }
 
 .vux-popup-dialog {

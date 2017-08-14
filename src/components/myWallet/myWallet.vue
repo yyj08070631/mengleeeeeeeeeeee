@@ -1,5 +1,5 @@
 <template>
-    <div class="myTeam-wrapper">
+    <div class="myWallet-wrapper">
         <!--头部  -->
         <!-- <v-header></v-header> -->
         <!--主体-->
@@ -68,7 +68,13 @@
                             200元
                         </checker-item>
                     </checker>
-                    <div class="submit" @click="chongZhi()">确定</div>
+                    <div class="inputChongzhi">
+                        <input type="text" v-model="moneyValueInput" placeholder="填写充值金额">
+                    </div>
+                    <div class="btnCont">
+                        <div class="inSubmit" @click="chongZhi()">确定充值</div>
+                        <div class="inSubmit inCancel" @click="showHideOnBlur = false">取消</div>
+                    </div>
                 </div>
             </x-dialog>
         </div>
@@ -92,7 +98,10 @@
                         <span>账户账号：</span>
                         <input type="text" placeholder="请输入提现账户" v-model="tixianAcouTxt">
                     </label>
-                    <div class="submit" @click="tixian()">确定</div>
+                    <div class="btnCont">
+                        <div class="inSubmit" @click="tixian()">确定提现</div>
+                        <div class="inSubmit inCancel" @click="showTixian = false">取消</div>
+                    </div>
                 </div>
             </x-dialog>
         </div>
@@ -121,6 +130,7 @@ export default {
             showHideOnBlur: false,
             showTixian: false,
             moneyValue: '',
+            moneyValueInput: '',
             tixianValue: '',
             tixianAcouType: '',
             tixianAcouTxt: ''
@@ -144,25 +154,41 @@ export default {
         },
         // 充值
         chongZhi: function () {
-            alert('充值' + this.moneyValue + '元')
+            if(this.moneyValue == '' && this.moneyValueInput != ''){
+                alert('充值' + this.moneyValueInput + '元')
+            } else if (this.moneyValueInput == '' && this.moneyValue != ''){
+                alert('充值' + this.moneyValue + '元')
+            } else if (this.moneyValue == '' && this.moneyValueInput == ''){
+                alert('没有获取到充值金额')
+            } else {
+                alert('请勿填写两种金额')
+            }
         },
         // 提现
         tixian: function () {
             // alert('从' + this.tixianAcouType + ' ' + this.tixianAcouTxt + ' 账户中提取' + this.tixianValue + '元')
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/user/applyWithdrawals?userId===tPtcNLZARXEuvDhRSFGkQX&money=' + this.tixianValue + '&type=' + this.tixianAcouType + '&account=' + this.tixianAcouTxt,
-                emulateJSON: true
-            }).then(function (response) {
-                let res = response.body;
-                console.log(res);
-                if (res.code == 200) {
-                    alert('提现申请成功！');
-                    this.showTixian = false;
-                } else {
-                    alert('提现申请失败：' + res.msg)
-                }
-            })
+            if (this.tixianValue == ''){
+                alert('请输入提现金额');
+            } else if (this.tixianAcouType == ''){
+                alert('请选择到账类型');
+            } else if (this.tixianAcouTxt == ''){
+                alert('请输入收款账号');
+            } else {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/applyWithdrawals?userId===tPtcNLZARXEuvDhRSFGkQX&money=' + this.tixianValue + '&type=' + this.tixianAcouType + '&account=' + this.tixianAcouTxt,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    console.log(res);
+                    if (res.code == 200) {
+                        alert('提现申请成功！');
+                        this.showTixian = false;
+                    } else {
+                        alert('提现申请失败：' + res.msg)
+                    }
+                })
+            }
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -228,7 +254,7 @@ img, span, a
     margin-right 0.4375rem
     margin-bottom 0.4063rem
     border .0313rem solid #ff8b00
-    font-size .5rem
+    font-size fs + 0.0625rem
     color #d54600
     background-color #fff
 .noMargin
@@ -248,19 +274,35 @@ img, span, a
         .vux-checker-box
             display flex
             flex-wrap wrap
-        .submit
+        .inputChongzhi
+            width 8rem
+            height 1.2813rem
+            input
+                width 8rem
+                height 1.2813rem
+                padding-right 0.2813rem
+                border 1px solid #ff8b00
+                font-size fs - 0.0313rem
+                text-align right
+                outline 0
+        .btnCont
             display flex
-            justify-content center
-            align-items center
-            width 100%
-            height 1.25rem
             margin 1rem 0 0.4688rem 0
-            font-size 0.5rem
-            color #fff
-            background-color #ff8b00
+            .inSubmit
+                display flex
+                justify-content center
+                align-items center
+                width 100%
+                height 1.25rem
+                font-size fs + 0.0625rem
+                color #fff
+                background-color #ff8b00
+            .inCancel
+                color #353535
+                background-color #f0f0f0
         p
             margin 0.4063rem 0 0.3438rem 0
-            font-size 0.4375rem
+            font-size fs
             color #555
         // 提现信息
         .inputBox
@@ -270,14 +312,14 @@ img, span, a
                 display flex
                 align-items center
                 width 3rem
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
             input
                 height 0.875rem
                 width 100%
                 padding-right 0.2813rem
                 border 1px solid #e0e0e0
                 outline 0
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 text-align right
             select
                 height 0.875rem
@@ -285,19 +327,17 @@ img, span, a
                 padding-right 0.2813rem
                 border 1px solid #e0e0e0
                 outline 0
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 color #909090
                 appearance none 
                 direction rtl
-
 // wrapper
-.myTeam-wrapper
+.myWallet-wrapper
     position absolute
     left 0
     width 100%
     height 100%
     background #f0f0f0
-    // 头部
     // 主体
     .main
         background-color #f0f0f0
@@ -311,11 +351,11 @@ img, span, a
                 background-color #ea68a2
                 p
                     padding .8438rem 0 .75rem .5rem
-                    font-size .4063rem
+                    font-size fs - 0.0313rem
                     color #fff
                 span
                     padding-left .5rem
-                    font-size 1.625rem
+                    font-size fs + 1.1875rem
                     color #fff
             .operatList
                 .operatItem
@@ -328,7 +368,7 @@ img, span, a
                         justify-content space-between
                         height 100%
                         margin 0 0.5rem 0 0.5rem
-                        font-size 0.4063rem
+                        font-size fs - 0.0313rem
                         color #333
         // 改data面板的颜色
         .bluePanel

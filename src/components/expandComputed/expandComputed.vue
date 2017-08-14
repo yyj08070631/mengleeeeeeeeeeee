@@ -1,13 +1,13 @@
 <template>
-    <div class="expand-wrapper">
-        <!--头部  -->
+    <div class="expandComput-wrapper">
+        <!-- 头部 -->
         <!-- <v-header></v-header> -->
         <div class="expand-board">
             <span class="rank-title">拓展总收益（元）</span>
             <h1 class="myExpand">{{num(data.total_money)}}</h1>
         </div>
         <div class="content-wrapper">
-            <a href="javascript:void(0)" class="get-expand">
+            <a href="#myTeam" class="get-expand">
                 <span class="title">我的团队</span>
                 <div class="link-wrapper">
                     <img class="more" src="./more.png">
@@ -98,7 +98,7 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-.expand-wrapper
+.expandComput-wrapper
     width: 100%
     height: 100%
     font-size: 0
@@ -109,11 +109,11 @@ export default {
         .rank-title
             display block 
             padding .8438rem 0 .75rem .5rem
-            font-size .4063rem
+            font-size fs - 0.0313rem
             color #fff
         .myExpand
             padding-left .5rem
-            font-size 1.625rem
+            font-size fs + 1.1875rem
             color #fff
     .content-wrapper
         width: 100%
@@ -130,7 +130,7 @@ export default {
             font-size: 0
             .title
                 float: left 
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
                 color: #333
             .link-wrapper
                 float: right
@@ -159,7 +159,7 @@ export default {
                 display flex
                 align-items center
                 height: 100%
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
                 font-weight: bold
                 color: #909090
             .link-wrapper
@@ -167,18 +167,18 @@ export default {
                 align-items center
                 height: 100%
                 margin-right 1rem
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
                 .number
                     color: #ea68a2
     .expand-item-empty
-        display flex !important
-        justify-content center
-        align-items center
-        font-size 0.4063rem !important
+        justify-content center !important
+        font-size fs - 0.0313rem !important
         padding 0 !important
         line-height inherit !important
     .expand-item
-        display: block
+        display flex
+        align-items center
+        justify-content space-between
         position: relative
         padding-left: 0.5rem
         width: 100%
@@ -186,9 +186,10 @@ export default {
         line-height: 1.3438rem
         background: #fff
         font-size: 0
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         .expand-msg
-            display: inline-block
+            display flex
+            flex-direction column
             width: 3.75rem
             height: 100%
             overflow: hidden
@@ -196,17 +197,16 @@ export default {
                 margin: -0.1875rem 0 0 0
                 float: left 
                 height: 0.4063rem
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
                 color: #333
             .date
                 margin: 0.1875rem 0 0 0
                 float: left
-                font-size: 0.3438rem
+                font-size: fs - 0.0938rem
         .get-number
-            margin-right: 1.125rem
-            float: right
+            padding-right 1rem
             line-height: 1.6875rem 
-            font-size: 0.4063rem    
+            font-size: fs - 0.0313rem
             color: #333
     .expand-item:last-child:after
         border 0

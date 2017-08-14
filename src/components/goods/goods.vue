@@ -51,15 +51,6 @@
                     <hr class="divider dividerLine">
                 </router-link>
             </div>
-            <hr class="divider dividerBig">
-            <div class="footer">
-                <div class="rowUp">
-                    <div class="logo"></div>
-                </div>
-                <div class="rowDown">
-                    <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -188,7 +179,7 @@ export default {
                 margin-left 0.5rem
                 div
                     color #333
-                    font-size 0.375rem
+                    font-size fs - 0.0625rem
                 p:first-child
                     display: inline-block
                     width: 4.0625rem
@@ -197,7 +188,7 @@ export default {
                     margin-top 0.2188rem
                 p
                     display flex
-                    font-size 0.3438rem
+                    font-size fs - 0.0938rem
                     color #909090
                     span.dis
                         margin-right 0.0625rem
@@ -224,7 +215,7 @@ export default {
                     margin-left 0.0938rem
                     line-height 1.3125rem 
                     color #333
-                    font-size 0.3438rem
+                    font-size fs - 0.0938rem
                 img
                     width 0.3594rem
                     height 0.3438rem
@@ -236,7 +227,7 @@ export default {
                     width 0.2188rem
                     height 0.3906rem 
                 p
-                    font-size 0.3438rem
+                    font-size fs - 0.0938rem
                     margin-right 0.1875rem
                     line-height 1.3125rem 
                     color #909090
@@ -260,13 +251,12 @@ export default {
                         height 3.125rem
                     div
                         text-align justify
-                        overflow hidden
                         margin-right 0.5rem
                         h1
-                            font-size 0.4063rem
+                            font-size fs - 0.0313rem
                             color #333
                         p
-                            font-size 0.3438rem
+                            font-size fs - 0.0938rem
                             color #909090
                             margin-top 0.0938rem
             .oneKind:last-child
@@ -283,28 +273,28 @@ export default {
         .oneKind:active
             background-color #f0f0f0
         //脚注
-        .footer
-            width: 100%
-            height: 1.9063rem
-            background: #f0f0f0
-            padding 0.3125rem 0
-            .rowUp
-                display flex
-                align-items center
-                justify-content center
-                padding-top 0.3125rem
-                .logo  
-                    width: 2.6563rem
-                    height: 0.625rem
-                    background: url("./images/logo.png")
-                    background-size: 2.6563rem 0.625rem
-            .rowDown
-                display flex
-                align-items center
-                justify-content center
-                padding-top 0.3125rem        
-                .Copyright
-                    text-align: center
-                    font-size: 0.3438rem
-                    color: #909090    
+        // .footer
+        //     width: 100%
+        //     height: 1.9063rem
+        //     background: #f0f0f0
+        //     padding 0.3125rem 0
+        //     .rowUp
+        //         display flex
+        //         align-items center
+        //         justify-content center
+        //         padding-top 0.3125rem
+        //         .logo  
+        //             width: 2.6563rem
+        //             height: 0.625rem
+        //             background: url("./images/logo.png")
+        //             background-size: 2.6563rem 0.625rem
+        //     .rowDown
+        //         display flex
+        //         align-items center
+        //         justify-content center
+        //         padding-top 0.3125rem        
+        //         .Copyright
+        //             text-align: center
+        //             font-size: 0.3438rem
+        //             color: #909090    
 </style>

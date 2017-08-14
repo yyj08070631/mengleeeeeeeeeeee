@@ -3,8 +3,8 @@
         <!-- <v-header></v-header> -->
         <div class="tag-wrapper">
             <span class="title">本月</span>
-            <img class="more" src="./__more.png" />
-            <span class="checkBill">查看月账单</span>
+            <!-- <img class="more" src="./__more.png" /> -->
+            <!-- <span class="checkBill">查看月账单</span> -->
         </div>
         <div class="content-wrapper">
             <div class="bill-item bill-item-empty" v-if="data.length == 0">本月还没有账单数据哦:-D</div>
@@ -103,10 +103,9 @@ export default {
     left 0
     width: 100%
     height: 100%
-    overflow: hidden
     background: #f0f0f0
-    .header
-        headerCss()
+    // .header
+    //     headerCss()
     .tag-wrapper
         width: 100%
         height: 1rem
@@ -115,7 +114,7 @@ export default {
         .title
             margin-left: 0.5rem
             float: left
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             color: #333
         .more
             display: block
@@ -126,7 +125,7 @@ export default {
         .checkBill
             margin-right: 0.1563rem 
             float: right 
-            font-size: 0.375rem
+            font-size: fs - 0.0625rem
             color: #909090 
     .content-wrapper
         background: #fff
@@ -134,43 +133,48 @@ export default {
             display flex
             justify-content center
             align-items center
-            font-size 0.4063rem
+            font-size fs - 0.0313rem
             margin-left 0 !important
         .bill-item
+            display flex
+            align-items center
             margin: 0 0.5rem
-            width: 100%
+            width: 9.5rem
             height: 1.6875rem 
-            border-bottom-1px(#e0e0e0)
-
+            border-bottom 1px solid #e0e0e0
             .date
+                display flex
+                flex-direction column
+                justify-content center
                 float: left
                 height: 100%
                 text-align:center
-                span:first-child
-                    margin-top: 0.4063rem
                 span:last-child
                     margin-top: 0.1875rem 
-                    font-size: 0.3438rem   
+                    font-size: fs - 0.0938rem
                 span
                     display: block
-                    font-size: 0.4063rem
+                    font-size: fs - 0.0313rem
                     color: #909090
             .icon
                 float: left
-                margin: 0.2891rem  0.3125rem 0  0.25rem
+                margin: 0 0.3125rem 0 0.25rem
                 width: 1.1406rem
                 height: 1.1406rem
             .details
+                display flex
+                flex-direction column
+                justify-content center
                 float: left
                 height: 100%    
                 .money
-                    margin-top: 0.4063rem
-                    font-size: 0.4063rem
+                    margin 0
+                    font-size fs - 0.0313rem
                     color: #333
                 span
                     display: block
                     margin-top: 0.1875rem
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0938rem
                     color: #909090
         .bottom-line
             width: 100%
@@ -190,10 +194,10 @@ export default {
                         margin-top: 0.2031rem
                     span:last-child
                         margin-top: 0.0938rem 
-                        font-size: 0.3438rem   
+                        font-size: fs - 0.0938rem  
                     span
                         display: block
-                        font-size: 0.4063rem
+                        font-size: fs - 0.0313rem
                         color: #909090
                 .icon
                     float: left
@@ -205,11 +209,11 @@ export default {
                     height: 100%    
                     .money
                         margin-top: 0.2031rem
-                        font-size: 0.4063rem
+                        font-size fs - 0.0313rem
                         color: #333
                     span                      
                         display: block
                         margin-top: 0.0938rem
-                        font-size: 0.3438rem
+                        font-size fs - 0.0938rem
                         color: #909090
 </style>

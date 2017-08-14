@@ -7,28 +7,30 @@
             <div class="select-type">
             <a href="javascript:" @click="showList" class="screen">筛选</a>
             <a href="javascript:" @click="changeClass" class="sort">排列方式</a>
-            <div id="screenType" v-show="isShow">
-                <a href="javascript:" @click="changeActive()" ref="sort1">
-                    <div>价格</div>
-                    <div>
-                        <img src="./arrow_none.png">
-                    </div>
-                </a>
-                <a href="javascript:" @click="changeActive1()" ref="sort2">
-                    <div>上架时间</div>
-                    <div>
-                        <img src="./arrow_none.png">
-                    </div>
-                </a>
-                <a href="javascript:" @click="changeActive2()" ref="sort3">
-                    <div>销量</div>
-                    <div>
-                        <img src="./arrow_none.png">
-                    </div>
-                </a>
-            </div>
         </div>
         </div>
+        <!-- 筛选方式选择 -->
+        <div id="screenType" v-show="isShow">
+            <a href="javascript:" @click="changeActive()" ref="sort1">
+                <div>价格</div>
+                <div>
+                    <img src="./arrow_none.png">
+                </div>
+            </a>
+            <a href="javascript:" @click="changeActive1()" ref="sort2">
+                <div>上架时间</div>
+                <div>
+                    <img src="./arrow_none.png">
+                </div>
+            </a>
+            <a href="javascript:" @click="changeActive2()" ref="sort3">
+                <div>销量</div>
+                <div>
+                    <img src="./arrow_none.png">
+                </div>
+            </a>
+        </div>
+        <!-- 商品列表容器 -->
         <div class="good-wrapper">
             <div v-if="goodsItemList.gooditem.length < 1" class="noGoods">暂无商品&nbsp;:) <router-link to="/goods">->随便逛逛<-</router-link></div>
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
@@ -37,7 +39,7 @@
                     <img class="goodsMsg" :src="item.mainmap" />
                 </router-link>
                 <div class="text-wrapper">
-                    <p>{{item.name}}</p>
+                    <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">{{item.name}}</router-link>
                     <span>¥{{item.price}}</span>
                     <span>{{item.freight == 0 ? '不包邮' : item.freight == 1 ? '包邮' : '无邮费信息'}}&nbsp;|&nbsp;销量{{item.sale}}件</span>
                 </div>
@@ -252,38 +254,40 @@ export default {
 class1()
     margin-top: -0.0313rem
     width: 4.9688rem
-    border-bottom-1px(#e0e0e0)                   
+    border-bottom 1px solid #e0e0e0
+    &:nth-child(odd)
+        border-right 1px solid #e0e0e0
     .collect
         position relative
         float: right
         height 0.6563rem
-        margin: 0.2813rem 0.4375rem 0.1563rem 0
+        padding 0.2813rem 0.4375rem 0.2813rem 0
     .goodsMsg
         width: 4.9688rem
         height: 4.625rem
-        margin-top: 0.3125rem
     .text-wrapper
         margin-top: 0rem
         float: left
         width: 100%
-        p
+        a
+            display block
             margin: 0.2813rem 0
-            font-size: 0.3438rem
+            font-size: fs - 0.0938rem
             color: #333
             text-align: center
         span
             display: block 
-            font-size: 0.3438rem
+            font-size: fs - 0.0938rem
             text-align: center
         span:last-child
             margin: 0.625rem 0 0.4063rem 0
-            font-size: 0.3125rem
+            font-size: fs - 0.125rem
             color: #909090   
 class2()
     position: relative
     width: 100%
     height: 4.625rem  
-    border-bottom-1px(#e0e0e0)                 
+    border-bottom 1px solid #e0e0e0
     .collect
         position: absolute
         right: 0.375rem
@@ -300,7 +304,7 @@ class2()
         width: 50%
         p
             margin: 0.5625rem  1.25rem  0.2813rem 0
-            font-size: 0.3438rem
+            font-size: fs - 0.0938rem
             color: #333
             text-align: center
         p:first-child
@@ -309,14 +313,36 @@ class2()
             display: block
             margin: 0.3125rem
             text-align: center
-            font-size: 0.3438rem
+            font-size: fs - 0.0938rem
         span:last-child
-            margin: 0.3125rem 0.4688rem 0 0
-            font-size: 0.3125rem
+            margin: 0.3125rem 0.4688rem 0 0.4688rem
+            font-size: fs - 0.125rem
             color: #909090
-// 这是什么
+// 筛选选项
+#screenType
+    display: flex
+    top: 0.9375rem
+    width: 100%
+    height: 0.9375rem
+    line-height: 0.9375rem
+    text-align: right
+    background: rgba(255,255,255,1)
+    border-bottom 1px solid #e0e0e0
+    a
+        display: flex
+        justify-content center
+        flex: 1
+        font-size: fs - 0.0938rem
+        color: #ea68a2
+        align-items: center
+        div:first-child
+            margin-right 0.0938rem
+        div:last-child
+            img
+                width: 0.25rem
+// 主体
 .goodsClassify-wrapper
-    margin-top: 2.3438rem
+    margin-top 2.2344rem
     padding-bottom 1.25rem
     .route-item
         footerCss()
@@ -324,7 +350,7 @@ class2()
         headerCss()
     .screenWrapper
         position fixed
-        top 1.4063rem    
+        top 1.25rem
         width 100%
         background rgba(255,255,255,0.4)
         z-index 1000
@@ -335,8 +361,8 @@ class2()
         width: 100%
         height: 0.9688rem
         line-height: 0.9688rem
-        font-size: 0.4063rem
-        border-bottom-1px(#e0e0e0)
+        font-size: fs - 0.0313rem
+        border-bottom 1px solid #e0e0e0
         .screen
             color: #ea68a2
             margin-left: 0.5rem
@@ -345,30 +371,6 @@ class2()
             color: #ea68a2
             margin-right: 0.5rem
             float: right
-        #screenType
-            display: flex
-            position: absolute
-            top: 0.9375rem
-            width: 100%
-            height: 0.9375rem
-            line-height: 0.9375rem
-            text-align: right
-            background: rgba(255,255,255,0.8)
-            border-bottom: 0.0313rem solid #e0e0e0
-            a
-                display: flex
-                flex: 1
-                font-size: 0.3438rem
-                color: #ea68a2
-                align-items: center
-                div:first-child
-                    flex: 1
-                div:last-child
-                    flex: 1 
-                    img
-                        margin-right: 0.625rem
-                        width: 0.25rem
-
     .good-wrapper
         width: 100%
         display flex
@@ -376,15 +378,15 @@ class2()
         .noGoods
             margin-top 60%
             width 100%
-            font-size 0.4688rem
+            font-size fs + 0.0313rem
             text-align center
             color #333
             a
                 color #ea68a2
                 margin-top 0.3125rem
-                font-size 0.4375rem
-        .goods-item1:nth-child(odd),.goods-item2:nth-child(odd)
-            border-right: 0.0313rem solid #e0e0e0  
+                font-size fs
+        // .goods-item1:nth-child(odd),.goods-item2:nth-child(odd)
+        //     border-right: 0.0313rem solid #e0e0e0  
         .goods-item1
             class1()
         .goods-item2
@@ -396,5 +398,5 @@ class2()
         top 50%!important
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
-            font-size 0.375rem            
+            font-size fs - 0.0625rem
 </style>

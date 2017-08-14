@@ -4,7 +4,7 @@
         <!-- <v-header></v-header> -->
         <div class="integral-board">
             <span class="rank-title">皇冠会员</span>
-            <span class="rank-question">等级特权?</span>
+            <a href="#integralHelp" class="rank-question">等级特权?</a>
             <h1 class="myIntegral">58000</h1>
         </div>
         <div class="content-wrapper">
@@ -86,7 +86,7 @@ span
         color: #fff
         .rank-title
             float: left    
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             vertical-align: top
         .rank-question
             display: inline-block
@@ -94,14 +94,15 @@ span
             margin-top: -0.0469rem
             padding: 0.0625rem
             width: 1.75rem
-            font-size: 0.3438rem
+            font-size: fs - 0.0938rem
+            color #fff
             text-align: center
             border: 1px solid #fff
             border-radius: 0.3125rem   
             vertical-align: top
         .myIntegral
             margin-top: 0.75rem
-            font-size: 1.6875rem
+            font-size: fs + 1.25rem
     .get-integral
         display: block
         position: relative
@@ -110,11 +111,11 @@ span
         line-height: 1.3438rem
         background: #fff
         font-size: 0
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         .title
             margin-left: 0.5rem
             float: left 
-            font-size: 0.4063rem
+            font-size: fs - 0.0313rem
             color: #333
         .link-wrapper
             float: right
@@ -124,7 +125,7 @@ span
                 margin: 0.375rem 0 0 0
     .indent
         margin-bottom: 0.3125rem
-.content-wrapper
+    .content-wrapper
         width: 100%
         background: #fff
         overflow-x: hidden        
@@ -137,10 +138,10 @@ span
             line-height: 1.3438rem
             background: #fff
             font-size: 0
-            border-bottom-1px(#e0e0e0)
+            border-bottom 1px solid #e0e0e0
             .title
                 float: left 
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
                 color: #333
             .link-wrapper
                 float: right
@@ -150,66 +151,68 @@ span
                     margin: 0.375rem 0 0 0.25rem
                     width: 0.375rem
                     height: 0.375rem
-    .line                     
-        width: 100%
-        height: 0.3125rem
-        background: #f0f0f0
-    .expand-computed
-        display: block
-        margin-left: 0.5rem
-        width: 100%
-        height: 1.1563rem
-        background: #fff
-        border-bottom-1px(#e0e0e0)
-        .computed
-            display: inline-block
-            margin: 0.375rem 0 0 0
-            height: 0.4375rem
-            border-left: 0.0938rem solid #909090
-            font-size: 0.4063rem
-            font-weight: bold
-            text-indent: 0.1563rem
-            color: #909090
-        .link-wrapper
-            float: right
-            margin: 0 1rem 0 0
-            height: 100%
-            line-height: 1.1563rem
-            font-size: 0.4063rem
-            span 
-                float: left
-                color: #333
-            .number
-                float: left
-                color: #ea68a2
-    .expand-item
-        display flex
-        align-items center
-        justify-content space-between
-        margin-left 0.5rem
-        width 9.5rem
-        height 1.6875rem
-        background: #fff
-        border-bottom 1px solid #e0e0e0
-        .expand-msg
-            .from
-                font-size: 0.4063rem
-                color: #333
-            .date
-                margin: 0.1875rem 0 0 0
-                font-size: 0.3438rem
-        .get-number
+        .line                     
+            width: 100%
+            height: 0.3125rem
+            background: #f0f0f0
+        .expand-computed
+            display flex
+            justify-content space-between
+            align-items center
+            margin-left: 0.5rem
+            width: 100%
+            height: 1.1563rem
+            background: #fff
+            border-bottom 1px solid #e0e0e0
+            .computed
+                display flex
+                align-items center
+                height: 0.4375rem
+                border-left: 0.0938rem solid #909090
+                font-size: fs - 0.0313rem
+                font-weight: bold
+                text-indent: 0.1563rem
+                color: #909090
+            .link-wrapper
+                float: right
+                margin: 0 1rem 0 0
+                height: 100%
+                line-height: 1.1563rem
+                font-size fs - 0.0313rem
+                span 
+                    float: left
+                    color: #333
+                .number
+                    float: left
+                    color: #ea68a2
+        .expand-item
             display flex
             align-items center
-            margin-right: 0.5rem
-            font-size: 0.4063rem    
-            color: #333
-    .expand-item-empty
-        display flex
-        justify-content center
-        align-items center
-        width 100% !important
-        margin-left 0 !important
-        font-size 0.4063rem !important
+            justify-content space-between
+            margin-left 0.5rem
+            width 9.5rem
+            height 1.6875rem
+            background: #fff
+            border-bottom 1px solid #e0e0e0
+            .expand-msg
+                .from
+                    font-size: fs - 0.0313rem
+                    color: #333
+                .date
+                    margin: 0.1875rem 0 0 0
+                    font-size: fs - 0.0938rem
+            .get-number
+                display flex
+                align-items center
+                margin-right: 0.5rem
+                font-size: fs - 0.0313rem
+                color: #333
+        .expand-item-empty
+            display flex
+            justify-content center
+            align-items center
+            width 100% !important
+            margin-left 0 !important
+            font-size fs - 0.0313rem !important
 </style>
 

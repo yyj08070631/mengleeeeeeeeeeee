@@ -20,6 +20,7 @@ export default {
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
+@import '../../commom/stylus/mixin'
 // 头部
 .searchHead
     display flex
@@ -50,7 +51,7 @@ export default {
             align-items center
             height 100%
             width 6.1953rem
-            font-size .4375rem
+            font-size fs
             input
                 width 100%
                 outline 0
@@ -64,7 +65,7 @@ export default {
                 height 0.375rem
                 border-radius 50%
                 background-color #e0e0e0
-                font-size 0.375rem
+                font-size fs
                 color #fff
     .searchBtn
         display flex
@@ -72,6 +73,6 @@ export default {
         align-items center
         width 1.75rem
         height 100%
-        font-size 0.375rem
+        font-size fs
         color #ea68a2
 </style>

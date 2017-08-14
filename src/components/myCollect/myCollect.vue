@@ -7,7 +7,9 @@
             <!-- 正常收藏件 -->
             <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦<router-link to="/goods">去收藏</router-link>&nbsp;&nbsp;:) </div>
             <div class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
-                <img :src="val.mainmap">
+                <div class="imgCont">
+                    <img :src="val.mainmap">
+                </div>
                 <div class="badCollect" v-if="val.is_show == 0 || val.off == 0">已失效</div>
                 <div class="info">
                     <div class="rowUp">{{val.name}}</div>
@@ -253,40 +255,41 @@ export default {
         background #fff
         .noGoods
             margin-top 60%
-            font-size 0.4688rem
+            font-size fs + 0.0313rem
             text-align center
             color #333
             a
                 color #ea68a2
                 margin-top 0.3125rem
-                font-size 0.4375rem
-
+                font-size fs
         // 正常收藏件
-        .oneCollect:first-child
-            padding 0 !important
         .oneCollect
             display flex
             width 100%
-            padding-top 0.3125rem
+            border-bottom 1px solid #ccc
             background-color #fff
-            & > img
+            .imgCont
                 width 3.25rem
                 height 3.25rem
+                padding 0.25rem
+                img
+                    width 3.25rem
+                    height 3.25rem
             .info
                 width 100%
                 .rowUp
-                    padding 0.3125rem 0 0.9375rem 0.25rem
-                    font-size 0.4063rem
+                    padding 0.3125rem 0 0.9375rem 0
+                    font-size fs - 0.0313rem
                     color #333
                 .rowMiddle
                     display flex
                     align-items flex-end
-                    padding 0 0 0.3125rem 0.25rem
+                    padding 0 0 0.9688rem 0
                     color #ea68a2
                     span:first-child, span:last-child
-                        font-size 0.375rem
+                        font-size fs - 0.0625rem
                     span:nth-child(2)
-                        font-size 0.4375rem
+                        font-size fs
                 .rowDown
                     display flex
                     justify-content flex-end
@@ -307,7 +310,7 @@ export default {
                         margin 0 0.4063rem 0 0.2813rem
                         border 0.0313rem solid #ababab
                         border-radius 0.0938rem
-                        font-size 0.3438rem
+                        font-size fs
                     img
                         width 0.5rem
                         height 0.5rem
@@ -324,7 +327,7 @@ export default {
                 width 2.25rem
                 height 2.25rem
                 border-radius 50%
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 color rgba(255,255,255,0.8)
                 background-color rgba(0, 0, 0, 0.3)
     // 弹窗
@@ -343,10 +346,10 @@ export default {
         .weui-dialog__hd
             padding 0.3125rem 0 0 0 
             .weui-dialog__title
-                font-size 0.5rem !important
+                font-size fs + 0.0625rem !important
         .weui-dialog__bd
             padding 0.9375rem  0 
-            font-size 0.4688rem
+            font-size fs + 0.0313rem
             margin-bottom 0.5625rem
              
         .btn1
@@ -361,7 +364,7 @@ export default {
             z-index: 1000;
             border:0;
             border-top:1px solid #909090
-            font-size 0.4063rem
+            font-size fs - 0.0313rem
         .btn2
             position:absolute
             left:50%;
@@ -374,9 +377,9 @@ export default {
             z-index: 1000;
             border:0;
             border-top:1px solid #909090
-            font-size 0.4063rem    
+            font-size fs - 0.0313rem
             .weui-dialog__title
-                font-size 0.4063rem !important
+                font-size fs - 0.0313rem !important
             .weui-dialog__ft
                 background #3cf !important
                 display none
@@ -405,7 +408,7 @@ export default {
                 width 100%
                 height 2.8438rem
                 border-bottom 1px solid #e0e0e0
-                font-size 0.375rem
+                font-size fs - 0.0625rem
                 div:first-child
                     position relative
                     width 2.9688rem
@@ -443,7 +446,7 @@ export default {
                 width 100%
                 height 2rem
                 line-height 2rem
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 span
                     flex 1
                     margin-left 0.3438rem
@@ -465,7 +468,7 @@ export default {
                 width 100%
                 height 1.25rem
                 line-height 1.25rem
-                font-size 0.4219rem
+                font-size fs - 0.0156rem
                 color #fff
                 text-align center
                 background #fe9333        

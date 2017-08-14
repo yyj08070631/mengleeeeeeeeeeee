@@ -36,6 +36,8 @@ import allOrder from './components/allOrder/allOrder';
 import evaluate from './components/evaluate/evaluate';
 import payResult from './components/payResult/payResult';
 import myWallet from './components/myWallet/myWallet';
+import myCenterHelp from './components/myCenterHelp/myCenterHelp';
+import integralHelp from './components/integralHelp/integralHelp';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
@@ -216,6 +218,14 @@ const routes = [{
     {
         path: '/payResult',
         component: payResult
+    },
+    {
+        path: '/myCenterHelp',
+        component: myCenterHelp
+    },
+    {
+        path: '/integralHelp',
+        component: integralHelp
     }
 ];
 

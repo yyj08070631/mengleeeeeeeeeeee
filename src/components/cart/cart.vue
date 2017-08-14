@@ -4,9 +4,9 @@
         <header class="header">
             <div class="goBack">
                 <!-- <a href="javascript:history.back(1)">
-                    <img src="./images/arrow_left.png">
-                    <span>返回</span> 
-                </a> -->
+                        <img src="./images/arrow_left.png">
+                        <span>返回</span> 
+                    </a> -->
             </div>
             <div class="title">
                 <!-- 我的购物袋 -->
@@ -19,7 +19,7 @@
         <!-- 主体 -->
         <section class="main">
             <!-- 超大分割线 -->
-            <div class="dividerBig"></div>
+            <!-- <div class="dividerBig"></div> -->
             <!-- 购物车为空 -->
             <p v-show="data.data.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
             <!-- 一个商品 -->
@@ -27,7 +27,7 @@
                 <!-- 选择框 -->
                 <div class="colLeft" ref="allBox">
                     <!-- 选择那个圈圈 -->
-                    <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key,val.price,val.id)" class="check-hook">
+                    <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key, val.price, val.id, val.gid)" class="check-hook">
                 </div>
                 <!-- 商品图片 -->
                 <div class="colMiddle">
@@ -63,10 +63,10 @@
                 <p class="total">合计：</p>
                 <p class="price">￥{{totalPrice}}</p>
             </div>
-            <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a>
+            <!-- <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a> -->
+            <router-link :to="{ path: '/buyGoods', query: JSON.parse(JSON.stringify(buyArr)) }" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</router-link>
             <a href="javascript:void(0)" class="del" v-show="showWrite" @click="onShow">删除</a>
         </footer>
-        <!-- 脚部 -->
         <!-- 页面所有弹窗 -->
         <div>
             <toast v-model="successAlert" type="text">已删除</toast>
@@ -82,13 +82,16 @@
             <button class="btn2" @click="onHide();">取消</button>
             请确认删除
         </alert>
-        <!-- 页面所有弹窗 -->
+        <!-- 脚 -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 import { Toast, Group, Alert } from 'vux'
 export default {
     components: {
+        'v-view': view,
         Toast,
         Group,
         Alert
@@ -112,7 +115,8 @@ export default {
             errorAlert: false,//获取数据失败弹窗
             writeAfter: false,//编辑成功弹窗
             arr: [],
-            show: false//询问弹窗
+            show: false, //询问弹窗
+            buyArr: [] //用于提交购买列表的数组
         }
     },
     methods: {
@@ -123,8 +127,8 @@ export default {
                     this.number[i].num++;
                 }
             }
-            let narr = []//保存对比之前的数组
-            let get = []//保存对比之后的数组
+            let narr = [] // 保存对比之前的数组
+            let get = [] // 保存对比之后的数组
             for (let i = 0; i < this.number.length; i++) {
                 narr.push({
                     num: this.data.data[i].number,
@@ -141,6 +145,7 @@ export default {
                     //get.pop()
                 }
             }
+            // console.log(this.buyArr)
         },
         //数量-=1
         numberSub(id) {
@@ -170,7 +175,7 @@ export default {
                     this.saveData.pop()
                 }
             }
-
+            // console.log(this.buyArr)
         },
         //删除数据
         delCartList: function () {
@@ -212,7 +217,6 @@ export default {
                 this.saveData[i].number = Number(this.saveData[i].number);
             }
             this.$http.post(
-
                 global.Domain + '/Order/chancart',
                 {
                     num: JSON.stringify(this.saveData)
@@ -251,7 +255,7 @@ export default {
             })
         },
         //选中单个按钮
-        checkType: function (key, data, id) {
+        checkType: function (key, data, id, gid) {
             let file = this.$refs.checkHook[key].src
             let reg = /unchecked/
             let result = this.number[key].num * this.data.data[key].price
@@ -259,6 +263,10 @@ export default {
                 this.$refs.checkHook[key].src = require('./images/checked.png')
                 this.Idarr.push(id)
                 this.priceArr.push(result)
+                this.buyArr.push({ // 这是结算用的数组
+                    gid: gid,
+                    number: this.number[key].num
+                })
             } else {
                 this.$refs.checkHook[key].src = require('./images/unchecked.png')
                 //删除数组中某个特定元素的方法
@@ -270,28 +278,36 @@ export default {
                 };
                 this.Idarr.remove(id)
                 this.priceArr.remove(result)
-
+                this.buyArr.remove({
+                    gid: id,
+                    number: this.number[key].num
+                })
             }
             // console.log(this.priceArr)
-            //   console.log(this.Idarr)
+            console.log(JSON.parse(JSON.stringify(this.buyArr)))
         },
         //选中所有个按钮
         checkAllBox: function () {
-
             if (this.isCheckAll == false) {
                 this.isCheckAll = true
                 this.Idarr = []
                 this.priceArr = []
+                this.buyArr = [] // 这是结算用的数组
                 this.$refs.allCheckHook.src = require('./images/checked.png')
             } else {
                 this.isCheckAll = false
                 this.$refs.allCheckHook.src = require('./images/unchecked.png')
             }
             for (let i = 0; i < this.$refs.allBox.length; i++) {
+                // 构建选中商品数组
                 if (this.isCheckAll == true) {
                     this.$refs.allBox[i].getElementsByTagName('img')[0].src = require('./images/checked.png')
                     this.Idarr.push(this.data.data[i].id)
                     this.priceArr.push(this.number[i].num * this.data.data[i].price)
+                    this.buyArr.push({
+                        gid: this.data.data[i].gid,
+                        number: this.number[i].num
+                    })
                     let arr = []
                     for (var i = 0; i < this.Idarr.length - 1; i++) {
                         if (arr.indexOf(this.Idarr[i]) == -1) {
@@ -311,11 +327,12 @@ export default {
                     this.getIdArr = []
                     this.Idarr = []
                     this.priceArr = []
+                    this.buyArr = []
                     this.getPriceArr = []
                 }
             }
             //  console.log(this.priceArr)
-            //    console.log(this.Idarr)
+            console.log(this.buyArr)
         },
         //编辑完成
         finish: function (type) {
@@ -344,6 +361,10 @@ export default {
         },
         onHide: function () {
             this.show = false
+        },
+        //数组深复制，不考虑循环引用的情况
+        cloneArr: function (from) {
+            return from.map((n) => clone(n));
         }
     },
     mounted() {
@@ -364,18 +385,16 @@ export default {
             value = parseFloat(value).toFixed(2).split('.')[0];
             return value
         },
-        numSmall: function(value){
+        numSmall: function (value) {
             value = parseFloat(value).toFixed(2).split('.')[1];
             return value
         }
-    },
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
 
-width = 100%
-color = #fff
 // init
 span, a, img, input, textarea
     display block
@@ -385,20 +404,22 @@ span, a, img, input, textarea
     position absolute
     top 0
     left 0
-    width width
+    width 100%
     height: 100%
     background #f0f0f0
     // 详情页header
     .header
         headerFlex()
+    .route-item
+        footerCss()
     // 主体
     .main
-        margin-top 1.25rem
-        margin-bottom 1.4063rem
+        margin-top 1.0625rem
+        margin-bottom 2.75rem
         //没有商品
         .noGoods
             margin-top 50%
-            font-size 0.4688rem
+            font-size fs + 0.0313rem
             text-align center
             color #333
         // 大分割线    
@@ -410,20 +431,20 @@ span, a, img, input, textarea
         .oneProduct
             display flex
             width 100%
-            padding 0.2813rem 0
-            border-bottom-1px(#e0e0e0)
+            padding 0.2188rem 0
+            border-bottom 1px solid #e0e0e0
             background-color #fff
             img
-                width 2.9375rem
-                height 2.9375rem
+                width 2.1875rem
+                height 2.1875rem
             // 选择框
             .colLeft
                 display flex
                 justify-content center
                 align-items center
                 img
-                    height 0.5938rem
-                    width 0.5938rem
+                    height 0.4688rem
+                    width 0.4688rem
                     margin 0 0.3438rem
                     border-radius 50%
             // 商品图片
@@ -437,7 +458,7 @@ span, a, img, input, textarea
                 margin-left 0.2188rem
                 .rowUp
                     margin-top 0.3125rem
-                    font-size 0.4063rem
+                    font-size fs - 0.0313rem
                 .rowDown
                     margin-bottom 0.3125rem
                     display flex
@@ -448,9 +469,9 @@ span, a, img, input, textarea
                         margin-bottom 0.125rem
                         color #ea68a2
                         span:first-child, span:last-child
-                            font-size 0.375rem
+                            font-size fs - 0.0625rem
                         span:nth-child(2)
-                            font-size 0.4375rem
+                            font-size fs
                     .count
                         display flex
                         margin-right 0.4063rem
@@ -462,7 +483,7 @@ span, a, img, input, textarea
                             align-items center
                             width 0.7188rem
                             height 0.6875rem
-                            font-size 0.5rem
+                            font-size fs + 0.0625rem
                             color #333
                         input
                             display flex
@@ -470,7 +491,7 @@ span, a, img, input, textarea
                             align-items center
                             width 0.8125rem
                             height 0.6875rem
-                            font-size 0.5rem
+                            font-size fs + 0.0625rem
                             color #333
                             text-align center
                         a:first-child
@@ -478,7 +499,7 @@ span, a, img, input, textarea
                         a:last-child
                             border-left 0.0313rem solid #d6d6d6
                     .num
-                        font-size 0.5rem
+                        font-size fs + 0.0625rem
                         margin-right 0.5rem    
     // 脚部
     .foot
@@ -487,8 +508,8 @@ span, a, img, input, textarea
         justify-content space-between
         position fixed
         width 100%
-        height 1.4063rem
-        bottom 0
+        height 1.0938rem
+        bottom 1.3438rem
         left 0
         background-color #fff
         .colLeft
@@ -497,22 +518,22 @@ span, a, img, input, textarea
             height 100%
             margin-left 0.3125rem
             img
-                width 0.6719rem
-                height 0.6719rem
+                width 0.4688rem
+                height 0.4688rem
                 margin-right 0.3125rem
             .selAll
-                font-size 0.5rem
+                font-size fs + 0.0625rem
                 color #333
         .colMiddle
             display flex
             align-items center
             height 100%
-            margin-left 1.25rem
+            margin-left 2.8125rem
             .total
-                font-size 0.5rem
+                font-size fs + 0.0625rem
                 color #333
             .price
-                font-size 0.5rem
+                font-size fs + 0.0625rem
                 color #ea68a2
         .pay
             display flex
@@ -520,7 +541,7 @@ span, a, img, input, textarea
             justify-content center
             height 100%
             width 2.5625rem
-            font-size 0.4063rem
+            font-size fs - 0.0313rem
             color #fff
             background-color #ea68a2
         .del
@@ -529,7 +550,7 @@ span, a, img, input, textarea
             justify-content center
             height 100%
             width 2.5625rem
-            font-size 0.4063rem
+            font-size fs - 0.0313rem
             color #fff
             background-color #ea68a2    
     //弹窗组件        
@@ -540,7 +561,7 @@ span, a, img, input, textarea
         top 50%!important
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
-            font-size 0.375rem     
+            font-size fs - 0.0625rem
     .weui-dialog
         width 12.5rem!important
         min-width 80%
@@ -549,10 +570,10 @@ span, a, img, input, textarea
         .weui-dialog__hd
             padding 0.3125rem 0 0 0 
             .weui-dialog__title
-                font-size 0.5rem !important
+                font-size fs + 0.0625rem !important
         .weui-dialog__bd
             padding 0.9375rem  0 
-            font-size 0.4688rem
+            font-size fs + 0.0313rem
             margin-bottom 0.5625rem
              
         .btn1
@@ -567,7 +588,7 @@ span, a, img, input, textarea
             z-index: 1000;
             border:0;
             border-top:1px solid #909090
-            font-size 0.4063rem
+            font-size fs - 0.0313rem
         .btn2
             position:absolute
             left:50%;
@@ -580,9 +601,9 @@ span, a, img, input, textarea
             z-index: 1000;
             border:0;
             border-top:1px solid #909090
-            font-size 0.4063rem    
+            font-size fs - 0.0313rem
             .weui-dialog__title
-                font-size 0.4063rem !important
+                font-size fs - 0.0313rem !important
             .weui-dialog__ft
                 background #3cf !important
                 display none
