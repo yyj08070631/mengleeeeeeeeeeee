@@ -6,7 +6,7 @@
         <section class="main">
             <!-- 一个收货地址 -->
             <div class="emptyType" v-if="data.length == 0">请添加收货地址:-D</div>
-            <router-link to="/addrManage" class="oneAddr" v-for="(val,key) in data" v-else>
+            <router-link :to="{ path: '/buyGoods', query: { group: orderArr(), name: val.name, phone: val.phone, addr: val.province + val.city + val.area + val.address } }" class="oneAddr" v-for="(val,key) in data" v-else>
                 <div class="rowUp">
                     <div class="nameAndPhone">
                         <p class="name">{{val.name}}</p>
@@ -25,7 +25,7 @@
                 <div class="rowDown">
                     {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
                 </div>
-                    <!-- 删除询问弹窗 -->
+                <!-- 删除询问弹窗 -->
                 <alert v-model="show" title="提示" @on-show="onShow"  @on-hide="onHide">
                     <button class="btn1" @click="onHide();delReceInfo(val.id)">确定</button>
                     <button class="btn2" @click="onHide();">取消</button>
@@ -93,6 +93,11 @@ export default {
                     this.error = true
                 }
             })
+        },
+        // 获取订单数组
+        orderArr: function(){
+            // console.log(this.$route.query.group)
+            return this.$route.query.group
         },
         onShow: function(){
             this.show = true

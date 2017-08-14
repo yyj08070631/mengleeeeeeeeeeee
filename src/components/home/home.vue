@@ -57,7 +57,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                console.log(res)
+                // console.log(res)
                 // console.log(response)
                 for (var key in res) {
                     if (res[key].banner) {
@@ -107,7 +107,7 @@ export default {
                         console.log('获取了无效的数据！')
                     }
                 }
-                console.log(result)
+                // console.log(result)
                 this.dataApp = result
             })
         }

@@ -2,7 +2,7 @@
     <div class="buyGoods-wrapper">
         <!-- header -->
         <!-- <v-header></v-header> -->
-        <router-link to="/addrManage" class="userInfo">
+        <router-link :to="{ path: '/addrManage', query: { group: orderArr() } }" class="userInfo">
             <div>
                 <img src="./location.png">
             </div>
@@ -22,15 +22,15 @@
                 <div class="col2">
                     <p>{{val.name}}</p>
                     <p>数量：X{{val.number}}</p>
-                    <p>运费：{{data.freightitems == 0 ? '免运费' : (data.freightitems|num)}}</p>
+                    <p>运费：{{data.freightitems == 0 ? '免运费' : num(data.freightitems)}}</p>
                 </div>
             </div>
             <div class="colRight">
-                <span>￥{{val.price|num}}</span>
+                <span>￥{{num(val.price)}}</span>
             </div>
         </div>
         <div class="countInfo">
-            <p>共{{computeGoods}}件（含运费）:&nbsp;￥&nbsp;{{computeMoney|num}}</p>
+            <p>共{{computeGoods}}件（含运费）:&nbsp;￥&nbsp;{{num(computeMoney)}}</p>
         </div>
         <div class="footer">
             <div class="buy-tag">
@@ -81,13 +81,16 @@ export default {
             payTypeList: [],
             showHideOnBlur: false,
             payType: '',
+            payResult: []
         }
     },
     mounted() {
         this.getDataFromBackend()
     },
     methods: {
+        // 获取数据
         getDataFromBackend: function () {
+            console.log(this.$route.query.group)
             // console.log(JSON.stringify(this.$route.query));
             let arr = [];
             for (let key in this.$route.query) {
@@ -113,12 +116,62 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                console.log(res);
+                // console.log(res);
                 this.payTypeList = res.payitem
             })
         },
+        // 支付！！！
         payIt: function(){
-            alert('用' + this.payType + '支付');
+            // let arr = [];
+            // for (let key in this.$route.query) {
+            //     arr.push(this.$route.query[key]);
+            // }
+            // this.$http({
+            //     method: 'get',
+            //     url: global.Domain + '/Order/pay?pay=' + this.payType + '&group=' + arr + '&status=1' + '&address=' + arr + '&name=' + arr + '&phone=' + arr + '&remark=' + arr + '&gid=' + arr,
+            //     emulateJSON: true
+            // }).then(function (response) {
+            //     let res = response.body;
+            //     console.log(res);
+            //     // this.payResult = res.payitem
+            // })
+        },
+        // 重构订单列表
+        orderArr: function(){
+            let arr = [];
+            for (let key in this.$route.query) {
+                arr.push(this.$route.query[key]);
+            }
+            return arr
+        },
+        // 1,020.00
+        outputdollars: function (number) {
+            if (number.length <= 3)
+                return (number == '' ? '0' : number);
+            else {
+                var mod = number.length % 3;
+                var output = (mod == 0 ? '' : (number.substring(0, mod)));
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if ((mod == 0) && (i == 0))
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                }
+                return (output);
+            }
+        },
+        outputcents: function (amount) {
+            amount = Math.round(((amount) - Math.floor(amount)) * 100);
+            return (amount < 10 ? '.0' + amount : '.' + amount);
+        },
+        num: function (number) {
+            number = String(number).replace(/\,/g, "");
+            if (isNaN(number) || number == "") return "";
+            number = Math.round(number * 100) / 100;
+            if (number < 0)
+                return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+            else
+                return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
     computed: {
@@ -127,7 +180,7 @@ export default {
             let count = 0;
             let list = this.data.gooditems;
             for (let i = 0; i < list.length; i++) {
-                count += list[i].number
+                count += parseInt(list[i].number)
             }
             return count
         },
@@ -142,22 +195,22 @@ export default {
             return count
         },
     },
-    filters: {
-        // 1,025.00
-        num: function (value) {
-            // console.log(value)
-            let afterPt = parseFloat(value).toFixed(2).split('.')[1];
-            // console.log(afterPt); // 00
-            value = String(parseFloat(value).toFixed(2).split('.')[0]);
-            let result = '';
-            let i = 0;
-            for (i = 3; i < value.length; i += 3) {
-                result = ',' + value.slice(-i) + result;
-            }
-            result = value.slice(0, value.length % 3) + result + '.' + afterPt;
-            return result
-        }
-    },
+    // filters: {
+    //     // 1,025.00
+    //     num: function (value) {
+    //         // console.log(value)
+    //         let afterPt = parseFloat(value).toFixed(2).split('.')[1];
+    //         // console.log(afterPt); // 00
+    //         value = String(parseFloat(value).toFixed(2).split('.')[0]);
+    //         let result = '';
+    //         let i = 0;
+    //         for (i = 3; i < value.length; i += 3) {
+    //             result = ',' + value.slice(-i) + result;
+    //         }
+    //         result = value.slice(0, value.length % 3) + result + '.' + afterPt;
+    //         return result
+    //     }
+    // },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

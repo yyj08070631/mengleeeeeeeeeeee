@@ -82,10 +82,10 @@
         </div>
         <div class="footer">
             <div class="rowUp">
-                <div class="logo"></div>
+                <router-link :to="{ path: '/myCenterCopyTxt', query: { id: val.id } }" class="copyLink" v-for="(val, key) in copyright.article">{{val.title}}</router-link>
             </div>
             <div class="rowDown">
-                <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
+                <p class="Copyright">{{copyright.version}}</p>
             </div>
         </div>
         <!-- footer -->
@@ -102,7 +102,8 @@ export default {
     },
     data() {
         return {
-            data: []
+            data: [],
+            copyright: []
         }
     },
     mounted() {
@@ -113,15 +114,26 @@ export default {
         getDataFromBackend() {
             let that = this;
             let result = [];
+            // 个人信息
             this.$http({
                 method: 'get',
                 url: global.Domain + '/user/userInfo?userId===tPtcNLZARXEuvDhRSFGkQX',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                console.log(res);
+                // console.log(res);
                 this.data = res.data;
-            })
+            });
+            // 版权
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/versionInfo',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.copyright = res.data;
+            });
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -187,7 +199,7 @@ export default {
     }
 }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 @import '../../commom/stylus/mixin'
 color = #fff
 // 初始化样式
@@ -287,27 +299,30 @@ img, span, a
     //脚注
     .footer
         width: 100%
-        height: 1.9063rem
         background: #f0f0f0
-        padding 0.3125rem 0
+        padding 0.3125rem 0 0.5625rem 0
         .rowUp
             display flex
+            flex-direction column
             align-items center
             justify-content center
             padding-top 0.3125rem
-            .logo  
-                width: 2.6563rem
-                height: 0.625rem
-                background: url("./logo.png")
-                background-size: 2.6563rem 0.625rem
+            .copyLink
+                margin-bottom 0.5625rem
+                font-size fs - 0.0625rem
+                color #333
+            // .logo  
+            //     width: 2.6563rem
+            //     height: 0.625rem
+            //     background: url("./logo.png")
+            //     background-size: 2.6563rem 0.625rem
         .rowDown
             display flex
             align-items center
             justify-content center
-            padding-top 0.3125rem        
             .Copyright
                 text-align: center
-                font-size: fs - 0.0938rem
+                font-size: fs - 0.0625rem
                 color: #909090
 </style>
 

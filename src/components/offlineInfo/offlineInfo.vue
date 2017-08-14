@@ -5,10 +5,10 @@
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
-            <img :src="data.nearbyitem.mainmap[0].src" width="100%" height="100%" v-if="data.nearbyitem.mainmap.length == 1">
+            <img :src="data.nearbyitem.mainmap[0].src" v-if="data.nearbyitem.mainmap.length == 1">
             <swiper :options="swiperOption" ref="mySwiper" v-else-if="data.nearbyitem.mainmap.length > 1">
                 <swiper-slide v-for="(val,key) in data.nearbyitem.mainmap">
-                    <img :src="val.src" width="100%" height="100%">
+                    <img :src="val.src">
                 </swiper-slide>
                 <!-- 这是轮播的小圆点 -->
                 <div class="swiper-pagination" slot="pagination"></div>
@@ -31,7 +31,7 @@
                     </p>
                 </div>
                 <hr class="divider dividerMargin">
-                <a class="rowDown" href="javascript:void(0)">
+                <router-link class="rowDown" :to="{ path: '/offlineInfoMap', query: { loc: '113.384129,22.937244', name: data.nearbyitem.name, scale: '15' } }">
                     <div class="colLeft">
                         <p class="loc">{{data.nearbyitem.address}}</p>
                         <p class="dis">
@@ -43,7 +43,7 @@
                     <div class="colRight">
                         <img src="./images/arrow_right.png">
                     </div>
-                </a>
+                </router-link>
             </div>
             <!--粗分割线-->
             <hr class="divider dividerBig">
@@ -75,7 +75,8 @@
                     </div>
                 </div>
                 <hr class="divider">
-                <div class="commentDetailContainer" v-for="(val,key) in data.commentitem.comment">
+                <div class="noComment" v-if="data.commentitem.comment.length == 0">暂时没有评论:-D</div>
+                <div class="commentDetailContainer" v-for="(val,key) in data.commentitem.comment" v-else>
                     <div class="commentDetail">
                         <div class="colLeft">
                             <img :src="val.headimg">
@@ -92,7 +93,7 @@
                     </div>
                     <hr class="divider">
                 </div>
-                 <div class="commentDetailContainer" v-for="(val,key) in msgData">
+                <div class="commentDetailContainer" v-for="(val,key) in msgData">
                     <div class="commentDetail">
                         <div class="colLeft">
                             <img :src="val.headimg">
@@ -109,12 +110,11 @@
                     </div>
                     <hr class="divider">
                 </div> 
-                <div class="viewMore">
+                <div class="viewMore" v-show="!data.commentitem.comment.length == 0">
                     <a href="javascript:void(0)" @click="addMsgMore">{{msgMore}}</a>
                 </div>
             </div>
         </section>
-    
     </div>
 </template>
 <script type="ecmascript-6">
@@ -145,9 +145,6 @@ export default {
             para: 0,
             msgMore: '查看更多评论'
         }
-    },
-    created() {
-        
     },
     methods: {
         // 获取数据方法
@@ -295,7 +292,13 @@ img, span, a
         .swiper-pagination-bullet-active   
             height 0.0313rem !important      
         .comment
-            margin-left 0.5rem
+            .noComment
+                display flex
+                justify-content center
+                align-items center
+                width 100%
+                height 1.5625rem
+                font-size fs
             .titleDown
                 height 1.1563rem
                 display flex
@@ -304,6 +307,7 @@ img, span, a
                 .colLeft
                     display flex
                     align-items center
+                    margin-left 0.5rem
                     p
                         font-size fs
                         color #909090
@@ -361,13 +365,12 @@ img, span, a
                     color #ea68a2
         // 粗分割线
         .dividerBig
-            margin-bottom 0.3125rem
-            &:after
-                border-width 0.3125rem
-                border-color #e0e0e0
+            height 0.3125rem
+            background-color #e0e0e0
+            border 0 !important
         // 分割线margin
-        .dividerMargin
-            margin-left 0.5rem
+        // .dividerMargin
+        //     margin-left 0.5rem
         // 线下信息
         .offlineInfo
             .rowUp

@@ -38,6 +38,8 @@ import payResult from './components/payResult/payResult';
 import myWallet from './components/myWallet/myWallet';
 import myCenterHelp from './components/myCenterHelp/myCenterHelp';
 import integralHelp from './components/integralHelp/integralHelp';
+import myCenterCopyTxt from './components/myCenterCopyTxt/myCenterCopyTxt';
+import offlineInfoMap from './components/offlineInfoMap/offlineInfoMap';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
@@ -47,7 +49,9 @@ import AMap from 'vue-amap'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
 import { InfiniteScroll } from 'mint-ui';
+import { WechatPlugin } from 'vux'
 
+Vue.use(WechatPlugin)
 Vue.use(InfiniteScroll);
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -63,7 +67,7 @@ const store = new Vuex.Store({
 
 Vue.use(AMap)
 Vue.use(vuexI18n.plugin, store)
-    //Vue.use(Vuex)
+//Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
@@ -78,6 +82,16 @@ AMap.initAMapApiLoader({
     // 插件集合
     plugin: ['Scale', 'Geolocation']
 })
+
+// jssdk
+// Vue.wechat.config({
+//     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+//     appId: '', // 必填，公众号的唯一标识
+//     timestamp: , // 必填，生成签名的时间戳
+//     nonceStr: '', // 必填，生成签名的随机串
+//     signature: '',// 必填，签名，见附录1
+//     jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+// });
 
 const routes = [{
         path: '/goods',
@@ -226,9 +240,17 @@ const routes = [{
     {
         path: '/integralHelp',
         component: integralHelp
+    },
+    {
+        path: '/offlineInfoMap',
+        component: offlineInfoMap
+    },
+    {
+        path: '/myCenterCopyTxt',
+        component: myCenterCopyTxt
     }
 ];
-
+myCenterCopyTxt
 const router = new vueRouter({
     routes,
     scrollBehavior(to, from, savedPosition) {
