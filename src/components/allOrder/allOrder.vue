@@ -9,8 +9,8 @@
                     <img class="product" :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
-                        <p class="num">单价:￥{{val.price}}</p>
-                        <p class="price">总价:￥{{val.price*val.number}}</p>
+                        <p class="num">单价:￥{{num(val.price)}}</p>
+                        <p class="price">总价:￥{{num(val.price*val.number)}}</p>
                     </div>
                     <div>
                         <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
@@ -55,6 +55,35 @@ export default {
                 this.orderList = response.body
                 console.log(this.orderList)
             })
+        },
+        // 1,020.00
+        outputdollars: function (number) {
+            if (number.length <= 3)
+                return (number == '' ? '0' : number);
+            else {
+                var mod = number.length % 3;
+                var output = (mod == 0 ? '' : (number.substring(0, mod)));
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if ((mod == 0) && (i == 0))
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                }
+                return (output);
+            }
+        },
+        outputcents: function (amount) {
+            amount = Math.round(((amount) - Math.floor(amount)) * 100);
+            return (amount < 10 ? '.0' + amount : '.' + amount);
+        },
+        num: function (number) {
+            number = String(number).replace(/\,/g, "");
+            if (isNaN(number) || number == "") return "";
+            number = Math.round(number * 100) / 100;
+            if (number < 0)
+                return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+            else
+                return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
     data() {
@@ -143,13 +172,13 @@ export default {
             border-bottom 1px solid #e0e0e0
             .title 
                 float: left
-                font-size fs - 0.0938rem
+                font-size fs - 0.0313rem
                 color: #333
             .content
                 display: inline-block    
                 float: right
                 margin-right: 1.625rem
-                font-size: fs - 0.0938rem
+                font-size: fs - 0.0313rem
                 color: #909090
             .more 
                 position: absolute
@@ -180,7 +209,7 @@ export default {
                     float: left
                     width: 5.25rem
                     line-height: 0.625rem
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0313rem
                     .desc
                         color: #333
                     .num
@@ -195,7 +224,7 @@ export default {
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0313rem
                     color: #ea6aa2
                 .orderPrice
                     display: inline-block
@@ -205,7 +234,7 @@ export default {
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0313rem
                     color: #909090            
                 .handle
                     display: block
@@ -215,7 +244,7 @@ export default {
                     width: 1.8438rem   
                     height: 0.5625rem
                     line-height: 0.5625rem
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0625rem
                     text-align: center
                     border-radius: 0.1563rem
                     color: #fff 
@@ -229,7 +258,7 @@ export default {
             width: 100%
             height: 1.2188rem
             line-height: 1.2188rem
-            font-size: fs - 0.0938rem
+            font-size: fs - 0.0313rem
             text-align: center
             color: #ea6aa2
         .line

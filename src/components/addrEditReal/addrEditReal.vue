@@ -148,6 +148,7 @@ span, a, img, input, textarea
                 align-items center
                 width 6.4688rem
                 height 95%
+                font-size fs
                 color #262626
                 outline 0
             textarea

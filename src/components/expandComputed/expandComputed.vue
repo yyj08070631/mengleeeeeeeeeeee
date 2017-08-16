@@ -4,7 +4,7 @@
         <!-- <v-header></v-header> -->
         <div class="expand-board">
             <span class="rank-title">拓展总收益（元）</span>
-            <h1 class="myExpand">{{num(data.total_money)}}</h1>
+            <h1 class="myExpand">{{num(data.total)}}</h1>
         </div>
         <div class="content-wrapper">
             <a href="#myTeam" class="get-expand">
@@ -19,7 +19,7 @@
                     <span class="computed">|&nbsp;本月</span>
                     <div class="link-wrapper">
                         <span>获得：</span>
-                        <span class="number">￥6880.00</span>
+                        <span class="number">￥{{num(data.total_money)}}</span>
                     </div>
                 </div>
             </a>
@@ -109,7 +109,7 @@ export default {
         .rank-title
             display block 
             padding .8438rem 0 .75rem .5rem
-            font-size fs - 0.0313rem
+            font-size fs
             color #fff
         .myExpand
             padding-left .5rem
@@ -130,7 +130,7 @@ export default {
             font-size: 0
             .title
                 float: left 
-                font-size: fs - 0.0313rem
+                font-size: fs
                 color: #333
             .link-wrapper
                 float: right
@@ -159,7 +159,7 @@ export default {
                 display flex
                 align-items center
                 height: 100%
-                font-size: fs - 0.0313rem
+                font-size: fs
                 font-weight: bold
                 color: #909090
             .link-wrapper
@@ -167,12 +167,12 @@ export default {
                 align-items center
                 height: 100%
                 margin-right 1rem
-                font-size: fs - 0.0313rem
+                font-size: fs
                 .number
                     color: #ea68a2
     .expand-item-empty
         justify-content center !important
-        font-size fs - 0.0313rem !important
+        font-size fs !important
         padding 0 !important
         line-height inherit !important
     .expand-item
@@ -197,16 +197,16 @@ export default {
                 margin: -0.1875rem 0 0 0
                 float: left 
                 height: 0.4063rem
-                font-size: fs - 0.0313rem
+                font-size: fs
                 color: #333
             .date
                 margin: 0.1875rem 0 0 0
                 float: left
-                font-size: fs - 0.0938rem
+                font-size: fs - 0.0625rem
         .get-number
             padding-right 1rem
             line-height: 1.6875rem 
-            font-size: fs - 0.0313rem
+            font-size: fs
             color: #333
     .expand-item:last-child:after
         border 0

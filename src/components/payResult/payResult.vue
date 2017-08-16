@@ -7,23 +7,28 @@
             <div><img src="./success.png"><span>支付成功！</span></div>
             <div></div>
         </div>
-        <div class="payPrice">￥36.80</div>
+        <div class="payPrice">￥{{price}}</div>
         <div class="gathering">
             <div></div>
             <div><span>收款方：</span><span>梦乐商城</span></div>
             <div></div>
         </div>
-        <div class="postButton">
-            <router-link to="/goods">完成</router-link>
-        </div>
-    </div>    
+        <router-link to="/orderFrom" class="postButton">
+            <a href="javascript:void(0)">完成</a>
+        </router-link>
+    </div>
 </template>
- <script type="ecmascript-6">
+<script type="ecmascript-6">
 // import header from '../../components/header/header';
 export default {
     components: {
         // 'v-header': header
-    }
+    },
+    data() {
+        return {
+            price: this.$route.query.price
+        }
+    },
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

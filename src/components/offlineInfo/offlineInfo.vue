@@ -5,7 +5,7 @@
         <!-- 主体 -->
         <section class="main">
             <!--图片轮播-->
-            <img :src="data.nearbyitem.mainmap[0].src" v-if="data.nearbyitem.mainmap.length == 1">
+            <img class="mainmap" :src="data.nearbyitem.mainmap[0].src" v-if="data.nearbyitem.mainmap.length == 1">
             <swiper :options="swiperOption" ref="mySwiper" v-else-if="data.nearbyitem.mainmap.length > 1">
                 <swiper-slide v-for="(val,key) in data.nearbyitem.mainmap">
                     <img :src="val.src">
@@ -134,6 +134,7 @@ export default {
                 loop: true,
                 paginationType: "bullets",
                 pagination: '.swiper-pagination',
+                autoplayDisableOnInteraction : false,
                 paginationBulletRender: function (swiper, index, className) {
                     let width = (isFinite(100 / (parseInt(swiper.imagesLoaded / 2))) ? 100 / (parseInt(swiper.imagesLoaded / 2)) : 100) + '%';
                     // console.log(width);
@@ -262,6 +263,9 @@ img, span, a
         .divider
             margin 0
             border-top 1px solid #e0e0e0
+        // 主图
+        .mainmap
+            width 100%
         // 评论
         .swiper-container
             position: relative

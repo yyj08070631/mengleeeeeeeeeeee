@@ -6,7 +6,8 @@
         <section class="main">
             <!-- 一个收货地址 -->
             <div class="emptyType" v-if="data.length == 0">请添加收货地址:-D</div>
-            <router-link :to="{ path: '/buyGoods', query: { group: orderArr(), name: val.name, phone: val.phone, addr: val.province + val.city + val.area + val.address } }" class="oneAddr" v-for="(val,key) in data" v-else>
+            <div class="oneAddr" v-for="(val,key) in data" v-else>
+            <!--  :to="{ path: '/buyGoods', query: { group: orderArr(), name: val.name, phone: val.phone, addr: val.province + val.city + val.area + val.address } }" -->
                 <div class="rowUp">
                     <div class="nameAndPhone">
                         <p class="name">{{val.name}}</p>
@@ -31,7 +32,7 @@
                     <button class="btn2" @click="onHide();">取消</button>
                     请确认删除
                 </alert>
-            </router-link>
+            </div>
             <!-- 新建地址 -->
             <div class="newAddr">
                 <router-link to="/addrEdit" class="newAddrItem">新建地址</router-link>
@@ -99,6 +100,11 @@ export default {
             // console.log(this.$route.query.group)
             return this.$route.query.group
         },
+        // 地址设置到session中
+        addrToSession: function(name, phone, addr){
+            sessionStorage.setItem('loc', JSON.stringify({name: name, phone: phone, addr: addr}));
+            this.$router.push('buyGoods');
+        },
         onShow: function(){
             this.show = true
         },
@@ -141,7 +147,7 @@ span, a, img, input, textarea
             width 100%
             height 3.125rem
             background-color #fff
-            font-size fs + 0.0625rem
+            font-size fs + 0.0938rem
         // 分割线
         .dividerBig
             width 100%
@@ -166,14 +172,14 @@ span, a, img, input, textarea
                     display flex
                     .name
                         width 1.875rem
-                        font-size fs
+                        font-size fs + 0.0313rem
                         color #333
                         margin-right 0.9375rem
                     // 电话
                     .phone
                         display flex
                         position relative
-                        font-size fs
+                        font-size fs + 0.0313rem
                         color #333
                     // 带 "默认" 的电话
                     .default:after
@@ -211,10 +217,10 @@ span, a, img, input, textarea
                 .weui-dialog__hd
                     padding 0.3125rem 0 0 0 
                     .weui-dialog__title
-                        font-size fs + 0.0625rem !important
+                        font-size fs + 0.0938rem !important
                 .weui-dialog__bd
                     padding 0.9375rem  0 
-                    font-size fs + 0.0313rem
+                    font-size fs + 0.0625rem
                     margin-bottom 0.5625rem
                     
                 .btn1
@@ -229,7 +235,7 @@ span, a, img, input, textarea
                     z-index: 1000;
                     border:0;
                     border-top:1px solid #909090
-                    font-size fs - 0.0313rem
+                    font-size fs
                 .btn2
                     position:absolute
                     left:50%;
@@ -242,9 +248,9 @@ span, a, img, input, textarea
                     z-index: 1000;
                     border:0;
                     border-top:1px solid #909090
-                    font-size fs - 0.0313rem
+                    font-size fs
                     .weui-dialog__title
-                        font-size fs - 0.0313rem !important
+                        font-size fs !important
                     .weui-dialog__ft
                         background #3cf !important
                         display none
@@ -254,7 +260,7 @@ span, a, img, input, textarea
                             color #ff0  !important        
             .rowDown
                 width 9rem
-                font-size fs - 0.0625rem
+                font-size fs - 0.0313rem
                 color #909090
                 text-align justify
                 line-height 1.5
@@ -272,7 +278,7 @@ span, a, img, input, textarea
                 margin-top 1.2344rem
                 background-color #ea68a2
                 border-radius 0.1563rem
-                font-size fs
+                font-size fs + 0.0313rem
                 color #fff
         .weui-toast  
             width auto!important 

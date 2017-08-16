@@ -4,7 +4,7 @@
         <!-- <v-header></v-header> -->
         <div class="title-board">
             <span class="rank-title">头衔总收益（元）</span>
-            <h1 class="myTitle">13,480.00</h1>
+            <h1 class="myTitle">{{num(data.total)}}</h1>
         </div>
         <router-link to="/myTeam" class="get-title indent">
             <span class="title">我的团队</span>
@@ -16,13 +16,13 @@
             <span class="computed">本月</span>
             <div class="link-wrapper">
                 <span>获得：</span>
-                <span class="number">6880.00</span>
+                <span class="number">{{num(data.total_money)}}</span>
                 <span>已到账</span>
             </div>
         </a>
         <!-- 晋升收益记录 -->
-        <div class="title-item title-item-empty" v-if="data.length == 0">本月还没有头衔收益哦:-D</div>
-        <a href="javascript:void(0)" class="title-item" v-for="(val,key) in data" v-else>
+        <div class="title-item title-item-empty" v-if="data.uparr.length == 0">本月还没有头衔收益哦:-D</div>
+        <a href="javascript:void(0)" class="title-item" v-for="(val,key) in data.uparr" v-else>
             <div class="title-msg">
                 <span class="from">{{val.susername}}晋升-{{val.levelName}}</span>
                 <span class="date">{{String(val.ctime).split(' ')[0]}}</span>
@@ -111,7 +111,7 @@ span
         background: #ea6aa2
         color: #fff
         .rank-title
-            font-size: fs - 0.0313rem
+            font-size: fs
             vertical-align: top
         .myTitle
             margin-top: 0.75rem
@@ -124,11 +124,11 @@ span
         line-height: 1.3438rem
         background: #fff
         font-size: 0
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         .title
             margin-left: 0.5rem
             float: left 
-            font-size: fs - 0.0313rem
+            font-size: fs
             color: #333
         .link-wrapper
             float: right
@@ -142,13 +142,13 @@ span
         display: block
         height: 1.1563rem
         background: #fff
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         .computed
             display: inline-block
             margin: 0.375rem 0 0 0.5rem
             height: 0.4375rem
             border-left: 0.0938rem solid #909090
-            font-size: fs - 0.0313rem
+            font-size: fs
             font-weight: bold
             text-indent: 0.1563rem
             color: #909090
@@ -157,7 +157,7 @@ span
             margin: 0 0.5rem 0 0
             height: 100%
             line-height: 1.1563rem
-            font-size: fs - 0.0313rem
+            font-size: fs
             span
                 float: left
                 color: #333
@@ -175,21 +175,21 @@ span
         border-bottom 1px solid #e0e0e0
         .title-msg
             .from
-                font-size: fs - 0.0313rem
+                font-size: fs
                 color: #333
             .date
                 margin: 0.1875rem 0 0 0
-                font-size: fs - 0.0938rem
+                font-size: fs - 0.0625rem
         .get-number
             display flex
             align-items center
             margin-right: 0.5rem
-            font-size: fs - 0.0313rem
+            font-size: fs
             color: #333
     .title-item-empty
         display flex
         justify-content center
         align-items center
-        font-size fs - 0.0313rem !important
+        font-size fs !important
 </style>
 

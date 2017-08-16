@@ -101,7 +101,7 @@ export default {
         .rank-title
             display block !important
             padding .8438rem 0 .75rem .5rem
-            font-size fs - 0.0313rem
+            font-size fs
             color #fff
         .myTitle
             padding-left .5rem
@@ -120,7 +120,7 @@ export default {
             margin-top 0 !important
             margin-left: 0.5rem
             float: left 
-            font-size: fs - 0.0313rem
+            font-size: fs
             color: #333   
         .link-wrapper
             display flex
@@ -148,7 +148,7 @@ export default {
             margin: 0 0 0 0.5rem
             height: 0.4375rem
             border-left: 0.0938rem solid #909090
-            font-size: fs - 0.0313rem
+            font-size: fs
             font-weight: bold
             text-indent: 0.1563rem
             color: #909090
@@ -157,7 +157,7 @@ export default {
             margin: 0 .5rem 0 0
             height: 100%
             line-height: 1.1563rem
-            font-size: fs - 0.0313rem
+            font-size: fs
             span
                 color: #333
             .number
@@ -169,7 +169,7 @@ export default {
                 padding: 0 0.0625rem
                 height: 0.625rem
                 line-height: 0.625rem
-                font-size: fs - 0.0625rem
+                font-size: fs - 0.0313rem
                 color: #fff
                 background: #909090
                 border-radius: 0.0938rem
@@ -177,7 +177,7 @@ export default {
         display flex !important
         justify-content center
         align-items center
-        font-size fs - 0.0313rem !important
+        font-size fs !important
         padding 0 !important
         line-height inherit !important
     .title-item
@@ -198,7 +198,7 @@ export default {
                 margin: -0.0938rem 0 0 0.5rem
                 float: left 
                 height: 0.4063rem
-                font-size: fs - 0.0313rem
+                font-size: fs
                 color: #333
             .date
                 margin: 0.1875rem 0 0 0.5rem
@@ -208,7 +208,7 @@ export default {
             margin-right: 0.5rem
             float: right
             line-height: 1.6875rem 
-            font-size: fs - 0.0313rem
+            font-size: fs
             color: #333
     .title-item:last-child:after
             border 0

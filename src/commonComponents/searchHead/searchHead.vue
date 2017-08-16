@@ -51,9 +51,9 @@ export default {
             align-items center
             height 100%
             width 6.1953rem
-            font-size fs
             input
                 width 100%
+                font-size fs
                 outline 0
         .cancelBox
             padding 0.25rem
@@ -73,6 +73,6 @@ export default {
         align-items center
         width 1.75rem
         height 100%
-        font-size fs
+        font-size fs + 0.0469rem
         color #ea68a2
 </style>

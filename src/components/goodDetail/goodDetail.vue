@@ -159,7 +159,8 @@
 						<div class="plus" @click="numBuy++">+</div>
 					</div>
 				</div>
-				<router-link :to="{ path: '/buyGoods', query: [{ gid: detailItemList.gooditem.id, number: numBuy }] }" class="dumpBtn buyNow">立即购买</router-link>
+				<div @click="goodsToSession()" class="dumpBtn buyNow">立即购买</div>
+				<!-- { path: '/buyGoods', query: [{ gid: detailItemList.gooditem.id, number: numBuy }] } -->
 			</div>
 		</div>
 		<div>
@@ -213,6 +214,7 @@ export default {
                 loop : true,
                 paginationType: "bullets",
                 pagination: '.swiper-pagination',
+				autoplayDisableOnInteraction : false,
                 paginationBulletRender: function (swiper, index, className) {
                     // console.log(swiper.bullets ? swiper.bullets.length : 0);
                     let width = ( isFinite(100/(parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100/(parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100 ) + '%';
@@ -337,6 +339,12 @@ export default {
 		// 		},500);
 		// 	}
 		// }
+		// 在session中存入下单商品列表，然后跳转到下单页面
+		goodsToSession: function(){
+			sessionStorage.setItem('list', JSON.stringify([{ gid: this.detailItemList.gooditem.id, number: this.numBuy }]));
+			// console.log(JSON.parse(sessionStorage.getItem('list')));
+			this.$router.push('buyGoods');
+		}
 	},
 	mounted() {
 		this.$nextTick(function () {

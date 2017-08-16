@@ -114,18 +114,18 @@ export default {
         .title
             margin-left: 0.5rem
             float: left
-            font-size: fs - 0.0313rem
+            font-size: fs + 0.0156rem
             color: #333
         .more
             display: block
             margin: 0.3125rem 0.5rem 0 0
-            width: 0.375rem 
+            width: 0.375rem
             height: 0.375rem
             float: right   
         .checkBill
             margin-right: 0.1563rem 
             float: right 
-            font-size: fs - 0.0625rem
+            font-size: fs - 0.0156rem
             color: #909090 
     .content-wrapper
         background: #fff
@@ -133,7 +133,7 @@ export default {
             display flex
             justify-content center
             align-items center
-            font-size fs - 0.0313rem
+            font-size fs + 0.0156rem
             margin-left 0 !important
         .bill-item
             display flex
@@ -151,10 +151,10 @@ export default {
                 text-align:center
                 span:last-child
                     margin-top: 0.1875rem 
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0469rem
                 span
                     display: block
-                    font-size: fs - 0.0313rem
+                    font-size: fs + 0.0156rem
                     color: #909090
             .icon
                 float: left
@@ -169,12 +169,12 @@ export default {
                 height: 100%    
                 .money
                     margin 0
-                    font-size fs - 0.0313rem
+                    font-size fs + 0.0156rem
                     color: #333
                 span
                     display: block
                     margin-top: 0.1875rem
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0469rem
                     color: #909090
         .bottom-line
             width: 100%
@@ -194,14 +194,14 @@ export default {
                         margin-top: 0.2031rem
                     span:last-child
                         margin-top: 0.0938rem 
-                        font-size: fs - 0.0938rem  
+                        font-size: fs - 0.0469rem
                     span
                         display: block
-                        font-size: fs - 0.0313rem
+                        font-size: fs + 0.0156rem
                         color: #909090
                 .icon
                     float: left
-                    margin: 0.2891rem  0.3125rem 0  0.25rem
+                    margin: 0.2891rem 0.3125rem 0 0.25rem
                     width: 0.5781rem
                     height: 0.5781rem
                 .details
@@ -209,11 +209,11 @@ export default {
                     height: 100%    
                     .money
                         margin-top: 0.2031rem
-                        font-size fs - 0.0313rem
+                        font-size fs + 0.0156rem
                         color: #333
                     span                      
                         display: block
                         margin-top: 0.0938rem
-                        font-size fs - 0.0938rem
+                        font-size fs - 0.0469rem
                         color: #909090
 </style>

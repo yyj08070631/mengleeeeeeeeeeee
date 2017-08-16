@@ -179,7 +179,7 @@ export default {
                 margin-left 0.5rem
                 div
                     color #333
-                    font-size fs - 0.0625rem
+                    font-size fs - 0.0156rem
                 p:first-child
                     display: inline-block
                     width: 4.0625rem
@@ -188,7 +188,7 @@ export default {
                     margin-top 0.2188rem
                 p
                     display flex
-                    font-size fs - 0.0938rem
+                    font-size fs - 0.0469rem
                     color #909090
                     span.dis
                         margin-right 0.0625rem
@@ -215,7 +215,7 @@ export default {
                     margin-left 0.0938rem
                     line-height 1.3125rem 
                     color #333
-                    font-size fs - 0.0938rem
+                    font-size fs - 0.0469rem
                 img
                     width 0.3594rem
                     height 0.3438rem
@@ -227,7 +227,7 @@ export default {
                     width 0.2188rem
                     height 0.3906rem 
                 p
-                    font-size fs - 0.0938rem
+                    font-size fs - 0.0469rem
                     margin-right 0.1875rem
                     line-height 1.3125rem 
                     color #909090
@@ -253,10 +253,11 @@ export default {
                         text-align justify
                         margin-right 0.5rem
                         h1
-                            font-size fs - 0.0313rem
+                            font-size fs + 0.0156rem
                             color #333
                         p
-                            font-size fs - 0.0938rem
+                            width 3.4375rem
+                            font-size fs - 0.0469rem
                             color #909090
                             margin-top 0.0938rem
             .oneKind:last-child

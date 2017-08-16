@@ -172,7 +172,7 @@ img, span, a
                 background-color #f0f0f0
         p
             margin 0.4063rem 0 0.3438rem 0
-            font-size fs
+            font-size fs + 0.0313rem
             color #555
         // 选择组
         .checkLabel
@@ -181,7 +181,7 @@ img, span, a
                 display flex
                 align-items center
                 width 2.125rem
-                font-size fs - 0.0313rem
+                font-size fs
             .vux-checker-box
                 display flex
                 justify-content space-around
@@ -194,14 +194,14 @@ img, span, a
                 display flex
                 align-items center
                 width 3rem
-                font-size fs - 0.0313rem
+                font-size fs
             input
                 height 0.875rem
                 width 100%
                 padding-right 0.2813rem
                 border 1px solid #ff8b00
                 outline 0
-                font-size fs - 0.0313rem
+                font-size fs
                 text-align right
 // 主体
 .digest-wrapper
@@ -226,11 +226,11 @@ img, span, a
         margin 0 0.5rem
         .desc-title
             margin 0.5625rem 0 0.4375rem 0
-            font-size fs - 0.0313rem
+            font-size fs + 0.0156rem
             color #333
         .desc-content
             margin-bottom 0.4688rem
-            font-size fs - 0.0313rem
+            font-size fs
             color #909090
             line-height 0.4688rem
             text-align justify
@@ -239,13 +239,13 @@ img, span, a
         .date
             width 3.3125rem
             margin 0.5313rem 0 0 0.5rem
-            font-size fs - 0.0313rem
+            font-size fs
             color #909090
         .details
             height 1.9688rem
             width 5.6875rem
             margin-top 0.5313rem
-            font-size fs - 0.0313rem
+            font-size fs
             color #333
             .mg-top
                 margin-top 0.3125rem
@@ -256,6 +256,6 @@ img, span, a
         justify-content center
         height 1.4375rem
         padding-top 0.4375rem
-        font-size fs - 0.0313rem
+        font-size fs + 0.0156rem
         color #ea68a2
 </style>

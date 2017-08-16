@@ -2,7 +2,21 @@
     <div class="buyGoods-wrapper">
         <!-- header -->
         <!-- <v-header></v-header> -->
-        <router-link :to="{ path: '/addrManage', query: { group: orderArr() } }" class="userInfo">
+        <!-- 判断session是否有地址，若有则使用，若无才用默认 -->
+        <a href="#addrManage" class="userInfo" v-if="getBaseLoc()">
+            <!--  :to="{ path: '/addrManage', query: { group: orderArr() } }" -->
+            <div>
+                <img src="./location.png">
+            </div>
+            <div>
+                <p>{{locFromSession.name}}&nbsp;&nbsp;&nbsp;{{locFromSession.phone}}</p>
+                <p>{{locFromSession.addr}}</p>
+            </div>
+            <div>
+                <img src="./arrow_right.png">
+            </div>
+        </a>
+        <a href="#addrManage" class="userInfo" v-else>
             <div>
                 <img src="./location.png">
             </div>
@@ -13,7 +27,8 @@
             <div>
                 <img src="./arrow_right.png">
             </div>
-        </router-link>
+        </a>
+    
         <div class="goodsInfo" v-for="(val,key) in data.gooditems">
             <div class="colLeft">
                 <div class="col1">
@@ -36,8 +51,7 @@
             <div class="buy-tag">
                 <div>
                     <span>实付款：</span>
-                    <span>￥32.80</span>
-                    <p>已使用0张优惠券</p>
+                    <span>￥{{num(computeMoney)}}</span>
                 </div>
                 <a href="javascript:void(0)" @click="showHideOnBlur=true">提交订单</a>
             </div>
@@ -52,16 +66,24 @@
                             {{val.cn}}
                         </checker-item>
                     </checker>
-                    <div class="submit" @click="payIt()">确定</div>
+                    <div class="submit" @click="payEvent()">确定</div>
                 </div>
             </x-dialog>
         </div>
+        <!-- 页面所有弹窗 -->
+        <!-- <div>
+                <toast v-model="alert" type="text">{{alertTxt}}</toast>
+            </div> -->
+        <confirm v-model="alert" title="确认支付" @on-confirm="payIt">
+            <p style="text-align:center;">{{alertTxt}}</p>
+        </confirm>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
+import { Confirm, XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Checker, CheckerItem, Popup } from 'vux'
+// import { Toast, Group, Alert } from 'vux'
 // import header from '../../components/header/header';
 export default {
     directives: {
@@ -73,6 +95,10 @@ export default {
         Checker,
         CheckerItem,
         Popup,
+        Confirm,
+        // Toast,
+        // Group,
+        // Alert
         // 'v-header': header
     },
     data() {
@@ -81,7 +107,12 @@ export default {
             payTypeList: [],
             showHideOnBlur: false,
             payType: '',
-            payResult: []
+            payResult: [],
+            locFromSession: this.getLoc(),
+            listFromSession: this.getList(),
+            // 弹窗 & 弹窗文字
+            alert: false,
+            alertTxt: '',
         }
     },
     mounted() {
@@ -90,17 +121,17 @@ export default {
     methods: {
         // 获取数据
         getDataFromBackend: function () {
-            console.log(this.$route.query.group)
+            // console.log(this.$route.query.group)
             // console.log(JSON.stringify(this.$route.query));
-            let arr = [];
-            for (let key in this.$route.query) {
-                arr.push(this.$route.query[key]);
-            }
+            // let arr = [];
+            // for (let key in this.$route.query) {
+            //     arr.push(this.$route.query[key]);
+            // }
             // 获取订单信息
             this.$http.post(
                 global.Domain + '/order/ordsure',
                 {
-                    sall: JSON.stringify(arr)
+                    sall: sessionStorage.getItem('list')
                 },
                 {
                     emulateJSON: true
@@ -120,29 +151,100 @@ export default {
                 this.payTypeList = res.payitem
             })
         },
-        // 支付！！！
-        payIt: function(){
-            // let arr = [];
-            // for (let key in this.$route.query) {
-            //     arr.push(this.$route.query[key]);
-            // }
-            // this.$http({
-            //     method: 'get',
-            //     url: global.Domain + '/Order/pay?pay=' + this.payType + '&group=' + arr + '&status=1' + '&address=' + arr + '&name=' + arr + '&phone=' + arr + '&remark=' + arr + '&gid=' + arr,
-            //     emulateJSON: true
-            // }).then(function (response) {
-            //     let res = response.body;
-            //     console.log(res);
-            //     // this.payResult = res.payitem
-            // })
-        },
-        // 重构订单列表
-        orderArr: function(){
-            let arr = [];
-            for (let key in this.$route.query) {
-                arr.push(this.$route.query[key]);
+        // 支付事件
+        payEvent: function () {
+            if (this.payType == 1) {
+                this.payIt();
+            } else if (this.payType == 2) {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res);
+                    if(res.data.virtual >= this.computeMoney){
+                        this.payIt();
+                    } else if (res.data.virtual < this.computeMoney){
+                        // 弹窗选择，是否使用部分余额补足不够的乐宝点，若选确定，则调用payIt()，若选取消，则什么都不做，关闭弹窗
+                        // console.log('是否使用部分余额补足不够的乐宝点')
+                        this.alertTxt = '是否使用部分余额补足不够的乐宝点？';
+                        this.showHideOnBlur = false;
+                        this.alert = true;
+                    }
+                })
+            } else if (this.payType == 3) {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res);
+                    if(res.data.wallet >= this.computeMoney){
+                        this.payIt();
+                    } else if (res.data.wallet < this.computeMoney){
+                        // 弹窗选择，是否使用部分乐宝点补足不够的余额，若选确定，则调用payIt()，若选取消，则什么都不做，关闭弹窗
+                        // console.log('是否使用部分乐宝点补足不够的余额')
+                        this.alertTxt = '是否使用部分乐宝点补足不够的余额？';
+                        this.showHideOnBlur = false;
+                        this.alert = true;
+                    }
+                })
+            } else {
+                alert('请选择支付方式！')
             }
-            return arr
+        },
+        // 支付接口 !important
+        payIt: function () {
+            this.$http.post(
+                global.Domain + '/order/pay',
+                {
+                    pay: this.payType,
+                    group: this.listFromSession,
+                    status: 1,
+                    address: this.locFromSession.addr,
+                    name: this.locFromSession.name,
+                    phone: this.locFromSession.phone,
+                    remark: '测试留言'
+                },
+                {
+                    emulateJSON: true
+                }).then(response => {
+                    let res = response.body;
+                    console.log(res);
+                    if (res.pass == 1) {
+                        location.href = res.url
+                    } else if (res == 1) {
+                        this.$router.push({ path: '/payResult', query: { price: this.num(this.computeMoney) } });
+                    } else if (res == 2) {
+                        alert('该商品库存不足');
+                        this.getDataFromBackend();
+                    } else if (res == 3) {
+                        alert('收货信息不正确');
+                    } else if (res == 4) {
+                        alert('插入记录表失败');
+                    } else if (res == 5) {
+                        alert('生成订单失败');
+                    } else if (res == 6) {
+                        alert('更换订单号失败');
+                    } else if (res == 7) {
+                        alert('您的余额不足');
+                        this.$router.push('orderFrom');
+                    }
+                })
+        },
+        // 从session中获取商品列表
+        getList: function () {
+            console.log(sessionStorage.getItem('list'))
+            return sessionStorage.getItem('list')
+        },
+        // 从session中获取地址信息
+        getLoc: function () {
+            return JSON.parse(sessionStorage.getItem('loc'))
+        },
+        getBaseLoc: function () {
+            return sessionStorage.getItem('loc')
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -188,8 +290,9 @@ export default {
         computeMoney: function () {
             let count = 0;
             let list = this.data.gooditems;
+            console.log(list)
             for (let i = 0; i < list.length; i++) {
-                count += parseFloat(list[i].price)
+                count += parseFloat(list[i].price) * parseInt(list[i].number)
             }
             count += parseFloat(this.data.freightitems);
             return count
@@ -233,32 +336,53 @@ export default {
 .valueSel
     color #fff
     background-color #ff8b00
-.weui-dialog
-    max-width none !important
-    width auto !important
-    text-align left !important
-    border-radius 0.1875rem
-    .chooseValue
-        width 8.2813rem
-        padding 0 0.4375rem
-        .vux-checker-box
-            display flex
-            flex-wrap wrap
-        .submit
-            display flex
-            justify-content center
-            align-items center
-            width 100%
-            height 1.25rem
-            margin 1rem 0 0.4688rem 0
-            font-size fs + 0.0625rem
-            color #fff
-            background-color #ff8b00
-        p
-            margin 0.4063rem 0 0.3438rem 0
-            font-size fs
-            color #555
-
+// 大选择窗口
+.v-transfer-dom
+    .vux-x-dialog
+        .weui-dialog
+            max-width none !important
+            width auto !important
+            text-align left !important
+            border-radius 0.1875rem
+            z-index 4999 !important
+            .chooseValue
+                width 8.2813rem
+                padding 0 0.4375rem
+                .vux-checker-box
+                    display flex
+                    flex-wrap wrap
+                .submit
+                    display flex
+                    justify-content center
+                    align-items center
+                    width 100%
+                    height 1.25rem
+                    margin 1rem 0 0.4688rem 0
+                    font-size fs + 0.0625rem
+                    color #fff
+                    background-color #ff8b00
+                p
+                    margin 0.4063rem 0 0.3438rem 0
+                    font-size fs
+                    color #555
+// confirm 样式
+.vux-x-dialog
+    .weui-dialog
+        max-width 5.625rem !important
+        width 80% !important
+        text-align center !important
+        .weui-dialog__hd
+            padding-top 0.1rem !important
+            .weui-dialog__title
+                font-size fs !important
+        .weui-dialog__bd
+            padding-bottom .6rem !important
+            p
+                font-size fs - 0.0313rem !important
+        .weui-dialog__ft
+            .weui-dialog__btn
+                font-size fs !important
+// 主体
 .buyGoods-wrapper
     position: absolute
     top: 0
@@ -278,7 +402,7 @@ export default {
             align-items center
             height 100%
         p
-            font-size: fs - 0.0313rem
+            font-size: fs
             line-height: 0.5625rem
         div:first-child
             margin: 0 0.375rem 0 0.3438rem
@@ -293,18 +417,18 @@ export default {
         height: 2.625rem
         background: #fff
         font-size: 0
-        border-bottom-1px(#e0e0e0)
+        border-bottom 1px solid #e0e0e0
         .colLeft
             display flex
-            padding-top: 0.2813rem
             .col1
                 img
                     width 2.0781rem
                     height 2.0781rem
-                    margin: 0.2813rem
+                    padding 0.2813rem
             .col2
+                padding-top 0.2813rem
                 p
-                    font-size fs - 0.0625rem
+                    font-size fs - 0.0313rem
                     line-height: 0.5625rem
                     color: #909090
                 p:first-child
@@ -312,7 +436,7 @@ export default {
         .colRight
             padding-right 0.5rem
             padding-top: 0.2813rem
-            font-size: fs - 0.0625rem
+            font-size: fs - 0.0313rem
             line-height: 0.5625rem
     .countInfo
         width: 100%
@@ -322,7 +446,7 @@ export default {
         p
             margin-right: 0.5625rem
             text-align: right
-            font-size: fs - 0.0625rem
+            font-size: fs - 0.0313rem
             line-height: 1.1563rem
             color: #333
     .footer
@@ -340,22 +464,17 @@ export default {
             font-size: 0
             border-top 1px solid #e0e0e0
             div
-                padding-top 0.1875rem
+                display flex
+                align-items center
+                height 100%
                 padding-right 0.25rem
-                color #333
-                p
-                    font-size fs - 0.0938rem
-                    line-height 0.4688rem
-                    color #909090
                 span
-                    display inline
-                    font-size fs - 0.0625rem
-                    line-height 0.4688rem
+                    font-size fs + 0.0313rem
                     color red
             a
                 line-height: 1.1563rem 
                 width: 2.5625rem
-                font-size: fs - 0.0625rem
+                font-size: fs
                 background: #ea68a2
                 color: #fff
                 text-align: center

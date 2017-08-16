@@ -3,15 +3,16 @@
         <!--头部  -->
         <!-- <v-header></v-header> -->
         <div class="fuild-filter" :style="bgStyle">
-            <img class="avator" src="./avatar.png">
+            <img class="avator" :src="data.headimg">
             <div class="personal">
-                <h2 class="name">陈宝军</h2>
-                <span class="mobile">13560433216</span>
+                <h2 class="name">{{data.username}}</h2>
+                <span class="mobile">{{data.phone}}</span>
                 <img class="rank" src="./rank.png">
             </div>
             <img class="append" src="./images/append.png" @click="bgChange()"/>
             <img class="QRcode" src="http://dde.dgxinn.cn/dream/index.php/Api/qrcode"/>
             <p class="desc">识别二维码，加入我的梦乐城</p>
+            <img class="avatorOver" :src="data.headimg">
         </div>
   </div>
 </template>
@@ -30,25 +31,26 @@ export default {
         }
     },
     mounted() {
-        // this.getDataFromBackend()
+        this.getDataFromBackend()
     },
     methods: {
-        // getDataFromBackend: function () {
-        //     this.$http({
-        //         method: 'get',
-        //         url: 'http://dde.dgxinn.cn/dream/index.php/Api/code/img',
-        //         emulateJSON: true
-        //     }).then(function (response) {
-        //         console.log(response);
-        //         // this.data = res
-        //     })
-        // }
+        getDataFromBackend: function () {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/userInfo?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                this.data = res.data;
+            })
+        },
         bgChange: function(){
             this.bgStyle = {
                 'background-image': 'url(http://dde.dgxinn.cn/dream/index.php/Api/code/img?v' + parseInt(Math.random() * 1000000) + ')'
             }
         }
-    },
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -61,6 +63,18 @@ export default {
     //     background-image url(http://dde.dgxinn.cn/dream/index.php/Api/code/img?v123)
     // .bg2
     //     background-image url(http://dde.dgxinn.cn/dream/index.php/Api/code/img?v321)
+    // 盖在最上面的头像
+    .avatorOver
+        position absolute
+        top 50%
+        left 50%
+        width 1.5938rem
+        height 1.5938rem
+        margin -1.5938rem 0 0 -0.7969rem
+        padding 0.0938rem
+        border-radius 0.0938rem
+        background-color #fff
+        z-index 10
     .fuild-filter
         position: relative
         margin: 1.5625rem auto

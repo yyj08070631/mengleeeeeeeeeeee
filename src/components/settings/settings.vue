@@ -444,7 +444,7 @@ export default {
             }).then(function (response) {
                 let res = response.body;
                 // console.log(res);
-                alert(JSON.parse(res.data[0]).code);
+                // alert(JSON.parse(res.data[0]).code);
             })
         },
         // 提交验证码
@@ -460,6 +460,7 @@ export default {
                 if (res.code == 200){
                     this.phoneOper = false;
                     alert('绑定手机成功！');
+                    this.getDataFromBackend();
                     // this.phoneSucc = true;
                 } else {
                     // this.phoneErr = true;
@@ -516,12 +517,12 @@ export default {
             width 100%
             height 1.25rem
             margin 1rem 0 0.4688rem 0
-            font-size fs + 0.0625rem
+            font-size fs + 0.1094rem
             color #fff
             background-color #ff8b00
         p
             margin 0.4063rem 0 0.3438rem 0
-            font-size fs
+            font-size fs + 0.0469rem
             color #555
         // 提现信息
         .inputBox
@@ -531,20 +532,20 @@ export default {
                 display flex
                 align-items center
                 width 3rem
-                font-size fs - 0.0313rem
+                font-size fs + 0.0156rem
             input
                 height 0.875rem
                 width 100%
                 padding-right 0.2813rem
                 border 1px solid #e0e0e0
                 outline 0
-                font-size fs - 0.0313rem
+                font-size fs + 0.0156rem
                 text-align right
             div
                 display flex
                 height 0.875rem
                 width 100%
-                font-size fs - 0.0313rem
+                font-size fs + 0.0156rem
                 input
                     display block
                     width 3.3281rem
@@ -566,7 +567,7 @@ export default {
                 align-items center
                 width 100%
                 height 1.25rem
-                font-size fs + 0.0625rem
+                font-size fs + 0.1094rem
                 color #fff
                 background-color #ff8b00
             .inCancel
@@ -631,11 +632,11 @@ select::-ms-expand {
             text-align: center
             .name
                 display: block
-                font-size: fs
+                font-size: fs + 0.0469rem
             .mobile
                 display: block
                 margin: 0.1563rem 0 0.1875rem 0 
-                font-size: fs - 0.0938rem
+                font-size: fs - 0.0469rem
                 color: #909090
             .rank
                 width: 1.125rem
@@ -658,7 +659,7 @@ select::-ms-expand {
             border-bottom 1px solid #e0e0e0
             .title
                 float: left 
-                font-size: fs - 0.0313rem
+                font-size: fs + 0.0156rem
                 color: #333
             .link-wrapper
                 float: right
@@ -670,7 +671,7 @@ select::-ms-expand {
                     height: 0.375rem
                 .msg
                     float: left
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0469rem
                     vertical-align: top
                     outline 0
                 img        
@@ -693,7 +694,7 @@ select::-ms-expand {
                 z-index 500
                 direction rtl
                 option
-                    font-size fs - 0.0938rem
+                    font-size fs - 0.0469rem
             .inputBox
                 display flex
                 position absolute
@@ -703,7 +704,7 @@ select::-ms-expand {
                 margin-top -0.0625rem
                 border 0
                 background-color transparent
-                font-size fs - 0.0938rem
+                font-size fs - 0.0469rem
                 color #7e8c8d
                 text-align right
                 z-index 500
@@ -721,11 +722,11 @@ select::-ms-expand {
             height: 0.3125rem
             background: #f0f0f0
 .weui-toast  
-    width auto!important 
+    width auto !important 
     height 0.9375rem
     line-height 0.7813rem
-    top 50%!important
+    top 50% !important
     p
         padding 0.3125rem 0.3125rem
-        font-size fs - 0.0625rem
+        font-size fs - 0.0156rem
 </style>

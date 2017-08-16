@@ -64,7 +64,8 @@
                 <p class="price">￥{{totalPrice}}</p>
             </div>
             <!-- <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a> -->
-            <router-link :to="{ path: '/buyGoods', query: JSON.parse(JSON.stringify(buyArr)) }" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</router-link>
+            <a href="javascript:void(0)" class="pay" v-show="showPay" @click="goodsToSession()">结算({{Idarr.length}})</a>
+            <!--  :to="{ path: '/buyGoods', query: JSON.parse(JSON.stringify(buyArr)) }" -->
             <a href="javascript:void(0)" class="del" v-show="showWrite" @click="onShow">删除</a>
         </footer>
         <!-- 页面所有弹窗 -->
@@ -344,6 +345,12 @@ export default {
                 this.$refs.allCheckHook.src = require('./images/unchecked.png')
             }
         },
+        // 在session中存入下单商品列表，然后跳转到下单页面
+		goodsToSession: function(){
+			sessionStorage.setItem('list', JSON.stringify(this.buyArr));
+			// console.log(JSON.parse(sessionStorage.getItem('list')));
+			this.$router.push('buyGoods');
+		},
         //显示编辑区块
         writeCart: function () {
             if (this.showWrite == false) {
