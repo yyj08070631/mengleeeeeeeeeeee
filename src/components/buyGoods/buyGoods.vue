@@ -3,7 +3,7 @@
         <!-- header -->
         <!-- <v-header></v-header> -->
         <!-- 判断session是否有地址，若有则使用，若无才用默认 -->
-        <a href="#addrManage" class="userInfo" v-if="getBaseLoc()">
+        <router-link :to="{ path: '/addrManage', query: { canSel: 1 } }" class="userInfo" v-if="getBaseLoc()">
             <!--  :to="{ path: '/addrManage', query: { group: orderArr() } }" -->
             <div>
                 <img src="./location.png">
@@ -15,8 +15,8 @@
             <div>
                 <img src="./arrow_right.png">
             </div>
-        </a>
-        <a href="#addrManage" class="userInfo" v-else>
+        </router-link>
+        <router-link :to="{ path: '/addrManage', query: { canSel: 1 } }" class="userInfo" v-else>
             <div>
                 <img src="./location.png">
             </div>
@@ -27,7 +27,7 @@
             <div>
                 <img src="./arrow_right.png">
             </div>
-        </a>
+        </router-link>
     
         <div class="goodsInfo" v-for="(val,key) in data.gooditems">
             <div class="colLeft">
@@ -61,7 +61,7 @@
             <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                 <div class="chooseValue">
                     <p>选择支付方式</p>
-                    <checker v-model="payType" default-item-class="valueUnsel" selected-item-class="valueSel" v-for="(val, key) in payTypeList">
+                    <checker v-model="payType" default-item-class="valUnsel" selected-item-class="valSel" v-for="(val, key) in payTypeList">
                         <checker-item :value="val.id">
                             {{val.cn}}
                         </checker-item>
@@ -110,6 +110,7 @@ export default {
             payResult: [],
             locFromSession: this.getLoc(),
             listFromSession: this.getList(),
+            cidFromSession: this.getCid(),
             // 弹窗 & 弹窗文字
             alert: false,
             alertTxt: '',
@@ -202,7 +203,8 @@ export default {
                 {
                     pay: this.payType,
                     group: this.listFromSession,
-                    status: 1,
+                    status: this.$route.query.from == 'goodDetail' ? 1 : 3,
+                    cid: this.cidFromSession,
                     address: this.locFromSession.addr,
                     name: this.locFromSession.name,
                     phone: this.locFromSession.phone,
@@ -233,15 +235,39 @@ export default {
                         this.$router.push('orderFrom');
                     }
                 })
+            this.payType = '';
         },
         // 从session中获取商品列表
         getList: function () {
-            console.log(sessionStorage.getItem('list'))
-            return sessionStorage.getItem('list')
+            let resArr = [];
+            let arr = JSON.parse(sessionStorage.getItem('list'));
+            for(let i = 0; i < arr.length; i++){
+                resArr.push({
+                    gid: arr[i].gid,
+                    number: arr[i].number,
+                    // cid: this.data.data[i].id
+                })
+            }
+            console.log(resArr)
+            return JSON.stringify(resArr)
+        },
+        // 从session中获取购物车id: cid
+        getCid: function () {
+            let resArr = [];
+            let arr = JSON.parse(sessionStorage.getItem('list'));
+            for(let i = 0; i < arr.length; i++){
+                resArr.push({
+                    // gid: arr[i].gid,
+                    // number: arr[i].number,
+                    cid: arr[i].cid
+                })
+            }
+            console.log(resArr)
+            return JSON.stringify(resArr)
         },
         // 从session中获取地址信息
         getLoc: function () {
-            return JSON.parse(sessionStorage.getItem('loc'))
+            return JSON.parse(sessionStorage.getItem('loc'));
         },
         getBaseLoc: function () {
             return sessionStorage.getItem('loc')
@@ -296,7 +322,7 @@ export default {
             }
             count += parseFloat(this.data.freightitems);
             return count
-        },
+        }
     },
     // filters: {
     //     // 1,025.00
@@ -320,7 +346,7 @@ export default {
 @import '../../commom/stylus/mixin'
 
 // 支付类型选择框：modal
-.valueUnsel
+.valUnsel
     display flex !important
     justify-content center
     align-items center
@@ -333,7 +359,7 @@ export default {
     background-color #fff
 .noMargin
     margin-right 0 !important
-.valueSel
+.valSel
     color #fff
     background-color #ff8b00
 // 大选择窗口

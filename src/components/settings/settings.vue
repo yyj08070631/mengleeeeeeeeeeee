@@ -30,13 +30,13 @@
                 </div>
             </a>
             <!-- 收件信息 -->
-            <a href="#addrManage" class="message-item indent">
+            <router-link :to="{ path: '/addrManage', query: { canSel: 0 } }" class="message-item indent">
                 <span class="title">收件信息</span>
                 <div class="link-wrapper">
                     <span class="msg">已记录</span>
                     <img class="other" src="./more.png">
                 </div>
-            </a>
+            </router-link>
             <!-- 绑定手机 -->
             <a href="javascript:void(0)" class="message-item indent" @click="phoneOper = true">
                 <span class="title">绑定手机</span>
@@ -216,7 +216,8 @@
                         <span>验证码：</span>
                         <div>
                             <input type="text" placeholder="请输入验证码" v-model="verification" maxlength="6">
-                            <i @click="getVer()">获取验证码</i>
+                            <i @click="getVer()" v-if="!waiting">获取验证码</i>
+                            <i v-else>{{resendWait}}&nbsp;s&nbsp;后重发</i>
                         </div>
                     </label>
                     <div class="btnCont">
@@ -254,9 +255,11 @@ export default {
             hobby: false,
             // 绑定手机modal开关
             phoneOper: false,
-            // 手机号和验证码
+            // 手机号 & 验证码 & 重发验证码等待秒数 & 是否正在等待
             phoneNum: '',
             verification: '',
+            resendWait: 60,
+            waiting: false,
             // 绑定手机是否成功提示
             phoneSucc: false,
             phoneErr: false
@@ -266,26 +269,7 @@ export default {
         this.getDataFromBackend();
     },
     methods: {
-        // textFocus1: function () {
-        //     this.$refs.input1.selectionStart = 0;
-        //     this.$refs.input1.selectionEnd = this.$refs.input1.value.length
-        //     //input. = input.value.length
-        // },
-        // textFocus2: function () {
-        //     this.$refs.input2.selectionStart = 0;
-        //     this.$refs.input2.selectionEnd = this.$refs.input2.value.length
-        //     //input. = input.value.length
-        // },
-        // textFocus3: function () {
-        //     this.$refs.input3.selectionStart = 0;
-        //     this.$refs.input3.selectionEnd = this.$refs.input3.value.length
-        //     //input. = input.value.length
-        // },
-        // textFocus4: function () {
-        //     this.$refs.input4.selectionStart = 0;
-        //     this.$refs.input4.selectionEnd = this.$refs.input.value.length
-        //     //input. = input.value.length
-        // },
+        // 获取后台数据
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -297,6 +281,21 @@ export default {
                 this.data = res.data;
                 this.phoneNum = this.data.phone;
             })
+        },
+        // 60 秒倒计时
+        countDown: function(){
+            let self = this;
+            self.resendWait = 60;
+            self.waiting = true;
+            let interval = setInterval(function(){
+                if(self.resendWait > 1){
+                    self.resendWait --;
+                } else {
+                    self.waiting = false;
+                    clearInterval(interval);
+                    return
+                }
+            }, 1000);
         },
         // 修改星座
         changeConstellation: function ($event) {
@@ -446,6 +445,10 @@ export default {
                 // console.log(res);
                 // alert(JSON.parse(res.data[0]).code);
             })
+            this.countDown();
+        },
+        waitVer: function(){
+
         },
         // 提交验证码
         submitVer: function(){

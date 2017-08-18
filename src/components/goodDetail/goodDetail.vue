@@ -100,7 +100,7 @@
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img :src="detailItemList.iscolitems == 0 ? require('./images/collect.png') : require('./images/collect-active.png')" ref="menuItem" @click="changSrc()">
+				<img :src="detailItemList.iscolitems.pass == 0 ? require('./images/collect.png') : require('./images/collect-active.png')" ref="menuItem" @click="collectGood(detailItemList.gooditem.id, detailItemList.iscolitems.colid, detailItemList.iscolitems.pass)">
 				<p>加入收藏</p>
 			</a>
 			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
@@ -169,6 +169,12 @@
 		<div>
 			<toast v-model="off" type="text">已取消收藏</toast>
 		</div>
+        <div>
+            <toast v-model="failedToCol" type="text">收藏失败</toast>
+        </div>
+        <div>
+            <toast v-model="failedToCancCol" type="text">取消收藏失败</toast>
+        </div>
 		<div>
 			<toast v-model="success" type="text">添加成功</toast>
 		</div>
@@ -200,8 +206,11 @@ export default {
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
 			para: 0,
+			// 收藏相关
 			on: false,
 			off: false,
+			failedToCol: false,
+			failedToCancCol: false,
 			showCart: false,
 			showBuy: false,
 			number: 1,
@@ -232,17 +241,51 @@ export default {
 			this.bannerIndex = index
 		},
 		//收藏按钮
-		changSrc: function () {
+		collectGood: function (id, colid, iscol) {
 			let file = require('./images/collect.png');
 			let file2 = require('./images/collect-active.png');
 			let obj = this.$refs.menuItem
-			if (obj.src == file) {
-				obj.src = file2
-				this.on = true
-			} else {
-				obj.src = file
-				this.off = true
-			}
+            let col = ( iscol == 1 ? 'colid=' + colid : 'gid=' + id ) // colid or gid
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&' + col + '&type=1',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body
+                // console.log(res)
+                if (res == 1) {
+                    if (iscol == 1) {
+                        this.failedToCancCol = false;
+                        this.failedToCol = false;
+                        this.on = false;
+                        this.off = false;
+                        this.off = true;
+						obj.src = file
+                    } else {
+                        this.failedToCancCol = false;
+                        this.failedToCol = false;
+                        this.off = false;
+                        this.on = false;
+                        this.on = true;
+						obj.src = file2
+                    }
+                    this.getDataFromBackend()
+                } else {
+                    if (iscol == 1) {
+                        this.off = false;
+                        this.on = false;
+                        this.failedToCancCol = false;
+                        this.failedToCol = false;
+                        this.failedToCol = true
+                    } else {
+                        this.off = false;
+                        this.on = false;
+                        this.failedToCol = false;
+                        this.failedToCancCol = false;
+                        this.failedToCancCol = true
+                    }
+                }
+            })
 		},
 		// 获取数据
 		getDataFromBackend: function () {
@@ -252,7 +295,7 @@ export default {
 				emulateJSON: true
 			}).then(function (response) {
 				this.detailItemList = response.body
-				console.log('--------------------'+this.$route.query.gid)
+				// console.log('--------------------'+this.$route.query.gid)
 				console.log(this.detailItemList)
 			})
 		},
@@ -343,7 +386,7 @@ export default {
 		goodsToSession: function(){
 			sessionStorage.setItem('list', JSON.stringify([{ gid: this.detailItemList.gooditem.id, number: this.numBuy }]));
 			// console.log(JSON.parse(sessionStorage.getItem('list')));
-			this.$router.push('buyGoods');
+			this.$router.push({ path: '/buyGoods', query: { from: 'goodDetail' } });
 		}
 	},
 	mounted() {
@@ -360,7 +403,7 @@ export default {
 	}
 }
 </script>
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
 
 // 外层元素
@@ -657,6 +700,8 @@ export default {
 							height 2.5313rem
 				div:nth-child(2)
 					flex 1
+					display flex
+					flex-direction column
 					span:first-child
 						margin-top 0.2813rem
 						line-height 0.9375rem
@@ -670,7 +715,6 @@ export default {
 					margin 0.2813rem 0.2813rem 0 0
 					width 0.625rem
 					height 0.625rem
-
 			.goodsNumber
 				display flex
 				width 100%
@@ -695,12 +739,13 @@ export default {
 						border-left 0.0313rem solid #d6d6d6
 						border-right 0.0313rem solid #d6d6d6
 			.dumpBtn
-				width 100%
+				display flex
+				justify-content center
+				align-items center
+				width 10rem
 				height 1.25rem
-				line-height 1.25rem
 				font-size fs - 0.0156rem
 				color #fff
-				text-align center
 				background #fe9333
 			.buyNow
 				background-color #ea6aa2 !important

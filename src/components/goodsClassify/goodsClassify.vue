@@ -39,7 +39,7 @@
                     <img class="goodsMsg" :src="item.mainmap" />
                 </router-link>
                 <div class="text-wrapper">
-                    <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">{{item.name}}</router-link>
+                    <router-link :to="{ path: '/goodDetail', query: { gid: item.id } }">{{item.name}}</router-link>
                     <span>¥{{item.price}}</span>
                     <span>{{item.freight == 0 ? '不包邮' : item.freight == 1 ? '包邮' : '无邮费信息'}}&nbsp;|&nbsp;销量{{item.sale}}件</span>
                 </div>
@@ -59,7 +59,6 @@
         <div>
             <toast v-model="failedToCancCol" type="text">取消收藏失败</toast>
         </div>
-        
     </div>
 </template>
 <script type="ecmascript-6">
@@ -162,7 +161,6 @@ export default {
             })
         },
         changeActive() {
-
             if (this.test1 == true) {
                 this.test1 = false
                 this.now = 1

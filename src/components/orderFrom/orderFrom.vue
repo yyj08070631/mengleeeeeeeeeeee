@@ -6,50 +6,86 @@
             <!-- 查看更多块 -->
             <a href="javascript:void(0)" class="order-title">
                 <span class="title">我的订单</span>
-                <router-link to="/allOrder">
-                    <a href="javascript:;" class="content" >查看更多订单</a>
+                <!-- <router-link to="/allOrder">
+                    <a href="javascript:;" class="content">查看更多订单</a>
                 </router-link>
-                <img class="more" src="./more.png" />
+                <img class="more" src="./more.png" /> -->
             </a>
             <!-- 分割线 -->
             <hr class="dirLine">
             <!-- 商品板块 -->
             <div class="order-content">
                 <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
+                <!-- 首次加载 -->
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
-                    <img class="product" :src="val.mainmap" />
-                    <div class="product-message">
-                        <span class="desc">{{val.name}}</span>
-                        <p class="num">单价:￥{{num(val.price)}}</p>
-                        <p class="price">总价:￥{{num(val.price*val.number)}}</p>
+                    <div class="rowUp">
+                        <img class="product" :src="val.mainmap" />
+                        <div class="product-message">
+                            <span class="desc">{{val.name}}</span>
+                            <p class="num">单价:￥{{num(val.price)}}</p>
+                            <p class="price">总价:￥{{num(val.price*val.number)}}</p>
+                        </div>
+                        <div>
+                            <!-- <span class="for-to-paid" v-if="val.status == 1">待付款</span> -->
+                            <span class="for-to-paid" v-if="val.status == 2">待发货</span>
+                            <span class="for-to-paid" v-else-if="val.status == 3">待收货</span>
+                            <span class="for-to-paid" v-else-if="val.status == 4">待评价</span>
+                            <span class="for-to-paid" v-else-if="val.status == 5">交易成功</span>
+                            <span class="for-to-paid" v-else-if="val.status == 8">订单取消</span>
+                            <span class="orderPrice">数量：{{val.number}}</span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
-                        <span class="orderPrice">数量：{{val.number}}</span>
-                    </div>
-                    <div class="handle">
-                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
-                    </div>
-                    <div class="handle pos-left" v-if="val.status == 1 || val.status == 3">
-                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
+                    <div class="rowDown">
+                        <!-- 左边的按钮 -->
+                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
+                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                        <router-link v-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
+                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
+                        <!-- <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                        <!-- <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" ></router-link> -->
+                        <!-- 右边的按钮 -->
+                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
+                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                        <router-link v-else-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >确认收货</router-link>
+                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >去评价</router-link>
+                        <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
+                        <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >再次购买</router-link>
                     </div>
                 </div>
+                <!-- 加载更多 -->
                 <div class="content-item content-item-top" v-for="(val,key) in moreData">
-                    <img class="product" :src="val.mainmap" />
-                    <div class="product-message">
-                        <span class="desc">{{val.name}}</span>
-                        <p class="num">单价:￥{{num(val.price)}}</p>
-                        <p class="price">总价:￥{{num(val.price*val.number)}}</p>
+                    <div class="rowUp">
+                        <img class="product" :src="val.mainmap" />
+                        <div class="product-message">
+                            <span class="desc">{{val.name}}</span>
+                            <p class="num">单价:￥{{num(val.price)}}</p>
+                            <p class="price">总价:￥{{num(val.price*val.number)}}</p>
+                        </div>
+                        <div>
+                            <!-- <span class="for-to-paid" v-if="val.status == 1">待付款</span> -->
+                            <span class="for-to-paid" v-if="val.status == 2">待发货</span>
+                            <span class="for-to-paid" v-else-if="val.status == 3">待收货</span>
+                            <span class="for-to-paid" v-else-if="val.status == 4">待评价</span>
+                            <span class="for-to-paid" v-else-if="val.status == 5">交易成功</span>
+                            <span class="for-to-paid" v-else-if="val.status == 8">订单取消</span>
+                            <span class="orderPrice">数量：{{val.number}}</span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
-                        <span class="orderPrice">数量：{{val.number}}</span>
-                    </div>
-                    <div class="handle">
-                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo}}</router-link>
-                    </div>
-                    <div class="handle pos-left" v-if="val.status == 1 || val.status == 3 || val.status == 2">
-                        <router-link class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >{{goodsTypeArr[val.status].btnInfo2}}</router-link>
+                    <div class="rowDown">
+                        <!-- 左边的按钮 -->
+                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
+                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                        <router-link v-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
+                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
+                        <!-- <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                        <!-- <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" ></router-link> -->
+                        <!-- 右边的按钮 -->
+                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
+                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                        <router-link v-else-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >确认收货</router-link>
+                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >去评价</router-link>
+                        <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
+                        <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >再次购买</router-link>
                     </div>
                 </div>
             </div>
@@ -253,11 +289,11 @@ export default {
         font-size fs + 0.0625rem
         text-align center
         color #333
-     .item-cls
-       margin 0 !important
-       position: relative   
-       display: block
-     .content-wrapper
+    .item-cls
+        margin 0 !important
+        position: relative   
+        display: block
+    .content-wrapper
         float: left
         width: 100%
         height: auto
@@ -294,72 +330,63 @@ export default {
             .content-item-bottom
                 height: 3.4375rem
             .content-item
-                display: flex
-                position: relative 
                 border-bottom 1px solid #e0e0e0
-                &:before
-                    content '' 
-                    position absolute
-                    width 0.5625rem
-                    height 0.0625rem
-                    background #fff
-                    bottom 0
-                    z-index 1000
-                .product
-                    display block
-                    float: left
-                    width: 1.625rem 
-                    height: 1.625rem
-                    margin: 0.5625rem 0.5625rem 0 0.5625rem  
-                .product-message
-                    margin-top: 0.5rem
-                    float: left
-                    width: 5.25rem
-                    line-height: 0.625rem
-                    font-size: fs - 0.0313rem
-                    .desc
-                        color: #333
-                    .num
+                .rowUp
+                    overflow hidden
+                    .product
+                        display block
+                        float: left
+                        width: 1.625rem 
+                        height: 1.625rem
+                        margin: 0.5625rem 0.5625rem 0 0.5625rem  
+                    .product-message
+                        margin-top: 0.5rem
+                        float: left
+                        width: 5.25rem
+                        line-height: 0.625rem
+                        font-size: fs - 0.0313rem
+                        .desc
+                            color: #333
+                        .num
+                            color: #909090
+                        .price
+                            color: #909090
+                    .for-to-paid
+                        display: inline-block
+                        margin: 0.5rem 0.5625rem 0 0 
+                        vertical-align: top
+                        float: right
+                        height: 0.6875rem
+                        line-height: 0.6875rem
+                        text-align: center
+                        font-size: fs - 0.0313rem
+                        color: #ea6aa2
+                    .orderPrice
+                        display: inline-block
+                        margin: 0 0.5625rem 0 0 
+                        vertical-align: top
+                        float: right
+                        height: 0.6875rem
+                        line-height: 0.6875rem
+                        text-align: center
+                        font-size: fs - 0.0313rem
                         color: #909090
-                    .price
-                        color: #909090
-                .for-to-paid
-                    display: inline-block
-                    margin: 0.5rem 0.5625rem 0 0 
-                    vertical-align: top
-                    float: right
-                    height: 0.6875rem
-                    line-height: 0.6875rem
-                    text-align: center
-                    font-size: fs - 0.0313rem
-                    color: #ea6aa2
-                .orderPrice
-                    display: inline-block
-                    margin: 0 0.5625rem 0 0 
-                    vertical-align: top
-                    float: right
-                    height: 0.6875rem
-                    line-height: 0.6875rem
-                    text-align: center
-                    font-size: fs - 0.0313rem
-                    color: #909090            
-                .handle
-                    display: block
-                    position: absolute
-                    right: 0.5625rem
-                    bottom: 0.5rem
-                    width: 1.8438rem   
-                    height: 0.5625rem
-                    line-height: 0.5625rem
-                    font-size: fs - 0.0625rem
-                    text-align: center
-                    border-radius: 0.1563rem
-                    color: #fff 
-                    background: #ea6aa2     
+                .rowDown
+                    display flex
+                    justify-content flex-end
+                    width 100%
+                    height 1.1406rem
                     .link
-                        color: #fff
-                .pos-left
-                    margin-right: 2.0625rem                 
+                        display block
+                        width 1.8438rem
+                        height 0.5625rem
+                        margin-right 0.25rem
+                        line-height 0.5625rem
+                        font-size fs - 0.0625rem
+                        text-align center
+                        color #fff
+                        border-radius 0.1563rem
+                        background #ea6aa2
         .more-orderFrom
             display: block
             width: 100%

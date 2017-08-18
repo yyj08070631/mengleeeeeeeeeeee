@@ -4,19 +4,19 @@
         <!-- <v-header></v-header> -->
         <div class="activity-wrapper">
             <div class="mainmap">
-                <img src="./serve.png">
+                <img :src="data.servimg">
             </div>
             <div class="subscribe-item">
                 <div class="pullLeft">服务</div>
-                <div class="pullRight"><p>单人泡澡+臀部疗保养+面部补水三项套餐</p></div>
+                <div class="pullRight"><p>{{data.servname}}</p></div>
             </div>
              <div class="subscribe-item">
                 <div class="pullLeft noLine">预约人信息</div>
                 <div class="pullRight noLine">
                     <div class="userinfo">
                         <div class="msg">
-                            <span>独孤剑</span>
-                            <span>13766666666</span>
+                            <span>{{data.username}}</span>
+                            <span>{{data.phone}}</span>
                         </div>
                         <!-- <a href="javascript:void(0)" class="write" @click="editInfo = true">编辑</a> -->
                     </div>
@@ -24,15 +24,15 @@
             </div>
             <div class="subscribe-item">
                 <div class="pullLeft noLine">时间</div>
-                <div class="pullRight"><p>2017-12-31</p></div>
+                <div class="pullRight"><p>{{data.atime}}</p></div>
             </div>
             <div class="subscribe-item">
                 <div class="pullLeft noLine">地点</div>
-                <div class="pullRight"><p>广东省广州市天河区某处</p></div>
+                <div class="pullRight"><p>{{data.province + data.city + data.area + data.address}}</p></div>
             </div>
             <div class="subscribe-item">
                 <div class="pullLeft noLine">状态</div>
-                <div class="pullRight noLine"><p>已完成</p></div>
+                <div class="pullRight noLine"><p>{{data.status == 0 || data.status == 1 ? '已预约' : data.status == 2 ? '已完成' : data.status == 3 ? '已取消' : '未接收到订单状态'}}</p></div>
             </div>
         </div>
         <!-- <div class="subscribe" @click="editInfo = true">
@@ -110,6 +110,7 @@ export default {
     },
     data(){
         return {
+            data: [],
             // showTab: false,
             // name: '',
             // telphone: '',
@@ -129,6 +130,20 @@ export default {
         //         alert(this.name + this.telphone + this.gender);
         //     }
         // }
+        getDataFromBackend() {
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/appointmentDetail?userId===tPtcNLZARXEuvDhRSFGkQX&id=' + this.$route.query.id,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res)
+                this.data = res.data
+            });
+        }
+    },
+    mounted(){
+        this.getDataFromBackend()
     }
 }
 </script>

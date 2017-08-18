@@ -5,9 +5,11 @@
         <!-- 主体 -->
         <section class="main">
             <!-- 一个收货地址 -->
+            <!-- 无值 -->
             <div class="emptyType" v-if="data.length == 0">请添加收货地址:-D</div>
-            <div class="oneAddr" v-for="(val,key) in data" v-else>
-            <!--  :to="{ path: '/buyGoods', query: { group: orderArr(), name: val.name, phone: val.phone, addr: val.province + val.city + val.area + val.address } }" -->
+            <!-- 有值且可选 -->
+            <div class="oneAddr" v-for="(val,key) in data" @click.stop="addrToSession(val.name, val.phone, val.province + val.city + val.area + val.address)" v-else-if="data.length != 0 && canSel">
+                <!--  :to="{ path: '/buyGoods', query: { group: orderArr(), name: val.name, phone: val.phone, addr: val.province + val.city + val.area + val.address } }" -->
                 <div class="rowUp">
                     <div class="nameAndPhone">
                         <p class="name">{{val.name}}</p>
@@ -15,7 +17,7 @@
                         <div class="phone" v-else>{{val.phone}}</div>
                     </div>
                     <div class="icon">
-                        <router-link :to="{ path: '/addrEditReal', query: { id: val.id } }">
+                        <router-link :to="{ path: '/addrEditReal', query: { id: val.id, canSel: 1 } }">
                             <img src="./images/edit.png">
                         </router-link>
                         <div @click="onShow">
@@ -27,28 +29,57 @@
                     {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
                 </div>
                 <!-- 删除询问弹窗 -->
-                <alert v-model="show" title="提示" @on-show="onShow"  @on-hide="onHide">
+                <alert v-model="show" title="提示" @on-show="onShow" @on-hide="onHide">
                     <button class="btn1" @click="onHide();delReceInfo(val.id)">确定</button>
                     <button class="btn2" @click="onHide();">取消</button>
                     请确认删除
                 </alert>
             </div>
+            <!-- 有值且不可选 -->
+            <div class="oneAddr" v-for="(val,key) in data" v-else-if="data.length != 0 && !canSel">
+                <div class="rowUp">
+                    <div class="nameAndPhone">
+                        <p class="name">{{val.name}}</p>
+                        <div class="phone default" v-if="val.isDefault == 1">{{val.phone}}</div>
+                        <div class="phone" v-else>{{val.phone}}</div>
+                    </div>
+                    <div class="icon">
+                        <router-link :to="{ path: '/addrEditReal', query: { id: val.id, canSel: 0 } }">
+                            <img src="./images/edit.png">
+                        </router-link>
+                        <div @click="onShow">
+                            <img src="./images/del.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="rowDown">
+                    {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
+                </div>
+                <!-- 删除询问弹窗 -->
+                <alert v-model="show" title="提示" @on-show="onShow" @on-hide="onHide">
+                    <button class="btn1" @click="onHide();delReceInfo(val.id)">确定</button>
+                    <button class="btn2" @click="onHide();">取消</button>
+                    请确认删除
+                </alert>
+            </div>
+            <!-- 有值且无可不可选 -->
+            <div class="emptyType" v-else>请从<a href="#myCenter" style="color:#ea68a2">个人中心</a>进入收件信息页面</div>
             <!-- 新建地址 -->
             <div class="newAddr">
                 <router-link to="/addrEdit" class="newAddrItem">新建地址</router-link>
             </div>
         </section>
-            <!-- 弹窗 --> 
-		<div>
+        <!-- 弹窗 -->
+        <div>
             <toast v-model="success" type="text">删除成功</toast>
         </div>
-		<div>
+        <div>
             <toast v-model="error" type="text">删除失败</toast>
         </div>
     </div>
 </template>
 <script type="ecmascript-6">
-import { Toast,Alert } from 'vux'
+import { Toast, Alert } from 'vux'
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
 // import header from '../../components/header/header';
 export default {
@@ -56,7 +87,7 @@ export default {
         Toast,
         Alert,
         // 'v-header': header
-        
+
     },
     data() {
         return {
@@ -64,6 +95,7 @@ export default {
             show: false,
             success: false,
             error: false,
+            canSel: this.$route.query.canSel == 0 ? false : this.$route.query.canSel == 1 ? true : ''
         }
     },
     methods: {
@@ -96,19 +128,19 @@ export default {
             })
         },
         // 获取订单数组
-        orderArr: function(){
+        orderArr: function () {
             // console.log(this.$route.query.group)
             return this.$route.query.group
         },
         // 地址设置到session中
-        addrToSession: function(name, phone, addr){
-            sessionStorage.setItem('loc', JSON.stringify({name: name, phone: phone, addr: addr}));
+        addrToSession: function (name, phone, addr) {
+            sessionStorage.setItem('loc', JSON.stringify({ name: name, phone: phone, addr: addr }));
             this.$router.push('buyGoods');
         },
-        onShow: function(){
+        onShow: function () {
             this.show = true
         },
-        onHide: function(){
+        onHide: function () {
             this.show = false
         }
     },
@@ -148,6 +180,8 @@ span, a, img, input, textarea
             height 3.125rem
             background-color #fff
             font-size fs + 0.0938rem
+            a
+                color #ea68a2
         // 分割线
         .dividerBig
             width 100%

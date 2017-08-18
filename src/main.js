@@ -213,10 +213,10 @@ const routes = [{
         path: '/addrEditReal',
         component: addrEditReal
     },
-    {
-        path: '/allOrder',
-        component: allOrder
-    },
+    // {
+    //     path: '/allOrder',
+    //     component: allOrder
+    // },
     {
         path: '/nearbyStoresAll',
         component: nearbyStoresAll

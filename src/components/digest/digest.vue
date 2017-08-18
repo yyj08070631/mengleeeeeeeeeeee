@@ -97,7 +97,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                 console.log(res)
+                console.log(res)
                 this.appData = res
                 //console.log(this.appData.nearbyitem.address)
             });
@@ -110,7 +110,30 @@ export default {
             } else if (this.gender == ''){
                 alert('请选择性别');
             } else {
-                alert(this.name + this.telphone + this.gender);
+                // alert(this.name + this.telphone + this.gender);
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/Nearby/appointment?nid=' + this.$route.query.nid + '&sid=' + this.$route.query.sid + '&username=' + this.name + '&phone=' + this.telphone + '&time=' + this.appData.timeitem.date + '&gender=' + this.gender,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res)
+                    if(res == 0){
+                        this.editInfo = false;
+                        alert('预约失败');
+                    } else if (res == 1){
+                        this.editInfo = false;
+                        alert('预约成功');
+                        this.$router.push('subscribe');
+                    } else if (res == 2){
+                        this.editInfo = false;
+                        alert('填写的数据有误');
+                    } else if (res == 3){
+                        this.editInfo = false;
+                        alert('该活动已经预约，请查看预约列表');
+                        this.$router.push('subscribe');
+                    }
+                });
             }
         }
     },
@@ -119,7 +142,6 @@ export default {
             this.getDataFromBackend()
         })
     }
-
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -181,7 +203,7 @@ img, span, a
                 display flex
                 align-items center
                 width 2.125rem
-                font-size fs
+                font-size fs + 0.0469rem
             .vux-checker-box
                 display flex
                 justify-content space-around
@@ -194,7 +216,7 @@ img, span, a
                 display flex
                 align-items center
                 width 3rem
-                font-size fs
+                font-size fs + 0.0469rem
             input
                 height 0.875rem
                 width 100%

@@ -51,7 +51,8 @@ export default {
             name: '',
             street: '',
             defaultLoc: '',
-            data: []
+            data: [],
+            canSel: this.$route.query.canSel
         }
     },
     methods: {
@@ -70,7 +71,7 @@ export default {
                     let res = response.body;
                     // console.log(res);
                     alert('修改成功!');
-                    this.$router.push('addrManage');
+                    this.$router.push({ path: '/addrManage', query: { canSel: this.canSel } });
                 })
             }
         },

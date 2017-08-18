@@ -2,59 +2,88 @@
     <div class="cart-wrapper">
         <!--头部-->
         <header class="header">
-            <div class="goBack">
+            <div class="goBack" @click="writeCart()">
                 <!-- <a href="javascript:history.back(1)">
                         <img src="./images/arrow_left.png">
                         <span>返回</span> 
                     </a> -->
+                <p v-show="writeType == 0" @click="finish(false)">编辑</p>
+                <p v-show="writeType == 1" @click="finish();changeNum()">完成</p>
             </div>
             <div class="title">
                 <!-- 我的购物袋 -->
             </div>
-            <div class="search" @click="writeCart()">
-                <p v-show="writeType == 0" @click="finish(false)">编辑</p>
-                <p v-show="writeType == 1" @click="finish();changeNum()">完成</p>
+            <div class="search">
+                <p v-show="mainView == 0" @click="mainView = 1">购物车</p>
+                <p v-show="mainView == 1" @click="mainView = 0">未结账订单</p>
             </div>
         </header>
         <!-- 主体 -->
         <section class="main">
             <!-- 超大分割线 -->
             <!-- <div class="dividerBig"></div> -->
-            <!-- 购物车为空 -->
-            <p v-show="data.data.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
             <!-- 一个商品 -->
-            <div class="oneProduct" v-for="(val,key) in data.data">
-                <!-- 选择框 -->
-                <div class="colLeft" ref="allBox">
-                    <!-- 选择那个圈圈 -->
-                    <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key, val.price, val.id, val.gid)" class="check-hook">
-                </div>
-                <!-- 商品图片 -->
-                <div class="colMiddle">
-                    <img :src="val.mainmap">
-                </div>
-                <!-- 信息 & 修改数量 -->
-                <div class="colRight">
-                    <p class="rowUp">{{val.gname}}</p>
-                    <div class="rowDown">
-                        <span class="price">
-                            <span>￥</span>
-                            <span>{{val.price | numBig}}</span>
-                            <span>.{{val.price | numSmall}}</span>
-                        </span>
-                        <div class="count" v-show="showWrite">
-                            <a href="javascript:void(0)" @click="numberSub(val.id)">-</a>
-                            <input type="text" v-model="number[key].num">
-                            <!-- :placeholder="val.number" -->
-                            <a href="javascript:void(0)" @click="numberPlus(val.id)">+</a>
+            <div class="goodsList" v-show="mainView == 1">
+                <!-- 购物车为空 -->
+                <p v-if="data.data.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
+                <div class="oneProduct" v-for="(val,key) in data.data">
+                    <!-- 选择框 -->
+                    <div class="colLeft" ref="allBox">
+                        <!-- 选择那个圈圈 -->
+                        <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key, val.price, val.id, val.gid)" class="check-hook">
+                    </div>
+                    <!-- 商品图片 -->
+                    <div class="colMiddle">
+                        <img :src="val.mainmap">
+                    </div>
+                    <!-- 信息 & 修改数量 -->
+                    <div class="colRight">
+                        <p class="rowUp">{{val.gname}}</p>
+                        <div class="rowDown">
+                            <span class="price">
+                                <span>￥</span>
+                                <span>{{val.price | numBig}}</span>
+                                <span>.{{val.price | numSmall}}</span>
+                            </span>
+                            <div class="count" v-show="showWrite">
+                                <a href="javascript:void(0)" @click="numberSub(val.id)">-</a>
+                                <input type="text" v-model="number[key].num">
+                                <!-- :placeholder="val.number" -->
+                                <a href="javascript:void(0)" @click="numberPlus(val.id)">+</a>
+                            </div>
+                            <div class="num" v-show="showPay">×{{number[key].num}}</div>
                         </div>
-                        <div class="num" v-show="showPay">×{{number[key].num}}</div>
                     </div>
                 </div>
             </div>
+            
+            <!-- 一个订单 -->
+            <div class="orderList" v-show="mainView == 0">
+                <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
+                    <div class="rowUp">
+                        <img class="product" :src="val.mainmap" />
+                        <div class="product-message">
+                            <span class="desc">{{val.name}}</span>
+                            <p class="num">单价:￥{{num(val.price)}}</p>
+                            <p class="price">总价:￥{{num(val.total)}}</p>
+                        </div>
+                        <div>
+                            <span class="for-to-paid">待付款</span>
+                            <span class="orderPrice">数量：{{val.number}}</span>
+                        </div>
+                    </div>
+                    <div class="rowDown">
+                        <!-- 左边的按钮 -->
+                        <a href="javascript:void(0)" class="link" @click="showHideOnBlur = true; goodNowId = val.id; goodNowTotal = val.total">立即付款</a>
+                        <!-- 右边的按钮 -->
+                        <a href="javascript:void(0)" class="link" @click="cancOrder(val.id)">取消订单</a>
+                    </div>
+                </div>
+                <p v-if="orderList.orderitem.length == 0" class="noGoods">没有未支付订单哦:-D</p>
+            </div>
         </section>
         <!-- 脚部 -->
-        <footer class="foot">
+        <footer class="foot" v-show="mainView == 1">
             <div class="colLeft">
                 <img src="./images/unchecked.png" @click="checkAllBox" ref="allCheckHook">
                 <p class="selAll">全选</p>
@@ -83,6 +112,23 @@
             <button class="btn2" @click="onHide();">取消</button>
             请确认删除
         </alert>
+        <!-- 遮罩：选择充值金额 -->
+        <div v-transfer-dom>
+            <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+                <div class="chooseValue">
+                    <p>选择支付方式</p>
+                    <checker v-model="payType" default-item-class="valueUnsel" selected-item-class="valueSel" v-for="(val, key) in payTypeList">
+                        <checker-item :value="val.id">
+                            {{val.cn}}
+                        </checker-item>
+                    </checker>
+                    <div class="submit" @click="payEvent()">确定</div>
+                </div>
+            </x-dialog>
+        </div>
+        <confirm v-model="alert" title="确认支付" @on-confirm="payIt">
+            <p style="text-align:center;">{{alertTxt}}</p>
+        </confirm>
         <!-- 脚 -->
         <v-view class="route-item"></v-view>
     </div>
@@ -90,12 +136,23 @@
 <script type="ecmascript-6">
 import view from '../../components/view/view';
 import { Toast, Group, Alert } from 'vux'
+import { Confirm, XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
+import { Checker, CheckerItem, Popup } from 'vux'
 export default {
+    directives: {
+        TransferDom
+    },
     components: {
         'v-view': view,
         Toast,
         Group,
-        Alert
+        Alert,
+        XDialog,
+        XButton,
+        Checker,
+        CheckerItem,
+        Popup,
+        Confirm,
     },
     data() {
         return {
@@ -117,7 +174,19 @@ export default {
             writeAfter: false,//编辑成功弹窗
             arr: [],
             show: false, //询问弹窗
-            buyArr: [] //用于提交购买列表的数组
+            buyArr: [], //用于提交购买列表的数组
+            orderList: [], // 订单列表
+            mainView: 1, // main 块显示内容
+            // 支付类型相关
+            payTypeList: [],
+            payType: '',
+            showHideOnBlur: false,
+            // 弹窗 & 弹窗文字
+            alert: false,
+            alertTxt: '',
+            // 当前立即支付商品
+            goodNowId: '',
+            goodNowTotal: '',
         }
     },
     methods: {
@@ -237,6 +306,7 @@ export default {
         },
         //获取数据
         getDataFromBackend: function () {
+            // 购物车数据
             this.$http({
                 method: 'get',
                 url: global.Domain + '/user/cartList?userId===tPtcNLZARXEuvDhRSFGkQX',
@@ -253,6 +323,25 @@ export default {
                     });
                 }
                 this.number = arr;
+            });
+            // 订单数据
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Order/ordwait',
+                emulateJSON: true
+            }).then(function (response) {
+                this.orderList = response.body
+                console.log(this.orderList)
+            });
+            // 获取支付类型信息
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/order/payment',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log(res);
+                this.payTypeList = res.payitem
             })
         },
         //选中单个按钮
@@ -266,7 +355,8 @@ export default {
                 this.priceArr.push(result)
                 this.buyArr.push({ // 这是结算用的数组
                     gid: gid,
-                    number: this.number[key].num
+                    number: this.number[key].num,
+                    cid: id
                 })
             } else {
                 this.$refs.checkHook[key].src = require('./images/unchecked.png')
@@ -280,8 +370,9 @@ export default {
                 this.Idarr.remove(id)
                 this.priceArr.remove(result)
                 this.buyArr.remove({
-                    gid: id,
-                    number: this.number[key].num
+                    gid: gid,
+                    number: this.number[key].num,
+                    cid: id
                 })
             }
             // console.log(this.priceArr)
@@ -307,7 +398,8 @@ export default {
                     this.priceArr.push(this.number[i].num * this.data.data[i].price)
                     this.buyArr.push({
                         gid: this.data.data[i].gid,
-                        number: this.number[i].num
+                        number: this.number[i].num,
+                        cid: this.data.data[i].id
                     })
                     let arr = []
                     for (var i = 0; i < this.Idarr.length - 1; i++) {
@@ -347,10 +439,111 @@ export default {
         },
         // 在session中存入下单商品列表，然后跳转到下单页面
 		goodsToSession: function(){
-			sessionStorage.setItem('list', JSON.stringify(this.buyArr));
-			// console.log(JSON.parse(sessionStorage.getItem('list')));
-			this.$router.push('buyGoods');
-		},
+            if(this.buyArr.length == 0){
+                alert('请选择要结算的商品！');
+            } else {
+                sessionStorage.setItem('list', JSON.stringify(this.buyArr));
+                // console.log(JSON.parse(sessionStorage.getItem('list')));
+                this.$router.push({ path: '/buyGoods', query: { from: 'cart' } });
+            }
+        },
+        // 取消订单方法
+        cancOrder: function(oid){
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/Order/ordesc?oid=' + oid,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                if(res == 1){
+                    alert('取消订单成功！')
+                    this.getDataFromBackend();
+                } else {
+                    alert('取消订单失败');
+                }
+            });
+        },
+        // 支付事件
+        payEvent: function () {
+            if (this.payType == 1) {
+                this.payIt();
+            } else if (this.payType == 2) {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res);
+                    if(res.data.virtual >= this.goodNowTotal){
+                        this.payIt();
+                    } else if (res.data.virtual < this.goodNowTotal){
+                        // 弹窗选择，是否使用部分余额补足不够的乐宝点，若选确定，则调用payIt()，若选取消，则什么都不做，关闭弹窗
+                        // console.log('是否使用部分余额补足不够的乐宝点')
+                        this.alertTxt = '是否使用部分余额补足不够的乐宝点？';
+                        this.showHideOnBlur = false;
+                        this.alert = true;
+                    }
+                })
+            } else if (this.payType == 3) {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res);
+                    if(res.data.wallet >= this.goodNowTotal){
+                        this.payIt();
+                    } else if (res.data.wallet < this.goodNowTotal){
+                        // 弹窗选择，是否使用部分乐宝点补足不够的余额，若选确定，则调用payIt()，若选取消，则什么都不做，关闭弹窗
+                        // console.log('是否使用部分乐宝点补足不够的余额')
+                        this.alertTxt = '是否使用部分乐宝点补足不够的余额？';
+                        this.showHideOnBlur = false;
+                        this.alert = true;
+                    }
+                })
+            } else {
+                alert('请选择支付方式！')
+            }
+        },
+        // 支付接口 !important
+        payIt: function () {
+            this.$http.post(
+                global.Domain + '/order/pay',
+                {
+                    pay: this.payType,
+                    oid: this.goodNowId,
+                    status: 2,
+                    remark: '测试留言'
+                },
+                {
+                    emulateJSON: true
+                }).then(response => {
+                    let res = response.body;
+                    console.log(res);
+                    if (res.pass == 1) {
+                        location.href = res.url
+                    } else if (res == 1) {
+                        this.$router.push({ path: '/payResult', query: { price: this.num(this.computeMoney) } });
+                    } else if (res == 2) {
+                        alert('该商品库存不足');
+                        this.getDataFromBackend();
+                    } else if (res == 3) {
+                        alert('收货信息不正确');
+                    } else if (res == 4) {
+                        alert('插入记录表失败');
+                    } else if (res == 5) {
+                        alert('生成订单失败');
+                    } else if (res == 6) {
+                        alert('更换订单号失败');
+                    } else if (res == 7) {
+                        alert('您的余额不足');
+                        this.$router.push('orderFrom');
+                    }
+                })
+        },
         //显示编辑区块
         writeCart: function () {
             if (this.showWrite == false) {
@@ -369,9 +562,34 @@ export default {
         onHide: function () {
             this.show = false
         },
-        //数组深复制，不考虑循环引用的情况
-        cloneArr: function (from) {
-            return from.map((n) => clone(n));
+        // 1,020.00
+        outputdollars: function (number) {
+            if (number.length <= 3)
+                return (number == '' ? '0' : number);
+            else {
+                var mod = number.length % 3;
+                var output = (mod == 0 ? '' : (number.substring(0, mod)));
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if ((mod == 0) && (i == 0))
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                }
+                return (output);
+            }
+        },
+        outputcents: function (amount) {
+            amount = Math.round(((amount) - Math.floor(amount)) * 100);
+            return (amount < 10 ? '.0' + amount : '.' + amount);
+        },
+        num: function (number) {
+            number = String(number).replace(/\,/g, "");
+            if (isNaN(number) || number == "") return "";
+            number = Math.round(number * 100) / 100;
+            if (number < 0)
+                return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+            else
+                return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
     mounted() {
@@ -405,6 +623,70 @@ export default {
 // init
 span, a, img, input, textarea
     display block
+
+// 支付类型选择框：modal
+.valueUnsel
+    display flex !important
+    justify-content center
+    align-items center
+    height 1.2813rem
+    width 100%
+    margin-bottom 0.25rem
+    border .0313rem solid #ff8b00
+    font-size fs + 0.0625rem
+    color #d54600
+    background-color #fff
+.noMargin
+    margin-right 0 !important
+.valueSel
+    color #fff
+    background-color #ff8b00
+// 大选择窗口
+.v-transfer-dom
+    .vux-x-dialog
+        .weui-dialog
+            max-width none !important
+            width auto !important
+            text-align left !important
+            border-radius 0.1875rem
+            z-index 4999 !important
+            .chooseValue
+                width 8.2813rem
+                padding 0 0.4375rem
+                .vux-checker-box
+                    display flex
+                    flex-wrap wrap
+                .submit
+                    display flex
+                    justify-content center
+                    align-items center
+                    width 100%
+                    height 1.25rem
+                    margin 1rem 0 0.4688rem 0
+                    font-size fs + 0.0625rem
+                    color #fff
+                    background-color #ff8b00
+                p
+                    margin 0.4063rem 0 0.3438rem 0
+                    font-size fs
+                    color #555
+// confirm 样式
+.vux-x-dialog
+    .weui-dialog
+        max-width 5.625rem !important
+        width 80% !important
+        text-align center !important
+        .weui-dialog__hd
+            padding-top 0.1rem !important
+            .weui-dialog__title
+                font-size fs !important
+        .weui-dialog__bd
+            padding-bottom .6rem !important
+            p
+                font-size fs - 0.0313rem !important
+        .weui-dialog__ft
+            .weui-dialog__btn
+                font-size fs !important
 
 // 外层元素
 .cart-wrapper
@@ -507,7 +789,71 @@ span, a, img, input, textarea
                             border-left 0.0313rem solid #d6d6d6
                     .num
                         font-size fs + 0.0625rem
-                        margin-right 0.5rem    
+                        margin-right 0.5rem   
+        //  一个订单
+        .content-item-top
+            height: 3.5rem
+        .content-item-bottom
+            height: 3.4375rem
+        .content-item
+            border-bottom 1px solid #e0e0e0
+            background-color #fff
+            .rowUp
+                overflow hidden
+                .product
+                    display block
+                    float: left
+                    width: 1.625rem 
+                    height: 1.625rem
+                    margin: 0.5625rem 0.5625rem 0 0.5625rem  
+                .product-message
+                    margin-top: 0.5rem
+                    float: left
+                    width: 5.25rem
+                    line-height: 0.625rem
+                    font-size: fs - 0.0313rem
+                    .desc
+                        color: #333
+                    .num
+                        color: #909090
+                    .price
+                        color: #909090
+                .for-to-paid
+                    display: inline-block
+                    margin: 0.5rem 0.5625rem 0 0 
+                    vertical-align: top
+                    float: right
+                    height: 0.6875rem
+                    line-height: 0.6875rem
+                    text-align: center
+                    font-size: fs - 0.0313rem
+                    color: #ea6aa2
+                .orderPrice
+                    display: inline-block
+                    margin: 0 0.5625rem 0 0 
+                    vertical-align: top
+                    float: right
+                    height: 0.6875rem
+                    line-height: 0.6875rem
+                    text-align: center
+                    font-size: fs - 0.0313rem
+                    color: #909090
+            .rowDown
+                display flex
+                justify-content flex-end
+                width 100%
+                height 1.1406rem
+                .link
+                    display block
+                    width 1.8438rem
+                    height 0.5625rem
+                    margin-right 0.25rem
+                    line-height 0.5625rem
+                    font-size fs - 0.0625rem
+                    text-align center
+                    color #fff
+                    border-radius 0.1563rem
+                    background #ea6aa2
     // 脚部
     .foot
         display flex
