@@ -309,7 +309,7 @@ img, span, a
                 height 1.2813rem
                 padding-right 0.2813rem
                 border 1px solid #ff8b00
-                font-size fs - 0.0313rem
+                font-size fs + 0.0313rem
                 text-align right
                 outline 0
         .btnCont
@@ -323,7 +323,7 @@ img, span, a
                 height 1.25rem
                 font-size fs + 0.0625rem
                 color #fff
-                background-color #ff8b00
+                background-color #ea68a2
             .inCancel
                 color #353535
                 background-color #f0f0f0

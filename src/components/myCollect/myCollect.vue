@@ -19,8 +19,8 @@
                         <span>.{{val.price | numSmall}}</span>
                     </div>
                     <div class="rowDown">
-                        <a href="javascript:void(0)" class="add" v-if="val.type == 1"> 
-                            <img src="./images/cart.png" @click="selectCollect(val.id);showCartFn();">
+                        <a href="javascript:void(0)" class="add" v-if="val.type == 1" @click="selectCollect(val.id);showCartFn();"> 
+                            加入购物车
                         </a>
                         <a href="javascript:void(0)" class="del" @click="onShow();">删除</a>
                     </div>
@@ -278,18 +278,24 @@ export default {
             .info
                 width 100%
                 .rowUp
+                    width 5.75rem
                     padding 0.3125rem 0 0.9375rem 0
-                    font-size fs - 0.0313rem
+                    font-size fs + 0.0313rem
                     color #333
+                    white-space nowrap
+                    overflow hidden
+                    text-overflow ellipsis
                 .rowMiddle
                     display flex
                     align-items flex-end
+                    justify-content flex-end
+                    width 5.75rem
                     padding 0 0 0.9688rem 0
                     color #ea68a2
                     span:first-child, span:last-child
-                        font-size fs - 0.0625rem
-                    span:nth-child(2)
                         font-size fs
+                    span:nth-child(2)
+                        font-size fs + 0.0625rem
                 .rowDown
                     display flex
                     justify-content flex-end
@@ -298,15 +304,17 @@ export default {
                         justify-content center
                         align-items center
                         height 0.6563rem
-                        width 1.5469rem
+                        width 1.7188rem
                         border 0.0313rem solid #ea68a2
                         border-radius 0.0938rem
+                        font-size fs
+                        color #ea68a2
                     .del
                         display flex
                         justify-content center
                         align-items center
                         height 0.6563rem
-                        width 1.5469rem
+                        width 1.7188rem
                         margin 0 0.4063rem 0 0.2813rem
                         border 0.0313rem solid #ababab
                         border-radius 0.0938rem
@@ -408,7 +416,7 @@ export default {
                 width 100%
                 height 2.8438rem
                 border-bottom 1px solid #e0e0e0
-                font-size fs - 0.0625rem
+                font-size fs
                 div:first-child
                     position relative
                     width 2.9688rem
@@ -427,11 +435,13 @@ export default {
                             height 2.5313rem
                 div:nth-child(2)
                     flex 1
+                    display flex
+                    flex-direction column
                     span:first-child
                         margin-top 0.2813rem
                         line-height 0.9375rem
                         text-indent 0.4688rem	
-                        color #ea6aa2
+                        color #333
                     span:last-child	
                         line-height 0.9375rem	
                         text-indent 0.4688rem
@@ -440,13 +450,12 @@ export default {
                     margin 0.2813rem 0.2813rem 0 0
                     width 0.625rem
                     height 0.625rem
-
             .goodsNumber
                 display flex
                 width 100%
                 height 2rem
                 line-height 2rem
-                font-size fs - 0.0313rem
+                font-size fs + 0.0313rem
                 span
                     flex 1
                     margin-left 0.3438rem
@@ -457,10 +466,13 @@ export default {
                     line-height  0.6875rem
                     border 0.0313rem solid #d6d6d6
                     .sub,.plus
-                        text-align center
                         width 0.6875rem
+                        font-size fs + 0.125rem
+                        line-height fs + 0.2813rem
+                        text-align center
                     input 
                         width 0.6875rem	
+                        font-size fs
                         text-align center
                         border-left 0.0313rem solid #d6d6d6
                         border-right 0.0313rem solid #d6d6d6
@@ -468,9 +480,8 @@ export default {
                 width 100%
                 height 1.25rem
                 line-height 1.25rem
-                font-size fs - 0.0156rem
+                font-size fs + 0.0469rem
                 color #fff
                 text-align center
-                background #fe9333        
-
+                background #ea68a2
 </style>

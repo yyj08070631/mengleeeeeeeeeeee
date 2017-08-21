@@ -136,7 +136,7 @@ export default {
         padding-bottom 1.3594rem
     .singleImg
         width 100%
-        height 7.3438rem
+        height 10rem
     .route-item
         footerCss()
     .bannerTitle
@@ -166,9 +166,8 @@ export default {
         display: block
         width: 100%
         height: 1.3125rem
-        margin-top 0.1563rem
-        margin-bottom 0.3125rem
-        border-top 1px solid #e0e0e0
+        padding-top 0.1563rem
+        padding-bottom 0.3125rem
         line-height: 1.3125rem
         font-size fs + 0.0313rem
         text-align: center

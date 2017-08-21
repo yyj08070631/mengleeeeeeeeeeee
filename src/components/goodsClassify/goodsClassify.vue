@@ -250,9 +250,10 @@ export default {
 @import '../../commom/stylus/mixin'
 
 class1()
-    margin-top: -0.0313rem
     width: 4.9688rem
+    margin-top: -0.0313rem
     border-bottom 1px solid #e0e0e0
+    background-color #fff
     &:nth-child(odd)
         border-right 1px solid #e0e0e0
     .collect
@@ -286,6 +287,7 @@ class2()
     width: 100%
     height: 4.625rem  
     border-bottom 1px solid #e0e0e0
+    background-color #fff
     .collect
         position: absolute
         right: 0.375rem
@@ -323,6 +325,7 @@ class2()
             width 3.4375rem
             margin-top 0.4688rem
             font-size fs + 0.0313rem
+            color #333
             line-height fs + 0.0938rem
             text-align center
 // 筛选选项
@@ -332,8 +335,7 @@ class2()
     width: 100%
     height: 0.9375rem
     line-height: 0.9375rem
-    text-align: right
-    background: rgba(255,255,255,1)
+    background #fff
     border-bottom 1px solid #e0e0e0
     a
         display: flex

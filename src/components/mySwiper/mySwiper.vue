@@ -110,6 +110,7 @@ img, span, a
             height 2.5rem
             font-size fs + 0.0313rem
             color #333
+            background-color #fff
             p:last-child
                 margin-top 0.3125rem
         img
@@ -120,6 +121,7 @@ img, span, a
         left 50% !important
         margin-left -5rem - 0.1563rem !important
         bottom 0.0156rem !important
+        background-color #e0e0e0
         .swiper-pagination-bullet
             margin 0 !important
             background-color rgba(255,255,255,0)

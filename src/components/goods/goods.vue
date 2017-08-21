@@ -256,21 +256,26 @@ export default {
                     display flex
                     align-items center
                     height 3.7813rem
+                    padding 0.0625rem 0
                     img
                         display block
                         margin-right 0.9375rem
                         width 4.625rem
                         height 3.125rem
                     div
+                        height 100%
                         text-align justify
                         margin-right 0.5rem
                         h1
+                            margin-top 1.1563rem
                             font-size fs + 0.0156rem
+                            line-height fs + 0.0625rem
                             font-weight normal
                             color #333
                         p
                             width 3.4375rem
                             font-size fs - 0.0469rem
+                            line-height fs + 0.0625rem
                             color #909090
                             margin-top 0.0938rem
             .oneKind:last-child

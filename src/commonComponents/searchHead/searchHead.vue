@@ -11,7 +11,7 @@
                 <span>×</span>
             </div>
         </div>
-        <a href="javascript:void(0)" class="searchBtn">搜索</a>
+        <!-- <a href="javascript:void(0)" class="searchBtn">搜索</a> -->
     </header>
 </template>
 <script type="ecmascript-6">
@@ -35,7 +35,7 @@ export default {
     .outElem
         display flex
         align-items center
-        width 8.25rem
+        width 9.375rem
         height 0.9375rem
         margin-left 0.3125rem
         border-radius 0.0938rem
@@ -43,14 +43,17 @@ export default {
         .imgBox
             display flex
             align-items center
-            width 0.4219rem
-            height 0.4219rem
+            width 0.5rem
+            height 0.5rem
             padding 0.25rem
+            img
+                width 0.5rem
+                height 0.5rem
         .inputBox
             display flex
             align-items center
             height 100%
-            width 6.1953rem
+            width 7.4375rem
             input
                 width 100%
                 font-size fs
@@ -60,12 +63,12 @@ export default {
             span
                 display flex
                 justify-content center
-                align-items center
                 width 0.375rem
                 height 0.375rem
                 border-radius 50%
                 background-color #e0e0e0
                 font-size fs
+                line-height 0.3125rem
                 color #fff
     .searchBtn
         display flex

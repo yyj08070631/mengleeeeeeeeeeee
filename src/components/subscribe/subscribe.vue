@@ -128,7 +128,7 @@ export default {
                 .textContent
                     width 100%
                     height 5.3125rem
-                    font-size fs
+                    font-size fs + 0.0313rem
                     border 0
                     outline 0
                     resize none
@@ -143,7 +143,7 @@ export default {
                         height 1.25rem
                         font-size fs + 0.0625rem
                         color #fff
-                        background-color #ff8b00
+                        background-color #ea68a2
                     .inCancel
                         color #353535
                         background-color #f0f0f0

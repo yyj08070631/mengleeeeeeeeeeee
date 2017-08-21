@@ -1,5 +1,5 @@
 <template>
-    <x-address title="所在地区：" v-model="value" :list="addressData" :placeholder="locArr ? locArr.join(' ') : '请选择所在地区'">
+    <x-address title="所在地区：" v-model="value" :list="addressData" :placeholder="locArr ? locArr.join(' ') : '请选择所在地区'" class="x-address">
     </x-address>
 </template>
 
@@ -42,50 +42,53 @@ export default {
 </script>
 
 <style lang="less" rel="stylesheet/less">
-.vux-cell-box {
-    display: flex;
-    align-items: center;
-    top: 0;
+.x-address {
     width: 100%;
-    height: 1.3438rem !important;
-    color: #525252;
-    width: 100%;
-    line-height: 0.94rem;
-    overflow: hidden;
-    .weui-cell {
+    .vux-cell-box {
         display: flex;
+        align-items: center;
+        top: 0;
+        width: 6.4688rem;
+        height: 1.3438rem !important;
+        color: #525252;
         width: 100%;
-        height: 100%;
-        .weui-cell__hd {
+        line-height: 0.94rem;
+        overflow: hidden;
+        .weui-cell {
             display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            width: 2.8125rem;
-            margin: 0 0.75rem 0 0.1875rem;
-            .weui-label {
-                width: 2.3438rem;
-                text-align: right;
-            }
-        }
-        .vux-cell-primary {
-            display: flex;
-            align-items: center;
             width: 100%;
-            .vux-popup-picker-select {
+            height: 100%;
+            .weui-cell__hd {
                 display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 2.8125rem;
+                margin: 0 0 0 0.5rem;
+                .weui-label {
+                    width: 2.3438rem;
+                }
+            }
+            .vux-cell-primary {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                .vux-popup-picker-select {
+                    display: flex;
+                }
+            }
+            .weui-cell__ft {
+                display: none;
+            }
+            .vux-popup-picker-value {
+                font-size: 0.3125rem !important;
             }
         }
-        .weui-cell__ft {
-            display: none;
+        &:before {
+            border: 0;
         }
-        .vux-popup-picker-value {
-            font-size: 0.375rem !important;
-        }
-    }
-    &:before {
-        border: 0;
     }
 }
+
 
 .scroller-component {
     height: 5.76rem !important;
@@ -100,7 +103,7 @@ export default {
 }
 
 .scroller-item {
-    font-size: 0.3125rem !important;
+    font-size: 0.375rem !important;
     height: 0.66rem !important;
     line-height: 0.66rem !important;
 }
@@ -108,7 +111,7 @@ export default {
 .scroller-indicator {
     height: 0.66rem !important;
     top: 2.54rem !important;
-    font-size: 0.375rem !important;
+    font-size: 0.4375rem !important;
 }
 
 .vux-popup-picker-header {
@@ -133,4 +136,5 @@ export default {
 .vux-popup-dialog {
     overflow-y: auto !important;
 }
+
 </style>

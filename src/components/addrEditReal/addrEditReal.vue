@@ -26,7 +26,12 @@
             </div>
             <!-- 默认地址 -->
             <a href="javascript:void(0)" class="selDefault">
-                <input type="checkbox" v-model="defaultLoc">
+                <label class="unchecked checked" v-if="defaultLoc">
+                    <input type="checkbox" v-model="defaultLoc">
+                </label>
+                <label class="unchecked" v-else>
+                    <input type="checkbox" v-model="defaultLoc">
+                </label>
                 <p>默认地址</p>
             </a>
             <!-- 保存 -->
@@ -129,7 +134,6 @@ span, a, img, input, textarea
     background #f0f0f0
     // 主体
     .main
-        border-top 0.3125rem solid #f0f0f0
         // 一般
         .infoBox
             display flex
@@ -140,9 +144,9 @@ span, a, img, input, textarea
             border-bottom 1px solid #e0e0e0
             .rowLeft
                 display flex
-                justify-content flex-end
+                justify-content flex-start
                 width 2.8125rem !important
-                margin 0 0.7188rem 0 0.3125rem
+                margin 0 0 0 0.5rem
                 color #525252
             .rowRight
                 display flex
@@ -193,6 +197,7 @@ span, a, img, input, textarea
         // 默认地址
         .selDefault
             display flex
+            align-items center
             margin-top 0.5625rem
             // img
             //     width 0.4688rem
@@ -202,8 +207,14 @@ span, a, img, input, textarea
                 height 100%
                 margin-left 0.2188rem
                 font-size fs + 0.0313rem
-            input 
+            .unchecked
                 width 0.4688rem
                 height 0.4688rem
                 margin-left 0.2813rem
+                background-image url('./images/unchecked.png')
+                background-size 0.4688rem 0.4688rem
+            .checked
+                background-image url('./images/checked.png')
+            input
+                display none
 </style>

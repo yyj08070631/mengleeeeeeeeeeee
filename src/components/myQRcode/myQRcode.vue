@@ -55,6 +55,7 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
+
 .myQRcode-wrapper
     width: 100%
     // height: 100%
@@ -77,7 +78,7 @@ export default {
         z-index 10
     .fuild-filter
         position: relative
-        margin: 1.5625rem auto
+        margin 1.5625rem auto
         width: 9.0625rem
         height: 90%
         // background: url(http://dde.dgxinn.cn/dream/index.php/Api/code/img)
@@ -98,6 +99,7 @@ export default {
             display: inline-block
             margin: 0.4688rem 0 0.1875rem 0
             font-size: fs - 0.0313rem
+            font-weight normal
             color: #000
         .mobile
             display: block
