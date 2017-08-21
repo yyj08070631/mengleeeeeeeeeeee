@@ -1,6 +1,7 @@
 <template>
-	<div class="collect-wrapper">
+	<div class="collect-wrapper" >
 		<!-- v-infinite-scroll="loadDetail" -->
+		<!--  -->
 		<!-- 头部 -->
         <!-- <v-header></v-header> -->
 		<!--图片轮播-->
@@ -88,11 +89,11 @@
 		<!--超粗分割线-->
 		<hr class="divider dividerBig lastElem">
 		<!--继续拖动，查看图文详情-->
-		<!-- <div class="dragHelp" v-show="noDragToView"></div>
+		<div class="dragHelp" v-show="noDragToView"></div>
 		<div class="dragToView" v-show="dragToView">
 			<img src="./images/arrow_up.png">
 			<p>继续拖动，查看图文详情</p>
-		</div> -->
+		</div>
 		<!--脚部-->
 		<footer class="myFooter">
 			<a href="javascript:void(0)" @click="show = true;">
@@ -373,19 +374,19 @@ export default {
 			this.closeCart()
 		},
 		// // 下拉显示图文详情：使用infinite-scroll
-		// loadDetail: function(){
-		// 	let that = this;
-		// 	if(!that.dragToView){
-		// 		setTimeout(function(){
-		// 			that.dragToView = true;
-		// 			that.noDragToView = false;
-		// 		},500);
-		// 	} else {
-		// 		setTimeout(function(){
-		// 			that.$router.push({ path: 'imageText', query: { gid: that.$route.query.gid }});
-		// 		},500);
-		// 	}
-		// }
+		loadDetail: function(){
+			let that = this;
+			if(!that.dragToView){
+				setTimeout(function(){
+					that.dragToView = true;
+					that.noDragToView = false;
+				},500);
+			} else {
+				setTimeout(function(){
+					that.$router.push({ path: 'imageText', query: { gid: that.$route.query.gid }});
+				},1500);
+			}
+		},
 		// 在session中存入下单商品列表，然后跳转到下单页面
 		goodsToSession: function(){
 			sessionStorage.setItem('list', JSON.stringify([{ gid: this.detailItemList.gooditem.id, number: this.numBuy }]));
@@ -400,16 +401,22 @@ export default {
 		},
 		//分享功能
 		shareGoods: function(){
-			wx.onMenuShareTimeline({
-				title: this.defaultVal, // 分享标题
-				link: this.windowUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-				imgUrl: this.detailItemList.albumitem[0].src, // 分享图标
+			console.log( window.location.href.split('#')[0])
+			console.log("这是URL:"+window.location.href.split('#')[0])
+			console.log("这是图片:"+this.detailItemList.albumitem[0].src)
+			console.log(this.$wechat.onMenuShareTimeline)
+			this.$wechat.onMenuShareTimeline({
+				title: "这是一个标题", // 分享标题
+				link: 'http://dde.dgxinn.cn/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+				imgUrl: 'http://dde.dgxinn.cn/dream/Public/Uploads/good/2017-08-12/good_598e944dc63830.74281445.jpg', // 分享图标
 				success: function () { 
 					// 用户确认分享后执行的回调函数
-					console.log("分享成功")
+					alert("分享成功")
 				},
 				cancel: function () { 
 					// 用户取消分享后执行的回调函数
+					alert("分享失败")
+
 				}
 			});
 		}
