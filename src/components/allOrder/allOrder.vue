@@ -1,16 +1,16 @@
 <template>
-    <div class="orderFrom-wrapper">
-        <!--头部  -->
-        <v-header></v-header>
+    <div class="allOrder-wrapper">
+        <!-- 头部 -->
+        <!-- <v-header></v-header> -->
         <div class="order-content-wrapper item-cls">
             <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
             <div class="order-content">
                 <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
-                    <img class="product" width=104 height=104 :src="val.mainmap" />
+                    <img class="product" :src="val.mainmap" />
                     <div class="product-message">
                         <span class="desc">{{val.name}}</span>
-                        <p class="num">单价:{{val.price}}</p>
-                        <p class="price">总价:￥{{val.price*val.number}}</p>
+                        <p class="num">单价:￥{{num(val.price)}}</p>
+                        <p class="price">总价:￥{{num(val.price*val.number)}}</p>
                     </div>
                     <div>
                         <span class="for-to-paid">{{goodsTypeArr[val.status].type}}</span>
@@ -25,12 +25,11 @@
                 </div>
             </div>
         </div>
-        <!--头部  -->
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux';
 
 export default {
@@ -41,7 +40,7 @@ export default {
         XButton,
         Divider,
         'v-view': view,
-        'v-header': header
+        // 'v-header': header
     },
     ready() {
 
@@ -56,6 +55,35 @@ export default {
                 this.orderList = response.body
                 console.log(this.orderList)
             })
+        },
+        // 1,020.00
+        outputdollars: function (number) {
+            if (number.length <= 3)
+                return (number == '' ? '0' : number);
+            else {
+                var mod = number.length % 3;
+                var output = (mod == 0 ? '' : (number.substring(0, mod)));
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if ((mod == 0) && (i == 0))
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                }
+                return (output);
+            }
+        },
+        outputcents: function (amount) {
+            amount = Math.round(((amount) - Math.floor(amount)) * 100);
+            return (amount < 10 ? '.0' + amount : '.' + amount);
+        },
+        num: function (number) {
+            number = String(number).replace(/\,/g, "");
+            if (isNaN(number) || number == "") return "";
+            number = Math.round(number * 100) / 100;
+            if (number < 0)
+                return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+            else
+                return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
     data() {
@@ -116,21 +144,23 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-mg-width = 1.125rem
-width100 = 100%
-  .orderFrom-wrapper   
-    margin-top: 1.0938rem
-    padding-bottom: 1.3438rem 
+.allOrder-wrapper
     width: 100%
     height: 100%
-    background: #fff
+    background: #f0f0f0
     .route-item
         footerCss()
     .header
         headerCss()
-     .item-cls
-       position: relative            
-     .order-content-wrapper
+    .item-cls
+        position: relative
+    .noGoods
+        padding 20% 0
+        background-color #fff
+        font-size fs + 0.0313rem
+        text-align center
+        color #333
+    .order-content-wrapper
         width: 100%
         height 100%
         font-size: 0
@@ -139,16 +169,16 @@ width100 = 100%
             width: 100%
             height: 1.125rem
             line-height: 1.125rem
-            border-bottom-1px(#e6e6e6)
+            border-bottom 1px solid #e0e0e0
             .title 
                 float: left
-                font-size: 0.3438rem   
+                font-size fs - 0.0313rem
                 color: #333
             .content
                 display: inline-block    
                 float: right
                 margin-right: 1.625rem
-                font-size: 0.3438rem
+                font-size: fs - 0.0313rem
                 color: #909090
             .more 
                 position: absolute
@@ -167,7 +197,8 @@ width100 = 100%
             .content-item
                 display flex
                 position: relative
-                border-bottom-1px(#e6e6e6)           
+                border-bottom 1px solid #e0e0e0
+                background-color #fff
                 .product
                     float: left
                     width: 1.625rem 
@@ -178,7 +209,7 @@ width100 = 100%
                     float: left
                     width: 5.25rem
                     line-height: 0.625rem
-                    font-size: 0.3438rem 
+                    font-size: fs - 0.0313rem
                     .desc
                         color: #333
                     .num
@@ -193,7 +224,7 @@ width100 = 100%
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0313rem
                     color: #ea6aa2
                 .orderPrice
                     display: inline-block
@@ -203,7 +234,7 @@ width100 = 100%
                     height: 0.6875rem
                     line-height: 0.6875rem
                     text-align: center
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0313rem
                     color: #909090            
                 .handle
                     display: block
@@ -213,7 +244,7 @@ width100 = 100%
                     width: 1.8438rem   
                     height: 0.5625rem
                     line-height: 0.5625rem
-                    font-size: 0.3438rem
+                    font-size: fs - 0.0625rem
                     text-align: center
                     border-radius: 0.1563rem
                     color: #fff 
@@ -227,15 +258,13 @@ width100 = 100%
             width: 100%
             height: 1.2188rem
             line-height: 1.2188rem
-            font-size: 0.3438rem
+            font-size: fs - 0.0313rem
             text-align: center
             color: #ea6aa2
         .line
             margin-left: -0.4688rem
             width: 100%
             height: 11px
-            background: #f0f0f0   
-             
-                            
+            background: #f0f0f0
 </style>    
 

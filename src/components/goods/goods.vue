@@ -1,23 +1,25 @@
 <template>
     <div class="goods-wrapper">
         <!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
+        <v-search-head></v-search-head>
         <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
         </el-amap>
         <v-view class="route-item"></v-view>
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
-            <router-link :to="{ path: '/offlineInfo', query: { nid: data.naerbyitem.id } }" class="storeNearby">
+            <a href="javascript:void(0)" class="loadingNear" v-if="locData.length == 0">正在加载附近商家信息....</a>
+            <router-link :to="{ path: '/offlineInfo', query: { nid: locData.id } }" class="storeNearby" v-else>
                 <div class="colLeft">
                     <p>
                         <span>附近的项目实体店</span>
                     </p>
-                    <div>{{data.naerbyitem.name}}</div>
+                    <div>{{locData.name}}</div>
                     <p>
-                        <span class="dis">{{data.naerbyitem.distance}}公里</span>
+                        <span class="dis">{{locData.distance}}公里</span>
                         <span>|</span>
-                        <span class="tim">{{data.naerbyitem.minute}}分钟</span>
+                        <span class="tim">{{locData.minute}}分钟</span>
                     </p>
                 </div>
                 <div class="colRight">
@@ -32,7 +34,8 @@
                     <p>查找其他项目实体店</p>
                 </div>
                 <div class="colRight">
-                    <p>附近有4家</p>
+                    <p v-if="locData.length == 0">正在加载附近商家....</p>
+                    <p v-else>附近有&nbsp;{{locData.id}}&nbsp;家</p>
                     <img src="./images/arrow_right.png">
                 </div>
             </router-link>
@@ -50,30 +53,24 @@
                     <hr class="divider dividerLine">
                 </router-link>
             </div>
-            <hr class="divider dividerBig">
-            <div class="footer">
-                <div class="rowUp">
-                    <div class="logo"></div>
-                </div>
-                <div class="rowDown">
-                    <p class="Copyright">Copyright&nbsp;©&nbsp;2017&nbsp;梦乐城版权所有</p>
-                </div>
-            </div>
         </div>
-        
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
+import searchHead from '../../commonComponents/searchHead/searchHead';
 export default {
     components: {
         'v-view': view,
-        'v-header': header
+        // 'v-header': header
+        'v-search-head': searchHead,
     },
     data() {
         return {
             data: [],
+            // 定位数据
+            locData: [],
             gaodeData: this.gaode(),
             coordinate: []
         }
@@ -84,6 +81,7 @@ export default {
     methods: {
         // 获取数据方法
         getDataFromBackend() {
+            // 获取分类数据
             this.$http({
                 method: 'get',
                 url: global.Domain + '/cate/category',
@@ -118,11 +116,12 @@ export default {
                                     // 传坐标到后台
                                     self.$http({
                                         method: 'get',
-                                        url: global.Domain + '/cate/category?lng=' + self.lng + 'lat=' + self.lat,
+                                        url: global.Domain + '/nearby/catenear?local=' + self.lng + ',' + self.lat,
                                         emulateJSON: true
                                     }).then(function (response) {
                                         let res = response.body;
-                                        // console.log(res);
+                                        console.log(res);
+                                        this.locData = res.nearbyitem;
                                     });
                                 }
                                 // console.log(self.lng, self.lat);
@@ -137,16 +136,15 @@ export default {
     },
 }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 @import '../../commom/stylus/mixin'
 .goods-wrapper
     position absolute
-    top 1.25rem
     left 0
     width 100%
     background #fff
     padding-bottom 1.25rem
-    // 头部
+    // 脚部
     .route-item
         footerCss()
     // 分割线
@@ -172,9 +170,16 @@ export default {
         border-color #f0f0f0
     // 主体
     .main
+        margin-top 1.25rem
         a
             display block
         // 附近的项目实体店
+        .loadingNear
+            display flex
+            justify-content center
+            align-items center
+            height 2.4375rem
+            font-size fs
         .storeNearby
             display flex
             justify-content space-between
@@ -186,7 +191,7 @@ export default {
                 margin-left 0.5rem
                 div
                     color #333
-                    font-size 0.375rem
+                    font-size fs - 0.0156rem
                 p:first-child
                     display: inline-block
                     width: 4.0625rem
@@ -195,7 +200,7 @@ export default {
                     margin-top 0.2188rem
                 p
                     display flex
-                    font-size 0.3438rem
+                    font-size fs - 0.0469rem
                     color #909090
                     span.dis
                         margin-right 0.0625rem
@@ -222,7 +227,7 @@ export default {
                     margin-left 0.0938rem
                     line-height 1.3125rem 
                     color #333
-                    font-size 0.3438rem
+                    font-size fs - 0.0469rem
                 img
                     width 0.3594rem
                     height 0.3438rem
@@ -234,7 +239,7 @@ export default {
                     width 0.2188rem
                     height 0.3906rem 
                 p
-                    font-size 0.3438rem
+                    font-size fs - 0.0469rem
                     margin-right 0.1875rem
                     line-height 1.3125rem 
                     color #909090
@@ -258,13 +263,14 @@ export default {
                         height 3.125rem
                     div
                         text-align justify
-                        overflow hidden
                         margin-right 0.5rem
                         h1
-                            font-size 0.4063rem
+                            font-size fs + 0.0156rem
+                            font-weight normal
                             color #333
                         p
-                            font-size 0.3438rem
+                            width 3.4375rem
+                            font-size fs - 0.0469rem
                             color #909090
                             margin-top 0.0938rem
             .oneKind:last-child
@@ -281,28 +287,28 @@ export default {
         .oneKind:active
             background-color #f0f0f0
         //脚注
-        .footer
-            width: 100%
-            height: 1.9063rem
-            background: #f0f0f0
-            padding 0.3125rem 0
-            .rowUp
-                display flex
-                align-items center
-                justify-content center
-                padding-top 0.3125rem
-                .logo  
-                    width: 2.6563rem
-                    height: 0.625rem
-                    background: url("./images/logo.png")
-                    background-size: 2.6563rem 0.625rem
-            .rowDown
-                display flex
-                align-items center
-                justify-content center
-                padding-top 0.3125rem        
-                .Copyright
-                    text-align: center
-                    font-size: 0.3438rem
-                    color: #909090    
+        // .footer
+        //     width: 100%
+        //     height: 1.9063rem
+        //     background: #f0f0f0
+        //     padding 0.3125rem 0
+        //     .rowUp
+        //         display flex
+        //         align-items center
+        //         justify-content center
+        //         padding-top 0.3125rem
+        //         .logo  
+        //             width: 2.6563rem
+        //             height: 0.625rem
+        //             background: url("./images/logo.png")
+        //             background-size: 2.6563rem 0.625rem
+        //     .rowDown
+        //         display flex
+        //         align-items center
+        //         justify-content center
+        //         padding-top 0.3125rem        
+        //         .Copyright
+        //             text-align: center
+        //             font-size: 0.3438rem
+        //             color: #909090    
 </style>

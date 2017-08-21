@@ -1,12 +1,13 @@
 <template>
-    <div class="goodDetail-wrapper">
+    <div class="addrEdit-wrapper">
         <!-- header -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
+            <div class="divider"></div>
             <!-- 收货人 -->
             <div class="infoBox">
-                <div class="rowLeft">收&nbsp;货&nbsp;&nbsp;人：</div>
+                <div class="rowLeft">收货人：</div>
                 <input class="rowRight" placeholder="请填写收货人姓名" maxlength="8" v-model="name">
             </div>
             <!-- 手机号码 -->
@@ -44,13 +45,13 @@
 </template>
  <script type="ecmascript-6">
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 import { Toast,Alert } from 'vux'
 export default {
     components: {
         vuxAddress,
         Toast,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -113,22 +114,24 @@ span, a, img, input, textarea
     left 0
     width 100%
     height 100%
-    background #fff
+    background #f0f0f0
     // 主体
     .main
-        margin-top 1.0938rem
+        // 分割线
+        .divider
+            border-top 0.3125rem solid #f0f0f0
         // 一般
         .infoBox
             display flex
             align-items center
             height 1.3438rem
-            font-size 0.4375rem
+            font-size fs
             background-color #fff
             border-bottom-1px(#e0e0e0)
             .rowLeft
                 display flex
                 justify-content flex-end
-                width 2.3438rem !important
+                width 2.8125rem !important
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight
@@ -136,12 +139,13 @@ span, a, img, input, textarea
                 align-items center
                 width 6.4688rem
                 height 95%
+                font-size fs
                 color #262626
                 outline 0
             textarea
                 height 60% !important
                 border 0
-                font-size 0.4375rem
+                font-size fs
                 color #262626
                 resize none
             .weui-cell
@@ -173,11 +177,12 @@ span, a, img, input, textarea
                 margin-top 1.2344rem
                 background-color #ea68a2
                 border-radius 0.1563rem
-                font-size 0.5rem
+                font-size fs + 0.0625rem
                 color #fff
         // 默认地址
         .selDefault
             display flex
+            align-items center
             margin-top 0.5625rem
             // img
             //     width 0.4688rem
@@ -186,7 +191,7 @@ span, a, img, input, textarea
             p
                 height 100%
                 margin-left 0.2188rem
-                font-size 0.4688rem
+                font-size fs + 0.0313rem
             input 
                 width 0.4688rem
                 height 0.4688rem

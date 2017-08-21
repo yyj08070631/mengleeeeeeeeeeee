@@ -2,7 +2,7 @@
     <div class="addrEditReal-wrapper">
         <!--头部-->
          <!-- header -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
             <!-- 收货人 -->
@@ -38,11 +38,11 @@
 </template>
  <script type="ecmascript-6">
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
         vuxAddress,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -51,7 +51,8 @@ export default {
             name: '',
             street: '',
             defaultLoc: '',
-            data: []
+            data: [],
+            canSel: this.$route.query.canSel
         }
     },
     methods: {
@@ -70,7 +71,7 @@ export default {
                     let res = response.body;
                     // console.log(res);
                     alert('修改成功!');
-                    this.$router.push('addrManage');
+                    this.$router.push({ path: '/addrManage', query: { canSel: this.canSel } });
                 })
             }
         },
@@ -128,19 +129,19 @@ span, a, img, input, textarea
     background #f0f0f0
     // 主体
     .main
-        margin-top 1.0938rem
+        border-top 0.3125rem solid #f0f0f0
         // 一般
         .infoBox
             display flex
             align-items center
             height 1.3438rem
-            font-size 0.4375rem
+            font-size fs
             background-color #fff
-            border-bottom-1px(#e0e0e0)
+            border-bottom 1px solid #e0e0e0
             .rowLeft
                 display flex
                 justify-content flex-end
-                width 2.1875rem
+                width 2.8125rem !important
                 margin 0 0.7188rem 0 0.3125rem
                 color #525252
             .rowRight
@@ -148,12 +149,13 @@ span, a, img, input, textarea
                 align-items center
                 width 6.4688rem
                 height 95%
+                font-size fs
                 color #262626
                 outline 0
             textarea
                 height 60% !important
                 border 0
-                font-size 0.4375rem
+                font-size fs
                 font-family 'Microsoft YaHei'
                 color #262626
                 resize none
@@ -186,7 +188,7 @@ span, a, img, input, textarea
                 margin-top 1.2344rem
                 background-color #ea68a2
                 border-radius 0.1563rem
-                font-size 0.5rem
+                font-size fs + 0.0625rem
                 color #fff
         // 默认地址
         .selDefault
@@ -199,7 +201,7 @@ span, a, img, input, textarea
             p
                 height 100%
                 margin-left 0.2188rem
-                font-size 0.4688rem
+                font-size fs + 0.0313rem
             input 
                 width 0.4688rem
                 height 0.4688rem

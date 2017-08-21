@@ -1,7 +1,7 @@
 <template>
     <div class="settings-wrapper">
-         <!--头部  -->
-        <v-header></v-header>
+        <!-- header -->
+        <!-- <v-header></v-header> -->
         <div class="avatar-wrapper">
             <img class="avatar-cover" width="100%" height="100%" :src="data.headimg" />
             <div class="filter"></div>
@@ -30,10 +30,18 @@
                 </div>
             </a>
             <!-- 收件信息 -->
-            <a href="#addrManage" class="message-item indent">
+            <router-link :to="{ path: '/addrManage', query: { canSel: 0 } }" class="message-item indent">
                 <span class="title">收件信息</span>
                 <div class="link-wrapper">
                     <span class="msg">已记录</span>
+                    <img class="other" src="./more.png">
+                </div>
+            </router-link>
+            <!-- 绑定手机 -->
+            <a href="javascript:void(0)" class="message-item indent" @click="phoneOper = true">
+                <span class="title">绑定手机</span>
+                <div class="link-wrapper">
+                    <span class="msg">{{data.phone}}</span>
                     <img class="other" src="./more.png">
                 </div>
             </a>
@@ -188,18 +196,53 @@
         <div>
             <toast v-model="hobby" type="text">仅包含汉字、字母</toast>
         </div>
-        <!-- 弹出框 -->
+        <!-- 修改绑定手机弹窗 -->
+        <div>
+            <toast v-model="phoneSucc" type="text">修改成功</toast>
+        </div>
+        <div>
+            <toast v-model="phoneErr" type="text">修改失败</toast>
+        </div> 
+        <!-- 遮罩：修改绑定手机 -->
+        <div v-transfer-dom>
+            <x-dialog v-model="phoneOper" class="dialog-demo" hide-on-blur>
+                <div class="chooseValue">
+                    <p>绑定手机</p>
+                    <label class="inputBox">
+                        <span>手机号码：</span>
+                        <input type="text" placeholder="请输入手机号码" v-model="phoneNum" maxlength="11">
+                    </label>
+                    <label class="inputBox">
+                        <span>验证码：</span>
+                        <div>
+                            <input type="text" placeholder="请输入验证码" v-model="verification" maxlength="6">
+                            <i @click="getVer()" v-if="!waiting">获取验证码</i>
+                            <i v-else>{{resendWait}}&nbsp;s&nbsp;后重发</i>
+                        </div>
+                    </label>
+                    <div class="btnCont">
+                        <div class="inSubmit" @click="submitVer()">确定修改</div>
+                        <div class="inSubmit inCancel" @click="phoneOper = false">取消</div>
+                    </div>
+                </div>
+            </x-dialog>
+        </div>
     </div>
 </template>
 
 <script type="ecmascript-6">
+import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Toast, Group } from 'vux'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
+    directives: {
+        TransferDom
+    },
     components: {
+        XDialog,
         Toast,
         Group,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -210,34 +253,23 @@ export default {
             height: false,
             weight: false,
             hobby: false,
+            // 绑定手机modal开关
+            phoneOper: false,
+            // 手机号 & 验证码 & 重发验证码等待秒数 & 是否正在等待
+            phoneNum: '',
+            verification: '',
+            resendWait: 60,
+            waiting: false,
+            // 绑定手机是否成功提示
+            phoneSucc: false,
+            phoneErr: false
         }
     },
     created() {
-        this.$nextTick(function () {
-            this.getDataFromBackend();
-        })
+        this.getDataFromBackend();
     },
     methods: {
-        // textFocus1: function () {
-        //     this.$refs.input1.selectionStart = 0;
-        //     this.$refs.input1.selectionEnd = this.$refs.input1.value.length
-        //     //input. = input.value.length
-        // },
-        // textFocus2: function () {
-        //     this.$refs.input2.selectionStart = 0;
-        //     this.$refs.input2.selectionEnd = this.$refs.input2.value.length
-        //     //input. = input.value.length
-        // },
-        // textFocus3: function () {
-        //     this.$refs.input3.selectionStart = 0;
-        //     this.$refs.input3.selectionEnd = this.$refs.input3.value.length
-        //     //input. = input.value.length
-        // },
-        // textFocus4: function () {
-        //     this.$refs.input4.selectionStart = 0;
-        //     this.$refs.input4.selectionEnd = this.$refs.input.value.length
-        //     //input. = input.value.length
-        // },
+        // 获取后台数据
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
@@ -246,8 +278,24 @@ export default {
             }).then(function (response) {
                 let res = response.body;
                 // console.log(res);
-                this.data = res.data
+                this.data = res.data;
+                this.phoneNum = this.data.phone;
             })
+        },
+        // 60 秒倒计时
+        countDown: function(){
+            let self = this;
+            self.resendWait = 60;
+            self.waiting = true;
+            let interval = setInterval(function(){
+                if(self.resendWait > 1){
+                    self.resendWait --;
+                } else {
+                    self.waiting = false;
+                    clearInterval(interval);
+                    return
+                }
+            }, 1000);
         },
         // 修改星座
         changeConstellation: function ($event) {
@@ -385,10 +433,48 @@ export default {
                 return
             }
             $event.target.blur();
-        }
+        },
+        // 获取验证码
+        getVer: function(){
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/verification/getCode?userId===tPtcNLZARXEuvDhRSFGkQX&type=info&phone=' + this.phoneNum,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log(res);
+                // alert(JSON.parse(res.data[0]).code);
+            })
+            this.countDown();
+        },
+        // 提交验证码
+        submitVer: function(){
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/verification/updatePhone?userId===tPtcNLZARXEuvDhRSFGkQX&vcode=' + this.verification + '&phone=' + this.phoneNum,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                // 判断修改是否成功
+                if (res.code == 200){
+                    this.phoneOper = false;
+                    alert('绑定手机成功！');
+                    this.getDataFromBackend();
+                    this.waiting = false;
+                    this.verification = '';
+                    // this.phoneSucc = true;
+                } else {
+                    // this.phoneErr = true;
+                    alert(res.msg);
+                    this.verification = '';
+                    return
+                }
+            })
+        },
     },
     mounted() {
-
+        
     },
     computed: {
         computeImg: function () {
@@ -414,163 +500,236 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-    // init
-    width = 100%
-    select {   
-        /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/  
-        border: solid 1px #000;   
-        /*很关键：将默认的select选择框样式清除*/  
-        appearance:none;   
-        -moz-appearance:none;   
-        -webkit-appearance:none;   
-        /*在选择框的最右侧中间显示小箭头图片*/  
-        background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll rightright center transparent;   
-        /*为下拉小箭头留出一点位置，避免被文字覆盖*/  
-        padding-right: 14px;   
-    }   
-    /*清除ie的默认选择框样式清除，隐藏下拉箭头*/  
-    select::-ms-expand {
-        display: none;
-    }
-    
-    .settings-wrapper
-        width: 100%
-        height: 100%
-        background: #f0f0f0
-        padding-bottom: 0.6875rem
-        .avatar-wrapper
-            position: relative
-            margin-top: 1.4063rem
-            width: 100% 
-            height: 7.375rem
-            overflow: hidden
-            font-size: 0
-            .avatar-cover
-                position: absolute
-                left: 0
-                top: 0
-                filter: blur(0.1563rem)
-            .filter
-                position: absolute
-                left: 0
-                top: 0
-                width: width
-                height: width
-                filter: blur(0.1563rem)
-                background: linear-gradient(rgba(0,0,0,0) 60%,rgba(255,255,255,0.3) 30%,rgba(255,255,255,1))
-            .avatar
-                position: absolute
-                left: 50%
-                margin: 1.3125rem 0 5.0016px -1.4219rem
-                width: 3.0938rem
-                height: 3.0938rem
-                border: 0.0938rem solid #fff
-            .message
-                position: absolute
-                top: 4.8125rem
-                left: 50%
-                margin-left: -2.9063rem
-                width: 6.25rem
-                text-align: center
-                .name
-                    display: block
-                    font-size: 0.4375rem
-                .mobile
-                    display: block
-                    margin: 0.1563rem 0 0.1875rem 0 
-                    font-size: 0.3438rem
-                    color: #909090
-                 .rank
-                    width: 1.125rem
-                    height: 0.375rem
-                    margin 0 auto
-        .content-wrapper
+// 修改绑定手机弹窗
+.weui-dialog
+    max-width none !important
+    width auto !important
+    text-align left !important
+    border-radius 0.1875rem
+    .chooseValue
+        width 8.2813rem
+        padding 0 0.4375rem
+        // 充值金额
+        .vux-checker-box
+            display flex
+            flex-wrap wrap
+        .submit
+            display flex
+            justify-content center
+            align-items center
+            width 100%
+            height 1.25rem
+            margin 1rem 0 0.4688rem 0
+            font-size fs + 0.1094rem
+            color #fff
+            background-color #ff8b00
+        p
+            margin 0.4063rem 0 0.3438rem 0
+            font-size fs + 0.0469rem
+            color #555
+        // 提现信息
+        .inputBox
+            display flex
+            margin-bottom 0.5625rem
+            span
+                display flex
+                align-items center
+                width 3rem
+                font-size fs + 0.0156rem
+            input
+                height 0.875rem
+                width 100%
+                padding-right 0.2813rem
+                border 1px solid #e0e0e0
+                outline 0
+                font-size fs + 0.0156rem
+                text-align right
+            div
+                display flex
+                height 0.875rem
+                width 100%
+                font-size fs + 0.0156rem
+                input
+                    display block
+                    width 3.3281rem
+                i
+                    display flex
+                    align-items center
+                    justify-content center
+                    width 2.3438rem
+                    height 0.875rem
+                    margin-left 0.1563rem
+                    border 1px solid #e0e0e0
+                    font-style normal
+        .btnCont
+            display flex
+            margin 1rem 0 0.4688rem 0
+            .inSubmit
+                display flex
+                justify-content center
+                align-items center
+                width 100%
+                height 1.25rem
+                font-size fs + 0.1094rem
+                color #fff
+                background-color #ff8b00
+            .inCancel
+                color #353535
+                background-color #f0f0f0
+// init
+select {   
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/  
+    border: solid 1px #000;   
+    /*很关键：将默认的select选择框样式清除*/  
+    appearance:none;   
+    -moz-appearance:none;   
+    -webkit-appearance:none;   
+    /*在选择框的最右侧中间显示小箭头图片*/  
+    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll rightright center transparent;   
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/  
+    padding-right: 14px;   
+}   
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/  
+select::-ms-expand {
+    display: none;
+}
+
+.settings-wrapper
+    width: 100%
+    height: 100%
+    background: #f0f0f0
+    padding-bottom: 0.6875rem
+    .avatar-wrapper
+        position: relative
+        width: 100% 
+        height: 6.5625rem
+        overflow: hidden
+        font-size: 0
+        .avatar-cover
+            position: absolute
+            right 0
+            bottom 0
+            width 100%
+            height 10rem
+            filter: blur(0.1563rem)
+        .filter
+            position: absolute
+            left: 0
+            top: 0
             width: 100%
             height: 100%
-            background: #fff
-            overflow: hidden
-            .message-item
+            background: linear-gradient(rgba(0,0,0,0) 20%, rgba(255,255,255,1))
+        .avatar
+            position: absolute
+            left: 50%
+            margin: 1.3125rem 0 5.0016px -1.4219rem
+            width: 3.0938rem
+            height: 3.0938rem
+            border: 0.0938rem solid #fff
+        .message
+            position: absolute
+            top: 4.8125rem
+            left: 50%
+            margin-left: -2.9063rem
+            width: 6.25rem
+            text-align: center
+            .name
                 display: block
-                position: relative
-                margin-left: 0.5rem   
-                width: 100%
-                height: 1.3438rem
-                line-height: 1.3438rem
-                background: #fff
-                font-size: 0
-                border-bottom-1px(#e0e0e0)
-                .title
-                    float: left 
-                    font-size: 0.4063rem
-                    color: #333
-                .link-wrapper
-                    float: right
-                    margin: 0 1rem 0 0
-                    height: 100%
-                    .other
-                        margin: 0.5rem 0 0 0.25rem
-                        width: 0.375rem
-                        height: 0.375rem
-                    .msg
-                        float: left
-                        font-size: 0.3438rem
-                        vertical-align: top
-                        outline 0
-                    img        
-                        display: inline-block
-                        float: left
-                    .qr-code
-                        margin-top: 0.5rem 
-                        width: 0.375rem
-                        height: 0.375rem
-                // 其实并不是天才如我。。。
-                .selectBox
-                    position absolute
-                    right 0
-                    height 1.3438rem
-                    padding 0 1.5625rem 0 0
-                    border 0
+                font-size: fs + 0.0781rem
+            .mobile
+                display: block
+                margin: 0.1563rem 0 0.1875rem 0 
+                font-size: fs - 0.0156rem
+                color: #909090
+            .rank
+                width: 1.125rem
+                height: 0.375rem
+                margin 0 auto
+    .content-wrapper
+        width: 100%
+        height: 100%
+        background: #fff
+        overflow: hidden
+        .message-item
+            display: block
+            position: relative
+            margin-left: 0.5rem   
+            width: 100%
+            height: 1.3438rem
+            line-height: 1.3438rem
+            background: #fff
+            font-size: 0
+            border-bottom 1px solid #e0e0e0
+            .title
+                float: left 
+                font-size: fs + 0.0156rem
+                color: #333
+            .link-wrapper
+                float: right
+                margin: 0 1rem 0 0
+                height: 100%
+                .other
+                    margin: 0.5rem 0 0 0.25rem
+                    width: 0.375rem
+                    height: 0.375rem
+                .msg
+                    float: left
+                    font-size: fs - 0.0469rem
+                    vertical-align: top
+                    outline 0
+                img        
+                    display: inline-block
+                    float: left
+                .qr-code
+                    margin-top: 0.5rem 
+                    width: 0.375rem
+                    height: 0.375rem
+            // 其实并不是天才如我。。。
+            .selectBox
+                position absolute
+                right 0
+                height 1.3438rem
+                padding 0 1.5625rem 0 0
+                border 0
+                background-color transparent
+                font-size 0
+                color #7e8c8d
+                z-index 500
+                direction rtl
+                option
+                    font-size fs - 0.0469rem
+            .inputBox
+                display flex
+                position absolute
+                right 1.625rem
+                top 0.0313rem
+                height 1.3438rem
+                margin-top -0.0625rem
+                border 0
+                background-color transparent
+                font-size fs - 0.0469rem
+                color #7e8c8d
+                text-align right
+                z-index 500
+                outline 0
+                input, span
                     background-color transparent
-                    font-size 0
-                    color #7e8c8d
-                    z-index 500
-                    direction rtl
-                    option
-                        font-size 0.3438rem
-                .inputBox
-                    display flex
-                    position absolute
-                    right 1.625rem
-                    top 0.0313rem
-                    height 1.3438rem
-                    margin-top -0.0625rem
-                    border 0
-                    background-color transparent
-                    font-size 0.3438rem
+                input
+                    margin 0.0313rem 0.0313rem 0 0
                     color #7e8c8d
                     text-align right
-                    z-index 500
-                    outline 0
-                    input, span
-                        background-color transparent
-                    input
-                        margin 0.0313rem 0.0313rem 0 0
-                        color #7e8c8d
-                        text-align right
-            .indent
-                border-bottom-none()               
-            .line
-                width: 100%
-                height: 0.3125rem
-                background: #f0f0f0            
-    .weui-toast  
-        width auto!important 
-        height 0.9375rem
-        line-height 0.7813rem
-        top 50%!important
-        p
-            padding 0.3125rem 0.3125rem
-            font-size 0.375rem
-
-
+        .indent
+            border-bottom-none()
+        .line
+            width: 100%
+            height: 0.3125rem
+            background: #f0f0f0
+.weui-toast  
+    width auto !important 
+    height 0.9375rem
+    line-height 0.7813rem
+    top 50% !important
+    p
+        padding 0.3125rem 0.3125rem
+        font-size fs - 0.0156rem
 </style>

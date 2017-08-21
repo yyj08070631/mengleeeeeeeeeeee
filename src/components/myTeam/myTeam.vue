@@ -1,7 +1,7 @@
 <template>
     <div class="myTeam-wrapper">
         <!--头部  -->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!--主体-->
         <section class="main">
             <!--概览-->
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="colRight">
+                        <div class="colRight" v-show="data.i_count > 0">
                             <img src="./images/arrow_right.png">
                         </div>
                         
@@ -42,10 +42,10 @@
     </div>
 </template>
  <script type="ecmascript-6">
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -106,11 +106,10 @@ img, span, a
     height 100%
     background #f0f0f0
     // 头部
-    .header
-        headerFlex()
+    // .header
+    //     headerFlex()
     // 主体
     .main
-        margin-top 1.25rem
         // 总览
         .overview
             display flex
@@ -121,11 +120,11 @@ img, span, a
             > p
                 padding-left 0.5rem
                 color #333
-                font-size: 0.4063rem
+                font-size: fs - 0.0313rem
             div
                 display flex
                 margin-right 0.5rem
-                font-size: 0.375rem
+                font-size: fs - 0.0625rem
                 color #909090
                 p
                     margin-left 0.4688rem
@@ -156,14 +155,14 @@ img, span, a
                             margin-left 0.5625rem
                             div:first-child
                                 display flex
-                                font-size: 0.4063rem
+                                font-size: fs - 0.0313rem
                                 color #000
                                 img
                                     margin-left 0.0938rem
                                     width 1.125rem
                                     height 0.3594rem
                             div:last-child
-                                font-size: 0.3438rem
+                                font-size: fs - 0.0938rem
                                 color #909090
                                 margin-top 0.1563rem
                     .colRight
@@ -172,13 +171,9 @@ img, span, a
                             width 0.2188rem
                             height 0.3906rem
                 .line       
-                    margin: -0.0313rem 0 0 0.5rem         
-                    width: 100%
-                    height: 0.0313rem
+                    margin: 0 0 0 0.5rem         
+                    width: 9.5rem
+                    height: 1px
                     background: #e0e0e0
-    
-                    
-                    
-                            
 </style>
 

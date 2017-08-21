@@ -1,22 +1,26 @@
 <template>
-    <div class="menu-tag border-top-1px"> 
-            <div class="tag-list">
-                <router-link to="/home" active-class="home-link--Active"><div class="home"></div>美丽探索</router-link>
-            </div>
-            <div class="tag-list">
-                <router-link to="/goods" active-class="goods-link--Active" :class="{'goods-link--Active':$route.path=='/nearbyStores' || $route.path=='/digest' || $route.path=='/goodsClassify'}"><div class="goods"></div>商品分类</router-link>
-            </div>
-            <div class="tag-list">
-                <router-link to="/myCenter" active-class="myCenter-link--Active" :class="{'myCenter-link--Active':$route.path=='/subscribe'|| $route.path=='/subscribeNow'}"><div class="myCenter"></div>个人中心</router-link>
-            </div>
-            <div class="tag-list">
-                <router-link to="/orderFrom" active-class="orderFrom-link--Active"><div class="orderFrom"></div>查看订单</router-link>
-            </div>
-    </div>
+	<div class="menu-tag">
+		<div class="tag-list">
+			<router-link to="/home" active-class="home-link--Active">
+				<div class="home"></div>美丽探索</router-link>
+		</div>
+		<div class="tag-list">
+			<router-link to="/goods" active-class="goods-link--Active" :class="{'goods-link--Active':$route.path=='/nearbyStores' || $route.path=='/digest' || $route.path=='/goodsClassify'}">
+				<div class="goods"></div>商品分类</router-link>
+		</div>
+		<div class="tag-list">
+			<router-link to="/myCenter" active-class="myCenter-link--Active" :class="{'myCenter-link--Active':$route.path=='/subscribe'|| $route.path=='/subscribeNow'}">
+				<div class="myCenter"></div>个人中心</router-link>
+		</div>
+		<div class="tag-list">
+			<router-link to="/cart" active-class="orderFrom-link--Active">
+				<div class="orderFrom"></div>购物袋</router-link>
+		</div>
+	</div>
 </template>
 <script type="ecmascript-6">
 export default {
-  
+
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -27,11 +31,11 @@ export default {
 			width: 100%
 			height: 1.3438rem
 			font-size: 0
-			border-top-1px(#e5e5e5)
+			border-top 1px solid #e0e0e0
 			background: rgba(255,255,255,0.95)
 		.tag-list
 			flex: 1
-			font-size: 0.25rem
+			font-size: fs - 0.0938rem
 			text-align: center
 			.home-link--Active
 				color: active-color

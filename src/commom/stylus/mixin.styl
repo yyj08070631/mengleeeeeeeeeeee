@@ -92,7 +92,7 @@ headerFlex()
     left 0
     justify-content space-between
     align-items center
-    height 1.25rem
+    height 1.0625rem
     width 100%
     background-color #f9f9f9
     z-index 500
@@ -114,9 +114,15 @@ headerFlex()
                 display block
                 color #ea68a2
                 margin-left 0.1563rem
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
+        p
+            display flex
+            align-items center
+            margin-left 0.5rem
+            font-size fs - 0.0313rem
+            color #ea68a2
     .title
-        font-size 0.4063rem
+        font-size fs - 0.0313rem
         font-weight 800
         flex 1
         width 100%
@@ -139,5 +145,7 @@ headerFlex()
             display flex
             align-items center
             margin-right 0.5rem
-            font-size 0.4063rem
+            font-size fs - 0.0313rem
             color #ea68a2
+// 主题字体
+fs = 0.3125rem

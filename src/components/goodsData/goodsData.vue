@@ -1,8 +1,8 @@
 <template>
     <div class="goodsData-wrapper">
          <!--头部  -->
-        <v-header></v-header>
-         <div  class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
+        <!-- <v-header></v-header> -->
+         <div class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
          <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)"  v-else>
         </div>
         <footer class="myFooter">
@@ -44,6 +44,7 @@
 				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
 			</div>
 		</div>
+        <!-- toast -->
 		<div>
             <toast v-model="on" type="text">收藏成功</toast>
         </div>
@@ -60,12 +61,12 @@
 </template>
 <script type="ecmascript-6">
 import { Toast, Group } from 'vux'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
   components: {
         Toast,
         Group,
-        'v-header': header
+        // 'v-header': header
     },
   data(){
       return {
@@ -182,43 +183,21 @@ export default {
 @import '../../commom/stylus/mixin'
 .menu-wrapper
     display: none    
-.goodsData-wrapper 
-    width =  100%
-    height = 100%
-    padding-top: 1.0938rem
-    .header
-        headerCss()
+.goodsData-wrapper
+    // .header
+    //     headerCss()
     .noGoods
-            margin-top 60%
-            font-size 0.4688rem
-            text-align center
-            color #333
-            a
-                color #ea68a2
-                margin-top 0.3125rem
-                font-size 0.4375rem        
+        margin-top 60%
+        font-size fs + 0.0313rem
+        text-align center
+        color #333
+        a
+            color #ea68a2
+            margin-top 0.3125rem
+            font-size fs
     .content-wrapper
-        margin: 1.25rem 0 1.1875rem 0.5rem
-        font-size 0.4063rem
-        .content-item
-            padding: 0.2031rem 0.25rem 0.2031rem 0
-            border-bottom-1px(#e0e0e0)
-            .title
-                font-size: 0.4063rem
-                line-height: 0.625rem
-                font-weight: bold
-                color: #333
-            .desc   
-                font-size: 0.3438rem
-                line-height: 0.625rem
-                color: #909090
-            ul
-                margin-left: 0.3125rem
-                li
-                    list-style: disc 
-                    font-size: 0.3438rem
-                    line-height: 0.4688rem
-                    color: #909090    
+        padding 0.5rem
+        font-size fs + 0.0625rem !important
     .myFooter
         position fixed
         bottom 0
@@ -227,7 +206,7 @@ export default {
         align-items center
         justify-content flex-end
         height 1.1875rem
-        width width
+        width 100%
         background-color #f9f9f9
         border-top 0.0313rem solid #e0e0e0
         >a:nth-child(1)
@@ -241,14 +220,14 @@ export default {
             height 100%
             p
                 color #646464
-                font-size 0.2813rem
+                font-size fs - 0.1563rem
                 margin-top 0.0938rem
         >a:nth-child(3)
             display flex
             width 2.9375rem
             justify-content center
             align-items center
-            font-size 0.4375rem
+            font-size fs
             font-weight bold
             color #fff
             background-color #f19fc2
@@ -258,7 +237,7 @@ export default {
             width 3.1875rem
             justify-content center
             align-items center
-            font-size 0.4375rem
+            font-size fs
             font-weight bold
             color #fff
             background-color #ea6aa2
@@ -270,7 +249,7 @@ export default {
         top 50%!important
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
-            font-size 0.375rem     
+            font-size fs - 0.0625rem 
     .goodsCart-wrapper
         position fixed
         top 0
@@ -289,8 +268,8 @@ export default {
                 display flex
                 width 100%
                 height 2.8438rem
-                border-bottom-1px(#e0e0e0)
-                font-size 0.375rem
+                border-bottom 1px solid #e0e0e0
+                font-size fs - 0.0625rem
                 div:first-child
                     position relative
                     width 2.9688rem
@@ -328,7 +307,7 @@ export default {
                 width 100%
                 height 2rem
                 line-height 2rem
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 span
                     flex 1
                     margin-left 0.3438rem
@@ -350,7 +329,7 @@ export default {
                 width 100%
                 height 1.25rem
                 line-height 1.25rem
-                font-size 0.4219rem
+                font-size fs - 0.0156rem
                 color #fff
                 text-align center
                 background #fe9333             

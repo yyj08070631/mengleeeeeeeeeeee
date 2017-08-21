@@ -1,14 +1,14 @@
 <template>
-    <div class="myTeam-wrapper">
-          <!--头部  -->
-        <v-header></v-header>
+    <div class="myWallet-wrapper">
+        <!--头部  -->
+        <!-- <v-header></v-header> -->
         <!--主体-->
         <section class="main">
             <!-- 乐宝余额 -->
             <div class="onePanel">
                 <div class="dataBox">
                     <p>乐宝余额（点）</p>
-                    <span>3,480.00</span>
+                    <span>{{num(data.virtual)}}</span>
                 </div>
                 <div class="operatList">
                     <div class="operatItem">
@@ -25,7 +25,7 @@
             <div class="onePanel bluePanel">
                 <div class="dataBox">
                     <p>可提现金额（元）</p>
-                    <span>99,999.00</span>
+                    <span>{{num(data.wallet)}}</span>
                 </div>
                 <div class="operatList">
                     <div class="operatItem">
@@ -68,7 +68,13 @@
                             200元
                         </checker-item>
                     </checker>
-                    <div class="submit" @click="chongZhi()">确定</div>
+                    <div class="inputChongzhi">
+                        <input type="text" v-model="moneyValueInput" placeholder="填写充值金额">
+                    </div>
+                    <div class="btnCont">
+                        <div class="inSubmit" @click="chongZhi()">确定充值</div>
+                        <div class="inSubmit inCancel" @click="showHideOnBlur = false">取消</div>
+                    </div>
                 </div>
             </x-dialog>
         </div>
@@ -92,7 +98,10 @@
                         <span>账户账号：</span>
                         <input type="text" placeholder="请输入提现账户" v-model="tixianAcouTxt">
                     </label>
-                    <div class="submit" @click="tixian()">确定</div>
+                    <div class="btnCont">
+                        <div class="inSubmit" @click="tixian()">确定提现</div>
+                        <div class="inSubmit inCancel" @click="showTixian = false">取消</div>
+                    </div>
                 </div>
             </x-dialog>
         </div>
@@ -101,7 +110,7 @@
 <script type="ecmascript-6">
 import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Checker, CheckerItem, Popup } from 'vux'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 
 export default {
     directives: {
@@ -113,7 +122,7 @@ export default {
         Checker,
         CheckerItem,
         Popup,
-        'v-header': header
+        // 'v-header': header
     },
     data() {
         return {
@@ -121,20 +130,21 @@ export default {
             showHideOnBlur: false,
             showTixian: false,
             moneyValue: '',
+            moneyValueInput: '',
             tixianValue: '',
             tixianAcouType: '',
             tixianAcouTxt: ''
         }
     },
     mounted() {
-        // this.getDataFromBackend()
+        this.getDataFromBackend()
     },
     methods: {
         // 获取数据
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/myTeam?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
@@ -143,40 +153,114 @@ export default {
             })
         },
         // 充值
-        chongZhi:function(){
-            alert('充值' + this.moneyValue + '元')
+        chongZhi: function () {
+            if(this.moneyValue == '' && this.moneyValueInput != ''){
+                // alert('充值' + this.moneyValueInput + '元')
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/recharge?userId===tPtcNLZARXEuvDhRSFGkQX&fee=' + this.moneyValueInput,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    console.log(res)
+                    if(res.code == 200){
+                        location.href = res.url;
+                    } else {
+                        alert(res.msg);
+                    }
+                })
+            } else if (this.moneyValueInput == '' && this.moneyValue != ''){
+                // alert('充值' + this.moneyValue + '元')
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/recharge?userId===tPtcNLZARXEuvDhRSFGkQX&fee=' + this.moneyValue,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    console.log(res)
+                    if(res.code == 200){
+                        location.href = res.url;
+                    } else {
+                        alert(res.msg);
+                    }
+                })
+            } else if (this.moneyValue == '' && this.moneyValueInput == ''){
+                alert('没有获取到充值金额')
+            } else {
+                alert('请勿填写两种金额')
+            }
         },
         // 提现
-        tixian: function(){
+        tixian: function () {
             // alert('从' + this.tixianAcouType + ' ' + this.tixianAcouTxt + ' 账户中提取' + this.tixianValue + '元')
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/user/applyWithdrawals?userId===tPtcNLZARXEuvDhRSFGkQX&money=' + this.tixianValue + '&type=' + this.tixianAcouType + '&account=' + this.tixianAcouTxt,
-                emulateJSON: true
-            }).then(function (response) {
-                let res = response.body;
-                console.log(res);
-                if(res.code == 200){
-                    alert('提现申请成功！');
-                    this.showTixian = false;
-                } else {
-                    alert('提现申请失败：' + res.msg)
+            if (this.tixianValue == ''){
+                alert('请输入提现金额');
+            } else if (this.tixianAcouType == ''){
+                alert('请选择到账类型');
+            } else if (this.tixianAcouTxt == ''){
+                alert('请输入收款账号');
+            } else {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/applyWithdrawals?userId===tPtcNLZARXEuvDhRSFGkQX&money=' + this.tixianValue + '&type=' + this.tixianAcouType + '&account=' + this.tixianAcouTxt,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    console.log(res);
+                    if (res.code == 200) {
+                        alert('提现申请成功！');
+                        this.showTixian = false;
+                        this.getDataFromBackend()
+                    } else {
+                        alert('提现申请失败：' + res.msg)
+                    }
+                })
+            }
+        },
+        // 1,020.00
+        outputdollars: function (number) {
+            if (number.length <= 3)
+                return (number == '' ? '0' : number);
+            else {
+                var mod = number.length % 3;
+                var output = (mod == 0 ? '' : (number.substring(0, mod)));
+                for (var i = 0; i < Math.floor(number.length / 3); i++) {
+                    if ((mod == 0) && (i == 0))
+                        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+                    else
+                        output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
                 }
-            })
+                return (output);
+            }
+        },
+        outputcents: function (amount) {
+            amount = Math.round(((amount) - Math.floor(amount)) * 100);
+            return (amount < 10 ? '.0' + amount : '.' + amount);
+        },
+        num: function (number) {
+            number = String(number).replace(/\,/g, "");
+            if (isNaN(number) || number == "") return "";
+            number = Math.round(number * 100) / 100;
+            if (number < 0)
+                return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+            else
+                return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
     computed: {
 
     },
     watch: {
-        tixianValue: function(val){
-            if(/^[0-9]/.test(val) || val == ''){
+        tixianValue: function (val) {
+            if (/^[0-9]/.test(val) || val == '') {
                 // console.log('提现金额输入正确');
             } else {
                 alert('请输入正确的提现金额！');
                 this.tixianValue = '';
             }
         }
+    },
+    filters: {
     }
 }
 </script>
@@ -197,7 +281,7 @@ img, span, a
     margin-right 0.4375rem
     margin-bottom 0.4063rem
     border .0313rem solid #ff8b00
-    font-size .5rem
+    font-size fs + 0.0625rem
     color #d54600
     background-color #fff
 .noMargin
@@ -217,19 +301,35 @@ img, span, a
         .vux-checker-box
             display flex
             flex-wrap wrap
-        .submit
+        .inputChongzhi
+            width 8rem
+            height 1.2813rem
+            input
+                width 8rem
+                height 1.2813rem
+                padding-right 0.2813rem
+                border 1px solid #ff8b00
+                font-size fs - 0.0313rem
+                text-align right
+                outline 0
+        .btnCont
             display flex
-            justify-content center
-            align-items center
-            width 100%
-            height 1.25rem
             margin 1rem 0 0.4688rem 0
-            font-size 0.5rem
-            color #fff
-            background-color #ff8b00
+            .inSubmit
+                display flex
+                justify-content center
+                align-items center
+                width 100%
+                height 1.25rem
+                font-size fs + 0.0625rem
+                color #fff
+                background-color #ff8b00
+            .inCancel
+                color #353535
+                background-color #f0f0f0
         p
             margin 0.4063rem 0 0.3438rem 0
-            font-size 0.4375rem
+            font-size fs
             color #555
         // 提现信息
         .inputBox
@@ -239,14 +339,14 @@ img, span, a
                 display flex
                 align-items center
                 width 3rem
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
             input
                 height 0.875rem
                 width 100%
                 padding-right 0.2813rem
                 border 1px solid #e0e0e0
                 outline 0
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 text-align right
             select
                 height 0.875rem
@@ -254,23 +354,20 @@ img, span, a
                 padding-right 0.2813rem
                 border 1px solid #e0e0e0
                 outline 0
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 color #909090
                 appearance none 
                 direction rtl
-
 // wrapper
-.myTeam-wrapper
+.myWallet-wrapper
     position absolute
     left 0
     width 100%
     height 100%
     background #f0f0f0
-    // 头部
     // 主体
     .main
         background-color #f0f0f0
-        margin-top 1.25rem
         // 分割线
         .divider
             border-bottom 0.3125rem solid #e0e0e0
@@ -281,11 +378,11 @@ img, span, a
                 background-color #ea68a2
                 p
                     padding .8438rem 0 .75rem .5rem
-                    font-size .4063rem
+                    font-size fs - 0.0313rem
                     color #fff
                 span
                     padding-left .5rem
-                    font-size 1.625rem
+                    font-size fs + 1.1875rem
                     color #fff
             .operatList
                 .operatItem
@@ -298,7 +395,7 @@ img, span, a
                         justify-content space-between
                         height 100%
                         margin 0 0.5rem 0 0.5rem
-                        font-size 0.4063rem
+                        font-size fs - 0.0313rem
                         color #333
         // 改data面板的颜色
         .bluePanel

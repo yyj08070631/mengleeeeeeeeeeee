@@ -1,12 +1,15 @@
 <template>
     <div class="addrManage-wrapper">
         <!--头部-->
-        <v-header></v-header>
+        <!-- <v-header></v-header> -->
         <!-- 主体 -->
         <section class="main">
             <!-- 一个收货地址 -->
+            <!-- 无值 -->
             <div class="emptyType" v-if="data.length == 0">请添加收货地址:-D</div>
-            <router-link to="/addrManage" class="oneAddr" v-for="(val,key) in data" v-else>
+            <!-- 有值且可选 -->
+            <div class="oneAddr" v-for="(val,key) in data" @click.stop="addrToSession(val.name, val.phone, val.province + val.city + val.area + val.address)" v-else-if="data.length != 0 && canSel">
+                <!--  :to="{ path: '/buyGoods', query: { group: orderArr(), name: val.name, phone: val.phone, addr: val.province + val.city + val.area + val.address } }" -->
                 <div class="rowUp">
                     <div class="nameAndPhone">
                         <p class="name">{{val.name}}</p>
@@ -14,7 +17,7 @@
                         <div class="phone" v-else>{{val.phone}}</div>
                     </div>
                     <div class="icon">
-                        <router-link :to="{ path: '/addrEditReal', query: { id: val.id } }">
+                        <router-link :to="{ path: '/addrEditReal', query: { id: val.id, canSel: 1 } }">
                             <img src="./images/edit.png">
                         </router-link>
                         <div @click="onShow">
@@ -25,37 +28,66 @@
                 <div class="rowDown">
                     {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
                 </div>
-                    <!-- 删除询问弹窗 -->
-                <alert v-model="show" title="提示" @on-show="onShow"  @on-hide="onHide">
+                <!-- 删除询问弹窗 -->
+                <alert v-model="show" title="提示" @on-show="onShow" @on-hide="onHide">
                     <button class="btn1" @click="onHide();delReceInfo(val.id)">确定</button>
                     <button class="btn2" @click="onHide();">取消</button>
                     请确认删除
                 </alert>
-            </router-link>
+            </div>
+            <!-- 有值且不可选 -->
+            <div class="oneAddr" v-for="(val,key) in data" v-else-if="data.length != 0 && !canSel">
+                <div class="rowUp">
+                    <div class="nameAndPhone">
+                        <p class="name">{{val.name}}</p>
+                        <div class="phone default" v-if="val.isDefault == 1">{{val.phone}}</div>
+                        <div class="phone" v-else>{{val.phone}}</div>
+                    </div>
+                    <div class="icon">
+                        <router-link :to="{ path: '/addrEditReal', query: { id: val.id, canSel: 0 } }">
+                            <img src="./images/edit.png">
+                        </router-link>
+                        <div @click="onShow">
+                            <img src="./images/del.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="rowDown">
+                    {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
+                </div>
+                <!-- 删除询问弹窗 -->
+                <alert v-model="show" title="提示" @on-show="onShow" @on-hide="onHide">
+                    <button class="btn1" @click="onHide();delReceInfo(val.id)">确定</button>
+                    <button class="btn2" @click="onHide();">取消</button>
+                    请确认删除
+                </alert>
+            </div>
+            <!-- 有值且无可不可选 -->
+            <div class="emptyType" v-else>请从<a href="#myCenter" style="color:#ea68a2">个人中心</a>进入收件信息页面</div>
             <!-- 新建地址 -->
             <div class="newAddr">
                 <router-link to="/addrEdit" class="newAddrItem">新建地址</router-link>
             </div>
         </section>
-            <!-- 弹窗 --> 
-		<div>
+        <!-- 弹窗 -->
+        <div>
             <toast v-model="success" type="text">删除成功</toast>
         </div>
-		<div>
+        <div>
             <toast v-model="error" type="text">删除失败</toast>
         </div>
     </div>
 </template>
 <script type="ecmascript-6">
-import { Toast,Alert } from 'vux'
+import { Toast, Alert } from 'vux'
 import vuxAddress from '../../commonComponents/vuxAddress/vuxAddress'
-import header from '../../components/header/header';
+// import header from '../../components/header/header';
 export default {
     components: {
         Toast,
         Alert,
-        'v-header': header
-        
+        // 'v-header': header
+
     },
     data() {
         return {
@@ -63,6 +95,7 @@ export default {
             show: false,
             success: false,
             error: false,
+            canSel: this.$route.query.canSel == 0 ? false : this.$route.query.canSel == 1 ? true : ''
         }
     },
     methods: {
@@ -94,10 +127,20 @@ export default {
                 }
             })
         },
-        onShow: function(){
+        // 获取订单数组
+        orderArr: function () {
+            // console.log(this.$route.query.group)
+            return this.$route.query.group
+        },
+        // 地址设置到session中
+        addrToSession: function (name, phone, addr) {
+            sessionStorage.setItem('loc', JSON.stringify({ name: name, phone: phone, addr: addr }));
+            this.$router.push('buyGoods');
+        },
+        onShow: function () {
             this.show = true
         },
-        onHide: function(){
+        onHide: function () {
             this.show = false
         }
     },
@@ -121,14 +164,13 @@ span, a, img, input, textarea
     left 0
     width 100%
     height 100%
-    background #fff
+    background #f0f0f0
     // 详情页header
     .header
        headerCss()
     // 主体
     .main
-        margin-bottom 1.4063rem
-        margin-top 1.0938rem
+        border-top 0.3125rem solid #f0f0f0
         // 无收货地址
         .emptyType
             display flex
@@ -137,7 +179,9 @@ span, a, img, input, textarea
             width 100%
             height 3.125rem
             background-color #fff
-            font-size 0.5rem
+            font-size fs + 0.0938rem
+            a
+                color #ea68a2
         // 分割线
         .dividerBig
             width 100%
@@ -150,7 +194,7 @@ span, a, img, input, textarea
             justify-content center
             align-items center
             padding-bottom 0.3125rem
-            border-bottom-1px(#e0e0e0)
+            border-bottom 1px solid #e0e0e0
             background-color #fff
             .rowUp
                 display flex
@@ -162,14 +206,14 @@ span, a, img, input, textarea
                     display flex
                     .name
                         width 1.875rem
-                        font-size 0.4375rem
+                        font-size fs + 0.0313rem
                         color #333
                         margin-right 0.9375rem
                     // 电话
                     .phone
                         display flex
                         position relative
-                        font-size 0.4375rem
+                        font-size fs + 0.0313rem
                         color #333
                     // 带 "默认" 的电话
                     .default:after
@@ -207,10 +251,10 @@ span, a, img, input, textarea
                 .weui-dialog__hd
                     padding 0.3125rem 0 0 0 
                     .weui-dialog__title
-                        font-size 0.5rem !important
+                        font-size fs + 0.0938rem !important
                 .weui-dialog__bd
                     padding 0.9375rem  0 
-                    font-size 0.4688rem
+                    font-size fs + 0.0625rem
                     margin-bottom 0.5625rem
                     
                 .btn1
@@ -225,7 +269,7 @@ span, a, img, input, textarea
                     z-index: 1000;
                     border:0;
                     border-top:1px solid #909090
-                    font-size 0.4063rem
+                    font-size fs
                 .btn2
                     position:absolute
                     left:50%;
@@ -238,9 +282,9 @@ span, a, img, input, textarea
                     z-index: 1000;
                     border:0;
                     border-top:1px solid #909090
-                    font-size 0.4063rem    
+                    font-size fs
                     .weui-dialog__title
-                        font-size 0.4063rem !important
+                        font-size fs !important
                     .weui-dialog__ft
                         background #3cf !important
                         display none
@@ -250,7 +294,7 @@ span, a, img, input, textarea
                             color #ff0  !important        
             .rowDown
                 width 9rem
-                font-size 0.375rem
+                font-size fs - 0.0313rem
                 color #909090
                 text-align justify
                 line-height 1.5
@@ -268,7 +312,7 @@ span, a, img, input, textarea
                 margin-top 1.2344rem
                 background-color #ea68a2
                 border-radius 0.1563rem
-                font-size 0.4375rem
+                font-size fs + 0.0313rem
                 color #fff
         .weui-toast  
             width auto!important 

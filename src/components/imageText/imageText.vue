@@ -1,17 +1,17 @@
 <template>
-    <div class="goodsData-wrapper">
-          <!--头部  -->
-        <v-header></v-header>
+    <div class="imageText-wrapper">
+        <!-- 头部 -->
+        <!-- <v-header></v-header> -->
         <div class="activity-wrapper">
             <!-- v-if="orderList.collectitem.length == 0" -->
-                <div  class="noGoods" v-if="imageTextList.imageitem.content == ''">暂无商品信息&nbsp;:)</div>
-                <div class="activity-title" v-html="unescape(imageTextList.imageitem.content)" v-else>
-                    <!-- {{ | unescape}} -->
-                </div>
+            <div class="noGoods" v-if="imageTextList.imageitem.content == ''">暂无商品信息&nbsp;:)</div>
+            <div class="activity-title" v-html="unescape(imageTextList.imageitem.content)" v-else>
+                <!-- {{ | unescape}} -->
+            </div>
         </div>
         <footer class="myFooter">
 			<a href="javascript:void(0)">
-				<img src="./share.png" height="32">
+				<img src="./share.png">
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
@@ -62,9 +62,9 @@
         </div>
     </div>
 </template>
- <script type="ecmascript-6">
- import { Toast, Group } from 'vux'
- import header from '../../components/header/header';
+<script type="ecmascript-6">
+import { Toast, Group } from 'vux'
+// import header from '../../components/header/header';
 export default {
   data(){
       return {
@@ -82,7 +82,7 @@ export default {
     components: {
         Toast,
         Group,
-        'v-header': header
+        // 'v-header': header
     },
   methods: {
         //改变收藏图标
@@ -179,20 +179,20 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-.goodsData-wrapper 
-    width =  100%
-    height = 100%
-    padding: 1.4063rem 0 1.25rem 0
+.imageText-wrapper
+    padding: 0 0 1.25rem 0
     .activity-wrapper
         .noGoods
             margin-top 60%
-            font-size 0.4688rem
+            font-size fs + 0.0313rem
             text-align center
             color #333
             a
                 color #ea68a2
                 margin-top 0.3125rem
-                font-size 0.4375rem    
+                font-size fs
+        img
+            width 10rem
     .content-wrapper
         img
             width: 100%
@@ -204,7 +204,7 @@ export default {
         align-items center
         justify-content flex-end
         height 1.1875rem
-        width width
+        width 100%
         background-color #f9f9f9
         border-top 0.0156rem solid #e0e0e0
         >a:nth-child(1)
@@ -218,14 +218,14 @@ export default {
             height 100%
             p
                 color #646464
-                font-size 0.2813rem
+                font-size fs - 0.1563rem
                 margin-top 0.0938rem
         >a:nth-child(3)
             display flex
             width 2.9375rem
             justify-content center
             align-items center
-            font-size 0.4375rem
+            font-size fs
             font-weight bold
             color #fff
             background-color #f19fc2
@@ -235,7 +235,7 @@ export default {
             width 3.1875rem
             justify-content center
             align-items center
-            font-size 0.4375rem
+            font-size fs
             font-weight bold
             color #fff
             background-color #ea6aa2
@@ -247,7 +247,7 @@ export default {
         top 50%!important
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
-            font-size 0.375rem 	
+            font-size fs - 0.0625rem
     .goodsCart-wrapper
         position fixed
         top 0
@@ -267,7 +267,7 @@ export default {
                 width 100%
                 height 2.8438rem
                 border-bottom-1px(#e0e0e0)
-                font-size 0.375rem
+                font-size fs - 0.0625rem
                 div:first-child
                     position relative
                     width 2.9688rem
@@ -305,7 +305,7 @@ export default {
                 width 100%
                 height 2rem
                 line-height 2rem
-                font-size 0.4063rem
+                font-size fs - 0.0313rem
                 span
                     flex 1
                     margin-left 0.3438rem
@@ -327,7 +327,7 @@ export default {
                 width 100%
                 height 1.25rem
                 line-height 1.25rem
-                font-size 0.4219rem
+                font-size fs - 0.0156rem
                 color #fff
                 text-align center
                 background #fe9333        
