@@ -270,16 +270,16 @@ class1()
         a
             display block
             margin: 0.2813rem 0
-            font-size: fs - 0.0938rem
+            font-size: fs - 0.0938rem + 0.0938rem
             color: #333
             text-align: center
         span
             display: block 
-            font-size: fs - 0.0938rem
+            font-size: fs - 0.0938rem + 0.0938rem
             text-align: center
         span:last-child
             margin: 0.625rem 0 0.4063rem 0
-            font-size: fs - 0.125rem
+            font-size: fs - 0.125rem + 0.0938rem
             color: #909090   
 class2()
     position: relative
@@ -297,12 +297,15 @@ class2()
         width: 4.9688rem 
         height: 4.625rem  
     .text-wrapper
+        display flex
+        flex-direction column
+        align-items center
         margin-top: 0.7813rem
         float: right
         width: 50%
         p
             margin: 0.5625rem  1.25rem  0.2813rem 0
-            font-size: fs - 0.0938rem
+            font-size: fs - 0.0938rem + 0.0938rem
             color: #333
             text-align: center
         p:first-child
@@ -311,11 +314,17 @@ class2()
             display: block
             margin: 0.3125rem
             text-align: center
-            font-size: fs - 0.0938rem
+            font-size: fs - 0.0938rem + 0.0938rem
         span:last-child
-            margin: 0.3125rem 0.4688rem 0 0.4688rem
-            font-size: fs - 0.125rem
+            margin: 0 0.4688rem 0 0.4688rem
+            font-size: fs - 0.125rem + 0.0938rem
             color: #909090
+        a
+            width 3.4375rem
+            margin-top 0.4688rem
+            font-size fs + 0.0313rem
+            line-height fs + 0.0938rem
+            text-align center
 // 筛选选项
 #screenType
     display: flex

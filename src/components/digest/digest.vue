@@ -139,7 +139,11 @@ export default {
     },
     mounted(){
         this.$nextTick(function(){
-            this.getDataFromBackend()
+            this.getDataFromBackend();
+            // 若再次预约，则直接打开弹窗
+            if(this.$route.query.open == 1){
+                this.editInfo = true
+            }
         })
     }
 }

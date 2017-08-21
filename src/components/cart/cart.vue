@@ -7,15 +7,22 @@
                         <img src="./images/arrow_left.png">
                         <span>返回</span> 
                     </a> -->
-                <p v-show="writeType == 0" @click="finish(false)">编辑</p>
-                <p v-show="writeType == 1" @click="finish();changeNum()">完成</p>
+                <p v-show="writeType == 0 && mainView == 1" @click="canDel = true">删除</p>
+                <p v-show="writeType == 1 && mainView == 1" @click="canDel = false">完成</p>
             </div>
             <div class="title">
                 <!-- 我的购物袋 -->
+                <div class="btnSeries">
+                    <p :class="{ btnSwitch: true, btnActive: mainView == 0 }" @click="mainView = 1">购物袋</p>
+                    <p :class="{ btnSwitch: true, btnActive: mainView == 1 }" @click="mainView = 0">待结算订单</p>
+                </div>
             </div>
             <div class="search">
-                <p v-show="mainView == 0" @click="mainView = 1">购物车</p>
-                <p v-show="mainView == 1" @click="mainView = 0">未结账订单</p>
+                <a href="javascript:void(0)" class="pay" @click="goodsToSession()">结算</a>
+                <!-- ({{Idarr.length}}) -->
+                <!-- <a href="javascript:void(0)" class="pay" v-show="showWrite" @click="onShow">删除</a> -->
+                <!-- <p v-show="mainView == 0" @click="mainView = 1">购物车</p>
+                <p v-show="mainView == 1" @click="mainView = 0">未结账订单</p> -->
             </div>
         </header>
         <!-- 主体 -->
@@ -30,7 +37,8 @@
                     <!-- 选择框 -->
                     <div class="colLeft" ref="allBox">
                         <!-- 选择那个圈圈 -->
-                        <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key, val.price, val.id, val.gid)" class="check-hook">
+                        <!-- <img src="./images/unchecked.png" ref="checkHook" @click="checkType(key, val.price, val.id, val.gid)" class="check-hook"> -->
+                        <div class="delBtn" v-show="canDel" @click="show = true; setIdArr(val.id)">—</div>
                     </div>
                     <!-- 商品图片 -->
                     <div class="colMiddle">
@@ -45,13 +53,13 @@
                                 <span>{{val.price | numBig}}</span>
                                 <span>.{{val.price | numSmall}}</span>
                             </span>
-                            <div class="count" v-show="showWrite">
+                            <div class="count">
                                 <a href="javascript:void(0)" @click="numberSub(val.id)">-</a>
                                 <input type="text" v-model="number[key].num">
                                 <!-- :placeholder="val.number" -->
                                 <a href="javascript:void(0)" @click="numberPlus(val.id)">+</a>
                             </div>
-                            <div class="num" v-show="showPay">×{{number[key].num}}</div>
+                            <!-- <div class="num" v-show="showPay">×{{number[key].num}}</div> -->
                         </div>
                     </div>
                 </div>
@@ -85,17 +93,16 @@
         <!-- 脚部 -->
         <footer class="foot" v-show="mainView == 1">
             <div class="colLeft">
-                <img src="./images/unchecked.png" @click="checkAllBox" ref="allCheckHook">
-                <p class="selAll">全选</p>
+                <!-- <img src="./images/unchecked.png" @click="checkAllBox" ref="allCheckHook"> -->
+                <p class="selAll">购物袋小计</p>
             </div>
-            <div class="colMiddle" v-show="showPay">
-                <p class="total">合计：</p>
-                <p class="price">￥{{totalPrice}}</p>
+            <div class="colMiddle">
+                <p class="price">RMB&nbsp;{{num(totalPrice)}}</p>
             </div>
             <!-- <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a> -->
-            <a href="javascript:void(0)" class="pay" v-show="showPay" @click="goodsToSession()">结算({{Idarr.length}})</a>
+            <!-- <a href="javascript:void(0)" class="pay" v-show="showPay" @click="goodsToSession()">结算({{Idarr.length}})</a> -->
             <!--  :to="{ path: '/buyGoods', query: JSON.parse(JSON.stringify(buyArr)) }" -->
-            <a href="javascript:void(0)" class="del" v-show="showWrite" @click="onShow">删除</a>
+            <!-- <a href="javascript:void(0)" class="del" v-show="showWrite" @click="onShow">删除</a> -->
         </footer>
         <!-- 页面所有弹窗 -->
         <div>
@@ -107,7 +114,7 @@
         <div>
             <toast v-model="writeAfter" type="text">已修改</toast>
         </div>
-        <alert v-model="show" title="提示" @on-show="onShow" @on-hide="onHide">
+        <alert v-model="show" title="提示">
             <button class="btn1" @click="onHide();delCartList();">确定</button>
             <button class="btn2" @click="onHide();">取消</button>
             请确认删除
@@ -117,7 +124,7 @@
             <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                 <div class="chooseValue">
                     <p>选择支付方式</p>
-                    <checker v-model="payType" default-item-class="valueUnsel" selected-item-class="valueSel" v-for="(val, key) in payTypeList">
+                    <checker v-model="payType" default-item-class="valUnsel" selected-item-class="valSel" v-for="(val, key) in payTypeList">
                         <checker-item :value="val.id">
                             {{val.cn}}
                         </checker-item>
@@ -187,6 +194,10 @@ export default {
             // 当前立即支付商品
             goodNowId: '',
             goodNowTotal: '',
+            // 是否可以删除
+            canDel: false,
+            // 总价统计
+            totalPrice: 0,
         }
     },
     methods: {
@@ -197,25 +208,27 @@ export default {
                     this.number[i].num++;
                 }
             }
-            let narr = [] // 保存对比之前的数组
+            // let narr = [] // 保存对比之前的数组
             let get = [] // 保存对比之后的数组
             for (let i = 0; i < this.number.length; i++) {
-                narr.push({
-                    num: this.data.data[i].number,
-                    id: this.data.data[i].id
+                // narr.push({
+                //     num: this.data.data[i].number,
+                //     id: this.data.data[i].id
+                // })
+                // if ((this.number[i].num - narr[i].num) != 0) {
+                //     // get.push(comput)
+                get.push({
+                    number: this.number[i].num,
+                    id: this.number[i].id
                 })
-                if ((this.number[i].num - narr[i].num) != 0) {
-                    // get.push(comput)
-                    get.push({
-                        number: this.number[i].num,
-                        id: this.number[i].id
-                    })
-                    this.saveData = get
-                } else {
-                    //get.pop()
-                }
+                this.saveData = get
+                // } else {
+                //     //get.pop()
+                // }
             }
-            // console.log(this.buyArr)
+            this.changeNum();
+            // console.log(narr);
+            // console.log(get);
         },
         //数量-=1
         numberSub(id) {
@@ -228,23 +241,25 @@ export default {
                     }
                 }
             }
-            let narr = []//保存对比之前的数组
+            // let narr = []//保存对比之前的数组
             let get = []//保存对比之后的数组
             for (let i = 0; i < this.number.length; i++) {
-                narr.push({
-                    num: this.data.data[i].number,
-                    id: this.data.data[i].id
+                // narr.push({
+                //     num: this.data.data[i].number,
+                //     id: this.data.data[i].id
+                // })
+                // if ((this.number[i].num - narr[i].num) != 0) {
+                get.push({
+                    number: this.number[i].num,
+                    id: this.number[i].id
                 })
-                if ((this.number[i].num - narr[i].num) != 0) {
-                    get.push({
-                        number: this.number[i].num,
-                        id: this.number[i].id
-                    })
-                    this.saveData = get
-                } else {
-                    this.saveData.pop()
-                }
+                this.saveData = get
+                // } else {
+                //     this.saveData.pop()
+                // }
             }
+            // console.log(get);
+            this.changeNum();
             // console.log(this.buyArr)
         },
         //删除数据
@@ -265,20 +280,24 @@ export default {
                     if (data === 1) {
                         this.successAlert = true
                         for (let i = 0; i < this.$refs.allBox.length; i++) {
-                            this.$refs.allBox[i].getElementsByTagName('img')[0].src = require('./images/unchecked.png')
+                            // this.$refs.allBox[i].getElementsByTagName('img')[0].src = require('./images/unchecked.png')
                             this.Idarr = []
                             this.isCheckAll = false
-                            this.$refs.allCheckHook.src = require('./images/unchecked.png')
+                            // this.$refs.allCheckHook.src = require('./images/unchecked.png')
                         }
-                        this.getDataFromBackend()
                     } else {
                         this.errorAlert = true
                     }
+                    this.getDataFromBackend()
                 })
+        },
+        // 设置用于删除购物车商品的 IdArr
+        setIdArr: function(oid){
+            this.Idarr = [oid]
         },
         //修改数量
         changeNum: function () {
-            console.log(JSON.stringify(this.saveData));
+            // console.log(JSON.stringify(this.saveData));
             this.arr = {
                 num: this.saveData
             }
@@ -297,12 +316,12 @@ export default {
                     let data = response.body;
                     if (data === 1) {
                         this.getDataFromBackend()
-                        console.log(response.body)
+                        // console.log(response.body)
                     } else {
                         //console.log(response.body)
                     }
                 })
-            this.writeAfter = true
+            // this.writeAfter = true
         },
         //获取数据
         getDataFromBackend: function () {
@@ -316,11 +335,17 @@ export default {
                 console.log(moreComMore)
                 let arr = [];
                 this.data = moreComMore;
+                // 将所有商品存入操作提交订单的数组
+                this.selAll(moreComMore.data);
+                this.totalPrice = 0;
                 for (let i = 0; i < moreComMore.data.length; i++) {
                     arr.push({
                         id: moreComMore.data[i].id,
                         num: moreComMore.data[i].number
                     });
+                    // 计算总价
+                    this.totalPrice += moreComMore.data[i].number * moreComMore.data[i].price;
+                    // console.log(this.totalPrice);
                 }
                 this.number = arr;
             });
@@ -331,7 +356,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
-                console.log(this.orderList)
+                // console.log(this.orderList)
             });
             // 获取支付类型信息
             this.$http({
@@ -426,6 +451,20 @@ export default {
             }
             //  console.log(this.priceArr)
             console.log(this.buyArr)
+        },
+        // (页面加载自动执行) 将所有购物车信息加入 buyArr 数组
+        selAll: function(data){
+            // console.log(data);
+            this.buyArr = [];
+            for (let i = 0; i < data.length; i++) {
+                // 构建选中商品数组
+                this.buyArr.push({
+                    gid: data[i].gid,
+                    number: data[i].number,
+                    cid: data[i].id
+                })
+            }
+            console.log(this.buyArr);
         },
         //编辑完成
         finish: function (type) {
@@ -597,13 +636,14 @@ export default {
     },
     computed: {
         //计算总价
-        totalPrice: function () {
-            let sum = 0
-            for (let i = 0; i < this.priceArr.length; i++) {
-                sum += this.priceArr[i];
-            }
-            return sum
-        }
+        // totalPrice: function () {
+        //     let sum = 0
+        //     console.log(this.buyArr);
+        //     for (let i = 0; i < this.buyArr.length; i++) {
+        //         sum += this.buyArr[i].number * this.buyArr[i].price;
+        //     }
+        //     return sum
+        // }
     },
     filters: {
         numBig: function (value) {
@@ -625,7 +665,7 @@ span, a, img, input, textarea
     display block
 
 // 支付类型选择框：modal
-.valueUnsel
+.valUnsel
     display flex !important
     justify-content center
     align-items center
@@ -638,7 +678,7 @@ span, a, img, input, textarea
     background-color #fff
 .noMargin
     margin-right 0 !important
-.valueSel
+.valSel
     color #fff
     background-color #ff8b00
 // 大选择窗口
@@ -699,6 +739,41 @@ span, a, img, input, textarea
     // 详情页header
     .header
         headerFlex()
+        .btnSeries
+            display flex
+            justify-content center
+            border 1px solid #ea68a2
+            border-radius 0.0938rem
+            .btnSwitch
+                display flex
+                align-items center
+                justify-content center
+                width 2.1875rem
+                height 0.625rem
+                background-color #ea68a2
+                border-radius 0.0938rem
+                font-size fs
+                font-weight normal
+                color #fff
+            .btnActive
+                background-color #fff
+                border-radius 0.0938rem
+                color #ea68a2
+        .search
+            display flex
+            align-items center
+            justify-content flex-end
+            .pay
+                display flex
+                align-items center
+                justify-content center
+                height 60%
+                width 0.9375rem
+                margin-right 0.25rem
+                border-radius 0.0938rem
+                font-size fs - 0.0313rem
+                color #fff
+                background-color #ea68a2
     .route-item
         footerCss()
     // 主体
@@ -731,11 +806,23 @@ span, a, img, input, textarea
                 display flex
                 justify-content center
                 align-items center
+                padding 0 .2rem 0 .3rem
                 img
                     height 0.4688rem
                     width 0.4688rem
                     margin 0 0.3438rem
                     border-radius 50%
+                .delBtn
+                    display flex
+                    justify-content center
+                    align-items center
+                    width 0.4688rem
+                    height 0.4688rem
+                    border-radius 50%
+                    font-size 0.2813rem
+                    font-weight bold
+                    color #fff
+                    background-color #ea68a2
             // 商品图片
             // ......
             // 信息 & 修改数量
@@ -746,6 +833,7 @@ span, a, img, input, textarea
                 width 100%
                 margin-left 0.2188rem
                 .rowUp
+                    width 4.8125rem
                     margin-top 0.3125rem
                     font-size fs - 0.0313rem
                 .rowDown
@@ -769,10 +857,10 @@ span, a, img, input, textarea
                         a
                             display flex
                             justify-content center
-                            align-items center
                             width 0.7188rem
                             height 0.6875rem
-                            font-size fs + 0.0625rem
+                            font-size fs + 0.1875rem
+                            line-height fs + 0.2656rem
                             color #333
                         input
                             display flex
@@ -882,6 +970,7 @@ span, a, img, input, textarea
             align-items center
             height 100%
             margin-left 2.8125rem
+            margin-right 0.5rem
             .total
                 font-size fs + 0.0625rem
                 color #333

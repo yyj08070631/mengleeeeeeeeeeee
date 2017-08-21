@@ -3,26 +3,32 @@
         <!--头部  -->
         <!-- <v-header></v-header> -->
         <!-- banner轮播 -->
-        <div v-for="(val,key) in dataApp" :key="key">
-            <!-- <div>{{val.groupId}}</div> -->
-            <!-- title -->
-            <div class="bannerDivider" v-if="key != 0"></div>
-            <div class="bannerTitle" v-show="val.name != '-' && val.product.length != 0">{{val.name}}</div>
-            <!-- main -->
-            <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'">
-                <img :src="val.product[0].src" class="singleImg">
-            </router-link>
-            <router-link :to="{ path: '/offlineInfo', query: { nid: val.product[0].id } }" v-else-if="val.product.length == 1 && val.linkType == 'aid'">
-                <img :src="val.product[0].src" class="singleImg">
-            </router-link>
-            <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'gid'"></mySwiper>
-            <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'aid'"></mySwiper>
-            <router-link to="/home" v-else-if="val.linkType == 'app'">
-                <img :src="val.product.src" class="singleImg">
-            </router-link>
+        <div class="main">
+            <div v-for="(val,key) in dataApp" :key="key">
+                <!-- <div>{{val.groupId}}</div> -->
+                <!-- 分割线 -->
+                <div class="bannerDivider" v-if="val.product.length != 0 && key != 0"></div>
+                <!-- 标题 -->
+                <div class="bannerTitle" v-show="val.name != '-' && val.product.length != 0">{{val.name}}</div>
+                <!-- 主体 -->
+                <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'">
+                    <img :src="val.product[0].src" class="singleImg">
+                </router-link>
+                <router-link :to="{ path: '/offlineInfo', query: { nid: val.product[0].id } }" v-else-if="val.product.length == 1 && val.linkType == 'aid'">
+                    <img :src="val.product[0].src" class="singleImg">
+                </router-link>
+                <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'gid'"></mySwiper>
+                <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'aid'"></mySwiper>
+                <router-link to="/home" v-else-if="val.linkType == 'app'">
+                    <img :src="val.product.src" class="singleImg">
+                </router-link>
+                <!-- 每个图片区的 footer -->
+                <a class="more-goods" href="#goods" v-if="val.product.length != 0 && (val.groupId == 'newitem' || val.groupId == 'recommitem')">查看更多商品</a>
+                <a class="more-goods" href="#myCollect" v-else-if="val.product.length != 0 && val.groupId == 'sgooditem'">查看更多收藏</a>
+            </div>
+            <!-- 查看更多活动 -->
+            <!-- <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a> -->
         </div>
-        <!-- 查看更多活动 -->
-        <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a>
         <!-- footer -->
         <v-view class="route-item"></v-view>
     </div>
@@ -85,7 +91,9 @@ export default {
                                 for (let i = 0; i < res[key].good.length; i++) {
                                     arr.push({
                                         id: res[key].good[i].id,
-                                        src: res[key].good[i].mainmap
+                                        src: res[key].good[i].mainmap,
+                                        name: res[key].good[i].name,
+                                        price: res[key].good[i].price,
                                     });
                                 }
                                 // console.log(arr);
@@ -107,7 +115,7 @@ export default {
                         console.log('获取了无效的数据！')
                     }
                 }
-                // console.log(result)
+                console.log(result)
                 this.dataApp = result
             })
         }
@@ -121,12 +129,14 @@ export default {
 .home-wrapper
     position: absolute
     left: 0
-    padding-bottom: 1.3438rem
     width: 100%
     height: 100%
     background: #f0f0f0
+    .main
+        padding-bottom 1.3594rem
     .singleImg
         width 100%
+        height 7.3438rem
     .route-item
         footerCss()
     .bannerTitle
@@ -141,16 +151,28 @@ export default {
         width 100%
         height 0.3125rem
         background-color #f6f6f6
-&.more-activity
-    display: block
-    width: 100%
-    height: 1.3125rem
-    margin-bottom 1.3438rem
-    line-height: 1.3125rem
-    font-size fs + 0.0313rem
-    text-align: center
-    border-top-1px(rgba(0,0,0,0.1))
-    color: #ea68a2
-    background: #fff
+    .more-activity
+        display: block
+        width: 100%
+        height: 1.3125rem
+        margin-bottom 1.3438rem
+        line-height: 1.3125rem
+        font-size fs + 0.0313rem
+        text-align: center
+        border-top 1px solid #e0e0e0
+        color: #ea68a2
+        background: #fff
+    .more-goods
+        display: block
+        width: 100%
+        height: 1.3125rem
+        margin-top 0.1563rem
+        margin-bottom 0.3125rem
+        border-top 1px solid #e0e0e0
+        line-height: 1.3125rem
+        font-size fs + 0.0313rem
+        text-align: center
+        color: #ea68a2
+        background: #fff
 </style>
 

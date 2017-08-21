@@ -23,11 +23,7 @@ export default {
 
     },
     mounted() {
-        // 修改 address 控件按钮名称
-        window.onload = function () {
-            document.querySelector('.vux-popup-picker-header-menu-right').innerHTML = '完成';
-            document.querySelector('.vux-popup-picker-cancel').innerHTML = '取消';
-        }
+        
     },
     methods: {
 
@@ -83,7 +79,7 @@ export default {
             display: none;
         }
         .vux-popup-picker-value {
-            font-size: fs !important;
+            font-size: 0.375rem !important;
         }
     }
     &:before {
@@ -104,7 +100,7 @@ export default {
 }
 
 .scroller-item {
-    font-size: fs - 0.0625rem !important;
+    font-size: 0.3125rem !important;
     height: 0.66rem !important;
     line-height: 0.66rem !important;
 }
@@ -112,6 +108,7 @@ export default {
 .scroller-indicator {
     height: 0.66rem !important;
     top: 2.54rem !important;
+    font-size: 0.375rem !important;
 }
 
 .vux-popup-picker-header {
@@ -123,14 +120,14 @@ export default {
     line-height: 0.96rem!important;
     text-align: center!important;
     color: #333;
-    font-size: fs - 0.0625rem;
+    font-size: 0.3125rem;
     background: #f6f6f6;
 }
 
 .vux-popup-picker-header-menu-right {
     background: #ea68a2;
     color: #fff;
-    font-size: fs - 0.0625rem;
+    font-size: 0.3125rem;
 }
 
 .vux-popup-dialog {

@@ -155,9 +155,35 @@ export default {
         // 充值
         chongZhi: function () {
             if(this.moneyValue == '' && this.moneyValueInput != ''){
-                alert('充值' + this.moneyValueInput + '元')
+                // alert('充值' + this.moneyValueInput + '元')
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/recharge?userId===tPtcNLZARXEuvDhRSFGkQX&fee=' + this.moneyValueInput,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    console.log(res)
+                    if(res.code == 200){
+                        location.href = res.url;
+                    } else {
+                        alert(res.msg);
+                    }
+                })
             } else if (this.moneyValueInput == '' && this.moneyValue != ''){
-                alert('充值' + this.moneyValue + '元')
+                // alert('充值' + this.moneyValue + '元')
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/recharge?userId===tPtcNLZARXEuvDhRSFGkQX&fee=' + this.moneyValue,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    console.log(res)
+                    if(res.code == 200){
+                        location.href = res.url;
+                    } else {
+                        alert(res.msg);
+                    }
+                })
             } else if (this.moneyValue == '' && this.moneyValueInput == ''){
                 alert('没有获取到充值金额')
             } else {
@@ -184,6 +210,7 @@ export default {
                     if (res.code == 200) {
                         alert('提现申请成功！');
                         this.showTixian = false;
+                        this.getDataFromBackend()
                     } else {
                         alert('提现申请失败：' + res.msg)
                     }

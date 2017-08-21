@@ -194,28 +194,10 @@ export default {
         a
             color #ea68a2
             margin-top 0.3125rem
-            font-size fs    
+            font-size fs
     .content-wrapper
-        font-size fs - 0.0313rem
-        .content-item
-            padding: 0.2031rem 0.25rem 0.2031rem 0
-            border-bottom 1px solid #e0e0e0
-            .title
-                font-size: fs - 0.0313rem
-                line-height: 0.625rem
-                font-weight: bold
-                color: #333
-            .desc   
-                font-size: fs - 0.0938rem
-                line-height: 0.625rem
-                color: #909090
-            ul
-                margin-left: 0.3125rem
-                li
-                    list-style: disc 
-                    font-size: fs - 0.0938rem
-                    line-height: 0.4688rem
-                    color: #909090    
+        padding 0.5rem
+        font-size fs + 0.0625rem !important
     .myFooter
         position fixed
         bottom 0

@@ -55,7 +55,7 @@
 					<div class="colRight">
 						<div class="rowUp">
 							<p>{{val.username}}</p>
-							<img :src="imgList[val.level]">
+							<img :src="val.levsrc">
 						</div>
 						<div class="rowDown">
 							{{val.content}}
@@ -194,14 +194,6 @@ export default {
 	},
 	data() {
 		return {
-			imgList: [//等级划分对应数组
-				'err',
-				require('./images/xiaobai.png'),
-				require('./images/xingxing.png'),
-				require('./images/zuanshi.png'),
-				require('./images/jinguan.png'),
-				require('./images/huangguan.png')
-			],
 			detailItemList: [],
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
@@ -490,14 +482,14 @@ export default {
 				flex-direction column
 				justify-content center
 				.rowUp
-					font-size fs - 0.0313rem
+					font-size fs - 0.0313rem + 0.0938rem
 					font-weight bold
 					color: #333
 				.rowDown
 					margin-top 0.1563rem
 					display flex
 					p
-						font-size fs - 0.0313rem
+						font-size fs - 0.0313rem + 0.0938rem
 						color: #ff0
 					p:first-child
 						color #ea68a2
@@ -512,7 +504,7 @@ export default {
 				align-items center
 				span
 					display block
-					font-size fs - 0.0938rem
+					font-size fs - 0.0625rem
 					margin-top 0.0938rem
 					color #666
 				img
@@ -553,20 +545,17 @@ export default {
 					align-items center
 					img
 						display block
-						width: 1.125rem 
-						height: 0.375rem	
+						height: fs - 0.0313rem + 0.0625rem
 						margin-left 0.0938rem
 					p
-						font-size fs - 0.0313rem
+						font-size fs - 0.0313rem + 0.0625rem
 						color: #909090
 				.rowDown
 					font-size fs - 0.0313rem
 					margin-top 0.1875rem
-					letter-spacing 0.0313rem
 					line-height 0.5rem
 					margin-right 0.625rem
-					text-align justify
-					color #333
+					color #797878
 		// 没有评论
 		.noComment
 			display flex
@@ -630,7 +619,7 @@ export default {
 			height 100%
 			p
 				color #646464
-				font-size fs - 0.1563rem
+				font-size fs - 0.1563rem + 0.1563rem
 				margin-top 0.0938rem
 		>a:nth-child(3)
 			display flex

@@ -234,11 +234,12 @@ img, span, a
         .name
             display: inline-block
             margin: 0 0 0.1875rem 0
-            font-size: fs
+            font-size: fs + 0.0469rem
+            font-weight normal
             color: #000
         .mobile
             display: block
-            font-size: fs - 0.0625rem
+            font-size: fs - 0.0156rem
             color: #909090
             margin-bottom: 0.2813rem
         .rank
@@ -309,7 +310,7 @@ img, span, a
             padding-top 0.3125rem
             .copyLink
                 margin-bottom 0.5625rem
-                font-size fs - 0.0625rem
+                font-size fs - 0.0156rem
                 color #333
             // .logo  
             //     width: 2.6563rem
@@ -322,7 +323,7 @@ img, span, a
             justify-content center
             .Copyright
                 text-align: center
-                font-size: fs - 0.0625rem
+                font-size: fs - 0.0156rem
                 color: #909090
 </style>
 

@@ -121,14 +121,16 @@ export default {
     .header
         headerCss()
 .store-computed
-    display: block
+    display flex
+    align-items center
     width: 100%
     height: 1.1563rem
     background: #fff
-    border-bottom-1px(#e0e0e0)
+    border-bottom 1px solid #e0e0e0
     .computed
-        display: inline-block
-        margin: 0.375rem 0 0 0.5625rem
+        display flex
+        align-items center
+        margin: 0 0 0 0.5625rem
         height: 0.4375rem
         border-left: 0.0938rem solid #909090
         font-size: fs - 0.0313rem
@@ -152,11 +154,12 @@ export default {
             width: 1.9375rem
             // margin-left 0.5rem
             img
-                margin: 0.5313rem 0.3125rem 0.5313rem 0
+                margin: 0.5313rem 0.3125rem
                 width: 1.625rem
                 height: 1.625rem
         div:nth-child(2)
             flex: 1
+            margin-left 0.3125rem
             p:first-child
                 color: #333
                 font-size: fs - 0.0625rem

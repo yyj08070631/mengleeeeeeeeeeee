@@ -21,13 +21,13 @@
                 <div class="info">
                     <!-- 左边 -->
                     <!--  -->
-                    <div v-if="val.status == 2"><a href="javascript:void(0)">再次预约</a></div><!-- 已评价 -->
+                    <div v-if="val.status == 2"><router-link :to="{ path: '/digest', query: { sid: val.sid, nid: val.nid, open: 1 } }">再次预约</router-link></div><!-- 已评价 -->
                     <!--  -->
-                    <div v-else-if="val.status == 4"><a href="javascript:void(0)">再次预约</a></div>
+                    <div v-else-if="val.status == 4"><router-link :to="{ path: '/digest', query: { sid: val.sid, nid: val.nid, open: 1 } }">再次预约</router-link></div>
                     <!-- 右边 -->
                     <div v-if="val.status == 0 || val.status == 1">已预约</div><!-- 已预约 -->
-                    <div v-else-if="val.status == 2"><a href="javascript:void(0)" @click="showHideOnBlur = true">去评价</a></div><!-- 已完成 -->
-                    <div v-else-if="val.status == 3"><a href="javascript:void(0)">再次预约</a></div><!-- 预约取消 -->
+                    <div v-else-if="val.status == 2"><a href="javascript:void(0)" @click="showHideOnBlur = true; orderId = val.id">去评价</a></div><!-- 已完成 -->
+                    <div v-else-if="val.status == 3"><router-link :to="{ path: '/digest', query: { sid: val.sid, nid: val.nid, open: 1 } }">再次预约</router-link></div><!-- 预约取消 -->
                     <div v-else-if="val.status == 4">已评价</div>
                 </div>
                 <div class="line"></div>
@@ -40,8 +40,8 @@
                     <p class="title">评价</p>
                     <textarea class="textContent" placeholder="请输入您的评论" v-model="comment"></textarea>
                     <div class="btnCont">
-                        <div class="inSubmit">提交评价</div>
-                        <div class="inSubmit inCancel">取消</div>
+                        <div class="inSubmit" @click="subComment()">提交评价</div>
+                        <div class="inSubmit inCancel" @click="showHideOnBlur = false">取消</div>
                     </div>
                 </div>
             </x-dialog>
@@ -68,7 +68,9 @@ export default {
         return {
             data: [],
             showHideOnBlur: false,
+            // 预约评论相关
             comment: '',
+            orderId: '',
         }
     },
     methods: {
@@ -85,16 +87,22 @@ export default {
         },
         // 提交评价
         subComment: function(){
-
+            console.log(this.orderId)
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/user/servmsgAdd?userId===tPtcNLZARXEuvDhRSFGkQX&id=' + this.orderId + '&content=' + this.comment,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res)
+            });
+            this.showHideOnBlur = false;
+            this.getDataFromBackend();
+            this.comment = '';
         }
     },
     mounted(){
         this.getDataFromBackend()
-    },
-    watch: {
-        comment: function(val){
-            
-        }
     }
 }
 </script>
@@ -159,9 +167,9 @@ export default {
         width 100%
         height 10rem
         p
-            font-size fs + 0.0625rem
+            font-size fs + 0.125rem
         a
-            font-size fs + 0.0625rem
+            font-size fs + 0.125rem
             color #ea68a2
     .main
         .activity-wrapper
@@ -184,7 +192,7 @@ export default {
                     margin-right: 0.4375rem
                     p:first-child
                         margin-bottom: 0.375rem
-                        font-size: fs - 0.0625rem
+                        font-size: fs
                         color: #333
                         width: 90%
                         height: 0.5rem
@@ -193,14 +201,14 @@ export default {
                         text-overflow: ellipsis
                     p
                         line-height: 0.5625rem
-                        font-size: fs - 0.0625rem
+                        font-size: fs
                         color: #909090                          
                     div
                         margin-bottom:  -0.0781rem
                         width: 1.5625rem
                         height: 0.4688rem
                         line-height: 0.4688rem
-                        font-size: fs - 0.0938rem
+                        font-size: fs - 0.0313rem
                         background: #ea68a2
                         border-radius: 0.0781rem
                         color: #fff
@@ -220,10 +228,10 @@ export default {
                     width: 1.8438rem
                     height: 0.5625rem
                     padding 0.2188rem
-                    font-size: fs - 0.0625rem
+                    font-size: fs
                     color: #ea68a2
                     a
-                        font-size: fs - 0.0625rem
+                        font-size: fs
                         color: #fff
                         width: 1.8438rem
                         height: 0.5625rem

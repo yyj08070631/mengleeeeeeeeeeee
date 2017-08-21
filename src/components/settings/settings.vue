@@ -447,9 +447,6 @@ export default {
             })
             this.countDown();
         },
-        waitVer: function(){
-
-        },
         // 提交验证码
         submitVer: function(){
             this.$http({
@@ -464,10 +461,13 @@ export default {
                     this.phoneOper = false;
                     alert('绑定手机成功！');
                     this.getDataFromBackend();
+                    this.waiting = false;
+                    this.verification = '';
                     // this.phoneSucc = true;
                 } else {
                     // this.phoneErr = true;
                     alert(res.msg);
+                    this.verification = '';
                     return
                 }
             })
@@ -635,11 +635,11 @@ select::-ms-expand {
             text-align: center
             .name
                 display: block
-                font-size: fs + 0.0469rem
+                font-size: fs + 0.0781rem
             .mobile
                 display: block
                 margin: 0.1563rem 0 0.1875rem 0 
-                font-size: fs - 0.0469rem
+                font-size: fs - 0.0156rem
                 color: #909090
             .rank
                 width: 1.125rem

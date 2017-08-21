@@ -9,16 +9,17 @@
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
-            <router-link :to="{ path: '/offlineInfo', query: { nid: data.naerbyitem.id } }" class="storeNearby">
+            <a href="javascript:void(0)" class="loadingNear" v-if="locData.length == 0">正在加载附近商家信息....</a>
+            <router-link :to="{ path: '/offlineInfo', query: { nid: locData.id } }" class="storeNearby" v-else>
                 <div class="colLeft">
                     <p>
                         <span>附近的项目实体店</span>
                     </p>
-                    <div>{{data.naerbyitem.name}}</div>
+                    <div>{{locData.name}}</div>
                     <p>
-                        <span class="dis">{{data.naerbyitem.distance}}公里</span>
+                        <span class="dis">{{locData.distance}}公里</span>
                         <span>|</span>
-                        <span class="tim">{{data.naerbyitem.minute}}分钟</span>
+                        <span class="tim">{{locData.minute}}分钟</span>
                     </p>
                 </div>
                 <div class="colRight">
@@ -33,7 +34,8 @@
                     <p>查找其他项目实体店</p>
                 </div>
                 <div class="colRight">
-                    <p>附近有4家</p>
+                    <p v-if="locData.length == 0">正在加载附近商家....</p>
+                    <p v-else>附近有&nbsp;{{locData.id}}&nbsp;家</p>
                     <img src="./images/arrow_right.png">
                 </div>
             </router-link>
@@ -67,6 +69,8 @@ export default {
     data() {
         return {
             data: [],
+            // 定位数据
+            locData: [],
             gaodeData: this.gaode(),
             coordinate: []
         }
@@ -77,6 +81,7 @@ export default {
     methods: {
         // 获取数据方法
         getDataFromBackend() {
+            // 获取分类数据
             this.$http({
                 method: 'get',
                 url: global.Domain + '/cate/category',
@@ -111,11 +116,12 @@ export default {
                                     // 传坐标到后台
                                     self.$http({
                                         method: 'get',
-                                        url: global.Domain + '/cate/category?lng=' + self.lng + 'lat=' + self.lat,
+                                        url: global.Domain + '/nearby/catenear?local=' + self.lng + ',' + self.lat,
                                         emulateJSON: true
                                     }).then(function (response) {
                                         let res = response.body;
-                                        // console.log(res);
+                                        console.log(res);
+                                        this.locData = res.nearbyitem;
                                     });
                                 }
                                 // console.log(self.lng, self.lat);
@@ -168,6 +174,12 @@ export default {
         a
             display block
         // 附近的项目实体店
+        .loadingNear
+            display flex
+            justify-content center
+            align-items center
+            height 2.4375rem
+            font-size fs
         .storeNearby
             display flex
             justify-content space-between
@@ -254,6 +266,7 @@ export default {
                         margin-right 0.5rem
                         h1
                             font-size fs + 0.0156rem
+                            font-weight normal
                             color #333
                         p
                             width 3.4375rem

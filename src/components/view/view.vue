@@ -1,5 +1,5 @@
 <template>
-	<div class="menu-tag border-top-1px">
+	<div class="menu-tag">
 		<div class="tag-list">
 			<router-link to="/home" active-class="home-link--Active">
 				<div class="home"></div>美丽探索</router-link>
