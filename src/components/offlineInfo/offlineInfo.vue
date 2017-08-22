@@ -31,7 +31,7 @@
                     </p>
                 </div>
                 <hr class="divider dividerMargin">
-                <router-link class="rowDown" :to="{ path: '/offlineInfoMap', query: { loc: '113.384129,22.937244', name: data.nearbyitem.name, scale: '15' } }">
+                <router-link class="rowDown" :to="{ path: '/offlineInfoMap', query: { loc: '113.384129,22.937244', name: data.nearbyitem.name, scale: '16' } }">
                     <div class="colLeft">
                         <p class="loc">{{data.nearbyitem.address}}</p>
                         <p class="dis">

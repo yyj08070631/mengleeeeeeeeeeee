@@ -1,6 +1,7 @@
 <template>
     <div class="goods-wrapper">
-        <!--头部  -->
+        <!--  v-title data-title="商品分类" -->
+        <!-- 头部 -->
         <!-- <v-header></v-header> -->
         <v-search-head></v-search-head>
         <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">

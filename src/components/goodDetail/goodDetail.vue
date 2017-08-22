@@ -408,7 +408,7 @@ export default {
 	background #f0f0f0
 	// 最后一个元素撑开footer
 	.lastElem
-		margin-bottom 1.2031rem !important
+		padding-bottom 1.2031rem !important
 	// 轮播边界
 	.imgShow
 		width 100%
@@ -471,7 +471,7 @@ export default {
 		padding-left 0.5rem
 		background #fff
 		.dividerThin
-			border-width 0.0313rem
+			border-width 1px
 			border-color #e0e0e0
 		.titleUp
 			display flex

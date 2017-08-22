@@ -621,7 +621,7 @@ select::-ms-expand {
             width: 100%
             height: 100%
             background-image url('./images/filter.png')
-            background-position 0 20.0938rem
+            background-position 0 19.6094rem
             background-size 10rem auto
         .avatar
             position: absolute
@@ -737,4 +737,10 @@ select::-ms-expand {
     p
         padding 0.3125rem 0.3125rem
         font-size fs - 0.0156rem
+.weui-mask
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    -o-filter: blur(10px);
 </style>
