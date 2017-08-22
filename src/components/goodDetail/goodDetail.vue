@@ -72,7 +72,7 @@
 					<div class="colRight">
 						<div class="rowUp">
 							<p>{{item.username}}</p>
-							<img :src="imgList[item.level]">
+							<img :src="item.levsrc">
 						</div>
 						<div class="rowDown">
 							{{item.content}}
@@ -299,6 +299,7 @@ export default {
 				emulateJSON: true
 			}).then(function (response) {
 				let moreComMore = response.body;
+				console.log(moreComMore);
 				if (moreComMore == 'err') {
 					this.comNode = "没有更多评论了"
 					this.para = this.para - 1
@@ -419,19 +420,19 @@ export default {
 	// 分页器
 	.swiper-pagination
 		display flex
+		width 9.5rem !important
 		left 50% !important
-		margin-left -25%
-		width 50% !important
+		margin-left -5rem + 0.25rem !important
+		bottom 0.0156rem !important
+		background-color #e0e0e0
 		.swiper-pagination-bullet
-			changeHeight(0.0938rem)
 			margin 0 !important
 			background-color rgba(255,255,255,0)
 			border-radius 0
-			height 0.0625rem !important 
-			margin-left 0.3125rem !important
+			height 0.0313rem !important 
 		.swiper-pagination-bullet-active
 			background rgba(0,0,0,0.7)
-			height 0.0625rem !important
+			height 0.0313rem !important
 	// 详情页header
 	.header
 		height 1.0938rem!important
@@ -453,8 +454,8 @@ export default {
 			display flex
 			align-items center
 			justify-content center
-			border-left 0.0313rem solid #e0e0e0
-			font-size fs - 0.0313rem
+			border-left 1px solid #e0e0e0
+			font-size fs + 0.0313rem
 		a:first-child
 			border-left 0
 	// 分割线
@@ -549,7 +550,7 @@ export default {
 						margin-left 0.0938rem
 					p
 						font-size fs - 0.0313rem + 0.0625rem
-						color: #909090
+						color: #333
 				.rowDown
 					font-size fs - 0.0313rem
 					margin-top 0.1875rem

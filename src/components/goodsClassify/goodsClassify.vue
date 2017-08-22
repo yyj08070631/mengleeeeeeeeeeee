@@ -34,7 +34,7 @@
         <div class="good-wrapper">
             <div v-if="goodsItemList.gooditem.length < 1" class="noGoods">暂无商品&nbsp;:) <router-link to="/goods">->随便逛逛<-</router-link></div>
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
-                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click="collectGood(item.id,item.colid,item.iscolitems)" />
+                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
                 <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
                     <img class="goodsMsg" :src="item.mainmap" />
                 </router-link>
@@ -46,7 +46,7 @@
             </div>
         </div>
         <!-- footer -->
-         <v-view class="route-item"></v-view>
+        <v-view class="route-item"></v-view>
         <div>
             <toast v-model="on" type="text">收藏成功</toast>
         </div>
@@ -251,7 +251,6 @@ export default {
 
 class1()
     width: 4.9688rem
-    margin-top: -0.0313rem
     border-bottom 1px solid #e0e0e0
     background-color #fff
     &:nth-child(odd)
@@ -261,6 +260,7 @@ class1()
         float: right
         height 0.6563rem
         padding 0.2813rem 0.4375rem 0.2813rem 0
+        z-index 10
     .goodsMsg
         width: 4.9688rem
         height: 4.625rem
@@ -269,13 +269,20 @@ class1()
         float: left
         width: 100%
         a
-            display block
-            margin: 0.2813rem 0
-            font-size: fs - 0.0938rem + 0.0938rem
+            // 限制文字显示在 2 行内，超出显示省略号
+            display -webkit-box
+            -webkit-box-orient vertical
+            -webkit-line-clamp 2
+            overflow hidden
+            // 结束
+            height 0.75rem
+            margin: 0.2813rem 0.1563rem
+            font-size: fs
+            line-height fs + 0.0625rem
             color: #333
             text-align: center
         span
-            display: block 
+            display: block
             font-size: fs - 0.0938rem + 0.0938rem
             text-align: center
         span:last-child
@@ -292,8 +299,8 @@ class2()
         position: absolute
         right: 0.375rem
         top: 0.375rem
-        width 0.6563rem
-        height 0.6563rem    
+        height 0.6563rem
+        z-index 10 
     .goodsMsg
         float: left
         width: 4.9688rem 
@@ -322,7 +329,14 @@ class2()
             font-size: fs - 0.125rem + 0.0938rem
             color: #909090
         a
+            // 限制文字显示在 2 行内，超出显示省略号
+            display -webkit-box
+            -webkit-box-orient vertical
+            -webkit-line-clamp 2
+            overflow hidden
+            // 结束
             width 3.4375rem
+            height 0.8438rem
             margin-top 0.4688rem
             font-size fs + 0.0313rem
             color #333
@@ -341,7 +355,7 @@ class2()
         display: flex
         justify-content center
         flex: 1
-        font-size: fs - 0.0938rem
+        font-size: fs - 0.0313rem
         color: #ea68a2
         align-items: center
         div:first-child
@@ -370,8 +384,9 @@ class2()
         width: 100%
         height: 0.9688rem
         line-height: 0.9688rem
-        font-size: fs - 0.0313rem
+        font-size: fs
         border-bottom 1px solid #e0e0e0
+        background-color #fff
         .screen
             color: #ea68a2
             margin-left: 0.5rem
@@ -400,12 +415,13 @@ class2()
             class1()
         .goods-item2
             class2()
-    .weui-toast  
-        width auto!important 
+    .weui-toast
+        width auto !important 
         height 0.9375rem
         line-height 0.7813rem
-        top 50%!important
+        top 50% !important
+        margin-top -0.4688rem
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
-            font-size fs - 0.0625rem
+            font-size fs + 0.0625rem
 </style>

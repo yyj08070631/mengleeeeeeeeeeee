@@ -198,6 +198,7 @@ export default {
     .content-wrapper
         padding 0.5rem
         font-size fs + 0.0625rem !important
+        background-color #fff
     .myFooter
         position fixed
         bottom 0
