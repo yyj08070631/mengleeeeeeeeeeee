@@ -5,7 +5,7 @@
         <div class="activity-wrapper">
             <!-- v-if="orderList.collectitem.length == 0" -->
             <div class="noGoods" v-if="imageTextList.imageitem.content == ''">暂无商品信息&nbsp;:)</div>
-            <div class="activity-title" v-html="unescape(imageTextList.imageitem.content)" v-else>
+            <div class="activity-title" v-if="imageTextList" v-html="unescape(imageTextList.imageitem.content)">
                 <!-- {{ | unescape}} -->
             </div>
         </div>

@@ -13,6 +13,7 @@
             </div>
         </div>
         <div class="content-wrapper">
+            <div class="line"></div>
             <!-- 我的二维码 -->
             <a href="#myQRcode" class="message-item">
                 <span class="title">我的二维码</span>
@@ -68,7 +69,7 @@
                 </div>
             </a>
             <!-- 身高 -->
-            <a href="javascript:void(0)" class="message-item">
+            <label class="message-item">
                 <span class="title">身高</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
@@ -77,9 +78,9 @@
                     </div>
                     <img class="other" src="./more.png">
                 </div>
-            </a>
+            </label>
             <!-- 体重 -->
-            <a href="javascript:void(0)" class="message-item indent">
+            <label class="message-item indent">
                 <span class="title">体重</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
@@ -88,7 +89,7 @@
                     </div>
                     <img class="other" src="./more.png">
                 </div>
-            </a>
+            </label>
             <div class="line"></div>
             <!-- 职业 -->
             <a href="javascript:void(0)" class="message-item">
@@ -158,7 +159,7 @@
                 </div>
             </a>
             <!-- 收入 -->
-            <a href="javascript:void(0)" class="message-item">
+            <label class="message-item">
                 <span class="title">收入</span>
                 <div class="link-wrapper">
                     <div class="inputBox msg">
@@ -167,15 +168,15 @@
                     </div>
                     <img class="other" src="./more.png">
                 </div>
-            </a>
+            </label>
             <!-- 兴趣爱好 -->
-            <a href="javascript:void(0)" class="message-item">
+            <label class="message-item">
                 <span class="title">兴趣爱好</span>
                 <div class="link-wrapper">
                     <input class="inputBox msg" @change="changeHabbit($event)" :value="data.habbit">
                     <img class="other" src="./more.png">
                 </div>
-            </a>
+            </label>
         </div>
         <!-- 弹出框 -->
         <div>
@@ -208,11 +209,11 @@
             <x-dialog v-model="phoneOper" class="dialog-demo" hide-on-blur>
                 <div class="chooseValue">
                     <p>绑定手机</p>
-                    <label class="inputBox">
+                    <label class="tixianInfoBox">
                         <span>手机号码：</span>
                         <input type="text" placeholder="请输入手机号码" v-model="phoneNum" maxlength="11">
                     </label>
-                    <label class="inputBox">
+                    <label class="tixianInfoBox">
                         <span>验证码：</span>
                         <div>
                             <input type="text" placeholder="请输入验证码" v-model="verification" maxlength="6">
@@ -528,7 +529,7 @@ export default {
             font-size fs + 0.0469rem
             color #555
         // 提现信息
-        .inputBox
+        .tixianInfoBox
             display flex
             margin-bottom 0.5625rem
             span
@@ -552,6 +553,7 @@ export default {
                 input
                     display block
                     width 3.3281rem
+                    font-size fs + 0.0156rem
                 i
                     display flex
                     align-items center
@@ -572,7 +574,7 @@ export default {
                 height 1.25rem
                 font-size fs + 0.1094rem
                 color #fff
-                background-color #ff8b00
+                background-color #ea68a2
             .inCancel
                 color #353535
                 background-color #f0f0f0
@@ -618,7 +620,9 @@ select::-ms-expand {
             top: 0
             width: 100%
             height: 100%
-            background: linear-gradient(rgba(0,0,0,0) 20%, rgba(255,255,255,1))
+            background-image url('./images/filter.png')
+            background-position 0 20.0938rem
+            background-size 10rem auto
         .avatar
             position: absolute
             left: 50%
@@ -674,14 +678,14 @@ select::-ms-expand {
                     height: 0.375rem
                 .msg
                     float: left
-                    font-size: fs - 0.0469rem
+                    font-size: fs
                     vertical-align: top
                     outline 0
                 img        
                     display: inline-block
                     float: left
                 .qr-code
-                    margin-top: 0.5rem 
+                    margin-top: 0.5rem
                     width: 0.375rem
                     height: 0.375rem
             // 其实并不是天才如我。。。
@@ -689,6 +693,7 @@ select::-ms-expand {
                 position absolute
                 right 0
                 height 1.3438rem
+                width 100%
                 padding 0 1.5625rem 0 0
                 border 0
                 background-color transparent

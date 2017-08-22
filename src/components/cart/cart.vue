@@ -727,7 +727,6 @@ span, a, img, input, textarea
         .weui-dialog__ft
             .weui-dialog__btn
                 font-size fs !important
-
 // 外层元素
 .cart-wrapper
     position absolute
@@ -806,6 +805,7 @@ span, a, img, input, textarea
                 display flex
                 justify-content center
                 align-items center
+                width 0.9688rem
                 padding 0 .2rem 0 .3rem
                 img
                     height 0.4688rem
@@ -835,7 +835,10 @@ span, a, img, input, textarea
                 .rowUp
                     width 4.8125rem
                     margin-top 0.3125rem
-                    font-size fs - 0.0313rem
+                    font-size fs
+                    overflow hidden
+                    text-overflow ellipsis
+                    white-space  nowrap
                 .rowDown
                     margin-bottom 0.3125rem
                     display flex
@@ -846,9 +849,9 @@ span, a, img, input, textarea
                         margin-bottom 0.125rem
                         color #ea68a2
                         span:first-child, span:last-child
-                            font-size fs - 0.0625rem
+                            font-size fs - 0.0313rem
                         span:nth-child(2)
-                            font-size fs
+                            font-size fs + 0.0313rem
                     .count
                         display flex
                         margin-right 0.4063rem
@@ -1014,10 +1017,9 @@ span, a, img, input, textarea
             .weui-dialog__title
                 font-size fs + 0.0625rem !important
         .weui-dialog__bd
-            padding 0.9375rem  0 
-            font-size fs + 0.0313rem
+            padding 0.625rem 0 0.9375rem 0
+            font-size fs + 0.0625rem
             margin-bottom 0.5625rem
-             
         .btn1
             position:absolute
             left:0px;
@@ -1030,7 +1032,7 @@ span, a, img, input, textarea
             z-index: 1000;
             border:0;
             border-top:1px solid #909090
-            font-size fs - 0.0313rem
+            font-size fs + 0.0625rem
         .btn2
             position:absolute
             left:50%;
@@ -1043,7 +1045,7 @@ span, a, img, input, textarea
             z-index: 1000;
             border:0;
             border-top:1px solid #909090
-            font-size fs - 0.0313rem
+            font-size fs + 0.0625rem
             .weui-dialog__title
                 font-size fs - 0.0313rem !important
             .weui-dialog__ft

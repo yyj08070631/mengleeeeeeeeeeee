@@ -1,7 +1,6 @@
 <template>
-	<div class="collect-wrapper" >
+	<div class="collect-wrapper">
 		<!-- v-infinite-scroll="loadDetail" -->
-		<!--  -->
 		<!-- 头部 -->
         <!-- <v-header></v-header> -->
 		<!--图片轮播-->
@@ -86,17 +85,20 @@
 				<span @click="addComMore">{{comNode}}</span>
 			</div>
 		</div>
+		
+		<div class=""
 		<!--超粗分割线-->
 		<hr class="divider dividerBig lastElem">
 		<!--继续拖动，查看图文详情-->
-		<div class="dragHelp" v-show="noDragToView"></div>
+		<!-- <div class="dragHelp" v-show="noDragToView"></div> -->
 		<div class="dragToView" v-show="dragToView">
 			<img src="./images/arrow_up.png">
 			<p>继续拖动，查看图文详情</p>
 		</div>
+		<div class="showImageText" v-if="imageTextList!=''" v-html="unescape(imageTextList.imageitem.content)"></div>
 		<!--脚部-->
 		<footer class="myFooter">
-			<a href="javascript:void(0)" @click="show = true;">
+			<a href="javascript:void(0)" @click="show = true">
 				<img src="./images/share.png">
 				<p>分享</p>
 			</a>
@@ -182,19 +184,20 @@
 		<div>
 			<toast v-model="error" type="text">添加失败</toast>
 		</div>
-		 <alert v-model="show" title="分享">
-            <button class="btn1" @click="onHide();shareGoods()">确定分享</button>
-            <button class="btn2" @click="onHide();">取消</button>
-			<img :src="detailItemList.albumitem[0].src"><div class="share-content">
-				<input type="text" placeholder="请输入分享标题" :value="defaultVal">
-				<p>{{windowUrl}}</p> 
+		<alert v-model="show" title="分享">
+            <button class="btn1" @click="onHide();todoShare()">确认分享</button>
+            <button class="btn2" @click="onHide();clearText()">取消</button>
+            <img :src="detailItemList.albumitem[0].src">
+			<div class="share-cxt">
+				<input type="text" placeholder="请输入标题" :value="shareVal">
+				<p>{{windowUrl}}</p>				
 			</div>
         </alert>
 	</div>
 </template>
  <script type="ecmascript-6">
 // import header from '../../components/header/header';
-import { Swiper, SwiperItem, Divider, Toast, Group,Alert } from 'vux'
+import { Swiper, SwiperItem, Divider, Toast, Group, Alert } from 'vux'
 export default {
 	components: {
 		Toast,
@@ -219,9 +222,10 @@ export default {
 			numBuy: 1,
 			success: false,
 			error: false,
-			show: false,//询问框弹出
-			windowUrl: window.location.href,//分享本页面链接
-			defaultVal: "",
+			show: false,
+			windowUrl: location.href,
+			shareVal: '',
+			imageTextList: [],//图文详情信息
 			swiperOption: {
                 notNextTick: true,
                 autoplay: 3000,
@@ -374,18 +378,89 @@ export default {
 			this.closeCart()
 		},
 		// // 下拉显示图文详情：使用infinite-scroll
-		loadDetail: function(){
-			let that = this;
-			if(!that.dragToView){
-				setTimeout(function(){
-					that.dragToView = true;
-					that.noDragToView = false;
-				},500);
-			} else {
-				setTimeout(function(){
-					that.$router.push({ path: 'imageText', query: { gid: that.$route.query.gid }});
-				},1500);
-			}
+		// loadDetail: function(){
+		// 	let that = this;
+		// 	if(!that.dragToView){
+		// 		setTimeout(function(){
+		// 			that.dragToView = true;
+		// 			that.noDragToView = false;
+		// 		},500);
+		// 	} else {
+		// 		setTimeout(function(){
+		// 			that.$router.push({ path: 'imageText', query: { gid: that.$route.query.gid }});
+		// 		},500);
+		// 	}
+		// }
+		// 分享链接
+		getShareFn: function(){
+			this.$http({
+				method: 'get',
+				url: global.Domain + '/Index/sign',
+				emulateJSON: true
+			}).then(function (response) {
+				let data = response.body
+				this.$wechat.config({
+					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
+					appId: data.sdkitem.appId, // 必填，公众号的唯一标识
+					timestamp: data.sdkitem.timestamp, // 必填，生成签名的时间戳
+					nonceStr: data.sdkitem.nonceStr, // 必填，生成签名的随机串
+					signature: data.sdkitem.signature,// 必填，签名，见附录1
+					jsApiList: [
+						"onMenuShareTimeline",
+						"onMenuShareAppMessage"
+					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+					
+				});  
+				this.$wechat.error(function (res) {
+                	alert(res);
+           	 	});        
+				// console.log(data)  
+			})
+		},
+		todoShare: function(){
+			console.log("exe")
+			this.$wechat.ready(function(res) {
+				console.log(res)
+				this.$wechat.onMenuShareAppMessage({
+					title: "document.title",
+					desc:"document.title",
+					link: "link",
+					imgUrl: "Imgurl",
+					trigger: function(res) {
+						console.log(res)
+					},
+					success: function(res) {
+						console.log(res)
+					},
+					cancel: function(res) {
+						console.log(res)
+					},
+					fail: function(res) {
+						console.log(res)
+					}
+				});
+				this.$wechat.onMenuShareTimeline({
+					title: "document.title",
+					link: "link",
+					imgUrl: "Imgurl",
+					trigger: function(res) {},
+					success: function(res) {},
+					cancel: function(res) {},
+					fail: function(res) {}
+				});
+				
+			});
+		},
+		//获取图文信息
+		getImageTextData: function() {
+			this.$http({
+				method: 'get',
+				url: global.Domain + '/Cate/image?gid='+this.$route.query.gid,
+				emulateJSON: true
+			}).then(function (response) {
+				this.imageTextList = response.body
+				//console.log(this.imageTextList)                  
+			})
 		},
 		// 在session中存入下单商品列表，然后跳转到下单页面
 		goodsToSession: function(){
@@ -398,32 +473,58 @@ export default {
         },
         onHide: function () {
             this.show = false
+        },
+		clearText: function(){
+			this.shareVal = "";
 		},
-		//分享功能
-		shareGoods: function(){
-			console.log( window.location.href.split('#')[0])
-			console.log("这是URL:"+window.location.href.split('#')[0])
-			console.log("这是图片:"+this.detailItemList.albumitem[0].src)
-			console.log(this.$wechat.onMenuShareTimeline)
-			this.$wechat.onMenuShareTimeline({
-				title: "这是一个标题", // 分享标题
-				link: 'http://dde.dgxinn.cn/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-				imgUrl: 'http://dde.dgxinn.cn/dream/Public/Uploads/good/2017-08-12/good_598e944dc63830.74281445.jpg', // 分享图标
-				success: function () { 
-					// 用户确认分享后执行的回调函数
-					alert("分享成功")
-				},
-				cancel: function () { 
-					// 用户取消分享后执行的回调函数
-					alert("分享失败")
-
+		clientWin:function(){
+			if(this.$route.path == '/goodDetail'){
+				window.addEventListener('scroll', this.menu)
+				if(this.$route.path != '/goodDetail'){
+					window.removeEventListener('scroll', this.menu)
 				}
-			});
-		}
+			}
+		},
+		//滚动条监听事件
+		menu: function() {
+            this.scroll = document.body.scrollTop;//滚动高度
+			// let speed = this.scroll/3;
+			let speed = 0 
+            // console.log(document.body.scrollTop+"--"+this.$route.path)
+            // console.log(document.body.scrollHeight+"这是高度")
+				if(this.$route.path == '/goodDetail'){
+					if(this.scroll >= document.body.scrollHeight - window.innerHeight){
+						
+							setTimeout(()=>{
+									this.dragToView = true
+								},1000)
+
+							// console.log(speed+"---------")
+							// 	setTimeout(()=>{
+							// 		this.getImageTextData()
+							// 	},1000)							
+					
+						
+					}
+				}
+        },
+		//html标签编译
+		unescape : function (html) {
+            return html
+            .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&quot;/g, "\"")
+            .replace(/&#39;/g, "\'");
+        },
 	},
 	mounted() {
 		this.$nextTick(function () {
 			this.getDataFromBackend()
+			this.getShareFn()
+			//监听事件绑定
+			this.clientWin()
+			
 		})
 	},
 	watch: {
@@ -447,7 +548,7 @@ export default {
 	background #f0f0f0
 	// 最后一个元素撑开footer
 	.lastElem
-		margin-bottom 1.2031rem !important
+		padding-bottom 1.2031rem !important
 	// 轮播边界
 	.imgShow
 		width 100%
@@ -689,78 +790,78 @@ export default {
 		top 50%!important
 		p
 			padding 0.0625rem 0.3125rem 0 0.3125rem
-			font-size fs - 0.0625rem    		
+			font-size fs - 0.0625rem
 	.weui-dialog
-			width 12.5rem!important
-			min-width 80%
-			background #fff
-			border-radius 0.1875rem
-			.weui-dialog__hd
-				padding 0.3125rem 0 0 0 
-				.weui-dialog__title
-					font-size fs + 0.0625rem !important
-			.weui-dialog__bd
-				display flex
-				justify-content center
-				align-items center
-				padding 0.5375rem  0.5rem 
-				font-size fs + 0.0313rem
-				margin-bottom 0.5625rem
-				vertical-align top
-				text-align left
+		width 12.5rem!important
+		min-width 80%
+		background #fff
+		border-radius 0.1875rem
+		.weui-dialog__hd
+			padding 0.3125rem 0 0 0 
+			.weui-dialog__title
+				font-size fs + 0.0625rem !important
+		.weui-dialog__bd
+			display flex
+			justify-content center
+			align-items center
+			padding 0.425rem 0.3rem 0.9375rem 0.3rem
+			font-size fs + 0.0625rem
+			margin-bottom 0.5625rem
 			img
-				width 1.5rem
-				height 1.5rem	
+				width 1.5625rem
+				height 1.5625rem	
 				vertical-align top
-			.share-content
-				margin-left 0.5rem
-				input
+			.share-cxt
+				margin-left 0.3rem
+				text-align left
+				input 
+					padding 2px 0
 					width 100%
-					font-size 0.2813rem
-					color #ea6aa2	
-					padding 0.0938rem 0
+					margin-bottom 0.2rem
+					color #ea6aa2
+					font-size 0.3125rem
 					white-space: nowrap
 					overflow: hidden
 					text-overflow: ellipsis
 				p
-					margin-top 0.2rem
+					color #909090	
 					font-size 0.2813rem
-					color #909090
-			.btn1
-				position:absolute
-				left:0px;
-				bottom:0px;
-				background:#fff;
-				width:50%;
-				color:#ea6aa2;
-				height:1.25rem;
-				line-height: 40px;
-				z-index: 1000;
-				border:0;
-				border-top:1px solid #909090
-				font-size fs - 0.0313rem
-			.btn2
-				position:absolute
-				left:50%;
-				bottom:0px;
-				background:#fff;
-				width:50%;
-				color:#ea6aa2;
-				height:1.25rem;
-				line-height: 40px;
-				z-index: 1000;
-				border:0;
-				border-top:1px solid #909090
-				font-size fs - 0.0313rem
-				.weui-dialog__title
-					font-size fs - 0.0313rem !important
-				.weui-dialog__ft
-					background #3cf !important
-					display none
-					.weui-dialog__btn_primary
-						color #ff0  !important
-					.weui-dialog__btn    
-						color #ff0  !important 			
+					
+		.btn1
+			position:absolute
+			left:0px;
+			bottom:0px;
+			background:#fff;
+			width:50%;
+			color:#ea6aa2;
+			height:1.25rem;
+			line-height: 40px;
+			z-index: 1000;
+			border:0;
+			border-top:1px solid #909090
+			font-size fs + 0.0625rem
+		.btn2
+			position:absolute
+			left:50%;
+			bottom:0px;
+			background:#fff;
+			width:50%;
+			color:#ea6aa2;
+			height:1.25rem;
+			line-height: 40px;
+			z-index: 1000;
+			border:0;
+			border-top:1px solid #909090
+			font-size fs + 0.0625rem
+			.weui-dialog__title
+				font-size fs - 0.0313rem !important
+			.weui-dialog__ft
+				background #3cf !important
+				display none
+				.weui-dialog__btn_primary
+					color #ff0  !important
+				.weui-dialog__btn    
+					color #ff0  !important   		
 	//购物车			
 	.goodsCart-wrapper
 		position fixed
@@ -849,5 +950,7 @@ export default {
 				background #fe9333
 			.buyNow
 				background-color #ea6aa2 !important
-	   			
+	.showImageText
+		img
+			width 100%			
 </style>
