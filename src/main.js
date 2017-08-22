@@ -40,6 +40,7 @@ import myCenterHelp from './components/myCenterHelp/myCenterHelp';
 import integralHelp from './components/integralHelp/integralHelp';
 import myCenterCopyTxt from './components/myCenterCopyTxt/myCenterCopyTxt';
 import offlineInfoMap from './components/offlineInfoMap/offlineInfoMap';
+import offlineMapSilence from './components/offlineMapSilence/offlineMapSilence';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
@@ -83,6 +84,12 @@ AMap.initAMapApiLoader({
     plugin: ['Scale', 'Geolocation']
 })
 
+Vue.directive('title', {
+    inserted: function (el, binding) {
+        document.title = el.dataset.title
+    }
+})
+
 // jssdk
 // Vue.wechat.config({
 //     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -93,9 +100,15 @@ AMap.initAMapApiLoader({
 //     jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 // });
 
-const routes = [{
+const routes = [
+    {
+        path: '/',
+        redirect: '/home'
+    },
+    {
         path: '/goods',
-        component: goods
+        component: goods,
+        meta: { title: '商品分类' }
     },
     {
         path: '/home',
@@ -103,7 +116,8 @@ const routes = [{
     },
     {
         path: '/myCenter',
-        component: myCenter
+        component: myCenter,
+        meta: { title: '个人中心' }
     },
     {
         path: '/orderFrom',
@@ -199,7 +213,8 @@ const routes = [{
     },
     {
         path: '/cart',
-        component: cart
+        component: cart,
+        meta: { title: '购物袋' }
     },
     {
         path: '/addrManage',
@@ -245,12 +260,16 @@ const routes = [{
         path: '/offlineInfoMap',
         component: offlineInfoMap
     },
+    // {
+    //     path: '/offlineMapSilence',
+    //     component: offlineMapSilence
+    // },
     {
         path: '/myCenterCopyTxt',
         component: myCenterCopyTxt
     }
 ];
-myCenterCopyTxt
+
 const router = new vueRouter({
     routes,
     scrollBehavior(to, from, savedPosition) {
@@ -259,6 +278,8 @@ const router = new vueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    // Change doc title
+    document.title = to.meta.title || '梦乐城'
     // store.commit('updateLoadingStatus', { isLoading: true });
     // Vue.http({
     //     method: 'post',

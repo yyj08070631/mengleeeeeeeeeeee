@@ -118,17 +118,17 @@ img, span, a
             height 7.3438rem
     .swiper-pagination
         display flex
+        width 9.5rem !important
         left 50% !important
-        margin-left -5rem - 0.1563rem !important
+        margin-left -5rem + 0.25rem !important
         bottom 0.0156rem !important
         background-color #e0e0e0
         .swiper-pagination-bullet
             margin 0 !important
             background-color rgba(255,255,255,0)
             border-radius 0
-            height 0.0625rem !important 
-            margin-left 0.3125rem !important
+            height 0.0313rem !important 
         .swiper-pagination-bullet-active
             background rgba(0,0,0,0.7)
-            height 0.0625rem !important
+            height 0.0313rem !important
 </style>

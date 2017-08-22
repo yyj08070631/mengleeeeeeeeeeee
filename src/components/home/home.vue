@@ -136,7 +136,7 @@ export default {
         padding-bottom 1.3594rem
     .singleImg
         width 100%
-        height 10rem
+        // height 10rem
     .route-item
         footerCss()
     .bannerTitle
