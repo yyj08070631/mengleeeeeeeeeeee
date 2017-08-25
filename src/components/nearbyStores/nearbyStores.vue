@@ -2,9 +2,8 @@
     <div class="store-wrapper">
         <!-- 头部 -->
         <!-- <v-header></v-header>  -->
-        <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
-        </el-amap>
-        <div class="store-message">
+        <div class="loadStore" v-if="data.length == 0">{{loadMessage}}</div>
+        <div class="store-message" v-else>
             <div href="javascript:void(0)" class="store-computed">
                 <span class="computed">附近的项目实体店</span>
             </div>
@@ -26,9 +25,11 @@
                 <p>浏览所有线下项目实体店</p>
                 <img class="more" src="./more.png">
             </router-link>
-        </div>     
+        </div>
         <!-- footer -->
         <v-view class="route-item"></v-view>
+        <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
+        </el-amap>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -42,11 +43,16 @@ export default {
     data() {
         return {
             data: [],
-            gaodeData: this.gaode()
+            gaodeData: this.gaode(),
+            loadMessage: '正在加载位置信息....'
         }
     },
-    created () {
-        this.getDataFromBackend()
+    mounted () {
+        // this.getDataFromBackend()
+        // 8 秒后还没定位成功则改显示
+        // setTimeout(function(){
+        //     this.loadMessage = '定位加载失败，请刷新页面重新加载:-D';
+        // }, 1000);
     },
     methods: {
         // 获取数据方法
@@ -90,6 +96,7 @@ export default {
                                     }).then(function (response) {
                                         let res = response.body;
                                         console.log(res);
+                                        this.data = res.nearbyitem
                                     });
                                 }
                                 // console.log(self.lng, self.lat);
@@ -120,74 +127,82 @@ export default {
         footerCss()
     .header
         headerCss()
-.store-computed
-    display flex
-    align-items center
-    width: 100%
-    height: 1.1563rem
-    background: #fff
-    border-bottom 1px solid #e0e0e0
-    .computed
+    .loadStore
+        display flex
+        justify-content center
+        width 10rem
+        height 100%
+        margin-top 80%
+        font-size 0.5rem
+        color #333
+    .store-computed
         display flex
         align-items center
-        margin: 0 0 0 0.5625rem
-        height: 0.4375rem
-        border-left: 0.0938rem solid #909090
-        font-size: fs - 0.0313rem
-        font-weight: bold
-        text-indent: 0.1875rem
-        color: #909090 
-.store-message
-    width: 100%
-    background: #fff         
-    .store-item
-        display: flex
-        position: relative
         width: 100%
-        height: 2.8125rem
-        align-items: center
-        justify-content: center
+        height: 1.1563rem
         background: #fff
-        font-size: 0
         border-bottom 1px solid #e0e0e0
-        div:first-child
-            width: 1.9375rem
-            // margin-left 0.5rem
-            img
-                margin: 0.5313rem 0.3125rem
-                width: 1.625rem
-                height: 1.625rem
-        div:nth-child(2)
-            flex: 1
-            margin-left 0.3125rem
-            p:first-child
-                color: #333
-                font-size: fs - 0.0625rem
+        .computed
+            display flex
+            align-items center
+            margin: 0 0 0 0.5625rem
+            height: 0.4375rem
+            border-left: 0.0938rem solid #909090
+            font-size: fs + 0.0313rem
+            font-weight: bold
+            text-indent: 0.1875rem
+            color: #909090 
+    .store-message
+        width: 100%
+        background: #fff         
+        .store-item
+            display: flex
+            position: relative
+            width: 100%
+            height: 2.8125rem
+            align-items: center
+            justify-content: center
+            background: #fff
+            font-size: 0
+            border-bottom 1px solid #e0e0e0
+            div:first-child
+                width: 1.9375rem
+                // margin-left 0.5rem
+                img
+                    margin: 0.5313rem 0.3125rem
+                    width: 1.625rem
+                    height: 1.625rem
+            div:nth-child(2)
+                flex: 1
+                margin-left 0.3125rem
+                p:first-child
+                    color: #333
+                    font-size: fs
+                p
+                    font-size fs + 0.0313rem
+                    line-height: 0.5625rem
+                    color: #909090
+            div:last-child
+                width: 1.375rem
+                img
+                    width: 0.5rem
+                    height: 0.5rem
+        .line
+            width: 100%
+            height: 0.1563rem
+            background: #f0f0f0
+        .all-stores
+            display flex
+            justify-content space-between
+            align-items center
+            height: 1.3438rem
+            color: #333
             p
-                font-size fs - 0.0313rem
-                line-height: 0.5625rem
-                color: #909090
-        div:last-child
-            width: 1.375rem
-            img
+                font-size: fs
+                margin-left: 0.5rem
+            .more
                 width: 0.5rem
                 height: 0.5rem
-    .line
-        width: 100%
-        height: 0.1563rem
-        background: #f0f0f0
-    .all-stores
-        display flex
-        justify-content space-between
-        align-items center
-        height: 1.3438rem
-        color: #333
-        p
-            font-size: fs - 0.0625rem
-            margin-left: 0.5rem
-        .more
-            width: 0.5rem
-            height: 0.5rem
-            margin-right 0.5rem
+                margin-right 0.5rem
 </style>
 
