@@ -7,12 +7,12 @@
             <div class="personal">
                 <h2 class="name">{{data.username}}</h2>
                 <span class="mobile">{{data.phone}}</span>
-                <img class="rank" src="./rank.png">
+                <img class="rank" :src="data.levelName">
             </div>
             <img class="append" src="./images/append.png" @click="bgChange()"/>
             <img class="QRcode" src="http://dde.dgxinn.cn/dream/index.php/Api/qrcode"/>
             <p class="desc">识别二维码，加入我的梦乐城</p>
-            <img class="avatorOver" :src="data.headimg">
+            <!-- <img class="avatorOver" :src="data.headimg"> -->
         </div>
   </div>
 </template>
@@ -57,8 +57,11 @@ export default {
 @import '../../commom/stylus/mixin'
 
 .myQRcode-wrapper
-    width: 100%
-    // height: 100%
+    display flex
+    justify-content center
+    align-items center
+    width 100%
+    height 100%
     // 刷新背景
     // .bg1
     //     background-image url(http://dde.dgxinn.cn/dream/index.php/Api/code/img?v123)
@@ -78,9 +81,8 @@ export default {
         z-index 10
     .fuild-filter
         position: relative
-        margin 1.5625rem auto
-        width: 9.0625rem
-        height: 90%
+        width 9.0625rem
+        height 14.0625rem
         // background: url(http://dde.dgxinn.cn/dream/index.php/Api/code/img)
         background-repeat no-repeat
         background-size 12.1875rem 14.0625rem
@@ -98,12 +100,12 @@ export default {
         .name
             display: inline-block
             margin: 0.4688rem 0 0.1875rem 0
-            font-size: fs - 0.0313rem
+            font-size: fs + 0.0313rem
             font-weight normal
             color: #000
         .mobile
             display: block
-            font-size: fs - 0.0625rem
+            font-size: fs
             color: #909090
             margin-bottom: 0.2813rem
         .rank  
@@ -114,6 +116,8 @@ export default {
             position: absolute
             top: 0
             right: 0
+            width 1.6875rem
+            height 1.6875rem
         .QRcode
             display block
             width 6.9688rem
@@ -124,6 +128,6 @@ export default {
         .desc
             margin: 2.375rem 0 1.25rem 0
             text-align: center
-            font-size: fs - 0.0313rem
+            font-size: fs + 0.0313rem
             color: #909090
 </style>

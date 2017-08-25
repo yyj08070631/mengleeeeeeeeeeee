@@ -284,7 +284,7 @@ class1()
             overflow hidden
             // 结束
             height 0.75rem
-            margin: 0.2813rem 0.1563rem
+            margin: 0.2813rem 0.5313rem
             font-size: fs
             line-height fs + 0.0625rem
             color: #333
@@ -317,7 +317,7 @@ class2()
         display flex
         flex-direction column
         align-items center
-        margin-top: 0.7813rem
+        margin-top 1.0938rem
         float: right
         width: 50%
         p

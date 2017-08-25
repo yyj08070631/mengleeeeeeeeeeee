@@ -67,24 +67,32 @@
             
             <!-- 一个订单 -->
             <div class="orderList" v-show="mainView == 0">
-                <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
-                    <div class="rowUp">
-                        <img class="product" :src="val.mainmap" />
-                        <div class="product-message">
-                            <span class="desc">{{val.name}}</span>
-                            <p class="num">单价:￥{{num(val.price)}}</p>
-                            <p class="price">总价:￥{{num(val.total)}}</p>
+                <div class="content-item" v-for="(item,key) in orderList.orderitem">
+                    <div class="oneGood" v-for="(val,key) in item.good">
+                        <div class="rowUp">
+                            <img class="product" :src="val.mainmap" />
+                            <div class="product-message">
+                                <span class="desc">{{val.name}}</span>
+                                <p class="num">单价:￥{{num(val.price)}}</p>
+                                <!-- <p class="price">总价:￥{{num(val.total)}}</p> -->
+                            </div>
+                            <div>
+                                <span class="for-to-paid">待付款</span>
+                                <span class="orderPrice">数量：{{val.number}}</span>
+                            </div>
                         </div>
-                        <div>
-                            <span class="for-to-paid">待付款</span>
-                            <span class="orderPrice">数量：{{val.number}}</span>
+                        <div class="rowDown">
+                            <!-- 左边的按钮 -->
+                            <a href="javascript:void(0)" class="link" @click="showHideOnBlur = true; goodNowId = val.id; goodNowTotal = val.total">立即付款</a>
+                            <!-- 右边的按钮 -->
+                            <a href="javascript:void(0)" class="link" @click="cancOrder(item.id)">取消订单</a>
                         </div>
                     </div>
-                    <div class="rowDown">
-                        <!-- 左边的按钮 -->
-                        <a href="javascript:void(0)" class="link" @click="showHideOnBlur = true; goodNowId = val.id; goodNowTotal = val.total">立即付款</a>
-                        <!-- 右边的按钮 -->
-                        <a href="javascript:void(0)" class="link" @click="cancOrder(val.id)">取消订单</a>
+                    <div class="oneOrderTotal">
+                        <div class="rowRight">
+                            <p class="totalPrice">总金额：<span>{{num(item.total)}}</span></p>
+                            <p>运费：{{item.fee == 0 ? '免运费' : item.fee}}</p>
+                        </div>
                     </div>
                 </div>
                 <p v-if="orderList.orderitem.length == 0" class="noGoods">没有未支付订单哦:-D</p>
@@ -356,7 +364,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
-                // console.log(this.orderList)
+                console.log(this.orderList)
             });
             // 获取支付类型信息
             this.$http({
@@ -888,6 +896,7 @@ span, a, img, input, textarea
             height: 3.4375rem
         .content-item
             border-bottom 1px solid #e0e0e0
+            border-top 0.3125rem solid #e0e0e0
             background-color #fff
             .rowUp
                 overflow hidden
@@ -945,6 +954,26 @@ span, a, img, input, textarea
                     color #fff
                     border-radius 0.1563rem
                     background #ea6aa2
+            // 单个订单样式
+            .oneGood:not(:last-child)
+                border-bottom 1px solid #e0e0e0
+            // 订单统计
+            .oneOrderTotal
+                display flex
+                justify-content flex-end
+                align-items center
+                width 10rem
+                height 1.5625rem
+                border-top 1px solid #e0e0e0
+                font-size fs - 0.0313rem
+                .rowRight
+                    margin-right 0.5rem
+                    .totalPrice
+                        display flex
+                        span
+                            color #ea68a2
+                    p:not(:first-child)
+                        margin-top 0.1563rem
     // 脚部
     .foot
         display flex

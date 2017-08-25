@@ -33,7 +33,7 @@
                 <div class="line"></div>
             </div>
         </section>
-        <!-- 遮罩：选择充值金额 -->
+        <!-- 遮罩：填写评论 -->
         <div v-transfer-dom>
             <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                 <div class="txtArea">
@@ -126,15 +126,17 @@ export default {
                     font-size fs
                     color #555
                 .textContent
-                    width 100%
+                    width 7.9688rem
                     height 5.3125rem
+                    padding 0.1563rem
                     font-size fs + 0.0313rem
-                    border 0
+                    border 1px solid #e0e0e0
+                    border-radius 0.0938rem
                     outline 0
                     resize none
                 .btnCont
                     display flex
-                    margin 1rem 0 0.4688rem 0
+                    margin 0.4688rem 0
                     .inSubmit
                         display flex
                         justify-content center

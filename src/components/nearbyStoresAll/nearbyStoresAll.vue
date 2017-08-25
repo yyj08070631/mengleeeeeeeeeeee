@@ -2,6 +2,10 @@
     <div class="store-wrapper">
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
+        <!-- 高德地图定位 -->
+        <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
+        </el-amap>
+        <!-- 一条信息 -->
         <div class="store-message">
             <div href="javascript:void(0)" class="store-computed border-bottom-1px">
                 <span class="computed">所有项目实体店</span>
@@ -35,7 +39,8 @@ export default {
     },
     data() {
         return {
-            data: []
+            data: [],
+            gaodeData: this.gaode()
         }
     },
     created () {
@@ -54,12 +59,54 @@ export default {
                 this.data = res.nearbyitem
                 // console.log(this.data)
             });
+        },
+        // 获取高德地图定位
+        gaode() {
+            let self = this;
+            let obj = {
+                center: [121.59996, 31.197646],
+                lng: 0,
+                lat: 0,
+                loaded: false,
+                plugin: [{
+                    pName: 'Geolocation',
+                    events: {
+                        init(o) {
+                            let arr = [];
+                            // o 是高德地图定位插件实例
+                            o.getCurrentPosition((status, result) => {
+                                if (result && result.position) {
+                                    self.lng = result.position.lng;
+                                    self.lat = result.position.lat;
+                                    self.center = [self.lng, self.lat];
+                                    self.loaded = true;
+                                    self.$nextTick();
+                                    // 传坐标到后台
+                                    self.$http({
+                                        method: 'get',
+                                        url: global.Domain + '/nearby/nelist?local=' + self.lng + ',' + self.lat,
+                                        emulateJSON: true
+                                    }).then(function (response) {
+                                        let res = response.body;
+                                        console.log(res);
+                                    });
+                                }
+                                // console.log(self.lng, self.lat);
+                            });
+                        }
+                    }
+                }]
+            };
+            // console.log(obj);
+            return obj
         }
     },
 }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 @import '../../commom/stylus/mixin'
+    .el-vue-amap-container
+        display none
     .store-wrapper
         position: absolute
         left: 0
@@ -85,13 +132,13 @@ export default {
             margin: 0 0 0 0.5625rem
             height: 0.4375rem
             border-left: 0.0938rem solid #909090
-            font-size: fs - 0.0313rem
+            font-size: fs + 0.0313rem
             font-weight: bold
             text-indent: 0.1875rem
             color: #909090 
     .store-message
         width: 100%
-        background: #fff         
+        background: #fff
         .store-item
             display: flex
             position: relative
@@ -105,17 +152,18 @@ export default {
             border-bottom 1px solid #e0e0e0
             div:first-child
                 width: 1.9375rem
+                margin-right 0.3125rem
                 img
-                    margin: 0.5313rem 0.3125rem 0.5313rem 0
-                    width: 1.625rem
-                    height: 1.625rem
+                    margin: 0.5313rem 0 0.5313rem 0
+                    width: 1.875rem
+                    height: 1.875rem
             div:nth-child(2)
-                flex: 1
+                width 6.375rem
                 p:first-child    
                     color: #333 
-                    font-size: fs - 0.0625rem
+                    font-size: fs
                 p
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0313rem
                     line-height: 0.5625rem
                     color: #909090
             div:last-child

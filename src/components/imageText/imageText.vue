@@ -9,18 +9,18 @@
                 <!-- {{ | unescape}} -->
             </div>
         </div>
-        <footer class="myFooter">
+        <!-- <footer class="myFooter">
 			<a href="javascript:void(0)">
 				<img src="./share.png">
 				<p>分享</p>
 			</a>
 			<a href="javascript:void(0)">
-				<img src="./collect.png"ref="menuItem" @click="changSrc()">
+				<img src="./collect.png" ref="menuItem" @click="changSrc()">
 				<p>加入收藏</p>
 			</a>
 			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
 			<router-link to="/buyGoods">立即购买</router-link>
-		</footer>
+		</footer> -->
         <div class="goodsCart-wrapper" v-show="showCart">
 			<div class="addCart-container">
 				<div class="goodsInfo">

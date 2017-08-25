@@ -138,12 +138,12 @@ export default {
         .imgBox
             display flex
             align-items center
-            width 0.5rem
-            height 0.5rem
+            width 0.6rem
+            height 0.6rem
             padding 0.25rem
             img
-                width 0.5rem
-                height 0.5rem
+                width 0.6rem
+                height 0.6rem
         .inputBox
             display flex
             align-items center
@@ -155,16 +155,17 @@ export default {
                 outline 0
                 text-indent 0.4375rem
         .cancelBox
-            padding 0.25rem 0.01rem
+            display flex
+            justify-content center
+            align-items center
+            width 0.375rem
+            height 0.375rem
+            margin 0.25rem
+            border-radius 50%
+            background-color #e0e0e0
             span
-                display flex
-                justify-content center
-                width 0.375rem
-                height 0.375rem
-                border-radius 50%
-                background-color #e0e0e0
+                margin-top -0.0781rem
                 font-size fs
-                line-height 0.3125rem
                 color #fff
     .searchBtn
         display flex

@@ -19,12 +19,14 @@
                 </router-link>
                 <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'gid'"></mySwiper>
                 <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'aid'"></mySwiper>
+                <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'nid'"></mySwiper>
                 <router-link to="/home" v-else-if="val.linkType == 'app'">
                     <img :src="val.product.src" class="singleImg">
                 </router-link>
                 <!-- 每个图片区的 footer -->
                 <a class="more-goods" href="#goods" v-if="val.product.length != 0 && (val.groupId == 'newitem' || val.groupId == 'recommitem')">查看更多商品</a>
                 <a class="more-goods" href="#myCollect" v-else-if="val.product.length != 0 && val.groupId == 'sgooditem'">查看更多收藏</a>
+                <a class="more-goods" href="#nearbyStoresAll" v-else-if="val.product.length != 0 && val.groupId == 'smallitem'">查看更多活动</a>
             </div>
             <!-- 查看更多活动 -->
             <!-- <a class="more-activity" href="#nearbyStoresAll">查看更多活动</a> -->
@@ -63,9 +65,10 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                // console.log(res)
+                console.log(res)
                 // console.log(response)
                 for (var key in res) {
+                    // banner
                     if (res[key].banner) {
                         result.push({
                             groupId: key,
@@ -81,6 +84,7 @@ export default {
                                 return arr
                             })()
                         });
+                    // 商品列表
                     } else if (res[key].good) {
                         result.push({
                             groupId: key,
@@ -100,6 +104,7 @@ export default {
                                 return arr
                             })()
                         });
+                    // appitem
                     } else if (res[key].src) {
                         result.push({
                             groupId: key,
@@ -108,6 +113,30 @@ export default {
                             product: {
                                 src: res[key].src
                             }
+                        });
+                    // smallitem
+                    } else if (res[key].small) {
+                        result.push({
+                            groupId: key,
+                            linkType: 'nid',
+                            name: res[key].title,
+                            product: (function () {
+                                let arr = [];
+                                for (let i = 0; i < res[key].small.length; i++) {
+                                    arr.push({
+                                        id: res[key].small[i].id,
+                                        src: res[key].small[i].src,
+                                        name: res[key].small[i].name,
+                                        price: res[key].small[i].price,
+                                        address: res[key].small[i].address,
+                                        day_time: res[key].small[i].day_time,
+                                        nid: res[key].small[i].nid,
+                                        sname: res[key].small[i].sname
+                                    });
+                                }
+                                // console.log(arr);
+                                return arr
+                            })()
                         });
                     } else if (res[key].copyright) {
                         console.log('获取了一个copyright！');

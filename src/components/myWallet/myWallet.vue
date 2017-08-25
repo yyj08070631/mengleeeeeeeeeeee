@@ -280,15 +280,15 @@ img, span, a
     width 2.4063rem
     margin-right 0.4375rem
     margin-bottom 0.4063rem
-    border .0313rem solid #ff8b00
+    border .0313rem solid #ea68a2
     font-size fs + 0.0625rem
-    color #d54600
+    color #333
     background-color #fff
 .noMargin
     margin-right 0 !important
 .valueSel
     color #fff
-    background-color #ff8b00
+    background-color #ea68a2
 .weui-dialog
     max-width none !important
     width auto !important
@@ -308,7 +308,7 @@ img, span, a
                 width 8rem
                 height 1.2813rem
                 padding-right 0.2813rem
-                border 1px solid #ff8b00
+                border 1px solid #ea68a2
                 font-size fs + 0.0313rem
                 text-align right
                 outline 0

@@ -85,11 +85,11 @@ export default {
                                     // 传坐标到后台
                                     self.$http({
                                         method: 'get',
-                                        url: global.Domain + '/nearby/nearby?lng=' + self.lng + 'lat=' + self.lat,
+                                        url: global.Domain + '/nearby/nearby?local=' + self.lng + ',' + self.lat,
                                         emulateJSON: true
                                     }).then(function (response) {
                                         let res = response.body;
-                                        // console.log(res);
+                                        console.log(res);
                                     });
                                 }
                                 // console.log(self.lng, self.lat);

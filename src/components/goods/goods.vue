@@ -74,7 +74,7 @@ export default {
             locData: [],
             gaodeData: this.gaode(),
             coordinate: [],
-            msg:''//搜索组件接受参数
+            msg: ''//搜索组件接受参数
         }
     },
     created() {
@@ -88,7 +88,7 @@ export default {
                 method: 'get',
                 url: global.Domain + '/cate/category',
                 emulateJSON: true
-            }).then(function (response) {
+            }).then(function(response) {
                 let res = response.body;
                 // console.log(res);
                 this.data = res
@@ -120,10 +120,11 @@ export default {
                                         method: 'get',
                                         url: global.Domain + '/nearby/catenear?local=' + self.lng + ',' + self.lat,
                                         emulateJSON: true
-                                    }).then(function (response) {
+                                    }).then(function(response) {
                                         let res = response.body;
-                                        console.log(res);
-                                        this.locData = res.nearbyitem;
+                                        // console.log(res);
+                                        self.locData = res.nearbyitem;
+                                        // console.log(self.locData);
                                     });
                                 }
                                 // console.log(self.lng, self.lat);
@@ -136,10 +137,10 @@ export default {
             return obj
         },
         getSearchResult(msg) {
-                this.msg = msg;
-                console.log("搜索结果：");
-                console.log(this.msg)
-            }
+            this.msg = msg;
+            console.log("搜索结果：");
+            console.log(this.msg)
+        }
     },
 }
 </script>
@@ -263,12 +264,12 @@ export default {
                     display flex
                     align-items center
                     height 3.7813rem
-                    padding 0.0625rem 0
+                    padding 0.1563rem 0
                     img
                         display block
                         margin-right 0.9375rem
                         width 4.625rem
-                        height 3.125rem
+                        height 3.5938rem
                     div
                         height 100%
                         text-align justify

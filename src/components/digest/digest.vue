@@ -234,6 +234,7 @@ img, span, a
     margin-bottom: 1.3438rem
     width: 100%
     height: 100%
+    background-color #fff
     .divider
         border-top 1px solid #e0e0e0
     .dividerShort

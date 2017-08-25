@@ -1,8 +1,8 @@
 <template>
-	<div class="collect-wrapper" ref="srcoll" >
+	<div class="collect-wrapper" ref="srcoll">
 		<!--  v-infinite-scroll="loadDetail"  infinite-scroll-distance="10"-->
 		<!-- 头部 -->
-        <!-- <v-header></v-header> -->
+		<!-- <v-header></v-header> -->
 		<!--图片轮播-->
 		<div class="imgShow ifNoImg" v-if="detailItemList.albumitem.length == 0">该商品没有图片:-D</div>
 		<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-else-if="detailItemList.albumitem.length == 1">
@@ -85,9 +85,9 @@
 				<span @click="addComMore">{{comNode}}</span>
 			</div>
 		</div>
-		
+
 		<!--超粗分割线-->
-		
+
 		<div class="showImageText" v-if="imageTextList!=''" v-html="unescape(imageTextList.imageitem.content)"></div>
 		<!--继续拖动，查看图文详情-->
 		<!-- <div class="dragHelp" v-show="noDragToView"></div> -->
@@ -176,12 +176,12 @@
 		<div>
 			<toast v-model="off" type="text">已取消收藏</toast>
 		</div>
-        <div>
-            <toast v-model="failedToCol" type="text">收藏失败</toast>
-        </div>
-        <div>
-            <toast v-model="failedToCancCol" type="text">取消收藏失败</toast>
-        </div>
+		<div>
+			<toast v-model="failedToCol" type="text">收藏失败</toast>
+		</div>
+		<div>
+			<toast v-model="failedToCancCol" type="text">取消收藏失败</toast>
+		</div>
 		<div>
 			<toast v-model="success" type="text">添加成功</toast>
 		</div>
@@ -189,14 +189,14 @@
 			<toast v-model="error" type="text">添加失败</toast>
 		</div>
 		<alert v-model="showShareTab" title="分享">
-            <button class="btn1" @click="onHide();todoShare()">确认分享</button>
-            <button class="btn2" @click="onHide();clearText()">取消</button>
-            <img :src="detailItemList.albumitem[0].src">
+			<button class="btn1" @click="onHide();todoShare()">确认分享</button>
+			<button class="btn2" @click="onHide();clearText()">取消</button>
+			<img :src="detailItemList.albumitem[0].src">
 			<div class="share-cxt">
 				<input type="text" placeholder="请输入标题" :value="shareVal">
-				<p>{{windowUrl}}</p>				
+				<p>{{windowUrl}}</p>
 			</div>
-        </alert>
+		</alert>
 	</div>
 </template>
  <script type="ecmascript-6">
@@ -233,18 +233,18 @@ export default {
 			shareVal: '',
 			imageTextList: [],//图文详情信息
 			swiperOption: {
-                notNextTick: true,
-                autoplay: 3000,
-                loop : true,
-                paginationType: "bullets",
-                pagination: '.swiper-pagination',
-				autoplayDisableOnInteraction : false,
-                paginationBulletRender: function (swiper, index, className) {
-                    // console.log(swiper.bullets ? swiper.bullets.length : 0);
-                    let width = ( isFinite(100/(parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100/(parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100 ) + '%';
-                    // console.log(width);
-                    return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
-                }
+				notNextTick: true,
+				autoplay: 3000,
+				loop: true,
+				paginationType: "bullets",
+				pagination: '.swiper-pagination',
+				autoplayDisableOnInteraction: false,
+				paginationBulletRender: function(swiper, index, className) {
+					// console.log(swiper.bullets ? swiper.bullets.length : 0);
+					let width = (isFinite(100 / (parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100 / (parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100) + '%';
+					// console.log(width);
+					return '<span class="' + className + '"' + 'style="width:' + width + '"' + '></span>';
+				}
 			},
 			noDragToView: true
 		}
@@ -255,71 +255,71 @@ export default {
 			this.bannerIndex = index
 		},
 		//收藏按钮
-		collectGood: function (id, colid, iscol) {
+		collectGood: function(id, colid, iscol) {
 			let file = require('./images/collect.png');
 			let file2 = require('./images/collect-active.png');
 			let obj = this.$refs.menuItem
-            let col = ( iscol == 1 ? 'colid=' + colid : 'gid=' + id ) // colid or gid
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&' + col + '&type=1',
-                emulateJSON: true
-            }).then(function (response) {
-                let res = response.body
-                // console.log(res)
-                if (res == 1) {
-                    if (iscol == 1) {
-                        this.failedToCancCol = false;
-                        this.failedToCol = false;
-                        this.on = false;
-                        this.off = false;
-                        this.off = true;
+			let col = (iscol == 1 ? 'colid=' + colid : 'gid=' + id) // colid or gid
+			this.$http({
+				method: 'get',
+				url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&' + col + '&type=1',
+				emulateJSON: true
+			}).then(function(response) {
+				let res = response.body
+				// console.log(res)
+				if (res == 1) {
+					if (iscol == 1) {
+						this.failedToCancCol = false;
+						this.failedToCol = false;
+						this.on = false;
+						this.off = false;
+						this.off = true;
 						obj.src = file
-                    } else {
-                        this.failedToCancCol = false;
-                        this.failedToCol = false;
-                        this.off = false;
-                        this.on = false;
-                        this.on = true;
+					} else {
+						this.failedToCancCol = false;
+						this.failedToCol = false;
+						this.off = false;
+						this.on = false;
+						this.on = true;
 						obj.src = file2
-                    }
-                    this.getDataFromBackend()
-                } else {
-                    if (iscol == 1) {
-                        this.off = false;
-                        this.on = false;
-                        this.failedToCancCol = false;
-                        this.failedToCol = false;
-                        this.failedToCol = true
-                    } else {
-                        this.off = false;
-                        this.on = false;
-                        this.failedToCol = false;
-                        this.failedToCancCol = false;
-                        this.failedToCancCol = true
-                    }
-                }
-            })
+					}
+					this.getDataFromBackend()
+				} else {
+					if (iscol == 1) {
+						this.off = false;
+						this.on = false;
+						this.failedToCancCol = false;
+						this.failedToCol = false;
+						this.failedToCol = true
+					} else {
+						this.off = false;
+						this.on = false;
+						this.failedToCol = false;
+						this.failedToCancCol = false;
+						this.failedToCancCol = true
+					}
+				}
+			})
 		},
 		// 获取数据
-		getDataFromBackend: function () {
+		getDataFromBackend: function() {
 			this.$http({
 				method: 'get',
 				url: global.Domain + '/Cate/detail?gid=' + this.$route.query.gid,
 				emulateJSON: true
-			}).then(function (response) {
+			}).then(function(response) {
 				this.detailItemList = response.body
 				// console.log('--------------------'+this.$route.query.gid)
 				console.log(this.detailItemList)
 			})
 		},
 		// 获取更多评论
-		getMomMore: function () {
+		getMomMore: function() {
 			this.$http({
 				method: 'get',
 				url: global.Domain + '/Cate/commore?para=' + this.para + '&gid=' + this.$route.query.gid,
 				emulateJSON: true
-			}).then(function (response) {
+			}).then(function(response) {
 				let moreComMore = response.body;
 				console.log(moreComMore);
 				if (moreComMore == 'err') {
@@ -335,12 +335,12 @@ export default {
 			})
 		},
 		// 添加评论
-		addComMore: function () {
+		addComMore: function() {
 			this.para++
 			this.getMomMore()
 		},
 		//显示购物车
-		showCartFn: function () {
+		showCartFn: function() {
 			if (this.showCart == false) {
 				this.showCart = true
 			} else {
@@ -348,15 +348,15 @@ export default {
 			}
 		},
 		// 隐藏购物车
-		closeCart: function () {
+		closeCart: function() {
 			this.showCart = false
 		},
 		// 数量++
-		numPlus: function () {
+		numPlus: function() {
 			this.number++
 		},
 		// 数量--
-		numSub: function () {
+		numSub: function() {
 			if (this.number == 1) {
 				this.number = 1
 			} else {
@@ -364,7 +364,7 @@ export default {
 			}
 		},
 		//添加到购物车
-		addCartList: function () {
+		addCartList: function() {
 			this.$http.post(
 				global.Domain + '/Order/addcart',
 				{
@@ -384,88 +384,90 @@ export default {
 			this.closeCart()
 		},
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		scrollFun: function(){
-			   let it = this
-               var i = 0; // 分页值，用于select记录时给limit赋值
+		scrollFun: function() {
+			let it = this
+			var i = 0; // 分页值，用于select记录时给limit赋值
 
-			   var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
+			var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
 			//    (containerHeight)
-	　　　　　　var distance =  window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
-				// console.log("这是scrollTop"+distance)
-				// console.log(containerHeight)
-                if (distance >= containerHeight -100) {
-						this.dragToView = true
-						let startY = 0;
-						let endY = 0;
-						this.$refs.moveTab.addEventListener("touchstart", function(e) {
-							e.preventDefault();
-							startY = e.touches[0].pageY
-							// console.log(startY+ "It is in here!")
-										});
-						this.$refs.moveTab.addEventListener("touchmove", function(e) {
-							e.preventDefault();
-							endY = e.touches[0].pageY
-						});
-						this.$refs.moveTab.addEventListener("touchend", function(e) {
-							if(endY - startY < -200){
-								it.showLoading = true
-								it.hideLoading = false
-								setTimeout(function(){
-									it.showImageDataList()
-								},1000)
-								
-							}else{
-								distance = distance - 200 
-							}
-						});
-				
-	            }
+			var distance = window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
+			// console.log("这是scrollTop"+distance)
+			// console.log(containerHeight)
+			if (distance >= containerHeight - 100) {
+				this.dragToView = true
+				let startY = 0;
+				let endY = 0;
+				this.$refs.moveTab.addEventListener("touchstart", function(e) {
+					e.preventDefault();
+					startY = e.touches[0].pageY
+					// console.log(startY+ "It is in here!")
+				});
+				this.$refs.moveTab.addEventListener("touchmove", function(e) {
+					e.preventDefault();
+					endY = e.touches[0].pageY
+				});
+				this.$refs.moveTab.addEventListener("touchend", function(e) {
+					if (endY - startY < -200) {
+						it.showLoading = true
+						it.hideLoading = false
+						setTimeout(function() {
+							it.showImageDataList()
+						}, 1000)
+
+					} else {
+						distance = distance - 200
+					}
+				});
+
+			}
 		},
-		showImageDataList: function(){
+		showImageDataList: function() {
 			this.dragToView = false
-			   let it = this
-			   var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
+			let it = this
+			var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
 			//    (containerHeight)
-	　　　　　　var distance =  window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
-				console.log("这是scrollTop"+distance)
-				console.log(containerHeight)
+			var distance = window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
+			console.log("这是scrollTop" + distance)
+			console.log(containerHeight)
 
-                if (distance >= containerHeight) {
-						it.getImageTextData()   
-						if(it.imageTextList != ''){
-							containerHeight = containerHeight-100
-						}
-	            }
+			if (distance >= containerHeight) {
+				it.getImageTextData()
+				if (it.imageTextList != '') {
+					containerHeight = containerHeight - 100
+				}
+			}
 		},
 		// 分享链接
-		 getShareFn: function(){
+		getShareFn: function() {
+			const urlNow = document.location.href;// 当前url
+			// const urlNow = encodeURIComponent(location.href.split('#')[0]);// 当前url
+			console.log(urlNow);
 			this.$http({
 				method: 'get',
-				url: global.Domain + '/Index/sign',
+				url: global.Domain + '/Index/sign?url=' + urlNow,
 				emulateJSON: true
-			}).then(function (response) {
+			}).then(function(response) {
 				let data = response.body
 				this.$wechat.config({
 					debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
 					appId: data.sdkitem.appId, // 必填，公众号的唯一标识
 					timestamp: data.sdkitem.timestamp, // 必填，生成签名的时间戳
-					nonceStr: data.sdkitem.signature, // 必填，生成签名的随机串data.sdkitem.nonceStr
+					nonceStr: data.sdkitem.nonceStr, // 必填，生成签名的随机串data.sdkitem.nonceStr
 					signature: data.sdkitem.signature,// 必填，签名，见附录1
 					jsApiList: [
 						"onMenuShareTimeline",
 						"onMenuShareAppMessage"
 					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-				});  
-				
-				this.$wechat.error(function (res) {
+				});
+				this.$wechat.error(function(res) {
 					console.log("error");
-                	console.log(res);
-					});     
-				console.log("||||||");		   
-				console.log(data)  
+					console.log(res);
+				});
+				console.log("-----------------------------------");
+				console.log(data)
 			})
 		},
-		todoShare: function(){
+		todoShare: function() {
 			this.getShareFn()
 			console.log("exe")
 			let that = this.$wechat
@@ -473,7 +475,7 @@ export default {
 				console.log(that.onMenuShareAppMessage)
 				that.onMenuShareAppMessage({
 					title: "这是分享给朋友标题",
-					desc:"这是分享给朋友描述",
+					desc: "这是分享给朋友描述",
 					link: 'http://dde.dgxinn.cn',
 					imgUrl: "http://dde.dgxinn.cn/dream/Public/Uploads/good/2017-08-15/good_59928c71cc8dd9.98067847.jpg",
 					trigger: function(res) {
@@ -486,74 +488,73 @@ export default {
 						console.log("分享失败")
 					},
 					fail: function(res) {
-						
+
 					}
 				});
-				// that.onMenuShareTimeline({
-				// 	title: "document.title",
-				// 	link: "link",
-				// 	imgUrl: "Imgurl",
-				// 	trigger: function(res) {},
-				// 	success: function(res) {},
-				// 	cancel: function(res) {},
-				// 	fail: function(res) {}
-				// });
-				
+				that.onMenuShareTimeline({
+					title: "document.title",
+					link: "link",
+					imgUrl: "Imgurl",
+					trigger: function(res) { },
+					success: function(res) { },
+					cancel: function(res) { },
+					fail: function(res) { }
+				});
 			});
 		},
 		//获取图文信息
 		getImageTextData: function() {
 			this.$http({
 				method: 'get',
-				url: global.Domain + '/Cate/image?gid='+this.$route.query.gid,
+				url: global.Domain + '/Cate/image?gid=' + this.$route.query.gid,
 				emulateJSON: true
-			}).then(function (response) {
+			}).then(function(response) {
 				this.imageTextList = response.body
 				this.showLoading = false
 				//console.log(this.imageTextList)                  
 			})
 		},
 		// 在session中存入下单商品列表，然后跳转到下单页面
-		goodsToSession: function(){
+		goodsToSession: function() {
 			sessionStorage.setItem('list', JSON.stringify([{ gid: this.detailItemList.gooditem.id, number: this.numBuy }]));
 			// console.log(JSON.parse(sessionStorage.getItem('list')));
 			this.$router.push({ path: '/buyGoods', query: { from: 'goodDetail' } });
 		},
-		 onShow: function () {
-            this.showShareTab = true
-        },
-        onHide: function () {
-            this.showShareTab = false
-        },
-		clearText: function(){
+		onShow: function() {
+			this.showShareTab = true
+		},
+		onHide: function() {
+			this.showShareTab = false
+		},
+		clearText: function() {
 			this.shareVal = "";
 		},
-		unescape : function (html) {
-            return html
-            .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
-            .replace(/&lt;/g, "<")
-            .replace(/&gt;/g, ">")
-            .replace(/&quot;/g, "\"")
-            .replace(/&#39;/g, "\'");
-        },
+		unescape: function(html) {
+			return html
+				.replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+				.replace(/&lt;/g, "<")
+				.replace(/&gt;/g, ">")
+				.replace(/&quot;/g, "\"")
+				.replace(/&#39;/g, "\'");
+		},
 	},
 	mounted() {
 		var it = this
 		var fun = null//存储滚动函数
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			this.getDataFromBackend()
-			
-			window.addEventListener('scroll', function(){
-				if(it.$route.path == '/goodDetail'){
+
+			window.addEventListener('scroll', function() {
+				if (it.$route.path == '/goodDetail') {
 					fun = it.scrollFun()
-				}else{
+				} else {
 					fun = null
 				}
 			})
 		})
 	},
 	watch: {
-		numBuy: function (val) {
+		numBuy: function(val) {
 			if (this.numBuy < 1 || typeof (this.numBuy) != 'number') {
 				this.numBuy = 1
 			}
@@ -906,7 +907,7 @@ export default {
 				width 100%
 				height 2.8438rem
 				border-bottom 1px solid #e0e0e0
-				font-size fs - 0.0625rem
+				font-size fs
 				div:first-child
 					position relative
 					width 2.9688rem
@@ -931,7 +932,7 @@ export default {
 						margin-top 0.2813rem
 						line-height 0.9375rem
 						text-indent 0.4688rem	
-						color #ea6aa2
+						color #333
 					span:last-child	
 						line-height 0.9375rem	
 						text-indent 0.4688rem
@@ -945,7 +946,7 @@ export default {
 				width 100%
 				height 2rem
 				line-height 2rem
-				font-size fs - 0.0313rem
+				font-size fs + 0.0313rem
 				span
 					flex 1
 					margin-left 0.3438rem
@@ -960,6 +961,7 @@ export default {
 						width 0.6875rem
 					input 
 						width 0.6875rem	
+						font-size fs
 						text-align center
 						border-left 0.0313rem solid #d6d6d6
 						border-right 0.0313rem solid #d6d6d6
@@ -969,9 +971,9 @@ export default {
 				align-items center
 				width 10rem
 				height 1.25rem
-				font-size fs - 0.0156rem
+				font-size fs + 0.0469rem
 				color #fff
-				background #fe9333
+				background #ea68a2
 			.buyNow
 				background-color #ea6aa2 !important
 	.showImageText
