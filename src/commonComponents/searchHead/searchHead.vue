@@ -2,9 +2,12 @@
     <header class="searchHead">
         <div class="outElem">
                 <div class="inputBox">
-                    <input type="text" placeholder="请输入商品关键字" v-model="resultMsg" @keyup.enter="toDoSearch" @keyup.delete ="clearInputNodes();open()">
+                    <input type="text" placeholder="请输入商品关键字" v-model="$route.path=='/searchResult'?$route.query.data:resultMsg" @keyup.enter="$route.path != '/searchResult'?toDoSearch():getSearchData2()" @keyup.delete ="clearInputNodes();open()" ref="val">
                 </div>
-                <div class="cancelBox" v-show="resultMsg != ''" @click="clearMsg();open()">
+                <div class="cancelBox" v-show="resultMsg !=''" @click="clearMsg();open();">
+                    <span>×</span>
+                </div>
+                <div class="cancelBox" v-show="showKey" @click="clearMsg();open();">
                     <span>×</span>
                 </div>
                 <div class="imgBox" @click="toDoSearch()">
@@ -16,71 +19,98 @@
 </template>
 <script type="ecmascript-6">
 export default {
+    props:['static'],
     data() {
         return {
             resultMsg: "",
             resultDataList: [],
             searchData: '',
+            showKey: false,
+            static: this.static
         }
     },
     methods: {
         //获取搜索结果
         toDoSearch: function(){
-             this.$http.post(
-                            global.Domain + '/index/search',
-                            {
-                                content: this.resultMsg,
-                            },
-                            {
-                                emulateJSON:true
-                            }).then(response=>{
-                                let data = response.body;
-                                this.resultDataList = data
-                                console.log("返回的结果：")
-                                console.log(this.resultDataList)
-                                //1:)得到结果
-                                //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
-                                //3:)再调用open函数的时候带过去的参数就不是空的了
-                                this.open()
-                        })
-            if(this.$route.path != '/searchResult'){
-                 
-                   
-                this.$router.push('searchResult?'+this.resultMsg)
-                console.log(this.$route.path)
+                this.$router.push('searchResult?data='+this.resultMsg)
+                // console.log(this.$route.path)
+                // console.log(this.$route.query.data)
+                this.getSearchData()
+        },
+        getSearchData2: function(){
+
                 this.$http.post(
                     global.Domain + '/index/search',
                     {
-                        content: this.resultMsg,
+                        content: this.$refs.val.value,
+                    },
+                    {
+                        emulateJSON:true
+                    }).then(response=>{
+                        this.showKey = true
+                        let data = response.body;
+                        this.resultDataList = data
+                        //1:)得到结果
+                        //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
+                        //3:)再调用open函数的时候带过去的参数就不是空的了
+                        this.open()
+                })
+
+            
+        },
+        getSearchData: function(){
+            console.log(this.static)
+            this.showKey = true
+            this.searchData = this.$refs.val.value
+            if(this.$route.path == '/searchResult'){
+                this.$http.post(
+                    global.Domain + '/index/search',
+                    {
+                        content: this.$refs.val.value,
+                        static: this.static
                     },
                     {
                         emulateJSON:true
                     }).then(response=>{
                         let data = response.body;
                         this.resultDataList = data
-                        console.log("返回的结果：")
-                        console.log(this.resultDataList)
+                        // console.log("返回的结果：")
+                        // console.log(this.resultDataList)
                         //1:)得到结果
                         //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
                         //3:)再调用open函数的时候带过去的参数就不是空的了
                         this.open()
                 })
-                   
             }
-           
         },
         clearMsg: function(){
-            this.resultMsg = '';
             this.resultDataList = '';
+            this.$refs.val.value = ''
+
         },
         open: function() {
-        this.$emit('getSearchResult',this.resultDataList); //触发showbox方法，'the msg'为向父组件传递的数据
+            this.$emit('getSearchResult',[this.resultDataList,this.$refs.val.value,this.static]); //触发showbox方法，'the msg'为向父组件传递的数据
+        },
+        upDateKey: function(){
+            this.$emit('key',this.$refs.val.value);
         },
         clearInputNodes: function(){
-        if(this.resultMsg == '')
-            this.resultDataList = '';
+                 this.resultDataList = '';
+            },
+        cal: function(){
+            if(this.$refs.val.value != ''){
+                this.showKey = true
+            }
         }
     },
+    mounted(){
+        this.$nextTick(function () {
+            this.getSearchData()
+            this.autoSearch()
+            this.cal()
+            this.getSearchData()
+        })
+    }
      
 }
 </script>

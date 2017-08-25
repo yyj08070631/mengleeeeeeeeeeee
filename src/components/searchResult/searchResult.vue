@@ -2,7 +2,7 @@
     <div class="goodsClassify-wrapper"  ref="box">
         <!-- header -->
         <!-- <v-header></v-header> -->
-        <v-search-head  @getSearchResult="getSearchResult" :msg="msg"></v-search-head>
+        <v-search-head  @getSearchResult="getSearchResult" :msg="msg" :static="static"></v-search-head>
         <div class="screenWrapper">
             <div class="select-type">
             <a href="javascript:" @click="showList" class="screen">筛选</a>
@@ -31,8 +31,8 @@
             </a>
         </div>
         <!-- 商品列表容器 -->
-        <div class="good-wrapper" v-show="msg !=''">
-            <div :class="changeStyle" v-for="(item,key) in msg.gooditem">
+        <div class="good-wrapper" v-show="msg != ''">
+            <div :class="changeStyle" v-for="(item,key) in (msg ==''?msg[0]:msg[0].gooditem)">
                 <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
                 <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
                     <img class="goodsMsg" :src="item.mainmap" />
@@ -68,7 +68,6 @@ import { Toast, Group } from 'vux'
 export default {
     data() {
         return {
-            now: this.$route.query.static,
             changeStyle: 'goods-item1',
             test1: true,//排序三种状态
             test2: true,
@@ -86,7 +85,8 @@ export default {
             failedToCol: false,
             failedToCancCol: false,
             seachResult: [],
-            msg: ''
+            msg: [],
+            static: 1
         }
     },
     props: ['id'],
@@ -119,12 +119,16 @@ export default {
         },
         // 收藏商品
         collectGood: function (id,colid,iscol) {
+            console.log(id)
+             console.log(colid)
+              console.log(iscol)
             let collect = require('./collect.png');
             let collected = require('./collect-active.png');
             let col=(iscol == 1?'colid='+colid:'gid='+id)//colid or gid
+            console.log()
             this.$http({
                 method: 'get',
-                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&'+col+ '&type=1',
+                url: global.Domain + '/index/search?iscol=' + (iscol == 1 ? 0 : 1) + '&'+col+ '&type=1',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
@@ -143,7 +147,7 @@ export default {
                         this.on = false;
                         this.on = true
                     }
-                    this.getDataFromBackend()
+    
                 } else {
                     if (iscol == 1) {
                         this.off = false;
@@ -164,38 +168,40 @@ export default {
         changeActive() {
             if (this.test1 == true) {
                 this.test1 = false
-                this.now = 1
+                this.static = 1
             } else {
                 this.test1 = true
-                this.now = 2
+                this.static = 2
             }
             this.totalId()
-            this.getDataFromBackend()
+            this.getSearchData()
         },
         changeActive1() {
             if (this.test2 == true) {
                 this.test2 = false
-                this.now = 3
+                this.static = 3
             } else {
                 this.test2 = true
-                this.now = 4
+                this.static = 4
             }
             this.totalId()
-            this.getDataFromBackend()
+            // this.getSearchData()
+            this.getSearchData()
         },
         changeActive2() {
             if (this.test3 == true) {
                 this.test3 = false
-                this.now = 5
+                this.static = 5
             } else {
                 this.test3 = true
-                this.now = 6
+                this.static = 6
             }
             this.totalId()
-            this.getDataFromBackend()
+            this.getSearchData()
         },
         totalId() {
-            switch (this.now) {
+            //console.log(this.static)
+            switch (this.static) {
                 case 1:
                     this.$refs.sort1.getElementsByTagName('img')[0].src = require('./arrow_down.png');
                     this.$refs.sort2.getElementsByTagName('img')[0].src = require('./arrow_none.png');
@@ -229,11 +235,31 @@ export default {
             }
         },
         // 从后台获取数据
+        getSearchData: function(){
+                this.$http.post(
+                    global.Domain + '/index/search',
+                    {
+                        content: this.msg == ''?'':this.msg[1],
+                        static: this.static
+                    },
+                    {
+                        emulateJSON:true
+                    }).then(response=>{
+                        let data = response.body;
+                        this.msg[0] = data
+                        //1:)得到结果
+                        //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
+                        //3:)再调用open函数的时候带过去的参数就不是空的
+                        
+                })
+
+            
+        },
         getSearchResult(msg) {
                 this.msg = msg;
                 console.log("搜索结果：");
                 console.log(this.msg)
-            }
+            }, 
     },
     mounted() {
     }
