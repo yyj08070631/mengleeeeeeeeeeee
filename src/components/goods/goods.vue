@@ -3,7 +3,7 @@
         <!--  v-title data-title="商品分类" -->
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
-        <v-search-head></v-search-head>
+        <v-search-head @getSearchResult="getSearchResult"></v-search-head>
         <el-amap vid="amap" :plugin="gaodeData.plugin" :center="gaodeData.center">
         </el-amap>
         <v-view class="route-item"></v-view>
@@ -73,7 +73,8 @@ export default {
             // 定位数据
             locData: [],
             gaodeData: this.gaode(),
-            coordinate: []
+            coordinate: [],
+            msg:''//搜索组件接受参数
         }
     },
     created() {
@@ -133,7 +134,12 @@ export default {
             };
             // console.log(obj);
             return obj
-        }
+        },
+        getSearchResult(msg) {
+                this.msg = msg;
+                console.log("搜索结果：");
+                console.log(this.msg)
+            }
     },
 }
 </script>

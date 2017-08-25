@@ -1,6 +1,6 @@
 <template>
-	<div class="collect-wrapper">
-		<!-- v-infinite-scroll="loadDetail" -->
+	<div class="collect-wrapper" ref="srcoll" >
+		<!--  v-infinite-scroll="loadDetail"  infinite-scroll-distance="10"-->
 		<!-- 头部 -->
         <!-- <v-header></v-header> -->
 		<!--图片轮播-->
@@ -30,7 +30,7 @@
 						<p>已有 {{detailItemList.gooditem.sale}} 人购买</p>
 					</div>
 				</div>
-				<div class="colRight" name="share" role="button">
+				<div class="colRight" name="share" role="button" @click="showShareTab = true">
 					<img src="./images/share.png">
 					<span>分享</span>
 				</div>
@@ -86,22 +86,26 @@
 			</div>
 		</div>
 		
-		<div class=""
 		<!--超粗分割线-->
-		<hr class="divider dividerBig lastElem">
+		
+		<div class="showImageText" v-if="imageTextList!=''" v-html="unescape(imageTextList.imageitem.content)"></div>
 		<!--继续拖动，查看图文详情-->
 		<!-- <div class="dragHelp" v-show="noDragToView"></div> -->
-		<div class="dragToView" v-show="dragToView">
+		<div class="dragToView" v-show="hideLoading" ref="moveTab">
+			<!-- v-show="imageTextList == ''" -->
 			<img src="./images/arrow_up.png">
 			<p>继续拖动，查看图文详情</p>
 		</div>
-		<div class="showImageText" v-if="imageTextList!=''" v-html="unescape(imageTextList.imageitem.content)"></div>
+		<div class="dragToView" v-show="showLoading">
+			<img src="./images/loading.gif">
+			<p>拼命加载中...</p>
+		</div>
 		<!--脚部-->
 		<footer class="myFooter">
-			<a href="javascript:void(0)" @click="show = true">
-				<img src="./images/share.png">
-				<p>分享</p>
-			</a>
+			<router-link to="/home">
+				<img src="./images/home.png">
+				<p>返回首页</p>
+			</router-link>
 			<a href="javascript:void(0)">
 				<img :src="detailItemList.iscolitems.pass == 0 ? require('./images/collect.png') : require('./images/collect-active.png')" ref="menuItem" @click="collectGood(detailItemList.gooditem.id, detailItemList.iscolitems.colid, detailItemList.iscolitems.pass)">
 				<p>加入收藏</p>
@@ -184,7 +188,7 @@
 		<div>
 			<toast v-model="error" type="text">添加失败</toast>
 		</div>
-		<alert v-model="show" title="分享">
+		<alert v-model="showShareTab" title="分享">
             <button class="btn1" @click="onHide();todoShare()">确认分享</button>
             <button class="btn2" @click="onHide();clearText()">取消</button>
             <img :src="detailItemList.albumitem[0].src">
@@ -207,6 +211,8 @@ export default {
 	},
 	data() {
 		return {
+			showLoading: false,
+			hideLoading: true,
 			detailItemList: [],
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
@@ -222,7 +228,7 @@ export default {
 			numBuy: 1,
 			success: false,
 			error: false,
-			show: false,
+			showShareTab: false,
 			windowUrl: location.href,
 			shareVal: '',
 			imageTextList: [],//图文详情信息
@@ -240,7 +246,6 @@ export default {
                     return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
                 }
 			},
-			dragToView: false,
 			noDragToView: true
 		}
 	},
@@ -378,22 +383,62 @@ export default {
 				})
 			this.closeCart()
 		},
-		// // 下拉显示图文详情：使用infinite-scroll
-		// loadDetail: function(){
-		// 	let that = this;
-		// 	if(!that.dragToView){
-		// 		setTimeout(function(){
-		// 			that.dragToView = true;
-		// 			that.noDragToView = false;
-		// 		},500);
-		// 	} else {
-		// 		setTimeout(function(){
-		// 			that.$router.push({ path: 'imageText', query: { gid: that.$route.query.gid }});
-		// 		},500);
-		// 	}
-		// }
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		scrollFun: function(){
+			   let it = this
+               var i = 0; // 分页值，用于select记录时给limit赋值
+
+			   var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
+			//    (containerHeight)
+	　　　　　　var distance =  window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
+				// console.log("这是scrollTop"+distance)
+				// console.log(containerHeight)
+                if (distance >= containerHeight -100) {
+						this.dragToView = true
+						let startY = 0;
+						let endY = 0;
+						this.$refs.moveTab.addEventListener("touchstart", function(e) {
+							e.preventDefault();
+							startY = e.touches[0].pageY
+							// console.log(startY+ "It is in here!")
+										});
+						this.$refs.moveTab.addEventListener("touchmove", function(e) {
+							e.preventDefault();
+							endY = e.touches[0].pageY
+						});
+						this.$refs.moveTab.addEventListener("touchend", function(e) {
+							if(endY - startY < -200){
+								it.showLoading = true
+								it.hideLoading = false
+								setTimeout(function(){
+									it.showImageDataList()
+								},1000)
+								
+							}else{
+								distance = distance - 200 
+							}
+						});
+				
+	            }
+		},
+		showImageDataList: function(){
+			this.dragToView = false
+			   let it = this
+			   var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
+			//    (containerHeight)
+	　　　　　　var distance =  window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
+				console.log("这是scrollTop"+distance)
+				console.log(containerHeight)
+
+                if (distance >= containerHeight) {
+						it.getImageTextData()   
+						if(it.imageTextList != ''){
+							containerHeight = containerHeight-100
+						}
+	            }
+		},
 		// 分享链接
-		getShareFn: function(){
+		 getShareFn: function(){
 			this.$http({
 				method: 'get',
 				url: global.Domain + '/Index/sign',
@@ -401,54 +446,58 @@ export default {
 			}).then(function (response) {
 				let data = response.body
 				this.$wechat.config({
-					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
+					debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
 					appId: data.sdkitem.appId, // 必填，公众号的唯一标识
 					timestamp: data.sdkitem.timestamp, // 必填，生成签名的时间戳
-					nonceStr: data.sdkitem.nonceStr, // 必填，生成签名的随机串
+					nonceStr: data.sdkitem.signature, // 必填，生成签名的随机串data.sdkitem.nonceStr
 					signature: data.sdkitem.signature,// 必填，签名，见附录1
 					jsApiList: [
 						"onMenuShareTimeline",
 						"onMenuShareAppMessage"
 					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-					
 				});  
+				
 				this.$wechat.error(function (res) {
-                	alert(res);
-           	 	});        
-				// console.log(data)  
+					console.log("error");
+                	console.log(res);
+					});     
+				console.log("||||||");		   
+				console.log(data)  
 			})
 		},
 		todoShare: function(){
+			this.getShareFn()
 			console.log("exe")
-			this.$wechat.ready(function(res) {
-				console.log(res)
-				this.$wechat.onMenuShareAppMessage({
-					title: "document.title",
-					desc:"document.title",
-					link: "link",
-					imgUrl: "Imgurl",
+			let that = this.$wechat
+			that.ready(() => {
+				console.log(that.onMenuShareAppMessage)
+				that.onMenuShareAppMessage({
+					title: "这是分享给朋友标题",
+					desc:"这是分享给朋友描述",
+					link: 'http://dde.dgxinn.cn',
+					imgUrl: "http://dde.dgxinn.cn/dream/Public/Uploads/good/2017-08-15/good_59928c71cc8dd9.98067847.jpg",
 					trigger: function(res) {
 						console.log(res)
 					},
 					success: function(res) {
-						console.log(res)
+						console.log("分享成功")
 					},
 					cancel: function(res) {
-						console.log(res)
+						console.log("分享失败")
 					},
 					fail: function(res) {
-						console.log(res)
+						
 					}
 				});
-				this.$wechat.onMenuShareTimeline({
-					title: "document.title",
-					link: "link",
-					imgUrl: "Imgurl",
-					trigger: function(res) {},
-					success: function(res) {},
-					cancel: function(res) {},
-					fail: function(res) {}
-				});
+				// that.onMenuShareTimeline({
+				// 	title: "document.title",
+				// 	link: "link",
+				// 	imgUrl: "Imgurl",
+				// 	trigger: function(res) {},
+				// 	success: function(res) {},
+				// 	cancel: function(res) {},
+				// 	fail: function(res) {}
+				// });
 				
 			});
 		},
@@ -460,6 +509,7 @@ export default {
 				emulateJSON: true
 			}).then(function (response) {
 				this.imageTextList = response.body
+				this.showLoading = false
 				//console.log(this.imageTextList)                  
 			})
 		},
@@ -470,46 +520,14 @@ export default {
 			this.$router.push({ path: '/buyGoods', query: { from: 'goodDetail' } });
 		},
 		 onShow: function () {
-            this.show = true
+            this.showShareTab = true
         },
         onHide: function () {
-            this.show = false
+            this.showShareTab = false
         },
 		clearText: function(){
 			this.shareVal = "";
 		},
-		clientWin:function(){
-			if(this.$route.path == '/goodDetail'){
-				window.addEventListener('scroll', this.menu)
-				if(this.$route.path != '/goodDetail'){
-					window.removeEventListener('scroll', this.menu)
-				}
-			}
-		},
-		//滚动条监听事件
-		menu: function() {
-            this.scroll = document.body.scrollTop;//滚动高度
-			// let speed = this.scroll/3;
-			let speed = 0 
-            // console.log(document.body.scrollTop+"--"+this.$route.path)
-            // console.log(document.body.scrollHeight+"这是高度")
-				if(this.$route.path == '/goodDetail'){
-					if(this.scroll >= document.body.scrollHeight - window.innerHeight){
-						
-							setTimeout(()=>{
-									this.dragToView = true
-								},1000)
-
-							// console.log(speed+"---------")
-							// 	setTimeout(()=>{
-							// 		this.getImageTextData()
-							// 	},1000)							
-					
-						
-					}
-				}
-        },
-		//html标签编译
 		unescape : function (html) {
             return html
             .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
@@ -520,12 +538,18 @@ export default {
         },
 	},
 	mounted() {
+		var it = this
+		var fun = null//存储滚动函数
 		this.$nextTick(function () {
 			this.getDataFromBackend()
-			this.getShareFn()
-			//监听事件绑定
-			this.clientWin()
 			
+			window.addEventListener('scroll', function(){
+				if(it.$route.path == '/goodDetail'){
+					fun = it.scrollFun()
+				}else{
+					fun = null
+				}
+			})
 		})
 	},
 	watch: {
@@ -545,7 +569,6 @@ export default {
 	position absolute
 	left 0
 	width 100%
-	height 100%
 	background #f0f0f0
 	// 最后一个元素撑开footer
 	.lastElem
@@ -953,5 +976,6 @@ export default {
 				background-color #ea6aa2 !important
 	.showImageText
 		img
-			width 100%			
+			width 100%	
+			margin-bottom 0.9375rem	
 </style>

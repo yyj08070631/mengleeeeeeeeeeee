@@ -2,7 +2,7 @@
     <div class="goodsClassify-wrapper"  ref="box">
         <!-- header -->
         <!-- <v-header></v-header> -->
-        <v-search-head></v-search-head>
+        <v-search-head  @getSearchResult="getSearchResult" :msg="msg"></v-search-head>
         <div class="screenWrapper">
             <div class="select-type">
             <a href="javascript:" @click="showList" class="screen">筛选</a>
@@ -31,9 +31,22 @@
             </a>
         </div>
         <!-- 商品列表容器 -->
-        <div class="good-wrapper">
+        <div class="good-wrapper" v-show="msg ==''">
             <div v-if="goodsItemList.gooditem.length < 1" class="noGoods">暂无商品&nbsp;:) <router-link to="/goods">->随便逛逛<-</router-link></div>
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
+                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
+                <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
+                    <img class="goodsMsg" :src="item.mainmap" />
+                </router-link>
+                <div class="text-wrapper">
+                    <router-link :to="{ path: '/goodDetail', query: { gid: item.id } }">{{item.name}}</router-link>
+                    <span>¥{{item.price}}</span>
+                    <span>{{item.freight == 0 ? '不包邮' : item.freight == 1 ? '包邮' : '无邮费信息'}}&nbsp;|&nbsp;销量{{item.sale}}件</span>
+                </div>
+            </div>
+        </div>
+        <div class="good-wrapper" v-show="msg !=''">
+            <div :class="changeStyle" v-for="(item,key) in msg.gooditem">
                 <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
                 <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
                     <img class="goodsMsg" :src="item.mainmap" />
@@ -71,7 +84,7 @@ export default {
         return {
             now: this.$route.query.static,
             changeStyle: 'goods-item1',
-            test1: true,
+            test1: true,//排序三种状态
             test2: true,
             test3: true,
             isShow: false,
@@ -86,6 +99,8 @@ export default {
             off: false,
             failedToCol: false,
             failedToCancCol: false,
+            seachResult: [],
+            msg: ''
         }
     },
     props: ['id'],
@@ -237,7 +252,12 @@ export default {
                 this.goodsItemList = response.body
                 console.log(this.goodsItemList)
             })
-        }
+        },
+        getSearchResult(msg) {
+                this.msg = msg;
+                console.log("搜索结果：");
+                console.log(this.msg)
+            }
     },
     mounted() {
         this.$nextTick(function () {
@@ -345,13 +365,15 @@ class2()
             text-align center
 // 筛选选项
 #screenType
+    position: fixed
     display: flex
-    top: 0.9375rem
+    top: 2.23rem
     width: 100%
     height: 0.9375rem
     line-height: 0.9375rem
     background #fff
-    border-bottom 1px solid #e0e0e0
+    border-bottom 1px solid #e0e0e0;
+    z-index 30
     a
         display: flex
         justify-content center

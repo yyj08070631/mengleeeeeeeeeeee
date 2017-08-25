@@ -52,6 +52,7 @@ import vuexI18n from 'vuex-i18n';
 import { InfiniteScroll } from 'mint-ui';
 import { WechatPlugin } from 'vux'
 
+
 Vue.use(WechatPlugin)
 Vue.use(InfiniteScroll);
 Vue.use(Vuex)
@@ -68,7 +69,7 @@ const store = new Vuex.Store({
 
 Vue.use(AMap)
 Vue.use(vuexI18n.plugin, store)
-//Vue.use(Vuex)
+    //Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
@@ -85,7 +86,7 @@ AMap.initAMapApiLoader({
 })
 
 Vue.directive('title', {
-    inserted: function (el, binding) {
+    inserted: function(el, binding) {
         document.title = el.dataset.title
     }
 })
@@ -100,8 +101,7 @@ Vue.directive('title', {
 //     jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 // });
 
-const routes = [
-    {
+const routes = [{
         path: '/',
         redirect: '/home'
     },
@@ -280,23 +280,23 @@ const router = new vueRouter({
 router.beforeEach((to, from, next) => {
     // Change doc title
     document.title = to.meta.title || '梦乐城'
-    // store.commit('updateLoadingStatus', { isLoading: true });
-    // Vue.http({
-    //     method: 'post',
-    //     url: global.Domain + '/test/test',
-    //     emulateJSON: true
-    // }).then(function (response) {
-    //     let res = response.data
-    //     console.log(res);
-    //     // res.app == 0
-    //     if (res.app == 0) {
-    //         location.href = res.url
-    //         return
-    //     } else {
-    //         store.commit('updateLoadingStatus', {isLoading: false})
-    //     }
-    // })
-    // console.log(store.state.isLoading)
+        // store.commit('updateLoadingStatus', { isLoading: true });
+        // Vue.http({
+        //     method: 'post',
+        //     url: global.Domain + '/test/test',
+        //     emulateJSON: true
+        // }).then(function (response) {
+        //     let res = response.data
+        //     console.log(res);
+        //     // res.app == 0
+        //     if (res.app == 0) {
+        //         location.href = res.url
+        //         return
+        //     } else {
+        //         store.commit('updateLoadingStatus', {isLoading: false})
+        //     }
+        // })
+        // console.log(store.state.isLoading)
     next()
 })
 router.afterEach((to, from, next) => {

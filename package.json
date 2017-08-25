@@ -21,6 +21,7 @@
     "vue-awesome-swiper": "^2.5.4",
     "vue-resource": "^1.3.4",
     "vue-router": "^2.7.0",
+    "vuet": "^1.0.1",
     "vuex": "^2.3.1",
     "vux": "^2.5.0",
     "vux-loader": "^1.1.0"
