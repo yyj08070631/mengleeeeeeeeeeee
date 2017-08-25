@@ -112,7 +112,8 @@ const routes = [
     },
     {
         path: '/home',
-        component: home
+        component: home,
+        meta: { title: '美丽探索' }
     },
     {
         path: '/myCenter',
@@ -272,24 +273,46 @@ const routes = [
 
 const router = new vueRouter({
     routes,
+    mode: 'history',
     scrollBehavior(to, from, savedPosition) {
         return { x: 0, y: 0 }
     }
 });
 
+// 获取url对应查询字段的值
+function getSearchString(key) {
+    // 获取URL中?之后的字符
+    var str = location.search;
+    str = str.substring(1,str.length);
+
+    // 以&分隔字符串，获得类似name=xiaoli这样的元素数组
+    var arr = str.split("&");
+    var obj = new Object();
+
+    // 将每一个数组元素以=分隔并赋给obj对象    
+    for(var i = 0; i < arr.length; i++) {
+        var tmp_arr = arr[i].split("=");
+        obj[decodeURIComponent(tmp_arr[0])] = decodeURIComponent(tmp_arr[1]);
+    }
+    return obj[key];
+}
+
 router.beforeEach((to, from, next) => {
     // Change doc title
     document.title = to.meta.title || '梦乐城'
     // store.commit('updateLoadingStatus', { isLoading: true });
+    // console.log(getSearchString(pid));
+    // // if(Vue.route.query){}
     // Vue.http({
     //     method: 'post',
-    //     url: global.Domain + '/test/test',
+    //     url: global.Domain + '/index/test',
     //     emulateJSON: true
     // }).then(function (response) {
     //     let res = response.data
-    //     console.log(res);
+    //     // console.log(res);
     //     // res.app == 0
     //     if (res.app == 0) {
+    //         // alert(res.url);
     //         location.href = res.url
     //         return
     //     } else {

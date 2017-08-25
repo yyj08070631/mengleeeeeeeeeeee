@@ -671,7 +671,7 @@ export default {
 				width 100%
 				height 2.8438rem
 				border-bottom 1px solid #e0e0e0
-				font-size fs - 0.0625rem
+				font-size fs
 				div:first-child
 					position relative
 					width 2.9688rem
@@ -696,7 +696,7 @@ export default {
 						margin-top 0.2813rem
 						line-height 0.9375rem
 						text-indent 0.4688rem	
-						color #ea6aa2
+						color #333
 					span:last-child	
 						line-height 0.9375rem	
 						text-indent 0.4688rem
@@ -710,7 +710,7 @@ export default {
 				width 100%
 				height 2rem
 				line-height 2rem
-				font-size fs - 0.0313rem
+				font-size fs + 0.0313rem
 				span
 					flex 1
 					margin-left 0.3438rem
@@ -725,6 +725,7 @@ export default {
 						width 0.6875rem
 					input 
 						width 0.6875rem	
+						font-size fs
 						text-align center
 						border-left 0.0313rem solid #d6d6d6
 						border-right 0.0313rem solid #d6d6d6
@@ -734,9 +735,9 @@ export default {
 				align-items center
 				width 10rem
 				height 1.25rem
-				font-size fs - 0.0156rem
+				font-size fs + 0.0469rem
 				color #fff
-				background #fe9333
+				background #ea68a2
 			.buyNow
 				background-color #ea6aa2 !important
 </style>

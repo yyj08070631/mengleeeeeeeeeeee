@@ -85,13 +85,13 @@ export default {
             margin: 0 0 0 0.5625rem
             height: 0.4375rem
             border-left: 0.0938rem solid #909090
-            font-size: fs - 0.0313rem
+            font-size: fs + 0.0313rem
             font-weight: bold
             text-indent: 0.1875rem
             color: #909090 
     .store-message
         width: 100%
-        background: #fff         
+        background: #fff
         .store-item
             display: flex
             position: relative
@@ -105,17 +105,18 @@ export default {
             border-bottom 1px solid #e0e0e0
             div:first-child
                 width: 1.9375rem
+                margin-right 0.3125rem
                 img
-                    margin: 0.5313rem 0.3125rem 0.5313rem 0
-                    width: 1.625rem
-                    height: 1.625rem
+                    margin: 0.5313rem 0 0.5313rem 0
+                    width: 1.875rem
+                    height: 1.875rem
             div:nth-child(2)
-                flex: 1
+                width 6.375rem
                 p:first-child    
                     color: #333 
-                    font-size: fs - 0.0625rem
+                    font-size: fs
                 p
-                    font-size: fs - 0.0938rem
+                    font-size: fs - 0.0313rem
                     line-height: 0.5625rem
                     color: #909090
             div:last-child

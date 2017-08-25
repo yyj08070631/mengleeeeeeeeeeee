@@ -2,14 +2,22 @@
     <swiper :options="swiperOption" ref="mySwiper">
          <swiper-slide v-for="(val,key) in dataApp.product">
             <router-link :to="{ path: '/goodDetail', query: { gid: val.id } }" v-if="dataApp.linkType == 'gid'"> 
-                <img :src="val.src" width="100%" heigh="100%">
+                <img :src="val.src">
                 <div class="discribe">
                     <p>{{val.name}}</p>
                     <p>RMB&nbsp;{{num(val.price)}}</p>
                 </div>
             </router-link>
-            <router-link to="/offlineInfo" v-else-if="dataApp.linkType == 'aid'"> 
-                <img :src="val.src" width="100%" heigh="100%">
+            <!-- <router-link to="/offlineInfo" v-else-if="dataApp.linkType == 'aid'"> 
+                <img :src="val.src">
+            </router-link> -->
+            <router-link :to="{ path: '/digest', query: { sid: val.id, nid: val.nid } }" v-else-if="dataApp.linkType == 'nid'"> 
+                <img :src="val.src">
+                <div class="discribe discribeTriLine">
+                    <p>{{val.sname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{val.day_time}}</p>
+                    <p>{{val.address}}</p>
+                    <p>{{val.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMB&nbsp;{{num(val.price)}}</p>
+                </div>
             </router-link>
         </swiper-slide> 
         <!-- 这是轮播的小圆点 -->
@@ -111,8 +119,10 @@ img, span, a
             font-size fs + 0.0313rem
             color #333
             background-color #fff
-            p:last-child
+            p:not(:first-child)
                 margin-top 0.3125rem
+        .discribeTriLine
+            height 3rem
         img
             width 100%
             height 7.3438rem

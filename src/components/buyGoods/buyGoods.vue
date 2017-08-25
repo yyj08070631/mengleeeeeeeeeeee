@@ -118,6 +118,7 @@ export default {
     },
     mounted() {
         this.getDataFromBackend()
+        this.getLoc()
     },
     methods: {
         // 获取数据
@@ -248,7 +249,7 @@ export default {
                     // cid: this.data.data[i].id
                 })
             }
-            console.log(resArr)
+            // console.log(resArr)
             return JSON.stringify(resArr)
         },
         // 从session中获取购物车id: cid
@@ -262,15 +263,37 @@ export default {
                     cid: arr[i].cid
                 })
             }
-            console.log(resArr)
+            // console.log(resArr)
             return JSON.stringify(resArr)
         },
         // 从session中获取地址信息
         getLoc: function () {
-            return JSON.parse(sessionStorage.getItem('loc'));
+            // console.log(JSON.parse(sessionStorage.getItem('loc')));
+            if(sessionStorage.getItem('loc')){
+                return JSON.parse(sessionStorage.getItem('loc'));
+            } else {
+                let addrFromBackend = {
+                    "name": this.data.addressitems.name,
+                    "phone": this.data.addressitems.phone,
+                    "addr": this.data.addressitems.province + this.data.addressitems.city + this.data.addressitems.area + this.data.addressitems.address
+                };
+                // console.log(addrFromBackend);
+                return addrFromBackend;
+            }
         },
         getBaseLoc: function () {
-            return sessionStorage.getItem('loc')
+            // console.log(sessionStorage.getItem('loc'));
+            if(sessionStorage.getItem('loc')){
+                return sessionStorage.getItem('loc');
+            } else {
+                let addrFromBackend = {
+                    "name": this.data.addressitems.name,
+                    "phone": this.data.addressitems.phone,
+                    "addr": this.data.addressitems.province + this.data.addressitems.city + this.data.addressitems.area + this.data.addressitems.address
+                };
+                // console.log(addrFromBackend);
+                return JSON.stringify(addrFromBackend);
+            }
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -316,7 +339,7 @@ export default {
         computeMoney: function () {
             let count = 0;
             let list = this.data.gooditems;
-            console.log(list)
+            // console.log(list)
             for (let i = 0; i < list.length; i++) {
                 count += parseFloat(list[i].price) * parseInt(list[i].number)
             }

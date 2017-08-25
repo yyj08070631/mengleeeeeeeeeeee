@@ -257,12 +257,12 @@ export default {
                     display flex
                     align-items center
                     height 3.7813rem
-                    padding 0.0625rem 0
+                    padding 0.1563rem 0
                     img
                         display block
                         margin-right 0.9375rem
                         width 4.625rem
-                        height 3.125rem
+                        height 3.5938rem
                     div
                         height 100%
                         text-align justify

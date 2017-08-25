@@ -132,6 +132,7 @@ span
         .myIntegral
             margin-top: 0.75rem
             font-size: fs + 1.25rem
+            font-weight normal
     .get-integral
         display: block
         position: relative

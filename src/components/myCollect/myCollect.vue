@@ -6,7 +6,7 @@
         <section class="main">
             <!-- 正常收藏件 -->
             <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦<router-link to="/goods">去收藏</router-link>&nbsp;&nbsp;:) </div>
-            <div class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
+            <router-link :to="{ path: '/goodDetail', query: { gid: val.id } }" class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
                 <div class="imgCont">
                     <img :src="val.mainmap">
                 </div>
@@ -19,13 +19,13 @@
                         <span>.{{val.price | numSmall}}</span>
                     </div>
                     <div class="rowDown">
-                        <a href="javascript:void(0)" class="add" v-if="val.type == 1" @click="selectCollect(val.id);showCartFn();"> 
+                        <a href="javascript:void(0)" class="add" v-if="val.type == 1" @click.stop="selectCollect(val.id);showCartFn();"> 
                             加入购物车
                         </a>
-                        <a href="javascript:void(0)" class="del" @click="onShow();">删除</a>
+                        <a href="javascript:void(0)" class="del" @click.stop="onShow();">删除</a>
                     </div>
                 </div>
-            </div>
+            </router-link>
         </section>
         <!-- 购物车组件 -->
         <div class="goodsCart-wrapper" v-show="showCart">
@@ -99,7 +99,7 @@ export default {
             show: false,
             index: 0,
             delCollectList: [],
-            saveData: [],//数组重构，添加购物车，删除收藏等
+            saveData: [],// 数组重构，添加购物车，删除收藏等
         }
     },
     methods: {
@@ -218,7 +218,7 @@ export default {
         //隐藏弹窗
         onShow () {
             this.show = true  
-            }
+        }
     },
     mounted(){
         this.$nextTick(function(){
@@ -252,9 +252,10 @@ export default {
     background #fff
     // 主体
     .main
+        height 100%
         background #fff
         .noGoods
-            margin-top 60%
+            padding-top 60%
             font-size fs + 0.0313rem
             text-align center
             color #333
@@ -279,7 +280,7 @@ export default {
                 width 100%
                 .rowUp
                     width 5.75rem
-                    padding 0.3125rem 0 0.9375rem 0
+                    padding 0.5313rem 0 0.9375rem 0
                     font-size fs + 0.0313rem
                     color #333
                     white-space nowrap
@@ -299,6 +300,7 @@ export default {
                 .rowDown
                     display flex
                     justify-content flex-end
+                    padding-bottom 0.3125rem
                     .add
                         display flex
                         justify-content center
@@ -309,6 +311,7 @@ export default {
                         border-radius 0.0938rem
                         font-size fs
                         color #ea68a2
+                        z-index 10
                     .del
                         display flex
                         justify-content center
@@ -319,6 +322,7 @@ export default {
                         border 0.0313rem solid #ababab
                         border-radius 0.0938rem
                         font-size fs
+                        z-index 10
                     img
                         width 0.5rem
                         height 0.5rem
@@ -347,18 +351,19 @@ export default {
         p
             padding 0.0625rem 0.3125rem 0 0.3125rem
     .weui-dialog
-        width 12.5rem!important
         min-width 80%
         background #fff
         border-radius 0.1875rem
         .weui-dialog__hd
-            padding 0.3125rem 0 0 0 
+            padding 0.3125rem 0 0 0
+            text-align center
             .weui-dialog__title
                 font-size fs + 0.0625rem !important
         .weui-dialog__bd
-            padding 0.9375rem  0 
+            padding 0.9375rem 0 
             font-size fs + 0.0313rem
             margin-bottom 0.5625rem
+            text-align center
              
         .btn1
             position:absolute

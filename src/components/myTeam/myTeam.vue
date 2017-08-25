@@ -23,7 +23,7 @@
                             <div class="boxRight">
                                 <div>
                                     <p>{{val.username}}</p>
-                                    <img :src="computeImg(val.level)">
+                                    <img :src="val.grade">
                                 </div>
                                 <div>
                                     加入时间-{{val.ctime}}
@@ -66,23 +66,6 @@ export default {
                 console.log(res);
                 this.data = res.data
             })
-        },
-        // 计算等级图标
-        computeImg: function (level) {
-            if (level == 1) {
-                return require('./images/xiaobai.png')
-            } else if (level == 2) {
-                return require('./images/xingxing.png')
-            } else if (level == 3) {
-                return require('./images/zuanshi.png')
-            } else if (level == 4) {
-                return require('./images/jinguan.png')
-            } else if (level == 5) {
-                return require('./images/huangguan.png')
-            } else {
-                console.log('获取了无效的等级数据！');
-                return '#'
-            }
         }
     },
     computed: {

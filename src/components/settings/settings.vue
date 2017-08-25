@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-wrapper">
+    <div class="settings-wrapper" :style="blur">
         <!-- header -->
         <!-- <v-header></v-header> -->
         <div class="avatar-wrapper">
@@ -9,7 +9,7 @@
             <div class="message">
                 <span class="name">{{data.username}}</span>
                 <span class="mobile">{{data.phone}}</span>
-                <img class="rank" :src="computeImg">
+                <img class="rank" :src="data.levelName">
             </div>
         </div>
         <div class="content-wrapper">
@@ -206,7 +206,7 @@
         </div> 
         <!-- 遮罩：修改绑定手机 -->
         <div v-transfer-dom>
-            <x-dialog v-model="phoneOper" class="dialog-demo" hide-on-blur>
+            <x-dialog v-model="phoneOper" class="dialog-demo" hide-on-blur @on-show="blur.filter = 'blur(10px)'" @on-hide="blur.filter = 'none'">
                 <div class="chooseValue">
                     <p>绑定手机</p>
                     <label class="tixianInfoBox">
@@ -256,11 +256,14 @@ export default {
             hobby: false,
             // 绑定手机modal开关
             phoneOper: false,
-            // 手机号 & 验证码 & 重发验证码等待秒数 & 是否正在等待
+            // 手机号 & 验证码 & 重发验证码等待秒数 & 是否正在等待 & 弹出遮罩时遮罩样式
             phoneNum: '',
             verification: '',
             resendWait: 60,
             waiting: false,
+            blur: {
+                filter: 'none'
+            },
             // 绑定手机是否成功提示
             phoneSucc: false,
             phoneErr: false
@@ -278,7 +281,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                // console.log(res);
+                console.log(res);
                 this.data = res.data;
                 this.phoneNum = this.data.phone;
             })
@@ -478,24 +481,7 @@ export default {
         
     },
     computed: {
-        computeImg: function () {
-            // console.log(this.data.level)
-            let level = parseInt(this.data.level);
-            if (level == 1) {
-                return require('./images/xiaobai.png')
-            } else if (level == 2) {
-                return require('./images/xingxing.png')
-            } else if (level == 3) {
-                return require('./images/zuanshi.png')
-            } else if (level == 4) {
-                return require('./images/jinguan.png')
-            } else if (level == 5) {
-                return require('./images/huangguan.png')
-            } else {
-                console.log('获取了无效的等级数据！');
-                return '#'
-            }
-        }
+        
     }
 }
 </script>
@@ -737,10 +723,4 @@ select::-ms-expand {
     p
         padding 0.3125rem 0.3125rem
         font-size fs - 0.0156rem
-.weui-mask
-    filter: blur(10px);
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -ms-filter: blur(10px);
-    -o-filter: blur(10px);
 </style>
