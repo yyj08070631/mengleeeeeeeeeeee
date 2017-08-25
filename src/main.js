@@ -40,6 +40,7 @@ import myCenterHelp from './components/myCenterHelp/myCenterHelp';
 import integralHelp from './components/integralHelp/integralHelp';
 import myCenterCopyTxt from './components/myCenterCopyTxt/myCenterCopyTxt';
 import offlineInfoMap from './components/offlineInfoMap/offlineInfoMap';
+import searchResult from './components/searchResult/searchResult';
 import offlineMapSilence from './components/offlineMapSilence/offlineMapSilence';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
@@ -51,6 +52,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
 import { InfiniteScroll } from 'mint-ui';
 import { WechatPlugin } from 'vux'
+
 
 Vue.use(WechatPlugin)
 Vue.use(InfiniteScroll);
@@ -68,7 +70,7 @@ const store = new Vuex.Store({
 
 Vue.use(AMap)
 Vue.use(vuexI18n.plugin, store)
-//Vue.use(Vuex)
+    //Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper)
 Vue.use(AjaxPlugin)
 Vue.use(vueResource)
@@ -85,7 +87,7 @@ AMap.initAMapApiLoader({
 })
 
 Vue.directive('title', {
-    inserted: function (el, binding) {
+    inserted: function(el, binding) {
         document.title = el.dataset.title
     }
 })
@@ -100,8 +102,7 @@ Vue.directive('title', {
 //     jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 // });
 
-const routes = [
-    {
+const routes = [{
         path: '/',
         redirect: '/home'
     },
@@ -260,6 +261,10 @@ const routes = [
     {
         path: '/offlineInfoMap',
         component: offlineInfoMap
+    },
+    {
+        path: '/searchResult',
+        component: searchResult
     },
     // {
     //     path: '/offlineMapSilence',

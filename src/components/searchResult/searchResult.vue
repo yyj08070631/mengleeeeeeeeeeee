@@ -31,20 +31,6 @@
             </a>
         </div>
         <!-- 商品列表容器 -->
-        <div class="good-wrapper" v-show="msg ==''">
-            <div v-if="goodsItemList.gooditem.length < 1" class="noGoods">暂无商品&nbsp;:) <router-link to="/goods">->随便逛逛<-</router-link></div>
-            <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
-                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
-                <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
-                    <img class="goodsMsg" :src="item.mainmap" />
-                </router-link>
-                <div class="text-wrapper">
-                    <router-link :to="{ path: '/goodDetail', query: { gid: item.id } }">{{item.name}}</router-link>
-                    <span>¥{{item.price}}</span>
-                    <span>{{item.freight == 0 ? '不包邮' : item.freight == 1 ? '包邮' : '无邮费信息'}}&nbsp;|&nbsp;销量{{item.sale}}件</span>
-                </div>
-            </div>
-        </div>
         <div class="good-wrapper" v-show="msg !=''">
             <div :class="changeStyle" v-for="(item,key) in msg.gooditem">
                 <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
@@ -243,16 +229,6 @@ export default {
             }
         },
         // 从后台获取数据
-        getDataFromBackend: function () {
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/cate/goods?cid=' + this.$route.query.cid + '&static=' + this.now,
-                emulateJSON: true
-            }).then(function (response) {
-                this.goodsItemList = response.body
-                console.log(this.goodsItemList)
-            })
-        },
         getSearchResult(msg) {
                 this.msg = msg;
                 console.log("搜索结果：");
@@ -260,10 +236,6 @@ export default {
             }
     },
     mounted() {
-        this.$nextTick(function () {
-            this.getDataFromBackend()
-            
-        })
     }
 }
 </script>
@@ -297,7 +269,7 @@ class1()
             overflow hidden
             // 结束
             height 0.75rem
-            margin: 0.2813rem 0.5313rem
+            margin: 0.2813rem 0.1563rem
             font-size: fs
             line-height fs + 0.0625rem
             color: #333
@@ -330,7 +302,7 @@ class2()
         display flex
         flex-direction column
         align-items center
-        margin-top 1.0938rem
+        margin-top: 0.7813rem
         float: right
         width: 50%
         p

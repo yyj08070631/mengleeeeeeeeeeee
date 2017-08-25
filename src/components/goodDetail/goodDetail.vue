@@ -1,6 +1,6 @@
 <template>
-	<div class="collect-wrapper">
-		<!-- v-infinite-scroll="loadDetail" -->
+	<div class="collect-wrapper" ref="srcoll" >
+		<!--  v-infinite-scroll="loadDetail"  infinite-scroll-distance="10"-->
 		<!-- 头部 -->
         <!-- <v-header></v-header> -->
 		<!--图片轮播-->
@@ -30,7 +30,7 @@
 						<p>已有 {{detailItemList.gooditem.sale}} 人购买</p>
 					</div>
 				</div>
-				<div class="colRight" name="share" role="button">
+				<div class="colRight" name="share" role="button" @click="showShareTab = true">
 					<img src="./images/share.png">
 					<span>分享</span>
 				</div>
@@ -85,20 +85,27 @@
 				<span @click="addComMore">{{comNode}}</span>
 			</div>
 		</div>
+		
 		<!--超粗分割线-->
-		<hr class="divider dividerBig lastElem">
+		
+		<div class="showImageText" v-if="imageTextList!=''" v-html="unescape(imageTextList.imageitem.content)"></div>
 		<!--继续拖动，查看图文详情-->
-		<!-- <div class="dragHelp" v-show="noDragToView"></div>
-		<div class="dragToView" v-show="dragToView">
+		<!-- <div class="dragHelp" v-show="noDragToView"></div> -->
+		<div class="dragToView" v-show="hideLoading" ref="moveTab">
+			<!-- v-show="imageTextList == ''" -->
 			<img src="./images/arrow_up.png">
 			<p>继续拖动，查看图文详情</p>
-		</div> -->
+		</div>
+		<div class="dragToView" v-show="showLoading">
+			<img src="./images/loading.gif">
+			<p>拼命加载中...</p>
+		</div>
 		<!--脚部-->
 		<footer class="myFooter">
-			<a href="javascript:void(0)">
-				<img src="./images/share.png">
-				<p>分享</p>
-			</a>
+			<router-link to="/home">
+				<img src="./images/home.png">
+				<p>返回首页</p>
+			</router-link>
 			<a href="javascript:void(0)">
 				<img :src="detailItemList.iscolitems.pass == 0 ? require('./images/collect.png') : require('./images/collect-active.png')" ref="menuItem" @click="collectGood(detailItemList.gooditem.id, detailItemList.iscolitems.colid, detailItemList.iscolitems.pass)">
 				<p>加入收藏</p>
@@ -181,19 +188,31 @@
 		<div>
 			<toast v-model="error" type="text">添加失败</toast>
 		</div>
+		<alert v-model="showShareTab" title="分享">
+            <button class="btn1" @click="onHide();todoShare()">确认分享</button>
+            <button class="btn2" @click="onHide();clearText()">取消</button>
+            <img :src="detailItemList.albumitem[0].src">
+			<div class="share-cxt">
+				<input type="text" placeholder="请输入标题" :value="shareVal">
+				<p>{{windowUrl}}</p>				
+			</div>
+        </alert>
 	</div>
 </template>
  <script type="ecmascript-6">
 // import header from '../../components/header/header';
-import { Swiper, SwiperItem, Divider, Toast, Group } from 'vux'
+import { Swiper, SwiperItem, Divider, Toast, Group, Alert } from 'vux'
 export default {
 	components: {
 		Toast,
 		Group,
+		Alert,
 		// 'v-header': header
 	},
 	data() {
 		return {
+			showLoading: false,
+			hideLoading: true,
 			detailItemList: [],
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
@@ -209,6 +228,10 @@ export default {
 			numBuy: 1,
 			success: false,
 			error: false,
+			showShareTab: false,
+			windowUrl: location.href,
+			shareVal: '',
+			imageTextList: [],//图文详情信息
 			swiperOption: {
                 notNextTick: true,
                 autoplay: 3000,
@@ -223,7 +246,6 @@ export default {
                     return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
                 }
 			},
-			dragToView: false,
 			noDragToView: true
 		}
 	},
@@ -361,30 +383,173 @@ export default {
 				})
 			this.closeCart()
 		},
-		// // 下拉显示图文详情：使用infinite-scroll
-		// loadDetail: function(){
-		// 	let that = this;
-		// 	if(!that.dragToView){
-		// 		setTimeout(function(){
-		// 			that.dragToView = true;
-		// 			that.noDragToView = false;
-		// 		},500);
-		// 	} else {
-		// 		setTimeout(function(){
-		// 			that.$router.push({ path: 'imageText', query: { gid: that.$route.query.gid }});
-		// 		},500);
-		// 	}
-		// }
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		scrollFun: function(){
+			   let it = this
+               var i = 0; // 分页值，用于select记录时给limit赋值
+
+			   var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
+			//    (containerHeight)
+	　　　　　　var distance =  window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
+				// console.log("这是scrollTop"+distance)
+				// console.log(containerHeight)
+                if (distance >= containerHeight -100) {
+						this.dragToView = true
+						let startY = 0;
+						let endY = 0;
+						this.$refs.moveTab.addEventListener("touchstart", function(e) {
+							e.preventDefault();
+							startY = e.touches[0].pageY
+							// console.log(startY+ "It is in here!")
+										});
+						this.$refs.moveTab.addEventListener("touchmove", function(e) {
+							e.preventDefault();
+							endY = e.touches[0].pageY
+						});
+						this.$refs.moveTab.addEventListener("touchend", function(e) {
+							if(endY - startY < -200){
+								it.showLoading = true
+								it.hideLoading = false
+								setTimeout(function(){
+									it.showImageDataList()
+								},1000)
+								
+							}else{
+								distance = distance - 200 
+							}
+						});
+				
+	            }
+		},
+		showImageDataList: function(){
+			this.dragToView = false
+			   let it = this
+			   var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
+			//    (containerHeight)
+	　　　　　　var distance =  window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
+				console.log("这是scrollTop"+distance)
+				console.log(containerHeight)
+
+                if (distance >= containerHeight) {
+						it.getImageTextData()   
+						if(it.imageTextList != ''){
+							containerHeight = containerHeight-100
+						}
+	            }
+		},
+		// 分享链接
+		 getShareFn: function(){
+			this.$http({
+				method: 'get',
+				url: global.Domain + '/Index/sign',
+				emulateJSON: true
+			}).then(function (response) {
+				let data = response.body
+				this.$wechat.config({
+					debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
+					appId: data.sdkitem.appId, // 必填，公众号的唯一标识
+					timestamp: data.sdkitem.timestamp, // 必填，生成签名的时间戳
+					nonceStr: data.sdkitem.signature, // 必填，生成签名的随机串data.sdkitem.nonceStr
+					signature: data.sdkitem.signature,// 必填，签名，见附录1
+					jsApiList: [
+						"onMenuShareTimeline",
+						"onMenuShareAppMessage"
+					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+				});  
+				
+				this.$wechat.error(function (res) {
+					console.log("error");
+                	console.log(res);
+					});     
+				console.log("||||||");		   
+				console.log(data)  
+			})
+		},
+		todoShare: function(){
+			this.getShareFn()
+			console.log("exe")
+			let that = this.$wechat
+			that.ready(() => {
+				console.log(that.onMenuShareAppMessage)
+				that.onMenuShareAppMessage({
+					title: "这是分享给朋友标题",
+					desc:"这是分享给朋友描述",
+					link: 'http://dde.dgxinn.cn',
+					imgUrl: "http://dde.dgxinn.cn/dream/Public/Uploads/good/2017-08-15/good_59928c71cc8dd9.98067847.jpg",
+					trigger: function(res) {
+						console.log(res)
+					},
+					success: function(res) {
+						console.log("分享成功")
+					},
+					cancel: function(res) {
+						console.log("分享失败")
+					},
+					fail: function(res) {
+						
+					}
+				});
+				// that.onMenuShareTimeline({
+				// 	title: "document.title",
+				// 	link: "link",
+				// 	imgUrl: "Imgurl",
+				// 	trigger: function(res) {},
+				// 	success: function(res) {},
+				// 	cancel: function(res) {},
+				// 	fail: function(res) {}
+				// });
+				
+			});
+		},
+		//获取图文信息
+		getImageTextData: function() {
+			this.$http({
+				method: 'get',
+				url: global.Domain + '/Cate/image?gid='+this.$route.query.gid,
+				emulateJSON: true
+			}).then(function (response) {
+				this.imageTextList = response.body
+				this.showLoading = false
+				//console.log(this.imageTextList)                  
+			})
+		},
 		// 在session中存入下单商品列表，然后跳转到下单页面
 		goodsToSession: function(){
 			sessionStorage.setItem('list', JSON.stringify([{ gid: this.detailItemList.gooditem.id, number: this.numBuy }]));
 			// console.log(JSON.parse(sessionStorage.getItem('list')));
 			this.$router.push({ path: '/buyGoods', query: { from: 'goodDetail' } });
-		}
+		},
+		 onShow: function () {
+            this.showShareTab = true
+        },
+        onHide: function () {
+            this.showShareTab = false
+        },
+		clearText: function(){
+			this.shareVal = "";
+		},
+		unescape : function (html) {
+            return html
+            .replace(html ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&quot;/g, "\"")
+            .replace(/&#39;/g, "\'");
+        },
 	},
 	mounted() {
+		var it = this
+		var fun = null//存储滚动函数
 		this.$nextTick(function () {
 			this.getDataFromBackend()
+			
+			window.addEventListener('scroll', function(){
+				if(it.$route.path == '/goodDetail'){
+					fun = it.scrollFun()
+				}else{
+					fun = null
+				}
+			})
 		})
 	},
 	watch: {
@@ -404,7 +569,6 @@ export default {
 	position absolute
 	left 0
 	width 100%
-	height 100%
 	background #f0f0f0
 	// 最后一个元素撑开footer
 	.lastElem
@@ -651,6 +815,77 @@ export default {
 		p
 			padding 0.0625rem 0.3125rem 0 0.3125rem
 			font-size fs - 0.0625rem
+	.weui-dialog
+		width 12.5rem!important
+		min-width 80%
+		background #fff
+		border-radius 0.1875rem
+		.weui-dialog__hd
+			padding 0.3125rem 0 0 0 
+			.weui-dialog__title
+				font-size fs + 0.0625rem !important
+		.weui-dialog__bd
+			display flex
+			justify-content center
+			align-items center
+			padding 0.425rem 0.3rem 0.9375rem 0.3rem
+			font-size fs + 0.0625rem
+			margin-bottom 0.5625rem
+			img
+				width 1.5625rem
+				height 1.5625rem	
+				vertical-align top
+			.share-cxt
+				margin-left 0.3rem
+				text-align left
+				input 
+					padding 2px 0
+					width 100%
+					margin-bottom 0.2rem
+					color #ea6aa2
+					font-size 0.3125rem
+					white-space: nowrap
+					overflow: hidden
+					text-overflow: ellipsis
+				p
+					color #909090	
+					font-size 0.2813rem
+					
+		.btn1
+			position:absolute
+			left:0px;
+			bottom:0px;
+			background:#fff;
+			width:50%;
+			color:#ea6aa2;
+			height:1.25rem;
+			line-height: 40px;
+			z-index: 1000;
+			border:0;
+			border-top:1px solid #909090
+			font-size fs + 0.0625rem
+		.btn2
+			position:absolute
+			left:50%;
+			bottom:0px;
+			background:#fff;
+			width:50%;
+			color:#ea6aa2;
+			height:1.25rem;
+			line-height: 40px;
+			z-index: 1000;
+			border:0;
+			border-top:1px solid #909090
+			font-size fs + 0.0625rem
+			.weui-dialog__title
+				font-size fs - 0.0313rem !important
+			.weui-dialog__ft
+				background #3cf !important
+				display none
+				.weui-dialog__btn_primary
+					color #ff0  !important
+				.weui-dialog__btn    
+					color #ff0  !important   		
 	//购物车			
 	.goodsCart-wrapper
 		position fixed
@@ -740,4 +975,8 @@ export default {
 				background #ea68a2
 			.buyNow
 				background-color #ea6aa2 !important
+	.showImageText
+		img
+			width 100%	
+			margin-bottom 0.9375rem	
 </style>
