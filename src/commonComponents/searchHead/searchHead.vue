@@ -19,29 +19,55 @@ export default {
     data() {
         return {
             resultMsg: "",
-            resultDataList: []
+            resultDataList: [],
+            searchData: '',
         }
     },
     methods: {
         //获取搜索结果
         toDoSearch: function(){
-            this.$http.post(
-                global.Domain + '/index/search',
-                {
-                    content: this.resultMsg,
-                },
-                {
-                    emulateJSON:true
-                }).then(response=>{
-                    let data = response.body;
-                    this.resultDataList = data
-                    // console.log("返回的结果：")
-                    // console.log(this.resultDataList)
-                    //1:)得到结果
-                    //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
-                    //3:)再调用open函数的时候带过去的参数就不是空的了
-                    this.open()
-            })
+             this.$http.post(
+                            global.Domain + '/index/search',
+                            {
+                                content: this.resultMsg,
+                            },
+                            {
+                                emulateJSON:true
+                            }).then(response=>{
+                                let data = response.body;
+                                this.resultDataList = data
+                                console.log("返回的结果：")
+                                console.log(this.resultDataList)
+                                //1:)得到结果
+                                //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
+                                //3:)再调用open函数的时候带过去的参数就不是空的了
+                                this.open()
+                        })
+            if(this.$route.path != '/searchResult'){
+                 
+                   
+                this.$router.push('searchResult?'+this.resultMsg)
+                console.log(this.$route.path)
+                this.$http.post(
+                    global.Domain + '/index/search',
+                    {
+                        content: this.resultMsg,
+                    },
+                    {
+                        emulateJSON:true
+                    }).then(response=>{
+                        let data = response.body;
+                        this.resultDataList = data
+                        console.log("返回的结果：")
+                        console.log(this.resultDataList)
+                        //1:)得到结果
+                        //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
+                        //3:)再调用open函数的时候带过去的参数就不是空的了
+                        this.open()
+                })
+                   
+            }
+           
         },
         clearMsg: function(){
             this.resultMsg = '';

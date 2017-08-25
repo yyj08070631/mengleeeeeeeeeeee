@@ -40,6 +40,7 @@ import myCenterHelp from './components/myCenterHelp/myCenterHelp';
 import integralHelp from './components/integralHelp/integralHelp';
 import myCenterCopyTxt from './components/myCenterCopyTxt/myCenterCopyTxt';
 import offlineInfoMap from './components/offlineInfoMap/offlineInfoMap';
+import searchResult from './components/searchResult/searchResult';
 import offlineMapSilence from './components/offlineMapSilence/offlineMapSilence';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
@@ -259,6 +260,10 @@ const routes = [{
     {
         path: '/offlineInfoMap',
         component: offlineInfoMap
+    },
+    {
+        path: '/searchResult',
+        component: searchResult
     },
     // {
     //     path: '/offlineMapSilence',
