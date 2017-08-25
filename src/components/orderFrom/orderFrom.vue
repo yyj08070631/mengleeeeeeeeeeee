@@ -17,79 +17,89 @@
             <div class="order-content">
                 <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
                 <!-- 首次加载 -->
-                <div class="content-item content-item-top" v-for="(val,key) in orderList.orderitem">
-                    <div class="rowUp">
-                        <img class="product" :src="val.mainmap" />
-                        <div class="product-message">
-                            <span class="desc">{{val.name}}</span>
-                            <p class="num">单价:￥{{num(val.price)}}</p>
-                            <p class="price">总价:￥{{num(val.price*val.number)}}</p>
+                <div class="content-item" v-for="(item,key) in orderList.orderitem">
+                    <div class="oneGood" v-for="(val,key) in item.good">
+                        <div class="rowUp">
+                            <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" style="display:block"><img class="product" :src="val.mainmap" /></router-link>
+                            <div class="product-message">
+                                <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" style="display:block"><span class="desc">{{val.name}}</span></router-link>
+                                <p class="num">单价:￥{{num(val.price)}}</p>
+                                <!-- <p class="price">总价:￥{{num(val.price*val.number)}}</p> -->
+                            </div>
+                            <div>
+                                <!-- <span class="for-to-paid" v-if="val.status == 1">待付款</span> -->
+                                <span class="for-to-paid" v-if="item.status == 2">待发货</span>
+                                <span class="for-to-paid" v-else-if="item.status == 3">待收货</span>
+                                <span class="for-to-paid" v-else-if="item.status == 4">已收货</span>
+                                <span class="for-to-paid" v-else-if="item.status == 5">已评价</span>
+                                <span class="orderPrice">数量：{{val.number}}</span>
+                            </div>
                         </div>
-                        <div>
-                            <!-- <span class="for-to-paid" v-if="val.status == 1">待付款</span> -->
-                            <span class="for-to-paid" v-if="val.status == 2">待发货</span>
-                            <span class="for-to-paid" v-else-if="val.status == 3">待收货</span>
-                            <span class="for-to-paid" v-else-if="val.status == 4">待评价</span>
-                            <span class="for-to-paid" v-else-if="val.status == 5">交易成功</span>
-                            <span class="for-to-paid" v-else-if="val.status == 8">订单取消</span>
-                            <span class="orderPrice">数量：{{val.number}}</span>
+                        <div class="rowDown">
+                            <!-- 左边的按钮 -->
+                            <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
+                            <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                            <!-- <router-link v-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link> -->
+                            <a href="javascript:void(0)" v-if="item.status == 4" class="link" @click="showHideOnBlur = true; orderId = item.id">立即评价</a>
+                            <!-- <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link> -->
+                            <!-- <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" ></router-link> -->
+                            <!-- 右边的按钮 -->
+                            <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
+                            <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                            <a href="javascript:void(0)" v-if="item.status == 3" class="link">查看物流</a>
+                            <router-link v-else-if="item.status == 4" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link>
+                            <router-link v-else-if="item.status == 5" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link>
                         </div>
                     </div>
-                    <div class="rowDown">
-                        <!-- 左边的按钮 -->
-                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
-                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
-                        <router-link v-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
-                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
-                        <!-- <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
-                        <!-- <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" ></router-link> -->
-                        <!-- 右边的按钮 -->
-                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
-                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
-                        <router-link v-else-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >确认收货</router-link>
-                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >去评价</router-link>
-                        <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
-                        <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >再次购买</router-link>
+                    <div class="oneOrderTotal">
+                        <div class="rowRight">
+                            <p class="totalPrice">总金额：<span>{{num(item.total)}}</span></p>
+                            <p>运费：{{item.fee == 0 ? '免运费' : item.fee}}</p>
+                        </div>
                     </div>
                 </div>
                 <!-- 加载更多 -->
-                <div class="content-item content-item-top" v-for="(val,key) in moreData">
-                    <div class="rowUp">
-                        <img class="product" :src="val.mainmap" />
-                        <div class="product-message">
-                            <span class="desc">{{val.name}}</span>
-                            <p class="num">单价:￥{{num(val.price)}}</p>
-                            <p class="price">总价:￥{{num(val.price*val.number)}}</p>
+                <div class="content-item" v-for="(item,key) in moreData">
+                    <div class="oneGood" v-for="(val,key) in item.good">
+                        <div class="rowUp">
+                            <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" style="display:block"><img class="product" :src="val.mainmap" /></router-link>
+                            <div class="product-message">
+                                <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" style="display:block"><span class="desc">{{val.name}}</span></router-link>
+                                <p class="num">单价:￥{{num(val.price)}}</p>
+                                <!-- <p class="price">总价:￥{{num(val.price*val.number)}}</p> -->
+                            </div>
+                            <div>
+                                <!-- <span class="for-to-paid" v-if="val.status == 1">待付款</span> -->
+                                <span class="for-to-paid" v-if="item.status == 2">待发货</span>
+                                <span class="for-to-paid" v-else-if="item.status == 3">待收货</span>
+                                <span class="for-to-paid" v-else-if="item.status == 4">已收货</span>
+                                <span class="for-to-paid" v-else-if="item.status == 5">已评价</span>
+                                <span class="orderPrice">数量：{{val.number}}</span>
+                            </div>
                         </div>
-                        <div>
-                            <!-- <span class="for-to-paid" v-if="val.status == 1">待付款</span> -->
-                            <span class="for-to-paid" v-if="val.status == 2">待发货</span>
-                            <span class="for-to-paid" v-else-if="val.status == 3">待收货</span>
-                            <span class="for-to-paid" v-else-if="val.status == 4">待评价</span>
-                            <span class="for-to-paid" v-else-if="val.status == 5">交易成功</span>
-                            <span class="for-to-paid" v-else-if="val.status == 8">订单取消</span>
-                            <span class="orderPrice">数量：{{val.number}}</span>
+                        <div class="rowDown">
+                            <!-- 左边的按钮 -->
+                            <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
+                            <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                            <!-- <router-link v-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link> -->
+                            <a href="javascript:void(0)" v-if="item.status == 4" class="link" @click="showHideOnBlur = true; orderId = item.id">立即评价</a>
+                            <!-- <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link> -->
+                            <!-- <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" ></router-link> -->
+                            <!-- 右边的按钮 -->
+                            <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
+                            <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
+                            <a href="javascript:void(0)" v-if="item.status == 3" class="link">查看物流</a>
+                            <router-link v-else-if="item.status == 4" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link>
+                            <router-link v-else-if="item.status == 5" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link>
                         </div>
                     </div>
-                    <div class="rowDown">
-                        <!-- 左边的按钮 -->
-                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
-                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
-                        <router-link v-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
-                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
-                        <!-- <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
-                        <!-- <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" ></router-link> -->
-                        <!-- 右边的按钮 -->
-                        <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
-                        <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
-                        <router-link v-else-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >确认收货</router-link>
-                        <router-link v-else-if="val.status == 4" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >去评价</router-link>
-                        <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link>
-                        <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" >再次购买</router-link>
+                    <div class="oneOrderTotal">
+                        <div class="rowRight">
+                            <p class="totalPrice">总金额：<span>{{num(item.total)}}</span></p>
+                            <p>运费：{{item.fee == 0 ? '免运费' : item.fee}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="order-content">
             </div>
             <a class="more-orderFrom" href="javascript:void(0)" @click="addPara()" v-show="orderList.orderitem.length > 0">{{goodsNode}}</a>
             <!-- <div class="line"></div> -->
@@ -119,6 +129,19 @@
             </div>
         </div> -->
         <!-- 脚注 -->
+        <!-- 遮罩：填写评论 -->
+        <div v-transfer-dom>
+            <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+                <div class="txtArea">
+                    <p class="title">评价</p>
+                    <textarea class="textContent" placeholder="请输入您的评论" v-model="comment"></textarea>
+                    <div class="btnCont">
+                        <div class="inSubmit" @click="subComment()">提交评价</div>
+                        <div class="inSubmit inCancel" @click="showHideOnBlur = false">取消</div>
+                    </div>
+                </div>
+            </x-dialog>
+        </div>
         <!-- 脚部控制面板 -->
         <!-- <v-view class="route-item"></v-view> -->
         <router-view></router-view>
@@ -128,13 +151,19 @@
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
+// import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 // import header from '../../components/header/header';
 export default {
+    directives: {
+        TransferDom
+    },
     components: {
         'v-view': view,
-        swiper,
-        swiperSlide,
+        // swiper,
+        // swiperSlide,
+        XDialog,
+        XButton,
         // 'v-header': header
     },
     ready() {
@@ -154,13 +183,13 @@ export default {
         getMoreData: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/Order/ordmore?para='+this.para,
+                url: global.Domain + '/Order/ordmore?para=' + this.para,
                 emulateJSON: true
             }).then(function (response) {
                 let moreData = response.body;
                 if(moreData == 'err'){
                     this.goodsNode = "没有更多订单了"
-                    this.para = this.para-1
+                    this.para = this.para - 1
                    return
                 }else{
                     this.goodsNode = "查看更多订单"
@@ -173,6 +202,26 @@ export default {
         addPara: function(){
             this.para++;
             this.getMoreData();
+        },
+        // 提交评价
+        subComment: function(){
+            // console.log(this.orderId)
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/order/getcomm?oid=' + this.orderId + '&content=' + this.comment,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                // console.log(res)
+                if(res == 1){
+                    this.showHideOnBlur = false;
+                    alert('评论成功！');
+                    this.getDataFromBackend();
+                    this.comment = '';
+                } else {
+                    alert('评论失败！')
+                }
+            });
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -264,7 +313,11 @@ export default {
                     // console.log(width);
                     return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
                 }
-            }
+            },
+            showHideOnBlur: false,
+            // 订单评论相关
+            comment: '',
+            orderId: '',
         }
     },
     mounted() {
@@ -277,6 +330,47 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
+// 大选择窗口
+.v-transfer-dom
+    .vux-x-dialog
+        .weui-dialog
+            max-width none !important
+            width auto !important
+            text-align left !important
+            border-radius 0.1875rem
+            z-index 4999 !important
+            .txtArea
+                width 8.2813rem
+                padding 0 0.4375rem
+                .title
+                    margin 0.4063rem 0 0.3438rem 0
+                    font-size fs
+                    color #555
+                .textContent
+                    width 7.9688rem
+                    height 5.3125rem
+                    padding 0.1563rem
+                    font-size fs + 0.0313rem
+                    border 1px solid #e0e0e0
+                    border-radius 0.0938rem
+                    outline 0
+                    resize none
+                .btnCont
+                    display flex
+                    margin 0.4688rem 0
+                    .inSubmit
+                        display flex
+                        justify-content center
+                        align-items center
+                        width 100%
+                        height 1.25rem
+                        font-size fs + 0.0625rem
+                        color #fff
+                        background-color #ea68a2
+                    .inCancel
+                        color #353535
+                        background-color #f0f0f0
+// 主体
 .orderFrom-wrapper
     width: 100%
     height: 100%
@@ -324,13 +418,15 @@ export default {
                 width: 0.375rem
                 height: 0.375rem        
         .order-content
-            width: 100%    
+            width 100%
+            height auto
             .content-item-top
                 height: 3.5rem
             .content-item-bottom
                 height: 3.4375rem
             .content-item
                 border-bottom 1px solid #e0e0e0
+                border-top 0.3125rem solid #e0e0e0
                 .rowUp
                     overflow hidden
                     .product
@@ -387,6 +483,27 @@ export default {
                         color #fff
                         border-radius 0.1563rem
                         background #ea6aa2
+                        z-index 15
+                // 单个订单样式
+                .oneGood:not(:last-child)
+                    border-bottom 1px solid #e0e0e0
+                // 订单统计
+                .oneOrderTotal
+                    display flex
+                    justify-content flex-end
+                    align-items center
+                    width 10rem
+                    height 1.5625rem
+                    border-top 1px solid #e0e0e0
+                    font-size fs - 0.0313rem
+                    .rowRight
+                        margin-right 0.5rem
+                        .totalPrice
+                            display flex
+                            span
+                                color #ea68a2
+                        p:not(:first-child)
+                            margin-top 0.1563rem
         .more-orderFrom
             display: block
             width: 100%

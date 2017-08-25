@@ -33,7 +33,7 @@
                 <div class="line"></div>
             </div>
         </section>
-        <!-- 遮罩：选择充值金额 -->
+        <!-- 遮罩：填写评论 -->
         <div v-transfer-dom>
             <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                 <div class="txtArea">
