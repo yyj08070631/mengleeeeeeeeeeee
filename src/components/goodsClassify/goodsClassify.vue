@@ -31,22 +31,9 @@
             </a>
         </div>
         <!-- 商品列表容器 -->
-        <div class="good-wrapper" v-show="msg ==''">
+        <div class="good-wrapper">
             <div v-if="goodsItemList.gooditem.length < 1" class="noGoods">暂无商品&nbsp;:) <router-link to="/goods">->随便逛逛<-</router-link></div>
             <div :class="changeStyle" v-for="(item,key) in goodsItemList.gooditem">
-                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
-                <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
-                    <img class="goodsMsg" :src="item.mainmap" />
-                </router-link>
-                <div class="text-wrapper">
-                    <router-link :to="{ path: '/goodDetail', query: { gid: item.id } }">{{item.name}}</router-link>
-                    <span>¥{{item.price}}</span>
-                    <span>{{item.freight == 0 ? '不包邮' : item.freight == 1 ? '包邮' : '无邮费信息'}}&nbsp;|&nbsp;销量{{item.sale}}件</span>
-                </div>
-            </div>
-        </div>
-        <div class="good-wrapper" v-show="msg !=''">
-            <div :class="changeStyle" v-for="(item,key) in msg.gooditem">
                 <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
                 <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
                     <img class="goodsMsg" :src="item.mainmap" />
@@ -133,8 +120,6 @@ export default {
         },
         // 收藏商品
         collectGood: function (id,colid,iscol) {
-            let collect = require('./collect.png');
-            let collected = require('./collect-active.png');
             let col=(iscol == 1?'colid='+colid:'gid='+id)//colid or gid
             this.$http({
                 method: 'get',
@@ -142,7 +127,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                // console.log(res)
+                console.log(res)
                 if (res == 1) {
                     if (iscol == 1) {
                         this.failedToCancCol = false;
@@ -246,7 +231,7 @@ export default {
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/cate/goods?cid=' + this.$route.query.cid + '&static=' + this.now,
+                url: global.Domain + '/cate/goods?cid='+this.$route.query.cid+'&static=' + this.now,
                 emulateJSON: true
             }).then(function (response) {
                 this.goodsItemList = response.body

@@ -1,86 +1,126 @@
 <template>
     <header class="searchHead">
         <div class="outElem">
-                <div class="inputBox">
-                    <input type="text" placeholder="请输入商品关键字" v-model="resultMsg" @keyup.enter="toDoSearch" @keyup.delete ="clearInputNodes();open()">
-                </div>
-                <div class="cancelBox" v-show="resultMsg != ''" @click="clearMsg();open()">
-                    <span>×</span>
-                </div>
                 <div class="imgBox" @click="toDoSearch()">
                     <img src="./images/search_grey.png">
                 </div>
+                <div class="inputBox">
+                    <input type="text" placeholder="请输入商品关键字" v-model="$route.path=='/searchResult'?$route.query.data:resultMsg" @keyup.enter="$route.path != '/searchResult'?toDoSearch():getSearchData2()" @keyup.delete ="clearInputNodes();open()" ref="val">
+                </div>
+                <div class="imgBox cancel" @click="clearMsg();open();">
+                    <img src="./images/cancel.png">
+                </div>
         </div>
-        <!-- <a href="javascript:void(0)" class="searchBtn">搜索</a> -->
     </header>
 </template>
 <script type="ecmascript-6">
 export default {
+    props:['static'],//存储搜索结果传递过来的排序参数
     data() {
         return {
-            resultMsg: "",
-            resultDataList: [],
+            resultMsg: "",//第一次输入
+            resultDataList: [],//接收搜索结果，最终会通过$emit传给父组件
             searchData: '',
+            showKey: false,
+            static: this.static//存储搜索结果传递过来的排序参数
         }
     },
     methods: {
         //获取搜索结果
         toDoSearch: function(){
-             this.$http.post(
-                            global.Domain + '/index/search',
-                            {
-                                content: this.resultMsg,
-                            },
-                            {
-                                emulateJSON:true
-                            }).then(response=>{
-                                let data = response.body;
-                                this.resultDataList = data
-                                console.log("返回的结果：")
-                                console.log(this.resultDataList)
-                                //1:)得到结果
-                                //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
-                                //3:)再调用open函数的时候带过去的参数就不是空的了
-                                this.open()
-                        })
-            if(this.$route.path != '/searchResult'){
-                 
-                   
-                this.$router.push('searchResult?'+this.resultMsg)
-                console.log(this.$route.path)
+                this.$router.push('searchResult?data='+this.resultMsg)
+                // console.log(this.$route.path)
+                // console.log(this.$route.query.data)
+                this.resultMsg = this.$route.query.data
+                this.getSearchData()
+        },
+        getSearchData2: function(){
+            // this.resultMsg = this.$refs.val.value
                 this.$http.post(
                     global.Domain + '/index/search',
                     {
-                        content: this.resultMsg,
+                        content: this.$refs.val.value,
+                        static: this.static
+                    },
+                    {
+                        emulateJSON:true
+                    }).then(response=>{
+                        
+                        let data = response.body;
+                        this.resultDataList = data
+                        //1:)得到结果
+                        //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
+                        //3:)再调用open函数的时候带过去的参数就不是空的了
+                        this.open()
+                })
+
+            
+        },
+        getSearchData: function(){
+            // this.resultMsg = this.$refs.val.value
+            if(this.$route.path == '/searchResult'){
+                this.$http.post(
+                    global.Domain + '/index/search',
+                    {
+                        content: this.$refs.val.value,
+                        static: this.static
                     },
                     {
                         emulateJSON:true
                     }).then(response=>{
                         let data = response.body;
                         this.resultDataList = data
-                        console.log("返回的结果：")
-                        console.log(this.resultDataList)
+                        // console.log("返回的结果：")
+                        // console.log(this.resultDataList)
                         //1:)得到结果
                         //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
                         //3:)再调用open函数的时候带过去的参数就不是空的了
                         this.open()
                 })
-                   
             }
-           
         },
         clearMsg: function(){
-            this.resultMsg = '';
+            this.$route.query.data = ''
             this.resultDataList = '';
+            this.$refs.val.value = '';
+            this.resultMsg = '';
+            this.showKey = false
         },
         open: function() {
-        this.$emit('getSearchResult',this.resultDataList); //触发showbox方法，'the msg'为向父组件传递的数据
+            this.$emit('getSearchResult',[this.resultDataList,this.$refs.val.value,this.static]); //触发showbox方法，'the msg'为向父组件传递的数据
+        },
+        upDateKey: function(){
+            this.$emit('key',this.$refs.val.value);
         },
         clearInputNodes: function(){
-        if(this.resultMsg == '')
-            this.resultDataList = '';
+ 
+                 if(this.$refs.val.value == ''){
+                     this.showKey = false
+                     this.$route.query.data = ''
+                     this.resultDataList = '';
+                     this.$refs.val.value = '';
+                     this.resultMsg = '';
+                     
+                 }
+            },
+        cancelVal: function(){
+            if(this.$route.query.data != ''){
+                this.showKey = true
+            }
+        },
+        onInputKey: function(){
+           console.log(this.resultMsg)
         }
     },
+    mounted(){
+        this.onInputKey()
+        this.$nextTick(function () {
+            this.getSearchData()
+            this.cancelVal()
+            this.getSearchData()
+            
+        })
+    }
      
 }
 </script>
@@ -114,6 +154,10 @@ export default {
             img
                 width 0.6rem
                 height 0.6rem
+        .cancel
+            img
+                width 0.55rem
+                height 0.55rem
         .inputBox
             display flex
             align-items center
@@ -123,7 +167,6 @@ export default {
                 width 100%
                 font-size fs
                 outline 0
-                text-indent 0.4375rem
         .cancelBox
             display flex
             justify-content center
@@ -133,10 +176,6 @@ export default {
             margin 0.25rem
             border-radius 50%
             background-color #e0e0e0
-            span
-                margin-top -0.0781rem
-                font-size fs
-                color #fff
     .searchBtn
         display flex
         justify-content center
