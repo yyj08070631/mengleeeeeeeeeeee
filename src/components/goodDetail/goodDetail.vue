@@ -193,7 +193,7 @@
 			<button class="btn2" @click="onHide();clearText()">取消</button>
 			<img :src="detailItemList.albumitem[0].src">
 			<div class="share-cxt">
-				<input type="text" placeholder="请输入标题" :value="shareVal">
+				<input type="text" placeholder="请输入标题" v-model="shareVal">
 				<p>{{windowUrl}}</p>
 			</div>
 		</alert>
@@ -439,6 +439,7 @@ export default {
 		},
 		// 分享链接
 		getShareFn: function() {
+			// config 移到main.js去了
 			const urlNow = document.location.href;// 当前url
 			// const urlNow = encodeURIComponent(location.href.split('#')[0]);// 当前url
 			console.log(urlNow);
@@ -468,37 +469,51 @@ export default {
 			})
 		},
 		todoShare: function() {
-			this.getShareFn()
-			console.log("exe")
+			// this.getShareFn()
+			// console.log("exe")
 			let that = this.$wechat
 			that.ready(() => {
-				console.log(that.onMenuShareAppMessage)
+				// console.log(that.onMenuShareAppMessage)
+				// console.log({
+				// 	title: this.shareVal,
+				// 	desc: "这是分享给朋友描述",
+				// 	link: document.location.href,
+				// 	imgUrl: this.detailItemList.gooditem.mainmap,
+				// });
 				that.onMenuShareAppMessage({
-					title: "这是分享给朋友标题",
+					title: this.shareVal,
 					desc: "这是分享给朋友描述",
-					link: 'http://dde.dgxinn.cn',
-					imgUrl: "http://dde.dgxinn.cn/dream/Public/Uploads/good/2017-08-15/good_59928c71cc8dd9.98067847.jpg",
+					link: document.location.href,
+					imgUrl: this.detailItemList.gooditem.mainmap,
 					trigger: function(res) {
 						console.log(res)
 					},
 					success: function(res) {
-						console.log("分享成功")
+						console.log('分享信息修改成功！请点击右上角进行分享:-D')
 					},
 					cancel: function(res) {
-						console.log("分享失败")
+						console.log(res)
 					},
 					fail: function(res) {
-
+						console.log(res)
 					}
 				});
 				that.onMenuShareTimeline({
-					title: "document.title",
-					link: "link",
-					imgUrl: "Imgurl",
-					trigger: function(res) { },
-					success: function(res) { },
-					cancel: function(res) { },
-					fail: function(res) { }
+					title: this.shareVal,
+					link: document.location.href,
+					imgUrl: this.detailItemList.gooditem.mainmap,
+					trigger: function(res) { 
+						console.log(res)
+					 },
+					success: function(res) { 
+						console.log('分享信息修改成功！请点击右上角进行分享:-D')
+					 },
+					cancel: function(res) { 
+						console.log(res)
+					 },
+					fail: function(res) { 
+						console.log(res)
+					 }
 				});
 			});
 		},
@@ -840,7 +855,7 @@ export default {
 				margin-left 0.3rem
 				text-align left
 				input 
-					padding 2px 0
+					padding 0.0625rem 0
 					width 100%
 					margin-bottom 0.2rem
 					color #ea6aa2
@@ -848,6 +863,7 @@ export default {
 					white-space: nowrap
 					overflow: hidden
 					text-overflow: ellipsis
+					outline 0
 				p
 					color #909090	
 					font-size 0.2813rem

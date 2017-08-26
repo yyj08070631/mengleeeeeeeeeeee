@@ -81,14 +81,20 @@
                                 <span class="orderPrice">数量：{{val.number}}</span>
                             </div>
                         </div>
-                        <div class="rowDown">
+                        <!-- <div class="rowDown"> -->
+                            <!-- 左边的按钮 -->
+                            <!-- <a href="javascript:void(0)" class="link" @click="showHideOnBlur = true; goodNowId = val.id; goodNowTotal = val.total">立即付款</a> -->
+                            <!-- 右边的按钮 -->
+                            <!-- <a href="javascript:void(0)" class="link" @click="cancOrder(item.id)">取消订单</a> -->
+                        <!-- </div> -->
+                    </div>
+                    <div class="oneOrderTotal">
+                        <div class="rowLeft">
                             <!-- 左边的按钮 -->
                             <a href="javascript:void(0)" class="link" @click="showHideOnBlur = true; goodNowId = val.id; goodNowTotal = val.total">立即付款</a>
                             <!-- 右边的按钮 -->
                             <a href="javascript:void(0)" class="link" @click="cancOrder(item.id)">取消订单</a>
                         </div>
-                    </div>
-                    <div class="oneOrderTotal">
                         <div class="rowRight">
                             <p class="totalPrice">总金额：<span>{{num(item.total)}}</span></p>
                             <p>运费：{{item.fee == 0 ? '免运费' : item.fee}}</p>
@@ -890,10 +896,6 @@ span, a, img, input, textarea
                         font-size fs + 0.0625rem
                         margin-right 0.5rem   
         //  一个订单
-        .content-item-top
-            height: 3.5rem
-        .content-item-bottom
-            height: 3.4375rem
         .content-item
             border-bottom 1px solid #e0e0e0
             border-top 0.3125rem solid #e0e0e0
@@ -960,12 +962,26 @@ span, a, img, input, textarea
             // 订单统计
             .oneOrderTotal
                 display flex
-                justify-content flex-end
+                justify-content space-between
                 align-items center
                 width 10rem
                 height 1.5625rem
                 border-top 1px solid #e0e0e0
                 font-size fs - 0.0313rem
+                .rowLeft
+                    display flex
+                    margin-left .5rem
+                    .link
+                        display block
+                        width 1.8438rem
+                        height 0.5625rem
+                        margin-right 0.25rem
+                        line-height 0.5625rem
+                        font-size fs - 0.0625rem
+                        text-align center
+                        color #fff
+                        border-radius 0.1563rem
+                        background #ea6aa2
                 .rowRight
                     margin-right 0.5rem
                     .totalPrice

@@ -308,6 +308,7 @@ router.beforeEach((to, from, next) => {
     // store.commit('updateLoadingStatus', { isLoading: true });
     // console.log(getSearchString(pid));
     // // if(Vue.route.query){}
+    // 授权
     // Vue.http({
     //     method: 'post',
     //     url: global.Domain + '/index/test',
@@ -364,4 +365,28 @@ new Vue({
     router: router,
     template: '<App/>',
     components: { App }
+})
+
+// jssdk config
+const urlNow = document.location.href;// 当前url
+Vue.http({
+    method: 'get',
+    url: global.Domain + '/Index/sign?url=' + urlNow,
+    emulateJSON: true
+}).then(function(response) {
+    let data = response.body
+    Vue.wechat.config({
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
+        appId: data.sdkitem.appId, // 必填，公众号的唯一标识
+        timestamp: data.sdkitem.timestamp, // 必填，生成签名的时间戳
+        nonceStr: data.sdkitem.nonceStr, // 必填，生成签名的随机串data.sdkitem.nonceStr
+        signature: data.sdkitem.signature,// 必填，签名，见附录1
+        jsApiList: [
+            "onMenuShareTimeline",
+            "onMenuShareAppMessage"
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    Vue.wechat.error(function(res) {
+        console.log(res);
+    });
 })

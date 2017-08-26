@@ -35,7 +35,17 @@
                                 <span class="orderPrice">数量：{{val.number}}</span>
                             </div>
                         </div>
-                        <div class="rowDown">
+                        <!-- <div class="rowDown"> -->
+                            <!-- 左边的按钮 -->
+                            <!-- <a href="javascript:void(0)" v-if="item.status == 4" class="link" @click="showHideOnBlur = true; orderId = item.id">立即评价</a> -->
+                            <!-- 右边的按钮 -->
+                            <!-- <a href="javascript:void(0)" v-if="item.status == 3" class="link">查看物流</a>
+                            <router-link v-else-if="item.status == 4" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link>
+                            <router-link v-else-if="item.status == 5" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link> -->
+                        <!-- </div> -->
+                    </div>
+                    <div class="oneOrderTotal">
+                        <div class="rowLeft">
                             <!-- 左边的按钮 -->
                             <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
                             <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
@@ -47,11 +57,9 @@
                             <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
                             <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
                             <a href="javascript:void(0)" v-if="item.status == 3" class="link">查看物流</a>
-                            <router-link v-else-if="item.status == 4" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link>
-                            <router-link v-else-if="item.status == 5" class="link" :to="{ path: '/goodDetail', query: { gid: val.gid } }" >再次购买</router-link>
+                            <router-link v-else-if="item.status == 4" class="link" :to="{ path: '/goods' }" >再次购买</router-link>
+                            <router-link v-else-if="item.status == 5" class="link" :to="{ path: '/goods' }" >再次购买</router-link>
                         </div>
-                    </div>
-                    <div class="oneOrderTotal">
                         <div class="rowRight">
                             <p class="totalPrice">总金额：<span>{{num(item.total)}}</span></p>
                             <p>运费：{{item.fee == 0 ? '免运费' : item.fee}}</p>
@@ -420,13 +428,9 @@ export default {
         .order-content
             width 100%
             height auto
-            .content-item-top
-                height: 3.5rem
-            .content-item-bottom
-                height: 3.4375rem
             .content-item
-                border-bottom 1px solid #e0e0e0
-                border-top 0.3125rem solid #e0e0e0
+                &:not(:nth-child(2))
+                    border-top 0.3125rem solid #e0e0e0
                 .rowUp
                     overflow hidden
                     .product
@@ -434,7 +438,7 @@ export default {
                         float: left
                         width: 1.625rem 
                         height: 1.625rem
-                        margin: 0.5625rem 0.5625rem 0 0.5625rem  
+                        margin: 0.5625rem 0.5625rem
                     .product-message
                         margin-top: 0.5rem
                         float: left
@@ -484,18 +488,33 @@ export default {
                         border-radius 0.1563rem
                         background #ea6aa2
                         z-index 15
-                // 单个订单样式
+                // 单个商品样式
                 .oneGood:not(:last-child)
                     border-bottom 1px solid #e0e0e0
                 // 订单统计
                 .oneOrderTotal
                     display flex
-                    justify-content flex-end
+                    justify-content space-between
                     align-items center
                     width 10rem
-                    height 1.5625rem
+                    height 1.25rem
                     border-top 1px solid #e0e0e0
                     font-size fs - 0.0313rem
+                    .rowLeft
+                        display flex
+                        margin-left .5rem
+                        .link
+                            display block
+                            width 1.8438rem
+                            height 0.5625rem
+                            margin-right 0.25rem
+                            line-height 0.5625rem
+                            font-size fs - 0.0625rem
+                            text-align center
+                            color #fff
+                            border-radius 0.1563rem
+                            background #ea6aa2
+                            z-index 15
                     .rowRight
                         margin-right 0.5rem
                         .totalPrice
@@ -508,6 +527,7 @@ export default {
             display: block
             width: 100%
             height: 1.2188rem
+            border-top 1px solid #e0e0e0
             margin-bottom 1.3438rem
             line-height: 1.2188rem
             font-size: fs - 0.0313rem
