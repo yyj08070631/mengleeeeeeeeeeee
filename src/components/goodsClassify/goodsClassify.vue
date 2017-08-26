@@ -120,8 +120,6 @@ export default {
         },
         // 收藏商品
         collectGood: function (id,colid,iscol) {
-            let collect = require('./collect.png');
-            let collected = require('./collect-active.png');
             let col=(iscol == 1?'colid='+colid:'gid='+id)//colid or gid
             this.$http({
                 method: 'get',
@@ -129,7 +127,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
-                // console.log(res)
+                console.log(res)
                 if (res == 1) {
                     if (iscol == 1) {
                         this.failedToCancCol = false;

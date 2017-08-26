@@ -33,7 +33,9 @@
         <!-- 商品列表容器 -->
         <div class="good-wrapper" v-show="msg != ''">
             <div :class="changeStyle" v-for="(item,key) in (msg ==''?msg[0]:msg[0].gooditem)">
-                <img class="collect" :src="item.iscolitems == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
+                <!-- 为了能够让重新请求搜索接口的数据及时渲染到页面上，特别定义了collData存储点击收藏按钮请求后的结果 -->
+                <!-- 如果collData为空就优先用item.iscolitems -->
+                <img class="collect" :src="(collData==''?item.iscolitems:collData[key].iscolitems) == 1 ? collected : collect" ref="menuItem" @click.stop.capture="collectGood(item.id,item.colid,item.iscolitems)" />
                 <router-link :to="{path: '/goodDetail',query: { gid: item.id } }">
                     <img class="goodsMsg" :src="item.mainmap" />
                 </router-link>
@@ -86,7 +88,8 @@ export default {
             failedToCancCol: false,
             seachResult: [],
             msg: [],
-            static: 1
+            static: 1,
+            collData: []
         }
     },
     props: ['id'],
@@ -119,19 +122,21 @@ export default {
         },
         // 收藏商品
         collectGood: function (id,colid,iscol) {
-            console.log(id)
-             console.log(colid)
-              console.log(iscol)
+            // console.log(id)
+            //  console.log(colid)
+            //   console.log(iscol)
             let collect = require('./collect.png');
             let collected = require('./collect-active.png');
             let col=(iscol == 1?'colid='+colid:'gid='+id)//colid or gid
-            console.log()
             this.$http({
                 method: 'get',
-                url: global.Domain + '/index/search?iscol=' + (iscol == 1 ? 0 : 1) + '&'+col+ '&type=1',
+                url: global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&'+col+ '&type=1',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body
+                // console.log("返回的结果")
+                // console.log(res)
+                // console.log(global.Domain + '/order/iscol?iscol=' + (iscol == 1 ? 0 : 1) + '&'+col+ '&type=1')
                 // console.log(res)
                 if (res == 1) {
                     if (iscol == 1) {
@@ -147,7 +152,8 @@ export default {
                         this.on = false;
                         this.on = true
                     }
-    
+                     this.getSearchData()
+                
                 } else {
                     if (iscol == 1) {
                         this.off = false;
@@ -163,6 +169,7 @@ export default {
                         this.failedToCancCol = true
                     }
                 }
+               
             })
         },
         changeActive() {
@@ -247,6 +254,8 @@ export default {
                     }).then(response=>{
                         let data = response.body;
                         this.msg[0] = data
+                        this.collData = data.gooditem
+                        console.log(this.collData[0])
                         //1:)得到结果
                         //2:)是把 resultDataList 赋值给带传到父级的参数 getSearchResult
                         //3:)再调用open函数的时候带过去的参数就不是空的
@@ -257,8 +266,8 @@ export default {
         },
         getSearchResult(msg) {
                 this.msg = msg;
-                console.log("搜索结果：");
-                console.log(this.msg)
+                // console.log("搜索结果：");
+                // console.log(this.msg)
             }, 
     },
     mounted() {

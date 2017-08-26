@@ -1,32 +1,28 @@
 <template>
     <header class="searchHead">
         <div class="outElem">
-                <div class="inputBox">
-                    <input type="text" placeholder="请输入商品关键字" v-model="$route.path=='/searchResult'?$route.query.data:resultMsg" @keyup.enter="$route.path != '/searchResult'?toDoSearch():getSearchData2()" @keyup.delete ="clearInputNodes();open()" ref="val">
-                </div>
-                <div class="cancelBox" v-show="resultMsg !=''" @click="clearMsg();open();">
-                    <span>×</span>
-                </div>
-                <div class="cancelBox" v-show="showKey" @click="clearMsg();open();">
-                    <span>×</span>
-                </div>
                 <div class="imgBox" @click="toDoSearch()">
                     <img src="./images/search_grey.png">
                 </div>
+                <div class="inputBox">
+                    <input type="text" placeholder="请输入商品关键字" v-model="$route.path=='/searchResult'?$route.query.data:resultMsg" @keyup.enter="$route.path != '/searchResult'?toDoSearch():getSearchData2()" @keyup.delete ="clearInputNodes();open()" ref="val">
+                </div>
+                <div class="imgBox cancel" @click="clearMsg();open();">
+                    <img src="./images/cancel.png">
+                </div>
         </div>
-        <!-- <a href="javascript:void(0)" class="searchBtn">搜索</a> -->
     </header>
 </template>
 <script type="ecmascript-6">
 export default {
-    props:['static'],
+    props:['static'],//存储搜索结果传递过来的排序参数
     data() {
         return {
-            resultMsg: "",
-            resultDataList: [],
+            resultMsg: "",//第一次输入
+            resultDataList: [],//接收搜索结果，最终会通过$emit传给父组件
             searchData: '',
             showKey: false,
-            static: this.static
+            static: this.static//存储搜索结果传递过来的排序参数
         }
     },
     methods: {
@@ -35,19 +31,21 @@ export default {
                 this.$router.push('searchResult?data='+this.resultMsg)
                 // console.log(this.$route.path)
                 // console.log(this.$route.query.data)
+                this.resultMsg = this.$route.query.data
                 this.getSearchData()
         },
         getSearchData2: function(){
-
+            // this.resultMsg = this.$refs.val.value
                 this.$http.post(
                     global.Domain + '/index/search',
                     {
                         content: this.$refs.val.value,
+                        static: this.static
                     },
                     {
                         emulateJSON:true
                     }).then(response=>{
-                        this.showKey = true
+                        
                         let data = response.body;
                         this.resultDataList = data
                         //1:)得到结果
@@ -59,9 +57,7 @@ export default {
             
         },
         getSearchData: function(){
-            console.log(this.static)
-            this.showKey = true
-            this.searchData = this.$refs.val.value
+            // this.resultMsg = this.$refs.val.value
             if(this.$route.path == '/searchResult'){
                 this.$http.post(
                     global.Domain + '/index/search',
@@ -84,9 +80,11 @@ export default {
             }
         },
         clearMsg: function(){
+            this.$route.query.data = ''
             this.resultDataList = '';
-            this.$refs.val.value = ''
-
+            this.$refs.val.value = '';
+            this.resultMsg = '';
+            this.showKey = false
         },
         open: function() {
             this.$emit('getSearchResult',[this.resultDataList,this.$refs.val.value,this.static]); //触发showbox方法，'the msg'为向父组件传递的数据
@@ -95,20 +93,32 @@ export default {
             this.$emit('key',this.$refs.val.value);
         },
         clearInputNodes: function(){
-                 this.resultDataList = '';
+ 
+                 if(this.$refs.val.value == ''){
+                     this.showKey = false
+                     this.$route.query.data = ''
+                     this.resultDataList = '';
+                     this.$refs.val.value = '';
+                     this.resultMsg = '';
+                     
+                 }
             },
-        cal: function(){
-            if(this.$refs.val.value != ''){
+        cancelVal: function(){
+            if(this.$route.query.data != ''){
                 this.showKey = true
             }
+        },
+        onInputKey: function(){
+           console.log(this.resultMsg)
         }
     },
     mounted(){
+        this.onInputKey()
         this.$nextTick(function () {
             this.getSearchData()
-            this.autoSearch()
-            this.cal()
+            this.cancelVal()
             this.getSearchData()
+            
         })
     }
      
@@ -144,6 +154,10 @@ export default {
             img
                 width 0.6rem
                 height 0.6rem
+        .cancel
+            img
+                width 0.55rem
+                height 0.55rem
         .inputBox
             display flex
             align-items center
@@ -153,7 +167,6 @@ export default {
                 width 100%
                 font-size fs
                 outline 0
-                text-indent 0.4375rem
         .cancelBox
             display flex
             justify-content center
@@ -163,10 +176,6 @@ export default {
             margin 0.25rem
             border-radius 50%
             background-color #e0e0e0
-            span
-                margin-top -0.0781rem
-                font-size fs
-                color #fff
     .searchBtn
         display flex
         justify-content center
