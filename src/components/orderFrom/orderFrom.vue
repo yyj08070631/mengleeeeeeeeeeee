@@ -28,10 +28,6 @@
                             </div>
                             <div>
                                 <!-- <span class="for-to-paid" v-if="val.status == 1">待付款</span> -->
-                                <span class="for-to-paid" v-if="item.status == 2">待发货</span>
-                                <span class="for-to-paid" v-else-if="item.status == 3">待收货</span>
-                                <span class="for-to-paid" v-else-if="item.status == 4">已收货</span>
-                                <span class="for-to-paid" v-else-if="item.status == 5">已评价</span>
                                 <span class="orderPrice">数量：{{val.number}}</span>
                             </div>
                         </div>
@@ -50,13 +46,16 @@
                             <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >立即付款</router-link> -->
                             <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
                             <!-- <router-link v-if="val.status == 3" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link> -->
-                            <a href="javascript:void(0)" v-if="item.status == 4" class="link" @click="showHideOnBlur = true; orderId = item.id">立即评价</a>
+                            <span class="for-to-paid" v-if="item.status == 2">待发货</span>
+                            <span class="link" v-else-if="item.status == 3" @click="oid = item.id; confirmReceipt()">确认收货</span>
+                            <a href="javascript:void(0)" v-else-if="item.status == 4" class="link" @click="showHideOnBlur = true; orderId = item.id">立即评价</a>
+                            <span class="for-to-paid" v-else-if="item.status == 5">已评价</span>
                             <!-- <router-link v-else-if="val.status == 5" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >再次购买</router-link> -->
                             <!-- <router-link v-else-if="val.status == 8" class="link" :to="{ path: goodsTypeArr[val.status].link2, query: { gid: val.id } }" ></router-link> -->
                             <!-- 右边的按钮 -->
                             <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
                             <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
-                            <a href="javascript:void(0)" v-if="item.status == 3" class="link">查看物流</a>
+                            <a :href="href(item.sn, item.wname)" v-if="item.status == 3" class="link">查看物流</a>
                             <router-link v-else-if="item.status == 4" class="link" :to="{ path: '/goods' }" >再次购买</router-link>
                             <router-link v-else-if="item.status == 5" class="link" :to="{ path: '/goods' }" >再次购买</router-link>
                         </div>
@@ -231,6 +230,27 @@ export default {
                 }
             });
         },
+        // 确认收货
+        confirmReceipt: function(){
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/order/ordfirm?oid=' + this.oid,
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body
+                // console.log(res)
+                if(res == 1){
+                    alert('已确认收货');
+                    this.getDataFromBackend();
+                } else {
+                    alert('确认收货失败')
+                }
+            })
+        },
+        // 获取物流信息链接
+        href: function(code, num){
+            return 'https://m.kuaidi100.com/index_all.html?type=' + code + '&postid=' + num
+        },
         // 1,020.00
         outputdollars: function (number) {
             if (number.length <= 3)
@@ -326,6 +346,8 @@ export default {
             // 订单评论相关
             comment: '',
             orderId: '',
+            // 确认收货的订单id
+            oid: '',
         }
     },
     mounted() {
@@ -451,19 +473,9 @@ export default {
                             color: #909090
                         .price
                             color: #909090
-                    .for-to-paid
-                        display: inline-block
-                        margin: 0.5rem 0.5625rem 0 0 
-                        vertical-align: top
-                        float: right
-                        height: 0.6875rem
-                        line-height: 0.6875rem
-                        text-align: center
-                        font-size: fs - 0.0313rem
-                        color: #ea6aa2
                     .orderPrice
                         display: inline-block
-                        margin: 0 0.5625rem 0 0 
+                        margin: .5rem 0.5625rem 0 0 
                         vertical-align: top
                         float: right
                         height: 0.6875rem
@@ -502,6 +514,7 @@ export default {
                     font-size fs - 0.0313rem
                     .rowLeft
                         display flex
+                        align-items center
                         margin-left .5rem
                         .link
                             display block
@@ -515,6 +528,17 @@ export default {
                             border-radius 0.1563rem
                             background #ea6aa2
                             z-index 15
+                        .for-to-paid
+                            display: inline-block
+                            vertical-align: top
+                            float: right
+                            width 1.8438rem
+                            height: 0.6875rem
+                            margin-right 0.25rem
+                            line-height: 0.6875rem
+                            text-align: center
+                            font-size: fs - 0.0313rem
+                            color: #ea6aa2
                     .rowRight
                         margin-right 0.5rem
                         .totalPrice

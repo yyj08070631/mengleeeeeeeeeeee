@@ -108,17 +108,13 @@ export default {
             showHideOnBlur: false,
             payType: '',
             payResult: [],
-            locFromSession: this.getLoc(),
-            listFromSession: this.getList(),
+            locFromSession: [],
+            listFromSession: [],
             cidFromSession: this.getCid(),
             // 弹窗 & 弹窗文字
             alert: false,
             alertTxt: '',
         }
-    },
-    mounted() {
-        this.getDataFromBackend()
-        this.getLoc()
     },
     methods: {
         // 获取数据
@@ -140,7 +136,9 @@ export default {
                 }).then(response => {
                     let res = response.body;
                     console.log(res);
-                    this.data = res
+                    this.data = res;
+                    this.getLoc();
+                    this.getList();
                 })
             // 获取支付类型信息
             this.$http({
@@ -203,7 +201,8 @@ export default {
                 global.Domain + '/order/pay',
                 {
                     pay: this.payType,
-                    group: this.listFromSession,
+                    gid: this.listFromSession[0].gid,
+                    number: this.listFromSession[0].number,
                     status: this.$route.query.from == 'goodDetail' ? 1 : 3,
                     cid: this.cidFromSession,
                     address: this.locFromSession.addr,
@@ -249,8 +248,8 @@ export default {
                     // cid: this.data.data[i].id
                 })
             }
-            // console.log(resArr)
-            return JSON.stringify(resArr)
+            console.log(resArr)
+            this.listFromSession = resArr
         },
         // 从session中获取购物车id: cid
         getCid: function () {
@@ -266,11 +265,11 @@ export default {
             // console.log(resArr)
             return JSON.stringify(resArr)
         },
-        // 从session中获取地址信息
+        // 从session中获取地址信息：JSON 数组
         getLoc: function () {
             // console.log(JSON.parse(sessionStorage.getItem('loc')));
             if(sessionStorage.getItem('loc')){
-                return JSON.parse(sessionStorage.getItem('loc'));
+                this.locFromSession = JSON.parse(sessionStorage.getItem('loc'));
             } else {
                 let addrFromBackend = {
                     "name": this.data.addressitems.name,
@@ -278,9 +277,10 @@ export default {
                     "addr": this.data.addressitems.province + this.data.addressitems.city + this.data.addressitems.area + this.data.addressitems.address
                 };
                 // console.log(addrFromBackend);
-                return addrFromBackend;
+                this.locFromSession = addrFromBackend;
             }
         },
+        // 从session中获取地址信息：JSON 字符串
         getBaseLoc: function () {
             // console.log(sessionStorage.getItem('loc'));
             if(sessionStorage.getItem('loc')){
@@ -325,6 +325,9 @@ export default {
                 return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
+    mounted() {
+        this.getDataFromBackend()
+    },
     computed: {
         // 计算商品总数
         computeGoods: function () {
@@ -346,23 +349,7 @@ export default {
             count += parseFloat(this.data.freightitems);
             return count
         }
-    },
-    // filters: {
-    //     // 1,025.00
-    //     num: function (value) {
-    //         // console.log(value)
-    //         let afterPt = parseFloat(value).toFixed(2).split('.')[1];
-    //         // console.log(afterPt); // 00
-    //         value = String(parseFloat(value).toFixed(2).split('.')[0]);
-    //         let result = '';
-    //         let i = 0;
-    //         for (i = 3; i < value.length; i += 3) {
-    //             result = ',' + value.slice(-i) + result;
-    //         }
-    //         result = value.slice(0, value.length % 3) + result + '.' + afterPt;
-    //         return result
-    //     }
-    // },
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

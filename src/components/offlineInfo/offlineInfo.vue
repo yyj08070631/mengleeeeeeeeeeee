@@ -84,7 +84,7 @@
                         <div class="colRight">
                             <div class="rowUp">
                                 <p>{{val.username}}</p>
-                                <img :src="computeImg(val.level)">
+                                <img :src="val.levsrc">
                             </div>
                             <div class="rowDown">
                                 {{val.content}}
@@ -156,7 +156,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                // console.log(res);
+                console.log(res);
                 this.data = res;
                 //console.log(this.data)
             });
@@ -327,10 +327,9 @@ img, span, a
                         height 0.3906rem
             .commentDetail
                 display flex
-                margin-top 0.3125rem
-                margin-bottom 0.3438rem
+                margin .3125rem 0 .3438rem 0
                 .colLeft
-                    margin-right 0.5938rem
+                    margin 0 .5938rem 0 .5rem
                     width 1.1719rem
                     height 1.1719rem
                     img

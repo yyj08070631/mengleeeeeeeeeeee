@@ -22,7 +22,7 @@
                         <a href="javascript:void(0)" class="add" v-if="val.type == 1" @click.stop="selectCollect(val.id);showCartFn();"> 
                             加入购物车
                         </a>
-                        <a href="javascript:void(0)" class="del" @click.stop="onShow();">删除</a>
+                        <a href="javascript:void(0)" class="del" @click.stop="onShow(); delColid = val.colid">删除</a>
                     </div>
                 </div>
             </router-link>
@@ -98,8 +98,9 @@ export default {
             error: false,
             show: false,
             index: 0,
-            delCollectList: [],
             saveData: [],// 数组重构，添加购物车，删除收藏等
+            // 删除的项目
+            delColid: '',
         }
     },
     methods: {
@@ -111,6 +112,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
+                // console.log(response.body)
             })
         },
         // 展示购物车组件
@@ -172,22 +174,13 @@ export default {
 		},
         // 删除收藏
         delCollect: function () {
-            for(let i = 0; i < this.orderList.collectitem.length; i++){
-                this.saveData = {
-                    id: this.orderList.collectitem[i].id,
-                    mainmap: this.orderList.collectitem[i].mainmap,
-                    price: this.orderList.collectitem[i].price,
-                    colid: this.orderList.collectitem[i].colid,
-                    type: this.orderList.collectitem[i].type,
-                }
-            }
             this.$http({
                 method: 'get',
-                url: global.Domain + '/order/iscol?iscol=0&colid=' + this.saveData.colid + '&type=' + this.saveData.type,
+                url: global.Domain + '/order/iscol?iscol=0&colid=' + this.delColid + '&type=1',
                 emulateJSON: true
             }).then((response)=>{
-                this.delCollectList = response.body
-                if(this.delCollectList ==  1 ){
+                let res = response.body
+                if(res ==  1 ){
                     this.success = true
                     this.getDataFromBackend()
                 }else{

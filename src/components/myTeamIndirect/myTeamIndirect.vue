@@ -8,37 +8,13 @@
             <div class="overview">
                 <p>概况</p>
                 <div>
-                    <p>直属：{{data.d_count}}</p>
-                    <p>间接：{{data.i_count}}</p>
+                    <p>队员直属：{{data.count}}</p>
                 </div>
             </div>
             <!--团队列表-->
             <div class="teammateList">
-                <!-- 有直属会员 -->
-                <router-link :to="{ path: '/myTeamIndirect', query: { iid: val.id } }" class="oneTeammate" v-for="(val,key) in data.d_arr" v-if="val.count == 1">
-                    <div class="oneTeammateBody">
-                        <div class="colLeft">
-                            <div class="boxLeft">
-                                <img :src="val.headimg">
-                            </div>
-                            <div class="boxRight">
-                                <div>
-                                    <p>{{val.username}}</p>
-                                    <img :src="val.grade">
-                                </div>
-                                <div>
-                                    加入时间-{{val.ctime}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="colRight">
-                            <img src="./images/arrow_right.png">
-                        </div>
-                    </div>
-                    <div class="line"></div>
-                </router-link>
-                <!-- 无直属会员 -->
-                <a href="javascript:void(0)" class="oneTeammate" v-for="(val,key) in data.d_arr" v-if="val.count == 0">
+                <div v-if="data.d_arr.length == 0" class="noMan">没有直属会员哦:-D</div>
+                <a href="javascript:void(0)" class="oneTeammate" v-for="(val,key) in data.d_arr" v-else>
                     <div class="oneTeammateBody">
                         <div class="colLeft">
                             <div class="boxLeft">
@@ -79,7 +55,7 @@ export default {
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/myTeam?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/user/myTeamI?userId===tPtcNLZARXEuvDhRSFGkQX&iid=' + this.$route.query.iid,
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
@@ -87,9 +63,6 @@ export default {
                 this.data = res.data
             })
         }
-    },
-    computed: {
-
     }
 }
 </script>
@@ -135,6 +108,13 @@ img, span, a
         .teammateList
             // .oneTeammate:last-child .oneTeammateBody::after
             //     border 0
+            .noMan
+                display flex
+                justify-content center
+                align-items center
+                width 100%
+                font-size fs + 0.0938rem
+                margin-top 60%
             .oneTeammate:active
                 background-color #e0e0e0
             .oneTeammate

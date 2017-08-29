@@ -20,7 +20,33 @@
 </template>
 <script type="ecmascript-6">
 export default {
-
+	components: {
+        // 'v-header': header
+    },
+    data() {
+        return {
+            data: []
+        }
+    },
+    created() {
+        this.getDataFromBackend()
+    },
+    methods: {
+        getDataFromBackend: function () {
+            this.$http.post(
+                'http://dde.dgxinn.cn/dream/index.php/Api/nav',
+                {
+                    
+                },
+                {
+                    emulateJSON: true
+                }).then(response => {
+                    let res = response.body;
+                    console.log(res);
+                    this.data = res
+                })
+        }
+    }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

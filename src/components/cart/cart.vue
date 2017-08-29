@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="search">
-                <a href="javascript:void(0)" class="pay" @click="goodsToSession()">结算</a>
+                <a href="javascript:void(0)" class="pay" @click="goodsToSession()" v-show="mainView == 1">结算</a>
                 <!-- ({{Idarr.length}}) -->
                 <!-- <a href="javascript:void(0)" class="pay" v-show="showWrite" @click="onShow">删除</a> -->
                 <!-- <p v-show="mainView == 0" @click="mainView = 1">购物车</p>
@@ -41,12 +41,12 @@
                         <div class="delBtn" v-show="canDel" @click="show = true; setIdArr(val.id)">—</div>
                     </div>
                     <!-- 商品图片 -->
-                    <div class="colMiddle">
+                    <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" class="colMiddle">
                         <img :src="val.mainmap">
-                    </div>
+                    </router-link>
                     <!-- 信息 & 修改数量 -->
                     <div class="colRight">
-                        <p class="rowUp">{{val.gname}}</p>
+                        <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" class="rowUp">{{val.gname}}</router-link>
                         <div class="rowDown">
                             <span class="price">
                                 <span>￥</span>
@@ -91,7 +91,7 @@
                     <div class="oneOrderTotal">
                         <div class="rowLeft">
                             <!-- 左边的按钮 -->
-                            <a href="javascript:void(0)" class="link" @click="showHideOnBlur = true; goodNowId = val.id; goodNowTotal = val.total">立即付款</a>
+                            <a href="javascript:void(0)" class="link" @click="showHideOnBlur = true; goodNowId = item.id; goodNowTotal = item.total">立即付款</a>
                             <!-- 右边的按钮 -->
                             <a href="javascript:void(0)" class="link" @click="cancOrder(item.id)">取消订单</a>
                         </div>
@@ -579,7 +579,7 @@ export default {
                     if (res.pass == 1) {
                         location.href = res.url
                     } else if (res == 1) {
-                        this.$router.push({ path: '/payResult', query: { price: this.num(this.computeMoney) } });
+                        this.$router.push({ path: '/payResult', query: { price: this.num(this.goodNowTotal) } });
                     } else if (res == 2) {
                         alert('该商品库存不足');
                         this.getDataFromBackend();
@@ -850,6 +850,7 @@ span, a, img, input, textarea
                     width 4.8125rem
                     margin-top 0.3125rem
                     font-size fs
+                    color #333
                     overflow hidden
                     text-overflow ellipsis
                     white-space  nowrap
@@ -907,7 +908,7 @@ span, a, img, input, textarea
                     float: left
                     width: 1.625rem 
                     height: 1.625rem
-                    margin: 0.5625rem 0.5625rem 0 0.5625rem  
+                    margin: 0.5625rem 0.5625rem
                 .product-message
                     margin-top: 0.5rem
                     float: left

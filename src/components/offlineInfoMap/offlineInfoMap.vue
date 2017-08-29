@@ -118,8 +118,8 @@ export default {
         left 0
         width 10rem
         height 2rem
-        background-color #fff
+        background-color #318FF3
         font-size 0.5rem
-        color #333
+        color #fff
         z-index 500
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="collect-wrapper" ref="srcoll">
+	<div class="goodDetail-wrapper" ref="srcoll">
 		<!--  v-infinite-scroll="loadDetail"  infinite-scroll-distance="10"-->
 		<!-- 头部 -->
 		<!-- <v-header></v-header> -->
@@ -14,7 +14,7 @@
 			<div class="swiper-pagination" slot="pagination"></div>
 		</swiper>
 		<!--导航按钮-->
-		<div class="detailNav">
+		<div class="detailNav" :style="detailItemList.albumitem.length == 1 ? borderTop : []">
 			<router-link :to="{path:'/imageText',query:{gid:$route.query.gid}}">图文详情</router-link>
 			<router-link :to="{path:'/goodsData',query:{gid:$route.query.gid}}">商品参数</router-link>
 		</div>
@@ -190,11 +190,10 @@
 		</div>
 		<alert v-model="showShareTab" title="分享">
 			<button class="btn1" @click="onHide();todoShare()">确认分享</button>
-			<button class="btn2" @click="onHide();clearText()">取消</button>
+			<button class="btn2" @click="onHide()">取消</button>
 			<img :src="detailItemList.albumitem[0].src">
 			<div class="share-cxt">
 				<input type="text" placeholder="请输入标题" v-model="shareVal">
-				<p>{{windowUrl}}</p>
 			</div>
 		</alert>
 	</div>
@@ -246,7 +245,9 @@ export default {
 					return '<span class="' + className + '"' + 'style="width:' + width + '"' + '></span>';
 				}
 			},
-			noDragToView: true
+			noDragToView: true,
+			// 若只有一张图片没有分页器则加一个上边框
+			borderTop: { 'border-top': '1px solid #e0e0e0' }
 		}
 	},
 	methods: {
@@ -308,9 +309,11 @@ export default {
 				url: global.Domain + '/Cate/detail?gid=' + this.$route.query.gid,
 				emulateJSON: true
 			}).then(function(response) {
-				this.detailItemList = response.body
+				let res = response.body;
+				this.detailItemList = res;
 				// console.log('--------------------'+this.$route.query.gid)
-				console.log(this.detailItemList)
+				// console.log(this.detailItemList)
+				this.shareVal = res.gooditem.name;
 			})
 		},
 		// 获取更多评论
@@ -450,7 +453,7 @@ export default {
 			}).then(function(response) {
 				let data = response.body
 				this.$wechat.config({
-					debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
+					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
 					appId: data.sdkitem.appId, // 必填，公众号的唯一标识
 					timestamp: data.sdkitem.timestamp, // 必填，生成签名的时间戳
 					nonceStr: data.sdkitem.nonceStr, // 必填，生成签名的随机串data.sdkitem.nonceStr
@@ -471,51 +474,48 @@ export default {
 		todoShare: function() {
 			// this.getShareFn()
 			// console.log("exe")
-			let that = this.$wechat
-			that.ready(() => {
-				// console.log(that.onMenuShareAppMessage)
-				// console.log({
-				// 	title: this.shareVal,
-				// 	desc: "这是分享给朋友描述",
-				// 	link: document.location.href,
-				// 	imgUrl: this.detailItemList.gooditem.mainmap,
-				// });
-				that.onMenuShareAppMessage({
-					title: this.shareVal,
-					desc: "这是分享给朋友描述",
-					link: document.location.href,
-					imgUrl: this.detailItemList.gooditem.mainmap,
-					trigger: function(res) {
-						console.log(res)
-					},
-					success: function(res) {
-						console.log('分享信息修改成功！请点击右上角进行分享:-D')
-					},
-					cancel: function(res) {
-						console.log(res)
-					},
-					fail: function(res) {
-						console.log(res)
-					}
+			let that = this.$wechat;
+			this.$http({
+				method: 'get',
+				url: 'http://dde.dgxinn.cn/dream/index.php/Api/uid/g',
+				emulateJSON: true
+			}).then(function(response) {
+				let res = response.body;
+				// console.log(res);
+				that.ready(() => {
+					that.onMenuShareAppMessage({
+						title: this.shareVal,
+						desc: '',
+						link: this.addURLParam(document.location.href, 'logo', res.logo),
+						imgUrl: this.detailItemList.gooditem.mainmap,
+						success: function(res) {
+							// console.log(res)
+						},
+						cancel: function(res) {
+							// console.log(res)
+						}
+					});
+					that.onMenuShareTimeline({
+						title: this.shareVal,
+						link: this.addURLParam(document.location.href, 'logo', res.logo),
+						imgUrl: this.detailItemList.gooditem.mainmap,
+						success: function(res) {
+							// console.log(res)
+						},
+						cancel: function(res) { 
+							// console.log(res)
+						}
+					});
 				});
-				that.onMenuShareTimeline({
-					title: this.shareVal,
-					link: document.location.href,
-					imgUrl: this.detailItemList.gooditem.mainmap,
-					trigger: function(res) { 
-						console.log(res)
-					 },
-					success: function(res) { 
-						console.log('分享信息修改成功！请点击右上角进行分享:-D')
-					 },
-					cancel: function(res) { 
-						console.log(res)
-					 },
-					fail: function(res) { 
-						console.log(res)
-					 }
-				});
-			});
+			})
+		},
+		// 向现有的URL末尾添加查询字符串
+		addURLParam: function(url, name, value) {
+			// 检验请求URL中是否有 "?" ，若无则用 "?" 添加查询字符串，若有则用 "&" 进行拼接
+			url += (url.indexOf("?") == -1 ? "?" : "&");
+			// 将查询字符串转换为URL格式
+			url += encodeURIComponent(name) + "=" + encodeURIComponent(name);
+			return url;
 		},
 		//获取图文信息
 		getImageTextData: function() {
@@ -581,7 +581,7 @@ export default {
 @import '../../commom/stylus/mixin'
 
 // 外层元素
-.collect-wrapper
+.goodDetail-wrapper
 	position absolute
 	left 0
 	width 100%
@@ -852,7 +852,7 @@ export default {
 				height 1.5625rem	
 				vertical-align top
 			.share-cxt
-				margin-left 0.3rem
+				margin-left 0.5rem
 				text-align left
 				input 
 					padding 0.0625rem 0
@@ -881,6 +881,7 @@ export default {
 			border:0;
 			border-top:1px solid #909090
 			font-size fs + 0.0625rem
+			outline 0
 		.btn2
 			position:absolute
 			left:50%;
@@ -894,6 +895,7 @@ export default {
 			border:0;
 			border-top:1px solid #909090
 			font-size fs + 0.0625rem
+			outline 0
 			.weui-dialog__title
 				font-size fs - 0.0313rem !important
 			.weui-dialog__ft
@@ -993,7 +995,7 @@ export default {
 			.buyNow
 				background-color #ea6aa2 !important
 	.showImageText
+		margin-bottom 0.9375rem	
 		img
-			width 100%	
-			margin-bottom 0.9375rem	
+			width 100%
 </style>
