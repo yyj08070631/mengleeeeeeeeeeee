@@ -8,7 +8,7 @@
             <div class="personal">
                 <h2 class="name">{{data.username}}</h2>
                 <span class="mobile">{{data.phone}}</span>
-                <img class="rank" :src="computeImg">
+                <img class="rank" :src="data.internal == 1 ? require('./images/neibu.png') : data.levelName">
             </div>
             <div class="more-link">
                 <img class="qr-code" src="./QR_code.png">
@@ -121,7 +121,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                // console.log(res);
+                console.log(res);
                 this.data = res.data;
             });
             // 版权
@@ -131,7 +131,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                console.log(res);
+                // console.log(res);
                 this.copyright = res.data;
             });
         },
@@ -243,7 +243,6 @@ img, span, a
             color: #909090
             margin-bottom: 0.2813rem
         .rank
-            width: 1.125rem
             height: 0.375rem    
         .more-link
             position: absolute

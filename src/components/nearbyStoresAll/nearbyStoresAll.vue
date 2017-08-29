@@ -9,7 +9,7 @@
                 <span class="computed">所有项目实体店</span>
             </div>
             <div class="load"></div>
-            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id } }" class="store-item" v-for="(val, key) in data.nearbyitem">
+            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id, dis: val.distance, tim: val.minute } }" class="store-item" v-for="(val, key) in data.nearbyitem">
                 <div>
                     <img :src="val.mainmap">
                 </div>

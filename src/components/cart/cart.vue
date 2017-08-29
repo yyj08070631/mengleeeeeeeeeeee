@@ -32,8 +32,8 @@
             <!-- 一个商品 -->
             <div class="goodsList" v-show="mainView == 1">
                 <!-- 购物车为空 -->
-                <p v-if="data.data.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
-                <div class="oneProduct" v-for="(val,key) in data.data">
+                <p v-if="data.data.list.length < 1 " class="noGoods">购物车空空如也哦 :)</p>
+                <div class="oneProduct" v-for="(val,key) in data.data.list">
                     <!-- 选择框 -->
                     <div class="colLeft" ref="allBox">
                         <!-- 选择那个圈圈 -->
@@ -112,6 +112,7 @@
             </div>
             <div class="colMiddle">
                 <p class="price">RMB&nbsp;{{num(totalPrice)}}</p>
+                <p class="trans">运费：{{data.data.totaltrans == 0 ? '免运费' : num(data.data.totaltrans)}}</p>
             </div>
             <!-- <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a> -->
             <!-- <a href="javascript:void(0)" class="pay" v-show="showPay" @click="goodsToSession()">结算({{Idarr.length}})</a> -->
@@ -350,15 +351,15 @@ export default {
                 let arr = [];
                 this.data = moreComMore;
                 // 将所有商品存入操作提交订单的数组
-                this.selAll(moreComMore.data);
+                this.selAll(moreComMore.data.list);
                 this.totalPrice = 0;
-                for (let i = 0; i < moreComMore.data.length; i++) {
+                for (let i = 0; i < moreComMore.data.list.length; i++) {
                     arr.push({
-                        id: moreComMore.data[i].id,
-                        num: moreComMore.data[i].number
+                        id: moreComMore.data.list[i].id,
+                        num: moreComMore.data.list[i].number
                     });
                     // 计算总价
-                    this.totalPrice += moreComMore.data[i].number * moreComMore.data[i].price;
+                    this.totalPrice += moreComMore.data.list[i].number * moreComMore.data.list[i].price;
                     // console.log(this.totalPrice);
                 }
                 this.number = arr;
@@ -998,7 +999,7 @@ span, a, img, input, textarea
         justify-content space-between
         position fixed
         width 100%
-        height 1.0938rem
+        height 1.4063rem
         bottom 1.3438rem
         left 0
         background-color #fff
@@ -1016,7 +1017,8 @@ span, a, img, input, textarea
                 color #333
         .colMiddle
             display flex
-            align-items center
+            flex-direction column
+            justify-content center
             height 100%
             margin-left 2.8125rem
             margin-right 0.5rem
@@ -1026,6 +1028,10 @@ span, a, img, input, textarea
             .price
                 font-size fs + 0.0625rem
                 color #ea68a2
+            .trans
+                margin-top 0.1563rem
+                font-size fs
+                color #333
         .pay
             display flex
             align-items center

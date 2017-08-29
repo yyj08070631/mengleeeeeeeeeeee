@@ -3,7 +3,7 @@
         <!-- header -->
         <!-- <v-header></v-header> -->
         <!-- 判断session是否有地址，若有则使用，若无才用默认 -->
-        <router-link :to="{ path: '/addrManage', query: { canSel: 1 } }" class="userInfo" v-if="getBaseLoc()">
+        <router-link :to="{ path: '/addrManage', query: { canSel: 1 } }" class="userInfo" v-if="locFromSession.name !== undefined">
             <!--  :to="{ path: '/addrManage', query: { group: orderArr() } }" -->
             <div>
                 <img src="./location.png">
@@ -21,8 +21,7 @@
                 <img src="./location.png">
             </div>
             <div>
-                <p>{{data.addressitems.name}}&nbsp;&nbsp;&nbsp;{{data.addressitems.phone}}</p>
-                <p>{{data.addressitems.province + data.addressitems.city + data.addressitems.area + data.addressitems.address}}</p>
+                <p>点击添加地址</p>
             </div>
             <div>
                 <img src="./arrow_right.png">

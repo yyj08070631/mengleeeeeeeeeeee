@@ -201,7 +201,8 @@ span, a, img, input, textarea
                 justify-content space-between
                 align-items center
                 width 9rem
-                margin 0.5625rem 0 0.5313rem 0  
+                height 1.7813rem
+                z-index 10
                 .nameAndPhone
                     display flex
                     .name
@@ -228,6 +229,7 @@ span, a, img, input, textarea
                 .icon
                     display flex
                     align-items center
+                    height 100%
                     a
                         flex 1
                         justify-content center

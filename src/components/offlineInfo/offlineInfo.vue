@@ -35,9 +35,9 @@
                     <div class="colLeft">
                         <p class="loc">{{data.nearbyitem.address}}</p>
                         <p class="dis">
-                            <span>{{data.nearbyitem.distance}}公里</span>
-                            <span class="verticalLine">|</span>
-                            <span>{{data.nearbyitem.minute}}分钟</span>
+                            <span>{{dis}}</span>
+                            <span class="verticalLine">&nbsp;|&nbsp;</span>
+                            <span>{{tim}}</span>
                         </p>
                     </div>
                     <div class="colRight">
@@ -144,7 +144,10 @@ export default {
             data: [],
             msgData: [],
             para: 0,
-            msgMore: '查看更多评论'
+            msgMore: '查看更多评论',
+            // 传入的距离和时间
+            dis: this.$route.query.dis,
+            tim: this.$route.query.tim,
         }
     },
     methods: {

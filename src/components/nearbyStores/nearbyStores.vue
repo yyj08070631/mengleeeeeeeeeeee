@@ -7,14 +7,14 @@
             <div href="javascript:void(0)" class="store-computed">
                 <span class="computed">附近的项目实体店</span>
             </div>
-            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id } }" class="store-item" v-for="(val, key) in data">
+            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id, dis: val.distance, tim: val.minute } }" class="store-item" v-for="(val, key) in data">
                 <div>
                     <img :src="val.mainmap">
                 </div>
                 <div>
                     <p class="title">{{val.name}}</p>
                     <p>{{val.trade_time}}，{{val.day_time}}</p>
-                    <p>{{val.distance}}公里&nbsp;|&nbsp;{{val.minute}}分钟</p>
+                    <p>{{val.distance}}&nbsp;|&nbsp;{{val.minute}}</p>
                 </div>
                 <div>
                     <img class="more" src="./more.png">

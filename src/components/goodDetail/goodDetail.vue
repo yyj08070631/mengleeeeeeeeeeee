@@ -193,7 +193,7 @@
 			<button class="btn2" @click="onHide()">取消</button>
 			<img :src="detailItemList.albumitem[0].src">
 			<div class="share-cxt">
-				<input type="text" placeholder="请输入标题" v-model="shareVal">
+				<textarea type="text" placeholder="请输入标题" v-model="shareVal"></textarea>
 			</div>
 		</alert>
 	</div>
@@ -511,7 +511,7 @@ export default {
 			// 检验请求URL中是否有 "?" ，若无则用 "?" 添加查询字符串，若有则用 "&" 进行拼接
 			url += (url.indexOf("?") == -1 ? "?" : "&");
 			// 将查询字符串转换为URL格式
-			url += encodeURIComponent(name) + "=" + encodeURIComponent(name);
+			url += encodeURIComponent(name) + "=" + encodeURIComponent(value);
 			return url;
 		},
 		//获取图文信息
@@ -861,16 +861,14 @@ export default {
 			.share-cxt
 				margin-left 0.5rem
 				text-align left
-				input 
-					padding 0.0625rem 0
+				textarea 
 					width 100%
-					margin-bottom 0.2rem
-					color #ea6aa2
+					height 1.875rem
+					border 0
 					font-size 0.3125rem
-					white-space: nowrap
-					overflow: hidden
-					text-overflow: ellipsis
+					color #ea6aa2
 					outline 0
+					resize none
 				p
 					color #909090	
 					font-size 0.2813rem
@@ -1004,10 +1002,5 @@ export default {
 	.showImageText
 		margin-bottom 0.9375rem	
 		img
-<<<<<<< HEAD
 			width 100%
-=======
-			width 100%	
-			
->>>>>>> 8a5f56f933ec674462755a93eec01da78ce5938c
 </style>
