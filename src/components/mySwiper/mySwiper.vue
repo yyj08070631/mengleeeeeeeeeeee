@@ -21,7 +21,7 @@
             </router-link>
         </swiper-slide> 
         <!-- 这是轮播的小圆点 -->
-        <div class="swiper-pagination" slot="pagination"></div>
+        <div class="swiper-pagination" slot="pagination" ref="list" style=""><span class="swiper-pagination-progressbar" style="background:#3cf;left: 300px!important"></span></div>
     </swiper>
 </template>
 <script type="ecmascript-6">
@@ -43,15 +43,18 @@ export default {
             swiperOption: {
                 notNextTick: true,
                 autoplay: 3000,
-                loop : true,
-                paginationType: "bullets",
+                loop : false,
+                speed: 600, 
+                initialSlide : 0,
+                paginationType: "progress",
                 pagination: '.swiper-pagination',
+                
                 autoplayDisableOnInteraction : false,
-                paginationBulletRender: function (swiper, index, className) {
+                paginationProgressRender: function (swiper, index, className) {
                     // console.log(swiper.bullets ? swiper.bullets.length : 0);
                     let width = ( isFinite(100/(parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100/(parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100 ) + '%';
                     // console.log(width);
-                    return '<span class="' + className + '"' + 'style="width:'+ width +'"' + '></span>';
+                    return '<span class="swiper-pagination-progressbar" style="left:300px"></span>';
                 }
             }
         }
@@ -85,6 +88,17 @@ export default {
                 return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
             else
                 return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
+        },
+        slide: function(){
+            console.log(this.dataApp.product)
+        //    for(let i=0;i<this)
+                // console.log(obj+index)
+                //  let parentWidth = 9.5 / obj.length
+                    
+                let progress = this.$refs.list.getElementsByClassName("swiper-pagination-progressbar")[0]
+                console.log(this.dataApp.product.length)
+            
+           
         }
     },
     //定义这个sweiper对象  
@@ -94,6 +108,7 @@ export default {
         }
     },
     mounted() {
+        this.slide()
         //这边就可以使用swiper这个对象去使用swiper官网中的那些方法  
         // this.swiper.slideTo(0, 0, false);
     }
@@ -138,7 +153,26 @@ img, span, a
             background-color rgba(255,255,255,0)
             border-radius 0
             height 0.0313rem !important 
+            width 0
+            .bt-active 
+                width 0%
+                height 100%
+                background #ff0
+                // background rgba(0,0,0,0.7)
         .swiper-pagination-bullet-active
-            background rgba(0,0,0,0.7)
+            // background rgba(0,0,0,0.7)
             height 0.0313rem !important
+            width 100%
+            transition all 0.3s
+    .swiper-pagination-progress 
+        position relative        
+    .swiper-pagination-progress .swiper-pagination-progressbar
+        position absolute
+        transform: translate3d(0px, 0px, 0px) scaleX(0.333333) scaleY(1)!important
+        // background #ff0
+        bottom 0.0156rem !important
+        .bt-active
+            // left 100px
+            width 100% !important
+            transition all 0.5s
 </style>

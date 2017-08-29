@@ -1,22 +1,8 @@
 <template>
     <div class="goodsData-wrapper">
-         <!--头部  -->
-        <!-- <v-header></v-header> -->
          <div class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
          <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)"  v-else>
         </div>
-        <!-- <footer class="myFooter">
-			<a href="javascript:void(0)">
-				<img src="./share.png" >
-				<p>分享</p>
-			</a>
-			<a href="javascript:void(0)">
-				<img src="./collect.png" ref="menuItem" @click="changSrc()">
-				<p>加入收藏</p>
-			</a>
-			<a href="javascript:void(0)" @click="showCartFn">加购物袋</a>
-			<a href="#buyGoods">立即购买</a>
-		</footer> -->
         <div class="goodsCart-wrapper" v-show="showCart">
 			<div class="addCart-container">
 				<div class="goodsInfo">
