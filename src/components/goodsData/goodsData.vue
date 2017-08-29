@@ -1,6 +1,6 @@
 <template>
     <div class="goodsData-wrapper">
-         <!--头部  -->
+        <!-- 头部 -->
         <!-- <v-header></v-header> -->
          <div class="noGoods" v-if="unescape(dataList.dataitem.parameter) == ''">暂无图文信息&nbsp;:)</div>
          <div class="content-wrapper" v-html="unescape(dataList.dataitem.parameter)"  v-else>

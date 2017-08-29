@@ -158,6 +158,7 @@ export default {
     height: 100%
     font-size: 0
     overflow: hidden
+    background: #f0f0f0
     .route-item
         footerCss()
     // .header

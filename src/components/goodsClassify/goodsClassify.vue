@@ -240,8 +240,8 @@ export default {
         },
         getSearchResult(msg) {
                 this.msg = msg;
-                console.log("搜索结果：");
-                console.log(this.msg)
+                // console.log("搜索结果：");
+                // console.log(this.msg)
             }
     },
     mounted() {
