@@ -242,7 +242,7 @@ export default {
 					// console.log(swiper.bullets ? swiper.bullets.length : 0);
 					let width = (isFinite(100 / (parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100 / (parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100) + '%';
 					// console.log(width);
-					return '<span class="' + className + '"' + 'style="width:' + width + '"' + '></span>';
+					return '<span class="' + className + '"' + 'style="width:' + width + '"' + '><div class="bt-active"></div></span>';
 				}
 			},
 			noDragToView: true,
@@ -464,11 +464,8 @@ export default {
 					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 				});
 				this.$wechat.error(function(res) {
-					console.log("error");
-					console.log(res);
 				});
-				console.log("-----------------------------------");
-				console.log(data)
+
 			})
 		},
 		todoShare: function() {
@@ -610,9 +607,19 @@ export default {
 			background-color rgba(255,255,255,0)
 			border-radius 0
 			height 0.0313rem !important 
+			width 0
+			.bt-active 
+				width 0%
+				height 100%
+				background rgba(0,0,0,0.7)
 		.swiper-pagination-bullet-active
-			background rgba(0,0,0,0.7)
+			// background rgba(0,0,0,0.7)
 			height 0.0313rem !important
+			width 100%
+			transition all 0.3s
+			.bt-active
+				width 100% !important
+				transition all 0.25s
 	// 详情页header
 	.header
 		height 1.0938rem!important
@@ -997,5 +1004,10 @@ export default {
 	.showImageText
 		margin-bottom 0.9375rem	
 		img
+<<<<<<< HEAD
 			width 100%
+=======
+			width 100%	
+			
+>>>>>>> 8a5f56f933ec674462755a93eec01da78ce5938c
 </style>

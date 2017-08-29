@@ -242,11 +242,10 @@ export default {
 .myCollect-wrapper
     width 100%
     height 100%
-    background #fff
     // 主体
     .main
         height 100%
-        background #fff
+        background #f0f0f0
         .noGoods
             padding-top 60%
             font-size fs + 0.0313rem
