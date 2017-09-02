@@ -20,6 +20,8 @@
                     <div class="link-wrapper">
                         <span>获得：</span>
                         <span class="number">￥{{num(data.total_money)}}</span>
+                        <span class="state" v-if="off == 0">未激活</span>
+                        <span class="state stateYi" v-else>已激活</span>
                     </div>
                 </div>
             </a>
@@ -43,7 +45,8 @@ export default {
     },
     data() {
         return {
-            data: []
+            data: [],
+            off: 0,
         }
     },
     created() {
@@ -58,7 +61,11 @@ export default {
             }).then(function (response) {
                 let res = response.body;
                 console.log(res);
-                this.data = res.data
+                this.data = res.data;
+                this.off = res.data.off;
+                if((res.data.off == 1 && res.data.remind == 1) || res.data.off == 0){
+                    alert(res.data.msg)
+                }
             })
         },
         // 1,020.00
@@ -170,6 +177,18 @@ export default {
                 font-size: fs
                 .number
                     color: #ea68a2
+                .state
+                    display: inline-block
+                    margin: 0 0 0 0.1875rem
+                    padding: 0 0.0625rem
+                    height: 0.625rem
+                    line-height: 0.625rem
+                    font-size: fs - 0.0313rem
+                    color: #fff
+                    background: #909090
+                    border-radius: 0.0938rem
+                .stateYi
+                    background-color #ea68a2
     .expand-item-empty
         justify-content center !important
         font-size fs !important

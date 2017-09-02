@@ -95,8 +95,12 @@ export default {
                                         emulateJSON: true
                                     }).then(function (response) {
                                         let res = response.body;
-                                        console.log(res);
-                                        this.data = res.nearbyitem
+                                        // console.log(res);
+                                        if(res == 'err'){
+                                            this.loadMessage = '附近3公里内没有线下门店'
+                                        } else {
+                                            this.data = res.nearbyitem
+                                        }
                                     });
                                 }
                                 // console.log(self.lng, self.lat);
@@ -130,10 +134,11 @@ export default {
     .loadStore
         display flex
         justify-content center
+        align-items center
         width 10rem
         height 100%
-        margin-top 80%
         font-size 0.5rem
+        background-color #fff
         color #333
     .store-computed
         display flex

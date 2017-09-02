@@ -17,17 +17,18 @@
             <div class="link-wrapper">
                 <span>获得：</span>
                 <span class="number">￥{{num(data.total)}}</span>
-                <span class="state">未激活</span>
+                <span class="state" v-if="off == 0">未激活</span>
+                <span class="state stateYi" v-else>已激活</span>
             </div>
         </a>
         <div class="title-item title-item-empty" v-if="data.list.length == 0">本月还没有团队收益哦:-D</div>
-        <a href="javascript:void(0)" class="title-item" v-for="(val,key) in data.list" v-else>
+        <router-link :to="{ path: (val.total_people < 1 ? '/myTeamIndirect' : '/teamComputed'), query: { iid: val.iid } }" class="title-item" v-for="(val,key) in data.list" v-else>
             <div class="title-msg">
                 <span class="from">{{val.username}}&nbsp;团队业绩</span>
                 <span class="date">团队人数：{{val.total_people}}人</span>
             </div>
             <span class="get-number">￥{{num(val.total_money)}}</span>
-        </a>
+        </router-link>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -38,7 +39,8 @@ export default {
     },
     data() {
         return {
-            data: []
+            data: [],
+            off: '',
         }
     },
     created() {
@@ -53,7 +55,13 @@ export default {
             }).then(function (response) {
                 let res = response.body;
                 console.log(res);
-                this.data = res.data
+                this.data = res.data;
+                this.off = res.off;
+                if(res.off == 1){
+                    alert(res.msg)
+                } else {
+                    
+                }
             })
         },
         // 1,020.00
@@ -173,6 +181,8 @@ export default {
                 color: #fff
                 background: #909090
                 border-radius: 0.0938rem
+            .stateYi
+                background-color #ea68a2
     .title-item-empty
         display flex !important
         justify-content center

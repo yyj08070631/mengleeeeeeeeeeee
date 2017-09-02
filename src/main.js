@@ -46,6 +46,7 @@ import myTeamIndirect from './components/myTeamIndirect/myTeamIndirect';
 import myLoading from './components/myLoading';
 import vueResource from 'vue-resource';
 import jsonp from 'jsonp';
+import { base64 } from 'vux';
 import { AlertPlugin, ToastPlugin, AjaxPlugin, XDialog } from 'vux'
 import Vuex from 'vuex';
 import AMap from 'vue-amap'
@@ -283,7 +284,7 @@ const routes = [{
 
 const router = new vueRouter({
     routes,
-    mode: 'history',
+    // mode: 'history',
     scrollBehavior(to, from, savedPosition) {
         return { x: 0, y: 0 }
     }
@@ -314,26 +315,31 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title || '梦乐城'
     // store.commit('updateLoadingStatus', { isLoading: true });
     // console.log(getSearchString(pid));
+    // 去掉 hash 模式中 url 的 # ，请求后台进行重定向处理 (分享)
+    // let uri = urlNow;
+    // let uriSplit = uri.split('#');
+    // let uriBase = base64.encode(uriSplit[1]);
+    // let uriRes = uriSplit[0] + '?surl=' + uriBase;
     // 授权
-    Vue.http.post(
-        global.Domain + '/index/test',
-        {
-            uri: addURLParam(urlNow, 'logo', '==tPtcNLZARXEuvDhRSFGkQX')
-        },
-        {
-            emulateJSON: true
-        }).then(response => {
-            let res = response.data
-            // console.log(res);
-            // res.app == 0
-            if (res.app == 0) {
-                // alert(res.url);
-                location.href = res.url
-                return
-            } else {
-                store.commit('updateLoadingStatus', {isLoading: false})
-            }
-        })
+    // Vue.http.post(
+    //     global.Domain + '/index/test',
+    //     {
+    //         // uri: uriRes
+    //     },
+    //     {
+    //         emulateJSON: true
+    //     }).then(response => {
+    //         let res = response.data
+    //         // console.log(res);
+    //         // res.app == 0
+    //         if (res.app == 0) {
+    //             // alert(res.url);
+    //             location.href = res.url
+    //             return
+    //         } else {
+    //             store.commit('updateLoadingStatus', {isLoading: false})
+    //         }
+    //     })
     // Vue.http({
     //     method: 'get',
     //     url: global.Domain + '/index/test?uri=' + addURLParam(urlNow, 'logo', '==tPtcNLZARXEuvDhRSFGkQX'),
@@ -351,6 +357,39 @@ router.beforeEach((to, from, next) => {
     //     }
     // });
     // console.log(store.state.isLoading)
+    Vue.http({
+        method: 'get',
+        url: 'http://dde.dgxinn.cn/dream/index.php/Api/uid',
+        emulateJSON: true
+    }).then(function(response) {
+        let res = response.body;
+        // console.log(res);
+        Vue.wechat.ready(() => {
+            Vue.wechat.onMenuShareAppMessage({
+                title: '梦乐城',
+                desc: '',
+                link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(addURLParam(document.location.href, 'logo', res.logo)),
+                imgUrl: res.img,
+                success: function(res) {
+                    // console.log(res)
+                },
+                cancel: function(res) {
+                    // console.log(res)
+                }
+            });
+            Vue.wechat.onMenuShareTimeline({
+                title: '梦乐城',
+                link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(addURLParam(document.location.href, 'logo', res.logo)),
+                imgUrl: res.img,
+                success: function(res) {
+                    // console.log(res)
+                },
+                cancel: function(res) { 
+                    // console.log(res)
+                }
+            });
+        });
+    })
     next()
 })
 router.afterEach((to, from, next) => {
@@ -422,36 +461,3 @@ function addURLParam(url, name, value) {
     url += encodeURIComponent(name) + "=" + encodeURIComponent(value);
     return url;
 }
-Vue.http({
-    method: 'get',
-    url: 'http://dde.dgxinn.cn/dream/index.php/Api/uid',
-    emulateJSON: true
-}).then(function(response) {
-    let res = response.body;
-    // console.log(res);
-    Vue.wechat.ready(() => {
-        Vue.wechat.onMenuShareAppMessage({
-            title: '梦乐城',
-            desc: '',
-            link: addURLParam(document.location.href, 'logo', res.logo),
-            imgUrl: res.img,
-            success: function(res) {
-                // console.log(res)
-            },
-            cancel: function(res) {
-                // console.log(res)
-            }
-        });
-        Vue.wechat.onMenuShareTimeline({
-            title: '梦乐城',
-            link: addURLParam(document.location.href, 'logo', res.logo),
-            imgUrl: res.img,
-            success: function(res) {
-                // console.log(res)
-            },
-            cancel: function(res) { 
-                // console.log(res)
-            }
-        });
-    });
-})

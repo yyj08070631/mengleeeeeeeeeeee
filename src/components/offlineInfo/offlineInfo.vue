@@ -18,7 +18,7 @@
             <div class="offlineInfo">
                 <div class="rowUp">
                     <p>{{data.nearbyitem.name}}</p>
-                    <a href="javascript:void(0)">
+                    <a href="javascript:void(0)" @click="showShareTab = true">
                         <img src="./images/share.png">
                         <span>分享</span>
                     </a>
@@ -114,16 +114,29 @@
                     <a href="javascript:void(0)" @click="addMsgMore">{{msgMore}}</a>
                 </div>
             </div>
+            <!-- 分享 -->
+            <alert v-model="showShareTab" title="分享">
+                <button class="btn1" @click="showShareTab = false; todoShare()">确认分享</button>
+                <button class="btn2" @click="showShareTab = false">取消</button>
+                <img :src="data.nearbyitem.mainmap[0].src">
+                <div class="share-cxt">
+                    <textarea type="text" placeholder="请输入标题" v-model="shareVal"></textarea>
+                </div>
+            </alert>
         </section>
     </div>
 </template>
 <script type="ecmascript-6">
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import { Alert } from 'vux';
+import { base64 } from 'vux';
 // import header from '../../components/header/header';
 export default {
     components: {
         swiper,
         swiperSlide,
+		Alert,
+		base64,
         // 'v-header': header
     },
     data() {
@@ -148,6 +161,9 @@ export default {
             // 传入的距离和时间
             dis: this.$route.query.dis,
             tim: this.$route.query.tim,
+            // 分享弹窗
+            showShareTab: false,
+            shareVal: '',
         }
     },
     methods: {
@@ -162,6 +178,7 @@ export default {
                 console.log(res);
                 this.data = res;
                 //console.log(this.data)
+                this.shareVal = res.nearbyitem.name;
             });
         },
         //获取更多评论数据
@@ -191,23 +208,51 @@ export default {
             this.para++
 			this.getMsgMore()
         },
-        //等级图标
-        computeImg: function (level) {
-            if (level == 1) {
-                return require('./images/xiaobai.png')
-            } else if (level == 2) {
-                return require('./images/xingxing.png')
-            } else if (level == 3) {
-                return require('./images/zuanshi.png')
-            } else if (level == 4) {
-                return require('./images/jinguan.png')
-            } else if (level == 5) {
-                return require('./images/huangguan.png')
-            } else {
-                console.log('获取了无效的等级数据！');
-                return '#'
-            }
-        }
+		// 向现有的URL末尾添加查询字符串
+		addURLParam: function(url, name, value) {
+			// 检验请求URL中是否有 "?" ，若无则用 "?" 添加查询字符串，若有则用 "&" 进行拼接
+			url += (url.indexOf("?") == -1 ? "?" : "&");
+			// 将查询字符串转换为URL格式
+			url += encodeURIComponent(name) + "=" + encodeURIComponent(value);
+			return url;
+		},
+		// 分享链接
+		todoShare: function() {
+			let that = this.$wechat;
+			this.$http({
+				method: 'get',
+				url: 'http://dde.dgxinn.cn/dream/index.php/Api/uid/g',
+				emulateJSON: true
+			}).then(function(response) {
+				let res = response.body;
+				// console.log(res);
+				that.ready(() => {
+					that.onMenuShareAppMessage({
+						title: this.shareVal,
+						desc: '',
+						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
+						imgUrl: this.data.nearbyitem.mainmap[0].src,
+						success: function(res) {
+							// console.log(res)
+						},
+						cancel: function(res) {
+							// console.log(res)
+						}
+					});
+					that.onMenuShareTimeline({
+						title: this.shareVal,
+						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
+						imgUrl: this.data.nearbyitem.mainmap[0].src,
+						success: function(res) {
+							// console.log(res)
+						},
+						cancel: function(res) { 
+							// console.log(res)
+						}
+					});
+				});
+			})
+		},
     },
     //定义这个sweiper对象  
     computed: {
@@ -474,4 +519,77 @@ img, span, a
                 height 1.1875rem
                 background-color #fff
                 font-size fs
+    // 分享弹窗
+    .weui-dialog
+        width 12.5rem !important
+        min-width 80%
+        background #fff
+        border-radius 0.1875rem
+        .weui-dialog__hd
+            padding 0.3125rem 0 0 0 
+            .weui-dialog__title
+                font-size fs + 0.0625rem !important
+        .weui-dialog__bd
+            display flex
+            justify-content center
+            align-items center
+            padding 0.425rem 0.3rem 0.9375rem 0.3rem
+            font-size fs + 0.0625rem
+            margin-bottom 0.5625rem
+            img
+                width 1.5625rem
+                height 1.5625rem	
+                vertical-align top
+            .share-cxt
+                margin-left 0.5rem
+                text-align left
+                textarea 
+                    width 100%
+                    height 1.875rem
+                    border 0
+                    font-size 0.3125rem
+                    color #ea6aa2
+                    outline 0
+                    resize none
+                p
+                    color #909090	
+                    font-size 0.2813rem
+                    
+        .btn1
+            position:absolute
+            left:0px;
+            bottom:0px;
+            background:#fff;
+            width:50%;
+            color:#ea6aa2;
+            height:1.25rem;
+            line-height: 40px;
+            z-index: 1000;
+            border:0;
+            border-top:1px solid #909090
+            font-size fs + 0.0625rem
+            outline 0
+        .btn2
+            position:absolute
+            left:50%;
+            bottom:0px;
+            background:#fff;
+            width:50%;
+            color:#ea6aa2;
+            height:1.25rem;
+            line-height: 40px;
+            z-index: 1000;
+            border:0;
+            border-top:1px solid #909090
+            font-size fs + 0.0625rem
+            outline 0
+            .weui-dialog__title
+                font-size fs - 0.0313rem !important
+            .weui-dialog__ft
+                background #3cf !important
+                display none
+                .weui-dialog__btn_primary
+                    color #ff0  !important
+                .weui-dialog__btn
+                    color #ff0  !important
 </style>

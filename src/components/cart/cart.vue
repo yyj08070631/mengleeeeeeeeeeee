@@ -42,6 +42,7 @@
                     </div>
                     <!-- 商品图片 -->
                     <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" class="colMiddle">
+                        <div class="badCart" v-if="val.isshow == 0">已失效</div>
                         <img :src="val.mainmap">
                     </router-link>
                     <!-- 信息 & 修改数量 -->
@@ -53,7 +54,7 @@
                                 <span>{{val.price | numBig}}</span>
                                 <span>.{{val.price | numSmall}}</span>
                             </span>
-                            <div class="count">
+                            <div class="count" v-if="val.isshow == 1">
                                 <a href="javascript:void(0)" @click="numberSub(val.id)">-</a>
                                 <input type="text" v-model="number[key].num">
                                 <!-- :placeholder="val.number" -->
@@ -111,7 +112,7 @@
                 <p class="selAll">购物袋小计</p>
             </div>
             <div class="colMiddle">
-                <p class="price">RMB&nbsp;{{num(totalPrice)}}</p>
+                <p class="price">￥{{num(totalPrice)}}<span v-if="data.data.level != 1">&nbsp;|&nbsp;{{data.data.grade}}会员价：￥{{discountPrice}}</span></p>
                 <p class="trans">运费：{{data.data.totaltrans == 0 ? '免运费' : num(data.data.totaltrans)}}</p>
             </div>
             <!-- <a href="javascript:void(0)" class="pay" v-show="showPay" @click="numberPlus()">结算({{Idarr.length}})</a> -->
@@ -213,6 +214,7 @@ export default {
             canDel: false,
             // 总价统计
             totalPrice: 0,
+            discountPrice: 0,
         }
     },
     methods: {
@@ -354,12 +356,15 @@ export default {
                 this.selAll(moreComMore.data.list);
                 this.totalPrice = 0;
                 for (let i = 0; i < moreComMore.data.list.length; i++) {
+                    // 计算总价
                     arr.push({
                         id: moreComMore.data.list[i].id,
                         num: moreComMore.data.list[i].number
                     });
-                    // 计算总价
-                    this.totalPrice += moreComMore.data.list[i].number * moreComMore.data.list[i].price;
+                    if(moreComMore.data.list[i].isshow == 1){
+                        this.totalPrice += moreComMore.data.list[i].number * moreComMore.data.list[i].price;
+                        this.discountPrice += moreComMore.data.list[i].number * moreComMore.data.list[i].userPrice;
+                    }
                     // console.log(this.totalPrice);
                 }
                 this.number = arr;
@@ -473,11 +478,13 @@ export default {
             this.buyArr = [];
             for (let i = 0; i < data.length; i++) {
                 // 构建选中商品数组
-                this.buyArr.push({
-                    gid: data[i].gid,
-                    number: data[i].number,
-                    cid: data[i].id
-                })
+                if(data[i].isshow == 1){
+                    this.buyArr.push({
+                        gid: data[i].gid,
+                        number: data[i].number,
+                        cid: data[i].id
+                    })
+                }
             }
             console.log(this.buyArr);
         },
@@ -839,7 +846,22 @@ span, a, img, input, textarea
                     color #fff
                     background-color #ea68a2
             // 商品图片
-            // ......
+            .colMiddle
+                position relative
+                .badCart
+                    display flex
+                    justify-content center
+                    align-items center
+                    position absolute
+                    left 50%
+                    top 50%
+                    width 1.875rem
+                    height 1.875rem
+                    margin -0.9375rem 0 0 -0.9375rem
+                    border-radius 50%
+                    background-color rgba(0, 0, 0, 0.4)
+                    font-size fs
+                    color #fff
             // 信息 & 修改数量
             .colRight
                 display flex
@@ -1019,13 +1041,14 @@ span, a, img, input, textarea
             display flex
             flex-direction column
             justify-content center
+            align-items flex-end
             height 100%
-            margin-left 2.8125rem
             margin-right 0.5rem
             .total
                 font-size fs + 0.0625rem
                 color #333
             .price
+                display flex
                 font-size fs + 0.0625rem
                 color #ea68a2
             .trans

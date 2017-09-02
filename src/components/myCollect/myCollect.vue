@@ -8,19 +8,20 @@
             <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦<router-link to="/goods">去收藏</router-link>&nbsp;&nbsp;:) </div>
             <router-link :to="{ path: '/goodDetail', query: { gid: val.id } }" class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
                 <div class="imgCont">
+                    <div class="badCollect" v-if="val.is_show == 0 || val.stock <= 0">已失效</div>
                     <img :src="val.mainmap">
                 </div>
-                <div class="badCollect" v-if="val.is_show == 0 || val.off == 0">已失效</div>
                 <div class="info">
                     <div class="rowUp">{{val.name}}</div>
                     <div class="rowMiddle" v-if="val.type == 1">
                         <span>￥</span>  
                         <span>{{val.price | numBig}}</span>
                         <span>.{{val.price | numSmall}}</span>
+                        <span v-if="orderList.level != 1">&nbsp;|&nbsp;{{val.userPrice}}</span>
                     </div>
                     <div class="rowDown">
-                        <a href="javascript:void(0)" class="add" v-if="val.type == 1" @click.stop="selectCollect(val.id);showCartFn();"> 
-                            加入购物车
+                        <a href="javascript:void(0)" class="add" v-if="val.type == 1 && !(val.is_show == 0 || val.stock <= 0)" @click.stop="selectCollect(val.id);showCartFn();"> 
+                            加入购物袋
                         </a>
                         <a href="javascript:void(0)" class="del" @click.stop="onShow(); delColid = val.colid">删除</a>
                     </div>
@@ -112,7 +113,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 this.orderList = response.body
-                // console.log(response.body)
+                console.log(response.body)
             })
         },
         // 展示购物车组件
@@ -262,9 +263,25 @@ export default {
             border-bottom 1px solid #ccc
             background-color #fff
             .imgCont
+                position relative
                 width 3.25rem
                 height 3.25rem
                 padding 0.25rem
+                // 失效收藏件
+                .badCollect
+                    display flex
+                    justify-content center
+                    align-items center
+                    position absolute
+                    left 50%
+                    top 50%
+                    width 2.25rem
+                    height 2.25rem
+                    margin -1.125rem 0 0 -1.125rem
+                    border-radius 50%
+                    font-size fs - 0.0313rem
+                    color rgba(255,255,255,0.8)
+                    background-color rgba(0, 0, 0, 0.3)
                 img
                     width 3.25rem
                     height 3.25rem
@@ -285,7 +302,9 @@ export default {
                     width 5.75rem
                     padding 0 0 0.9688rem 0
                     color #ea68a2
-                    span:first-child, span:last-child
+                    span
+                        font-size fs + 0.0313rem
+                    span:first-child, span:nth-child(3)
                         font-size fs
                     span:nth-child(2)
                         font-size fs + 0.0625rem
@@ -318,22 +337,6 @@ export default {
                     img
                         width 0.5rem
                         height 0.5rem
-        // 失效收藏件
-        .oneBadCollect
-            position relative
-            .badCollect
-                display flex
-                justify-content center
-                align-items center
-                position absolute
-                left 1.0938rem 
-                top 0.5rem
-                width 2.25rem
-                height 2.25rem
-                border-radius 50%
-                font-size fs - 0.0313rem
-                color rgba(255,255,255,0.8)
-                background-color rgba(0, 0, 0, 0.3)
     // 弹窗
     .weui-toast  
         width auto!important 

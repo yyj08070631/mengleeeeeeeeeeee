@@ -10,7 +10,7 @@
         <!--主体-->
         <div class="main">
             <!--附近的项目实体店-->
-            <a href="javascript:void(0)" class="loadingNear" v-if="locData.length == 0">正在加载附近商家信息....</a>
+            <a href="javascript:void(0)" class="loadingNear" v-if="locData.length == 0">{{loadMessage}}</a>
             <router-link :to="{ path: '/offlineInfo', query: { nid: locData.id } }" class="storeNearby" v-else>
                 <div class="colLeft">
                     <p>
@@ -35,7 +35,7 @@
                     <p>查找其他项目实体店</p>
                 </div>
                 <div class="colRight">
-                    <p v-if="locData.length == 0">正在加载附近商家....</p>
+                    <p v-if="locData.length == 0">{{loadMessageDown}}</p>
                     <p v-else>附近有&nbsp;{{locData.id}}&nbsp;家</p>
                     <img src="./images/arrow_right.png">
                 </div>
@@ -74,7 +74,9 @@ export default {
             locData: [],
             gaodeData: this.gaode(),
             coordinate: [],
-            msg: ''//搜索组件接受参数
+            msg: '', //搜索组件接受参数
+            loadMessage: '正在加载附近商家....',
+            loadMessageDown: '正在加载附近商家....'
         }
     },
     created() {
@@ -123,7 +125,12 @@ export default {
                                     }).then(function(response) {
                                         let res = response.body;
                                         // console.log(res);
-                                        self.locData = res.nearbyitem;
+                                        if(res == 'err'){
+                                            self.loadMessage = '附近3公里内没有线下门店';
+                                            self.loadMessageDown = '';
+                                        } else {
+                                            self.locData = res.nearbyitem;
+                                        }
                                         // console.log(self.locData);
                                     });
                                 }

@@ -36,7 +36,7 @@
                 <div class="col2">
                     <p>{{val.name}}</p>
                     <p>数量：X{{val.number}}</p>
-                    <p>运费：{{data.freightitems == 0 ? '免运费' : num(data.freightitems)}}</p>
+                    <!-- <p>运费：{{data.freightitems == 0 ? '免运费' : num(data.freightitems)}}</p> -->
                 </div>
             </div>
             <div class="colRight">

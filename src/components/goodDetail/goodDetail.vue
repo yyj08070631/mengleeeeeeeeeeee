@@ -3,6 +3,8 @@
 		<!--  v-infinite-scroll="loadDetail"  infinite-scroll-distance="10"-->
 		<!-- 头部 -->
 		<!-- <v-header></v-header> -->
+		<!-- 右上角会员价信息 -->
+		<p class="memberPrice" v-if="detailItemList.level != 1"><span></span><i>{{detailItemList.gooditem.userPrice}}</i></p>
 		<!--图片轮播-->
 		<div class="imgShow ifNoImg" v-if="detailItemList.albumitem.length == 0">该商品没有图片:-D</div>
 		<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-else-if="detailItemList.albumitem.length == 1">
@@ -85,9 +87,7 @@
 				<span @click="addComMore">{{comNode}}</span>
 			</div>
 		</div>
-
 		<!--超粗分割线-->
-
 		<div class="showImageText" v-if="imageTextList!=''" v-html="unescape(imageTextList.imageitem.content)"></div>
 		<!--继续拖动，查看图文详情-->
 		<!-- <div class="dragHelp" v-show="noDragToView"></div> -->
@@ -125,6 +125,7 @@
 					<div>
 						<span>{{detailItemList.gooditem.name}}</span>
 						<span>￥{{detailItemList.gooditem.price}}</span>
+						<span>{{detailItemList.gooditem.userPrice}}</span>
 					</div>
 					<div>
 						<img src="./images/close.png" @click="closeCart">
@@ -138,7 +139,7 @@
 						<div class="plus" @click="numPlus">+</div>
 					</div>
 				</div>
-				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物车</a>
+				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物袋</a>
 			</div>
 		</div>
 		<!-- 立即购买弹窗 -->
@@ -153,6 +154,7 @@
 					<div>
 						<span>{{detailItemList.gooditem.name}}</span>
 						<span>￥{{detailItemList.gooditem.price}}</span>
+						<span>{{detailItemList.gooditem.userPrice}}</span>
 					</div>
 					<div>
 						<img src="./images/close.png" @click="showBuy = false">
@@ -189,8 +191,8 @@
 			<toast v-model="error" type="text">添加失败</toast>
 		</div>
 		<alert v-model="showShareTab" title="分享">
-			<button class="btn1" @click="onHide();todoShare()">确认分享</button>
-			<button class="btn2" @click="onHide()">取消</button>
+			<button class="btn1" @click="todoShare()">确认分享</button>
+			<button class="btn2" @click="showShareTab = false">取消</button>
 			<img :src="detailItemList.albumitem[0].src">
 			<div class="share-cxt">
 				<textarea type="text" placeholder="请输入标题" v-model="shareVal"></textarea>
@@ -201,11 +203,13 @@
  <script type="ecmascript-6">
 // import header from '../../components/header/header';
 import { Swiper, SwiperItem, Divider, Toast, Group, Alert } from 'vux'
+import { base64 } from 'vux';
 export default {
 	components: {
 		Toast,
 		Group,
 		Alert,
+		base64,
 		// 'v-header': header
 	},
 	data() {
@@ -312,7 +316,7 @@ export default {
 				let res = response.body;
 				this.detailItemList = res;
 				// console.log('--------------------'+this.$route.query.gid)
-				// console.log(this.detailItemList)
+				console.log(this.detailItemList)
 				this.shareVal = res.gooditem.name;
 			})
 		},
@@ -469,8 +473,6 @@ export default {
 			})
 		},
 		todoShare: function() {
-			// this.getShareFn()
-			// console.log("exe")
 			let that = this.$wechat;
 			this.$http({
 				method: 'get',
@@ -479,14 +481,15 @@ export default {
 			}).then(function(response) {
 				let res = response.body;
 				// console.log(res);
+				console.log('http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)));
 				that.ready(() => {
 					that.onMenuShareAppMessage({
 						title: this.shareVal,
 						desc: '',
-						link: this.addURLParam(document.location.href, 'logo', res.logo),
+						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
 						imgUrl: this.detailItemList.gooditem.mainmap,
 						success: function(res) {
-							// console.log(res)
+							// alert(res)
 						},
 						cancel: function(res) {
 							// console.log(res)
@@ -494,10 +497,10 @@ export default {
 					});
 					that.onMenuShareTimeline({
 						title: this.shareVal,
-						link: this.addURLParam(document.location.href, 'logo', res.logo),
+						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
 						imgUrl: this.detailItemList.gooditem.mainmap,
 						success: function(res) {
-							// console.log(res)
+							console.log(res)
 						},
 						cancel: function(res) { 
 							// console.log(res)
@@ -505,6 +508,7 @@ export default {
 					});
 				});
 			})
+			this.showShareTab = false;
 		},
 		// 向现有的URL末尾添加查询字符串
 		addURLParam: function(url, name, value) {
@@ -579,10 +583,34 @@ export default {
 
 // 外层元素
 .goodDetail-wrapper
-	position absolute
+	position relative
 	left 0
 	width 100%
 	background #f0f0f0
+	// 右上角会员价信息
+	.memberPrice
+		position absolute
+		right 0
+		display flex
+		top 0.0938rem
+		background-color #ea68a2
+		font-size fs - 0.0313rem
+		color #fff
+		z-index 5
+		span
+			position absolute
+			top 0
+			left -0.3125rem
+			display block
+			width 0.7656rem
+			height 0.7656rem
+			border-radius 50%
+			background-color #ea68a2
+			z-index -1
+		i
+			display block
+			padding 0.25rem
+			font-style normal
 	// 最后一个元素撑开footer
 	.lastElem
 		padding-bottom 1.2031rem !important
@@ -956,10 +984,14 @@ export default {
 						line-height 0.9375rem
 						text-indent 0.4688rem	
 						color #333
-					span:last-child	
-						line-height 0.9375rem	
+					span:nth-child(2)	
+						line-height 0.4688rem
 						text-indent 0.4688rem
-						color #909090	
+						color #909090
+					span:last-child
+						line-height 0.4688rem
+						text-indent 0.4688rem
+						color #ea68a2
 				div:last-child
 					margin 0.2813rem 0.2813rem 0 0
 					width 0.625rem

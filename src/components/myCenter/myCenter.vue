@@ -8,7 +8,7 @@
             <div class="personal">
                 <h2 class="name">{{data.username}}</h2>
                 <span class="mobile">{{data.phone}}</span>
-                <img class="rank" :src="data.internal == 1 ? require('./images/neibu.png') : data.levelName">
+                <img class="rank" :src="data.internal == 1 && data.level == 1 ? require('./images/neibu.png') : data.levelName">
             </div>
             <div class="more-link">
                 <img class="qr-code" src="./QR_code.png">

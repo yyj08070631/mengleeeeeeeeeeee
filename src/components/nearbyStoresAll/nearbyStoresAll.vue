@@ -16,7 +16,7 @@
                 <div>
                     <p class="title">{{val.name}}</p>
                     <p>{{val.trade_time}}，{{val.day_time}}</p>
-                    <p>{{val.distance}}公里 | {{val.minute}}分钟</p>
+                    <!-- <p>{{val.distance}}公里 | {{val.minute}}分钟</p> -->
                 </div>
                 <div>
                     <img class="more" src="./more.png">
