@@ -9,20 +9,20 @@
                 <span class="computed">所有项目实体店</span>
             </div>
             <div class="load"></div>
-            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id, dis: val.distance, tim: val.minute } }" class="store-item" v-for="(val, key) in data.nearbyitem">
+            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id, dis: val.distance, tim: val.minute } }" class="store-item" v-for="(val, key) in data">
                 <div>
                     <img :src="val.mainmap">
                 </div>
                 <div>
                     <p class="title">{{val.name}}</p>
                     <p>{{val.trade_time}}，{{val.day_time}}</p>
-                    <!-- <p>{{val.distance}}公里 | {{val.minute}}分钟</p> -->
+                    <p>{{val.distance}}&nbsp;|&nbsp;{{val.duration}}</p>
                 </div>
                 <div>
                     <img class="more" src="./more.png">
                 </div>
             </router-link>
-            <div class="line"></div>
+            <div class="line" style="margin-bottom:1.3594rem"></div>
         </div>
         <!-- footer -->
         <v-view class="route-item"></v-view>
@@ -77,26 +77,76 @@ export default {
                         init(o) {
                             let arr = [];
                             // o 是高德地图定位插件实例
-                            o.getCurrentPosition((status, result) => {
-                                if (result && result.position) {
-                                    self.lng = result.position.lng;
-                                    self.lat = result.position.lat;
-                                    self.center = [self.lng, self.lat];
-                                    self.loaded = true;
-                                    self.$nextTick();
-                                    // 传坐标到后台
-                                    self.$http({
-                                        method: 'get',
-                                        url: global.Domain + '/nearby/nelist?local=' + self.lng + ',' + self.lat,
-                                        emulateJSON: true
-                                    }).then(function (response) {
-                                        let res = response.body;
-                                        console.log(res);
-                                        this.data = res;
-                                    });
-                                }
-                                // console.log(self.lng, self.lat);
-                            });
+                            // o.getCurrentPosition((status, result) => {
+                            //     if (result && result.position) {
+                            //         self.lng = result.position.lng;
+                            //         self.lat = result.position.lat;
+                            //         self.center = [self.lng, self.lat];
+                            //         self.loaded = true;
+                            //         self.$nextTick();
+                            //         // 传坐标到后台
+                            //         self.$http({
+                            //             method: 'get',
+                            //             url: global.Domain + '/nearby/nelist?local=' + self.lng + ',' + self.lat,
+                            //             emulateJSON: true
+                            //         }).then(function (response) {
+                            //             let res = response.body;
+                            //             console.log(res);
+                            //             this.data = res;
+                            //         });
+                            //     }
+                            //     // console.log(self.lng, self.lat);
+                            // });
+                            let locSession = sessionStorage.getItem('locSession');
+                            if(locSession){
+                                locSession = JSON.parse(locSession);
+                            }
+                            let stamp = new Date().getTime(); // 当前时间戳
+                            if(locSession && (stamp - locSession.stamp < 180000)){
+                                // 传坐标到后台
+                                self.$http({
+                                    method: 'get',
+                                    url: global.Domain + '/nearby/catenear?local=' + locSession.local + '&all=3&p=1' + '&rand=' + Math.random(),
+                                    emulateJSON: true
+                                }).then(function(response) {
+                                    let res = response.body;
+                                    // console.log(res);
+                                    if(res == 'err'){
+                                        self.loadMessage = '附近3公里内没有线下门店';
+                                    } else {
+                                        self.data = res.nearbyitem;
+                                    }
+                                });
+                            } else {
+                                // o 是高德地图定位插件实例
+                                o.getCurrentPosition((status, result) => {
+                                    if (result && result.position) {
+                                        self.lng = result.position.lng;
+                                        self.lat = result.position.lat;
+                                        self.center = [self.lng, self.lat];
+                                        self.loaded = true;
+                                        self.$nextTick();
+                                        // 传坐标到后台
+                                        self.$http({
+                                            method: 'get',
+                                            url: global.Domain + '/nearby/catenear?local=' + self.lng + ',' + self.lat + '&all=3&p=1' + '&rand=' + Math.random(),
+                                            emulateJSON: true
+                                        }).then(function (response) {
+                                            let res = response.body;
+                                            // console.log(res);
+                                            if(res == 'err'){
+                                                self.loadMessage = '附近3公里内没有线下门店'
+                                            } else {
+                                                self.data = res.nearbyitem;
+                                                sessionStorage.setItem('locSession', JSON.stringify({
+                                                    local: self.lng + ',' + self.lat,
+                                                    stamp: new Date().getTime()
+                                                }));
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                     }
                 }]
@@ -117,7 +167,6 @@ export default {
         width: 100%
         height: 100%
         font-size: 0
-        overflow-x: hidden
         background: #f0f0f0
         .route-item
             footerCss()
@@ -154,7 +203,6 @@ export default {
             .store-item
                 display: flex
                 position: relative
-                margin-left: 0.5rem
                 width: 100%
                 height: 2.8125rem
                 align-items: center
@@ -164,6 +212,7 @@ export default {
                 border-bottom 1px solid #e0e0e0
                 div:first-child
                     width: 1.9375rem
+                    margin-left .5rem
                     margin-right 0.3125rem
                     img
                         margin: 0.5313rem 0 0.5313rem 0

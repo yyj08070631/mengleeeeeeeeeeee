@@ -27,7 +27,8 @@
                 <img src="./arrow_right.png">
             </div>
         </router-link>
-    
+
+        <!-- 单个商品 -->
         <div class="goodsInfo" v-for="(val,key) in data.gooditems">
             <div class="colLeft">
                 <div class="col1">
@@ -43,9 +44,16 @@
                 <span>￥{{num(val.price)}}</span>
             </div>
         </div>
+        <!-- 统计 -->
         <div class="countInfo">
             <p>共{{computeGoods}}件（含运费）:&nbsp;￥&nbsp;{{num(computeMoney)}}</p>
         </div>
+        <!-- 给商家留言 -->
+        <div class="msg">
+            <input type="text" v-model="msg" placeholder="选填：给商家留言">
+            <img src="./cancel.png" v-show="msg != ''" @click="msg = ''">
+        </div>
+        <!-- footer -->
         <div class="footer">
             <div class="buy-tag">
                 <div>
@@ -113,6 +121,8 @@ export default {
             // 弹窗 & 弹窗文字
             alert: false,
             alertTxt: '',
+            // 订单备注
+            msg: '',
         }
     },
     methods: {
@@ -154,7 +164,7 @@ export default {
         payEvent: function () {
             if (this.payType == 1) {
                 this.payIt();
-            } else if (this.payType == 2) {
+            } else if (this.payType == 3) {
                 this.$http({
                     method: 'get',
                     url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
@@ -172,7 +182,7 @@ export default {
                         this.alert = true;
                     }
                 })
-            } else if (this.payType == 3) {
+            } else if (this.payType == 2) {
                 this.$http({
                     method: 'get',
                     url: global.Domain + '/user/myWallet?userId===tPtcNLZARXEuvDhRSFGkQX',
@@ -207,7 +217,7 @@ export default {
                     address: this.locFromSession.addr,
                     name: this.locFromSession.name,
                     phone: this.locFromSession.phone,
-                    remark: '测试留言'
+                    remark: this.msg
                 },
                 {
                     emulateJSON: true
@@ -219,7 +229,7 @@ export default {
                     } else if (res == 1) {
                         this.$router.push({ path: '/payResult', query: { price: this.num(this.computeMoney) } });
                     } else if (res == 2) {
-                        alert('该商品库存不足');
+                        alert('库存不足');
                         this.getDataFromBackend();
                     } else if (res == 3) {
                         alert('收货信息不正确');
@@ -362,15 +372,15 @@ export default {
     height 1.2813rem
     width 100%
     margin-bottom 0.25rem
-    border .0313rem solid #ff8b00
+    border .0313rem solid #ea68a2
     font-size fs + 0.0625rem
-    color #d54600
+    color #333
     background-color #fff
 .noMargin
     margin-right 0 !important
 .valSel
     color #fff
-    background-color #ff8b00
+    background-color #ea68a2
 // 大选择窗口
 .v-transfer-dom
     .vux-x-dialog
@@ -395,7 +405,7 @@ export default {
                     margin 1rem 0 0.4688rem 0
                     font-size fs + 0.0625rem
                     color #fff
-                    background-color #ff8b00
+                    background-color #ea68a2
                 p
                     margin 0.4063rem 0 0.3438rem 0
                     font-size fs
@@ -403,20 +413,21 @@ export default {
 // confirm 样式
 .vux-x-dialog
     .weui-dialog
-        max-width 5.625rem !important
+        max-width 7rem !important
         width 80% !important
         text-align center !important
         .weui-dialog__hd
             padding-top 0.1rem !important
             .weui-dialog__title
-                font-size fs !important
+                font-size fs + 0.0938rem !important
         .weui-dialog__bd
-            padding-bottom .6rem !important
+            padding-bottom 1.2rem !important
             p
-                font-size fs - 0.0313rem !important
+                font-size fs + 0.0313rem !important
         .weui-dialog__ft
+            line-height 1.25rem
             .weui-dialog__btn
-                font-size fs !important
+                font-size fs + 0.0625rem !important
 // 主体
 .buyGoods-wrapper
     position: absolute
@@ -424,6 +435,7 @@ export default {
     bottom: 0
     width 100%
     background: #f0f0f0
+    // 地址
     .userInfo    
         display: flex
         height: 2.4688rem
@@ -446,6 +458,7 @@ export default {
         div:last-child
             justify-content center
             width: 1.5938rem
+    // 单个商品
     .goodsInfo    
         display: flex
         justify-content space-between
@@ -473,6 +486,7 @@ export default {
             padding-top: 0.2813rem
             font-size: fs - 0.0313rem
             line-height: 0.5625rem
+    // 统计信息
     .countInfo
         width: 100%
         height: 1.1563rem
@@ -484,6 +498,24 @@ export default {
             font-size: fs - 0.0313rem
             line-height: 1.1563rem
             color: #333
+    // 订单备注
+    .msg
+        position relative
+        width 100%
+        margin-top 0.3125rem
+        input
+            width 100%
+            padding 0.3125rem
+            font-size fs
+            outline 0
+        img
+            position absolute
+            right 0.375rem
+            top 50%
+            margin-top -0.2344rem
+            width 0.4688rem
+            height 0.4688rem
+    // footer
     .footer
         position: fixed
         height 1.1563rem !important

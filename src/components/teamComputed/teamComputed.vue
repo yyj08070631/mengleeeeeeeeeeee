@@ -21,13 +21,14 @@
                 <span class="state stateYi" v-else>已激活</span>
             </div>
         </a>
-        <div class="title-item title-item-empty" v-if="data.list.length == 0">本月还没有团队收益哦:-D</div>
-        <router-link :to="{ path: (val.total_people < 1 ? '/myTeamIndirect' : '/teamComputed'), query: { iid: val.iid } }" class="title-item" v-for="(val,key) in data.list" v-else>
+        <div class="title-item title-item-empty" v-if="!data.list || data.list.length == 0">本月还没有团队收益哦:-D</div>
+        <router-link :to="val.total_people > 1 ? { path: '/myTeamIndirect', query: { iid: val.iid } } : '/teamComputed'" class="title-item" v-for="(val,key) in data.list" v-else>
             <div class="title-msg">
                 <span class="from">{{val.username}}&nbsp;团队业绩</span>
                 <span class="date">团队人数：{{val.total_people}}人</span>
             </div>
-            <span class="get-number">￥{{num(val.total_money)}}</span>
+            <span class="get-number" v-if="val.total_money">￥{{num(val.total_money)}}</span>
+            <span class="get-number" v-else>￥{{num(val.total_money)}}</span>
         </router-link>
     </div>
 </template>

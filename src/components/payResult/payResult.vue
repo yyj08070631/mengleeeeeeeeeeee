@@ -3,9 +3,7 @@
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
         <div class="payType">
-            <div></div>
-            <div><img src="./success.png"><span>支付成功！</span></div>
-            <div></div>
+            <div><img src="./successyo.png"><span>支付成功！</span></div>
         </div>
         <div class="payPrice">￥{{price}}</div>
         <div class="gathering">
@@ -39,22 +37,19 @@ export default {
     height 100%
     .payType
         display flex
+        justify-content center
         margin-top 1.7188rem  
         width 100%
-        div:first-child,div:last-child
-            flex 1
-        div:nth-child(2)
+        div
             display flex
             align-items center
             img
                 width 0.8594rem
-                height 0.8594rem 
             span
-                flex 1
-                margin-left 0.4063rem
+                margin-left 0.25rem
                 font-size fs + 0.0938rem
                 vertical-align top
-                color #fb8800
+                color #ea68a2
     .payPrice
         display flex
         align-items center
@@ -86,7 +81,7 @@ export default {
         height 1.25rem
         margin 1.875rem auto 0 auto 
         text-align center
-        background #fb8800  
+        background #ea68a2  
         border-radius 0.1875rem
         a
             display block

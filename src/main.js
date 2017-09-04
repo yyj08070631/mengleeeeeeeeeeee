@@ -54,8 +54,9 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
 import { InfiniteScroll } from 'mint-ui';
 import { WechatPlugin } from 'vux'
+const FastClick = require('fastclick')
 
-
+FastClick.attach(document.body)
 Vue.use(WechatPlugin)
 Vue.use(InfiniteScroll);
 Vue.use(Vuex)
@@ -110,22 +111,30 @@ const routes = [{
     },
     {
         path: '/goods',
-        component: goods,
+        component: function (resolve) {
+            require(['./components/goods/goods.vue'], resolve)
+        },
         meta: { title: '商品分类' }
     },
     {
         path: '/home',
-        component: home,
+        component: function (resolve) {
+            require(['./components/home/home.vue'], resolve)
+        },
         meta: { title: '美丽探索' }
     },
     {
         path: '/myCenter',
-        component: myCenter,
+        component: function (resolve) {
+            require(['./components/myCenter/myCenter.vue'], resolve)
+        },
         meta: { title: '个人中心' }
     },
     {
         path: '/orderFrom',
-        component: orderFrom,
+        component: function (resolve) {
+            require(['./components/orderFrom/orderFrom.vue'], resolve)
+        },
         children: [{
             path: '/orderFrom/evaluate',
             component: evaluate
@@ -137,71 +146,105 @@ const routes = [{
     },
     {
         path: '/goodDetail',
-        component: goodDetail
+        component: function (resolve) {
+            require(['./components/goodDetail/goodDetail.vue'], resolve)
+        }
     },
     {
         path: '/settings',
-        component: settings
+        component: function (resolve) {
+            require(['./components/settings/settings.vue'], resolve)
+        }
     },
     {
         path: '/myTeam',
-        component: myTeam
+        component: function (resolve) {
+            require(['./components/myTeam/myTeam.vue'], resolve)
+        }
     },
     {
         path: '/myQRcode',
-        component: myQRcode
+        component: function (resolve) {
+            require(['./components/myQRcode/myQRcode.vue'], resolve)
+        }
     },
     {
         path: '/integral',
-        component: integral
+        component: function (resolve) {
+            require(['./components/integral/integral.vue'], resolve)
+        }
     },
     {
         path: '/goodsData',
-        component: goodsData
+        component: function (resolve) {
+            require(['./components/goodsData/goodsData.vue'], resolve)
+        }
     },
     {
         path: '/offlineInfo',
-        component: offlineInfo
+        component: function (resolve) {
+            require(['./components/offlineInfo/offlineInfo.vue'], resolve)
+        }
     },
     {
         path: '/digest',
-        component: digest
+        component: function (resolve) {
+            require(['./components/digest/digest.vue'], resolve)
+        }
     },
     {
         path: '/bill',
-        component: bill
+        component: function (resolve) {
+            require(['./components/bill/bill.vue'], resolve)
+        }
     },
     {
         path: '/titleComputed',
-        component: titleComputed
+        component: function (resolve) {
+            require(['./components/titleComputed/titleComputed.vue'], resolve)
+        }
     },
     {
         path: '/expandComputed',
-        component: expandComputed
+        component: function (resolve) {
+            require(['./components/expandComputed/expandComputed.vue'], resolve)
+        }
     },
     {
         path: '/imageText',
-        component: imageText
+        component: function (resolve) {
+            require(['./components/imageText/imageText.vue'], resolve)
+        }
     },
     {
         path: '/nearbyStores',
-        component: nearbyStores
+        component: function (resolve) {
+            require(['./components/nearbyStores/nearbyStores.vue'], resolve)
+        }
     },
     {
         path: '/goodsClassify',
-        component: goodsClassify
+        component: function (resolve) {
+            require(['./components/goodsClassify/goodsClassify.vue'], resolve)
+        }
     },
     {
         path: '/teamComputed',
-        component: teamComputed
+        component: function (resolve) {
+            require(['./components/teamComputed/teamComputed.vue'], resolve)
+        }
     },
     {
         path: '/subscribe',
-        component: subscribe
+        component: function (resolve) {
+            require(['./components/subscribe/subscribe.vue'], resolve)
+        }
     },
     {
         path: '/subscribeNow',
-        component: subscribeNow
+        component: function (resolve) {
+            require(['./components/subscribeNow/subscribeNow.vue'], resolve)
+        }
     },
     // {
     //     path: '/search',
@@ -209,28 +252,40 @@ const routes = [{
     // },
     {
         path: '/buyGoods',
-        component: buyGoods
+        component: function (resolve) {
+            require(['./components/buyGoods/buyGoods.vue'], resolve)
+        }
     },
     {
         path: '/myCollect',
-        component: myCollect
+        component: function (resolve) {
+            require(['./components/myCollect/myCollect.vue'], resolve)
+        }
     },
     {
         path: '/cart',
-        component: cart,
+        component: function (resolve) {
+            require(['./components/cart/cart.vue'], resolve)
+        },
         meta: { title: '购物袋' }
     },
     {
         path: '/addrManage',
-        component: addrManage
+        component: function (resolve) {
+            require(['./components/addrManage/addrManage.vue'], resolve)
+        }
     },
     {
         path: '/addrEdit',
-        component: addrEdit
+        component: function (resolve) {
+            require(['./components/addrEdit/addrEdit.vue'], resolve)
+        }
     },
     {
         path: '/addrEditReal',
-        component: addrEditReal
+        component: function (resolve) {
+            require(['./components/addrEditReal/addrEditReal.vue'], resolve)
+        }
     },
     // {
     //     path: '/allOrder',
@@ -238,35 +293,51 @@ const routes = [{
     // },
     {
         path: '/nearbyStoresAll',
-        component: nearbyStoresAll
+        component: function (resolve) {
+            require(['./components/nearbyStoresAll/nearbyStoresAll.vue'], resolve)
+        }
     },
     {
         path: '/myLoading',
-        component: myLoading
+        component: function (resolve) {
+            require(['./components/myLoading.vue'], resolve)
+        }
     },
     {
         path: '/myWallet',
-        component: myWallet
+        component: function (resolve) {
+            require(['./components/myWallet/myWallet.vue'], resolve)
+        }
     },
     {
         path: '/payResult',
-        component: payResult
+        component: function (resolve) {
+            require(['./components/payResult/payResult.vue'], resolve)
+        }
     },
     {
         path: '/myCenterHelp',
-        component: myCenterHelp
+        component: function (resolve) {
+            require(['./components/myCenterHelp/myCenterHelp.vue'], resolve)
+        }
     },
     {
         path: '/integralHelp',
-        component: integralHelp
+        component: function (resolve) {
+            require(['./components/integralHelp/integralHelp.vue'], resolve)
+        }
     },
     {
         path: '/offlineInfoMap',
-        component: offlineInfoMap
+        component: function (resolve) {
+            require(['./components/offlineInfoMap/offlineInfoMap.vue'], resolve)
+        }
     },
     {
         path: '/searchResult',
-        component: searchResult
+        component: function (resolve) {
+            require(['./components/searchResult/searchResult.vue'], resolve)
+        }
     },
     // {
     //     path: '/offlineMapSilence',
@@ -274,11 +345,15 @@ const routes = [{
     // },
     {
         path: '/myCenterCopyTxt',
-        component: myCenterCopyTxt
+        component: function (resolve) {
+            require(['./components/myCenterCopyTxt/myCenterCopyTxt.vue'], resolve)
+        }
     },
     {
         path: '/myTeamIndirect',
-        component: myTeamIndirect
+        component: function (resolve) {
+            require(['./components/myTeamIndirect/myTeamIndirect.vue'], resolve)
+        }
     }
 ];
 
@@ -310,6 +385,7 @@ function getSearchString(key) {
 
 // 当前url
 const urlNow = document.location.href;
+// 每次页面加载执行（授权在此）
 router.beforeEach((to, from, next) => {
     // Change doc title
     document.title = to.meta.title || '梦乐城'

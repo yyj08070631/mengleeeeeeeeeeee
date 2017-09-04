@@ -18,9 +18,9 @@
                     </p>
                     <div>{{locData.name}}</div>
                     <p>
-                        <span class="dis">{{locData.distance}}公里</span>
+                        <span class="dis">{{locData.distance}}</span>
                         <span>|</span>
-                        <span class="tim">{{locData.minute}}分钟</span>
+                        <span class="tim">{{locData.duration}}</span>
                     </p>
                 </div>
                 <div class="colRight">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="colRight">
                     <p v-if="locData.length == 0">{{loadMessageDown}}</p>
-                    <p v-else>附近有&nbsp;{{locData.id}}&nbsp;家</p>
+                    <p v-else>附近有&nbsp;{{locData.number}}&nbsp;家</p>
                     <img src="./images/arrow_right.png">
                 </div>
             </router-link>
@@ -109,33 +109,59 @@ export default {
                     events: {
                         init(o) {
                             let arr = [];
-                            // o 是高德地图定位插件实例
-                            o.getCurrentPosition((status, result) => {
-                                if (result && result.position) {
-                                    self.lng = result.position.lng;
-                                    self.lat = result.position.lat;
-                                    self.center = [self.lng, self.lat];
-                                    self.loaded = true;
-                                    self.$nextTick();
-                                    // 传坐标到后台
-                                    self.$http({
-                                        method: 'get',
-                                        url: global.Domain + '/nearby/catenear?local=' + self.lng + ',' + self.lat,
-                                        emulateJSON: true
-                                    }).then(function(response) {
-                                        let res = response.body;
-                                        // console.log(res);
-                                        if(res == 'err'){
-                                            self.loadMessage = '附近3公里内没有线下门店';
-                                            self.loadMessageDown = '';
-                                        } else {
-                                            self.locData = res.nearbyitem;
-                                        }
-                                        // console.log(self.locData);
-                                    });
-                                }
-                                // console.log(self.lng, self.lat);
-                            });
+                            let locSession = sessionStorage.getItem('locSession');
+                            if(locSession){
+                                locSession = JSON.parse(locSession);
+                            }
+                            let stamp = new Date().getTime(); // 当前时间戳
+                            if(locSession && (stamp - locSession.stamp < 180000)){
+                                // 传坐标到后台
+                                self.$http({
+                                    method: 'get',
+                                    url: global.Domain + '/nearby/catenear?local=' + locSession.local + '&all=1&rand=' + Math.random(),
+                                    emulateJSON: true
+                                }).then(function(response) {
+                                    let res = response.body;
+                                    // console.log(res);
+                                    if(res == 'err'){
+                                        self.loadMessage = '附近3公里内没有线下门店';
+                                        self.loadMessageDown = '';
+                                    } else {
+                                        self.locData = res.nearbyitem;
+                                    }
+                                });
+                            } else {
+                                // o 是高德地图定位插件实例
+                                o.getCurrentPosition((status, result) => {
+                                    if (result && result.position) {
+                                        self.lng = result.position.lng;
+                                        self.lat = result.position.lat;
+                                        self.center = [self.lng, self.lat];
+                                        self.loaded = true;
+                                        self.$nextTick();
+                                        // 传坐标到后台
+                                        self.$http({
+                                            method: 'get',
+                                            url: global.Domain + '/nearby/catenear?local=' + self.lng + ',' + self.lat + '&all=1&rand=' + Math.random(),
+                                            emulateJSON: true
+                                        }).then(function(response) {
+                                            let res = response.body;
+                                            // console.log(res);
+                                            if(res == 'err'){
+                                                self.loadMessage = '附近3公里内没有线下门店';
+                                                self.loadMessageDown = '';
+                                            } else {
+                                                self.locData = res.nearbyitem;
+                                                sessionStorage.setItem('locSession', JSON.stringify({
+                                                    local: self.lng + ',' + self.lat,
+                                                    stamp: new Date().getTime()
+                                                }));
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            
                         }
                     }
                 }]

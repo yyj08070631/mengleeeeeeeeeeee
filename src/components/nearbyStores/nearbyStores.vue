@@ -14,7 +14,7 @@
                 <div>
                     <p class="title">{{val.name}}</p>
                     <p>{{val.trade_time}}，{{val.day_time}}</p>
-                    <p>{{val.distance}}&nbsp;|&nbsp;{{val.minute}}</p>
+                    <p>{{val.distance}}&nbsp;|&nbsp;{{val.duration}}</p>
                 </div>
                 <div>
                     <img class="more" src="./more.png">
@@ -80,31 +80,56 @@ export default {
                     events: {
                         init(o) {
                             let arr = [];
-                            // o 是高德地图定位插件实例
-                            o.getCurrentPosition((status, result) => {
-                                if (result && result.position) {
-                                    self.lng = result.position.lng;
-                                    self.lat = result.position.lat;
-                                    self.center = [self.lng, self.lat];
-                                    self.loaded = true;
-                                    self.$nextTick();
-                                    // 传坐标到后台
-                                    self.$http({
-                                        method: 'get',
-                                        url: global.Domain + '/nearby/nearby?local=' + self.lng + ',' + self.lat,
-                                        emulateJSON: true
-                                    }).then(function (response) {
-                                        let res = response.body;
-                                        // console.log(res);
-                                        if(res == 'err'){
-                                            this.loadMessage = '附近3公里内没有线下门店'
-                                        } else {
-                                            this.data = res.nearbyitem
-                                        }
-                                    });
-                                }
-                                // console.log(self.lng, self.lat);
-                            });
+                            let locSession = sessionStorage.getItem('locSession');
+                            if(locSession){
+                                locSession = JSON.parse(locSession);
+                            }
+                            let stamp = new Date().getTime(); // 当前时间戳
+                            if(locSession && (stamp - locSession.stamp < 180000)){
+                                // 传坐标到后台
+                                self.$http({
+                                    method: 'get',
+                                    url: global.Domain + '/nearby/catenear?local=' + locSession.local + '&all=2&rand=' + Math.random(),
+                                    emulateJSON: true
+                                }).then(function(response) {
+                                    let res = response.body;
+                                    // console.log(res);
+                                    if(res == 'err'){
+                                        self.loadMessage = '附近3公里内没有线下门店';
+                                    } else {
+                                        self.data = res.nearbyitem;
+                                    }
+                                });
+                            } else {
+                                // o 是高德地图定位插件实例
+                                o.getCurrentPosition((status, result) => {
+                                    if (result && result.position) {
+                                        self.lng = result.position.lng;
+                                        self.lat = result.position.lat;
+                                        self.center = [self.lng, self.lat];
+                                        self.loaded = true;
+                                        self.$nextTick();
+                                        // 传坐标到后台
+                                        self.$http({
+                                            method: 'get',
+                                            url: global.Domain + '/nearby/catenear?local=' + self.lng + ',' + self.lat + '&all=2&rand=' + Math.random(),
+                                            emulateJSON: true
+                                        }).then(function (response) {
+                                            let res = response.body;
+                                            // console.log(res);
+                                            if(res == 'err'){
+                                                self.loadMessage = '附近3公里内没有线下门店'
+                                            } else {
+                                                self.data = res.nearbyitem;
+                                                sessionStorage.setItem('locSession', JSON.stringify({
+                                                    local: self.lng + ',' + self.lat,
+                                                    stamp: new Date().getTime()
+                                                }));
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                     }
                 }]
@@ -165,20 +190,17 @@ export default {
             position: relative
             width: 100%
             height: 2.8125rem
-            align-items: center
-            justify-content: center
+            align-items center
             background: #fff
             font-size: 0
             border-bottom 1px solid #e0e0e0
             div:first-child
-                width: 1.9375rem
                 // margin-left 0.5rem
                 img
-                    margin: 0.5313rem 0.3125rem
+                    margin: .5313rem 0 .5313rem .5rem
                     width: 1.625rem
                     height: 1.625rem
             div:nth-child(2)
-                flex: 1
                 margin-left 0.3125rem
                 p:first-child
                     color: #333
@@ -188,7 +210,7 @@ export default {
                     line-height: 0.5625rem
                     color: #909090
             div:last-child
-                width: 1.375rem
+                margin-left 1.2031rem
                 img
                     width: 0.5rem
                     height: 0.5rem

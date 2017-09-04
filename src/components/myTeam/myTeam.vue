@@ -13,7 +13,8 @@
                 </div>
             </div>
             <!--团队列表-->
-            <div class="teammateList">
+            <div class="noTeammate" v-if="!data.d_arr || data.d_arr.length == 0">还没有团队成员哦:-D，<a href="history.go(-1)">点击返回上一页</a></div>
+            <div class="teammateList" v-else>
                 <!-- 有直属会员 -->
                 <router-link :to="{ path: '/myTeamIndirect', query: { iid: val.id } }" class="oneTeammate" v-for="(val,key) in data.d_arr" v-if="val.count == 1">
                     <div class="oneTeammateBody">
@@ -113,6 +114,7 @@ img, span, a
     //     headerFlex()
     // 主体
     .main
+        height 100%
         // 总览
         .overview
             display flex
@@ -131,6 +133,20 @@ img, span, a
                 color #909090
                 p
                     margin-left 0.4688rem
+        // 没有团队成员
+        .noTeammate
+            display flex
+            justify-content center
+            align-items center
+            position fixed
+            left 0
+            top 0
+            height 100%
+            width 100%
+            background-color #fff
+            font-size fs
+            a
+                color #ea68a2
         // 团队列表
         .teammateList
             // .oneTeammate:last-child .oneTeammateBody::after

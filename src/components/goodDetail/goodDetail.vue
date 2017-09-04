@@ -133,13 +133,15 @@
 				</div>
 				<div class="goodsNumber">
 					<span>请选择数量</span>
-					<div class="count">
+					<div class="noStock" v-if="detailItemList.gooditem.stock <= 0">无库存</div>
+					<div class="count" v-else>
 						<div class="sub" @click="numSub">-</div>
 						<input type="text" :value="number">
 						<div class="plus" @click="numPlus">+</div>
 					</div>
 				</div>
-				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList">加入购物袋</a>
+				<a href="javascript:void(0)" class="dumpBtn" style="background-color:#ccc" v-if="detailItemList.gooditem.stock <= 0">加入购物袋</a>
+				<a href="javascript:void(0)" class="dumpBtn" @click="addCartList" v-else>加入购物袋</a>
 			</div>
 		</div>
 		<!-- 立即购买弹窗 -->
@@ -162,13 +164,15 @@
 				</div>
 				<div class="goodsNumber">
 					<span>请选择数量</span>
-					<div class="count">
+					<div class="noStock" v-if="detailItemList.gooditem.stock <= 0">无库存</div>
+					<div class="count" v-else>
 						<div class="sub" @click="numBuy--">-</div>
 						<input type="text" v-model="numBuy">
 						<div class="plus" @click="numBuy++">+</div>
 					</div>
 				</div>
-				<div @click="goodsToSession()" class="dumpBtn buyNow">立即购买</div>
+				<div class="dumpBtn buyNow" style="background-color:#ccc !important" v-if="detailItemList.gooditem.stock <= 0">立即购买</div>
+				<div @click="goodsToSession()" class="dumpBtn buyNow" v-else>立即购买</div>
 				<!-- { path: '/buyGoods', query: [{ gid: detailItemList.gooditem.id, number: numBuy }] } -->
 			</div>
 		</div>
@@ -592,7 +596,7 @@ export default {
 		position absolute
 		right 0
 		display flex
-		top 0.0938rem
+		top 0.625rem
 		background-color #ea68a2
 		font-size fs - 0.0313rem
 		color #fff
@@ -600,11 +604,11 @@ export default {
 		span
 			position absolute
 			top 0
-			left -0.3125rem
+			left -0.375rem
 			display block
 			width 0.7656rem
 			height 0.7656rem
-			border-radius 50%
+			border-radius 50% 0 0 50%
 			background-color #ea68a2
 			z-index -1
 		i
@@ -1020,6 +1024,9 @@ export default {
 						text-align center
 						border-left 0.0313rem solid #d6d6d6
 						border-right 0.0313rem solid #d6d6d6
+				.noStock
+					margin-right 0.5rem
+					color #aaa
 			.dumpBtn
 				display flex
 				justify-content center

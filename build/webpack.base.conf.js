@@ -17,6 +17,9 @@ module.exports = vuxLoader.merge(webpackConfig, {
     },
     {
       name: 'duplicate-style'
+    },
+    {
+      name: 'inline-manifest'
     }
   ]
 })

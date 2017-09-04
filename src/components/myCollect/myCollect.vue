@@ -8,7 +8,8 @@
             <div v-if="orderList.collectitem.length == 0" class="noGoods">没有任何收藏哦<router-link to="/goods">去收藏</router-link>&nbsp;&nbsp;:) </div>
             <router-link :to="{ path: '/goodDetail', query: { gid: val.id } }" class="oneCollect oneBadCollect" v-for="(val,key) in orderList.collectitem" v-else>
                 <div class="imgCont">
-                    <div class="badCollect" v-if="val.is_show == 0 || val.stock <= 0">已失效</div>
+                    <div class="badCollect" v-if="val.is_show == 0">已下架</div>
+                    <div class="badCollect" v-else-if="val.stock <= 0">无库存</div>
                     <img :src="val.mainmap">
                 </div>
                 <div class="info">
