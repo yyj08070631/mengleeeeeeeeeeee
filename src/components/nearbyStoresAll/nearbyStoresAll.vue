@@ -4,25 +4,25 @@
         <!-- <v-header></v-header> -->
         <div class="loadStore" v-if="data.length == 0">{{loadMessage}}</div>
         <!-- 一条信息 -->
-        <div class="store-message" v-else>
+        <div class="store-message" v-else v-infinite-scroll="loadMore">
             <div href="javascript:void(0)" class="store-computed border-bottom-1px">
                 <span class="computed">所有项目实体店</span>
             </div>
             <div class="load"></div>
-            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id, dis: val.distance, tim: val.minute } }" class="store-item" v-for="(val, key) in data">
+            <router-link :to="{ path: '/offlineInfo', query: { nid: val.id, dis: val.distance, tim: val.duration } }" class="store-item" v-for="(val, key) in data">
                 <div>
                     <img :src="val.mainmap">
                 </div>
                 <div>
                     <p class="title">{{val.name}}</p>
                     <p>{{val.trade_time}}，{{val.day_time}}</p>
-                    <p>{{val.distance}}&nbsp;|&nbsp;{{val.duration}}</p>
+                    <p v-show="isStartLoc">{{val.distance}}&nbsp;|&nbsp;{{val.duration}}</p>
                 </div>
                 <div>
                     <img class="more" src="./more.png">
                 </div>
             </router-link>
-            <div class="line" style="margin-bottom:1.3594rem"></div>
+            <div class="loadMore">{{loadMoreMessage}}</div>
         </div>
         <!-- footer -->
         <v-view class="route-item"></v-view>
@@ -43,24 +43,47 @@ export default {
         return {
             data: [],
             gaodeData: this.gaode(),
-            loadMessage: '正在加载位置信息....'
+            // 整体的位置加载
+            loadMessage: '正在加载位置信息....',
+            // 加载更多信息
+            loadMoreMessage: '下拉加载更多',
+            // 加载的页数
+            page: 2,
+            // 判断是否加载了定位
+            isStartLoc: false,
+            // 是否可以滚动加载
+            canScroll: true
         }
     },
     created () {
-        this.getDataFromBackend()
+        // this.getDataFromBackend()
     },
     methods: {
         // 获取数据方法
         getDataFromBackend() {
+            // this.$http({
+            //     method: 'get',
+            //     url: global.Domain + '/Nearby/nelist',
+            //     emulateJSON: true
+            // }).then(function (response) {
+            //     let res = response.body;
+            //     // console.log(res);
+            //     this.data = res.nearbyitem
+            //     // console.log(this.data)
+            // });
             this.$http({
                 method: 'get',
-                url: global.Domain + '/Nearby/nelist',
+                url: global.Domain + '/nearby/catenear?local=' + '113.37271,23.04703' + '&all=3&p=1' + '&rand=' + Math.random(),
                 emulateJSON: true
-            }).then(function (response) {
+            }).then(function(response) {
                 let res = response.body;
                 // console.log(res);
-                this.data = res.nearbyitem
-                // console.log(this.data)
+                if(res == 'err'){
+                    this.loadMessage = '附近3公里内没有线下门店';
+                } else {
+                    this.data = res.nearbyitem;
+                    this.isStartLoc = true;
+                }
             });
         },
         // 获取高德地图定位
@@ -77,26 +100,6 @@ export default {
                         init(o) {
                             let arr = [];
                             // o 是高德地图定位插件实例
-                            // o.getCurrentPosition((status, result) => {
-                            //     if (result && result.position) {
-                            //         self.lng = result.position.lng;
-                            //         self.lat = result.position.lat;
-                            //         self.center = [self.lng, self.lat];
-                            //         self.loaded = true;
-                            //         self.$nextTick();
-                            //         // 传坐标到后台
-                            //         self.$http({
-                            //             method: 'get',
-                            //             url: global.Domain + '/nearby/nelist?local=' + self.lng + ',' + self.lat,
-                            //             emulateJSON: true
-                            //         }).then(function (response) {
-                            //             let res = response.body;
-                            //             console.log(res);
-                            //             this.data = res;
-                            //         });
-                            //     }
-                            //     // console.log(self.lng, self.lat);
-                            // });
                             let locSession = sessionStorage.getItem('locSession');
                             if(locSession){
                                 locSession = JSON.parse(locSession);
@@ -115,6 +118,7 @@ export default {
                                         self.loadMessage = '附近3公里内没有线下门店';
                                     } else {
                                         self.data = res.nearbyitem;
+                                        this.isStartLoc = true;
                                     }
                                 });
                             } else {
@@ -142,6 +146,7 @@ export default {
                                                     local: self.lng + ',' + self.lat,
                                                     stamp: new Date().getTime()
                                                 }));
+                                                this.isStartLoc = true;
                                             }
                                         });
                                     }
@@ -153,6 +158,52 @@ export default {
             };
             // console.log(obj);
             return obj
+        },
+        // 分页相关
+        loadMore: function(){
+            // console.log(1);
+            if(this.canScroll){
+                let self = this;
+                self.loadMoreMessage = '努力加载中....';
+                let locSession = sessionStorage.getItem('locSession');
+                if(locSession){ // true
+                    // console.log(1.1)
+                    locSession = JSON.parse(locSession);
+                    self.$http({
+                        method: 'get',
+                        // '113.37271,23.04703'
+                        url: global.Domain + '/nearby/catenear?local=' + locSession.local + '&all=3&p=' + self.page + '&rand=' + Math.random(),
+                        emulateJSON: true
+                    }).then(function(response) {
+                        // console.log(2);
+                        let res = response.body;
+                        console.log(res);
+                        if(res.nearbyitem.length == 0){
+                            // console.log(2.1);
+                            self.loadMoreMessage = '没有线下门店';
+                        } else {
+                            // console.log(3);
+                            res.nearbyitem.map(function(val, key){
+                                self.data.push(val);
+                            });
+                            if(res.status == 0){
+                                // console.log(3.1);
+                                self.loadMoreMessage = '没有更多线下门店';
+                                self.canScroll = false;
+                            } else {
+                                // console.log(3.2);
+                                self.page ++;
+                                self.loadMoreMessage = '下拉加载更多';
+                            }
+                        }
+                    });
+                } else {
+                    self.loadMoreMessage = '尚未开启定位';
+                }
+            } else {
+                return
+            }
+            
         }
     },
 }
@@ -175,9 +226,10 @@ export default {
         .loadStore
             display flex
             justify-content center
+            align-items center
             width 10rem
             height 100%
-            margin-top 80%
+            background-color #fff
             font-size 0.5rem
             color #333
         .store-computed
@@ -220,6 +272,7 @@ export default {
                         height: 1.875rem
                 div:nth-child(2)
                     width 6.375rem
+                    height 1.875rem
                     p:first-child    
                         color: #333 
                         font-size: fs
@@ -231,10 +284,14 @@ export default {
                     width: 1.375rem
                     img
                         width: 0.5rem
-                        height: 0.5rem           
-            .line
-                width: 100%
-                height: 0.1563rem
-                background: #f0f0f0
+                        height: 0.5rem
+            .loadMore
+                display flex
+                justify-content center
+                align-items center
+                width 100%
+                height 1.25rem
+                margin-bottom 1.3594rem
+                font-size fs + 0.0313rem
 </style>
 

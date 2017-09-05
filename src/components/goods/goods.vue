@@ -11,7 +11,7 @@
         <div class="main">
             <!--附近的项目实体店-->
             <a href="javascript:void(0)" class="loadingNear" v-if="locData.length == 0">{{loadMessage}}</a>
-            <router-link :to="{ path: '/offlineInfo', query: { nid: locData.id } }" class="storeNearby" v-else>
+            <router-link :to="{ path: '/offlineInfo', query: { nid: locData.id, dis: locData.distance, tim: locData.duration } }" class="storeNearby" v-else>
                 <div class="colLeft">
                     <p>
                         <span>附近的项目实体店</span>
