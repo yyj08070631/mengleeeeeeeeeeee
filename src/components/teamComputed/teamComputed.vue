@@ -4,44 +4,73 @@
         <!-- <v-header></v-header> -->
         <div class="title-board">
             <span class="rank-title">团队总收益（元）</span>
-            <h1 class="myTitle">{{num(data.total_income)}}</h1>
+            <h1 class="myTitle">{{num(data.total)}}</h1>
         </div>
-        <a href="#myTeam" class="get-title indent">
+        <a href="#myTeam" class="get-title">
             <span class="title">我的团队</span>
             <div class="link-wrapper">
                 <img class="more" src="./more.png">
             </div>
         </a>
-        <a href="javascript:void(0)" class="title-computed">
-            <span class="computed">本月</span>
-            <div class="link-wrapper">
-                <span>获得：</span>
-                <span class="number">￥{{num(data.total)}}</span>
-                <span class="state" v-if="off == 0">未激活</span>
-                <span class="state stateYi" v-else>已激活</span>
+        <div class="title-item-container" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false">
+            <div class="title-item title-item-empty" v-if="!data.list || data.list.length == 0">本月还没有团队收益哦:-D</div>
+            <div v-for="(val,key) in data.list" v-else>
+                <div class="line" v-if="val.t_day"></div>
+                <a href="javascript:void(0)" class="title-computed" v-if="val.t_day">
+                    <span class="computed">{{val.t_day}}</span>
+                    <div class="link-wrapper">
+                        <span>获得：</span>
+                        <span class="number">￥{{num(val.t_income)}}</span>
+                        <!-- true -->
+                        <span class="state" v-if="data.off == 1 && val.last_reward == 1" @click="alertTxt = data.last_msg; alert = true">未激活</span>
+                        <span class="state" v-else-if="val.t_activation == 0" @click="key == 0 ? alertMsg(data.msg) : ''">未激活</span>
+                        <span class="state stateYi" v-else>已激活</span>
+                    </div>
+                </a>
+                <router-link :to="val.subnum > 0 ? { path: '/myTeamIndirect', query: { iid: val.iid } } : '/teamComputed'" class="title-item">
+                    <div class="title-msg">
+                        <span class="from">{{val.susername}}&nbsp;团队业绩</span>
+                        <span class="date">团队人数：{{val.subnum}}人</span>
+                    </div>
+                    <span class="get-number">￥{{num(val.money)}}</span>
+                </router-link>
             </div>
-        </a>
-        <div class="title-item title-item-empty" v-if="!data.list || data.list.length == 0">本月还没有团队收益哦:-D</div>
-        <router-link :to="val.total_people > 1 ? { path: '/myTeamIndirect', query: { iid: val.iid } } : '/teamComputed'" class="title-item" v-for="(val,key) in data.list" v-else>
-            <div class="title-msg">
-                <span class="from">{{val.username}}&nbsp;团队业绩</span>
-                <span class="date">团队人数：{{val.total_people}}人</span>
-            </div>
-            <span class="get-number" v-if="val.total_money">￥{{num(val.total_money)}}</span>
-            <span class="get-number" v-else>￥{{num(val.total_money)}}</span>
-        </router-link>
+            <div class="loadMore" v-if="data.list && data.list.length != ''" @click="loadMore()">{{loadMoreMessage}}</div>
+        </div>
+        <!-- 页面所有弹窗 -->
+        <confirm v-model="alert" title="提示" @on-confirm="getTeamReward()">
+            <p style="text-align:center;">{{alertTxt}}</p>
+        </confirm>
     </div>
 </template>
 <script type="ecmascript-6">
 import header from '../../components/header/header';
+import { Confirm, XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 export default {
+    directives: {
+        TransferDom
+    },
     components: {
+        Confirm,
         'v-header': header
+        // Toast,
+        // Group,
+        // Alert
+        // 'v-header': header
     },
     data() {
         return {
             data: [],
             off: '',
+            // 分页页数
+            page: 2,
+            // 加载更多盒子的文字
+            loadMoreMessage: '下拉加载更多',
+            // 是否可以滚动加载
+            canScroll: true,
+            // 弹窗 & 弹窗文字
+            alert: false,
+            alertTxt: '',
         }
     },
     created() {
@@ -51,19 +80,71 @@ export default {
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/groupCountList?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/user/groupCountList?userId===tPtcNLZARXEuvDhRSFGkQX&p=1',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
                 console.log(res);
                 this.data = res.data;
-                this.off = res.off;
-                if(res.off == 1){
-                    alert(res.msg)
+            })
+        },
+        // 分页相关
+        loadMore: function() {
+            if (this.canScroll) {
+                let self = this;
+                self.loadMoreMessage = '努力加载中....'
+                self.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/groupCountList?userId===tPtcNLZARXEuvDhRSFGkQX&p=' + this.page,
+                    emulateJSON: true
+                }).then(function(response) {
+                    // console.log(2);
+                    let res = response.body;
+                    console.log(res);
+                    if (!res.data.list || res.data.list == '') {
+                        // console.log(2.1);
+                        self.loadMoreMessage = '没有更多了';
+                        self.canScroll = false;
+                    } else {
+                        // console.log(3);
+                        res.data.list.map(function(val, key) {
+                            self.data.list.push(val);
+                        });
+                        if (res.data.status == 0) {
+                            // console.log(3.1);
+                            self.loadMoreMessage = '没有更多了';
+                            self.canScroll = false;
+                        } else {
+                            // console.log(3.2);
+                            // console.log('* ' + res.data.status)
+                            self.page++;
+                            self.loadMoreMessage = '下拉加载更多';
+                        }
+                    }
+                });
+            } else {
+                return
+            }
+        },
+        // 确认领取上月团队奖励------------ on-confirm 回调
+        getTeamReward: function(){
+            this.$http({
+                method: 'get',
+                url: global.Domain + '/User/ActivateLastMonthReward?userId===tPtcNLZARXEuvDhRSFGkQX',
+                emulateJSON: true
+            }).then(function (response) {
+                let res = response.body;
+                console.log(res);
+                if(res.status == 1 || res.status == 3 || res.status == 4){
+                    alert(res.msg);
                 } else {
-                    
+                    return
                 }
             })
+        },
+        // 弹窗
+        alertMsg: function(msg){
+            alert(msg);
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -104,6 +185,10 @@ export default {
     height: 100%
     font-size: 0
     background: #f0f0f0
+    .line
+        width: 100%
+        height: 0.3125rem
+        background: #f0f0f0
     .title-board
         height 4.375rem
         background-color #ea68a2
@@ -140,8 +225,6 @@ export default {
             .more
                 width: 0.375rem
                 height: 0.375rem
-    .indent
-        margin-bottom: 0.3125rem
     .title-computed
         display flex
         justify-content space-between
@@ -222,6 +305,32 @@ export default {
             font-size: fs
             color: #333
     .title-item:last-child:after
-            border 0
+        border 0
+    .loadMore
+        display flex
+        justify-content center
+        align-items center
+        width 100%
+        height 1.25rem
+        background-color #fff
+        font-size fs + 0.0313rem
+    // confirm 样式
+    .vux-x-dialog
+        .weui-dialog
+            max-width 7rem !important
+            width 80% !important
+            text-align center !important
+            .weui-dialog__hd
+                padding 1.1rem 1.6rem 0.5rem !important
+                .weui-dialog__title
+                    font-size fs + 0.0938rem !important
+            .weui-dialog__bd
+                padding-bottom 1.2rem !important
+                p
+                    font-size fs + 0.0313rem !important
+            .weui-dialog__ft
+                line-height 1.25rem
+                .weui-dialog__btn
+                    font-size fs + 0.0625rem !important
 </style>
 

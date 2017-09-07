@@ -6,35 +6,37 @@
             <span class="rank-title">拓展总收益（元）</span>
             <h1 class="myExpand">{{num(data.total)}}</h1>
         </div>
-        <div class="content-wrapper">
+        <div class="content-wrapper" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false">
             <a href="#myTeam" class="get-expand">
                 <span class="title">我的团队</span>
                 <div class="link-wrapper">
                     <img class="more" src="./more.png">
                 </div>
             </a>
-            <div class="line"></div>
-            <a href="javascript:void(0)" class="expand-computed">
-                <div class="content">
-                    <span class="computed">|&nbsp;本月</span>
-                    <div class="link-wrapper">
-                        <span>获得：</span>
-                        <span class="number">￥{{num(data.total_money)}}</span>
-                        <span class="state" v-if="off == 0">未激活</span>
-                        <span class="state stateYi" v-else>已激活</span>
+            <div class="expand-item expand-item-empty" v-if="!data.list || data.list == ''">本月还没有拓展收益哦:-D</div>
+            <div v-for="(val,key) in data.list" v-else>
+                <div class="line" v-if="val.t_day"></div>
+                <a href="javascript:void(0)" class="expand-computed" v-if="val.t_day">
+                    <div class="content">
+                        <span class="computed">|&nbsp;{{val.t_day}}</span>
+                        <div class="link-wrapper">
+                            <span>获得：</span>
+                            <span class="number">￥{{num(val.t_income)}}</span>
+                            <span class="state" v-if="val.t_activation == 0" @click="key == 0 ? alertMsg(data.msg) : ''">未激活</span>
+                            <span class="state stateYi" v-else>已激活</span>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <div class="expand-item expand-item-empty" v-if="data.list.length == 0">本月还没有拓展收益哦:-D</div>
-            <a href="javascript:void(0)" class="expand-item" v-for="(val,key) in data.list" v-else>
-                <div class="expand-msg">
-                    <span class="from">{{val.sname}}{{val.tName}}&nbsp;-&nbsp;{{val.bind}}</span>
-                    <span class="date">{{String(val.ctime).split(' ')[0]}}</span>
-                </div>
-                <span class="get-number">+{{num(val.money)}}</span>
-            </a>
+                </a>
+                <a href="javascript:void(0)" class="expand-item">
+                    <div class="expand-msg">
+                        <span class="from">{{val.susername}}&nbsp;-&nbsp;{{val.bind}}</span>
+                        <span class="date">{{val.time}}</span>
+                    </div>
+                    <span class="get-number">+{{num(val.money)}}</span>
+                </a>
+            </div>
+            <div class="loadMore" v-if="data.list && data.list.length != ''" @click="loadMore()">{{loadMoreMessage}}</div>
         </div>
-    
     </div>
 </template>
  <script type="ecmascript-6">
@@ -46,7 +48,12 @@ export default {
     data() {
         return {
             data: [],
-            off: 0,
+            // 分页页数
+            page: 2,
+            // 加载更多盒子的文字
+            loadMoreMessage: '下拉加载更多',
+            // 是否可以滚动加载
+            canScroll: true
         }
     },
     created() {
@@ -56,17 +63,59 @@ export default {
         getDataFromBackend: function () {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/rewardList?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/user/rewardList?userId===tPtcNLZARXEuvDhRSFGkQX&p=1',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
                 console.log(res);
                 this.data = res.data;
-                this.off = res.data.off;
-                if((res.data.off == 1 && res.data.remind == 1) || res.data.off == 0){
+                if(res.data.off == 1 && res.data.remind == 1){
                     alert(res.data.msg)
                 }
             })
+        },
+        // 分页相关
+        loadMore: function() {
+            // console.log(1)
+            if (this.canScroll) {
+                let self = this;
+                self.loadMoreMessage = '努力加载中....'
+                self.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/rewardList?userId===tPtcNLZARXEuvDhRSFGkQX&p=' + this.page,
+                    emulateJSON: true
+                }).then(function(response) {
+                    // console.log(2);
+                    let res = response.body;
+                    console.log(res);
+                    if (!res.data.list || res.data.list == '') {
+                        // console.log(2.1);
+                        self.loadMoreMessage = '没有更多了';
+                        self.canScroll = false;
+                    } else {
+                        // console.log(3);
+                        res.data.list.map(function(val, key) {
+                            self.data.list.push(val);
+                        });
+                        if (res.data.status == 0) {
+                            // console.log(3.1);
+                            self.loadMoreMessage = '没有更多了';
+                            self.canScroll = false;
+                        } else {
+                            // console.log(3.2);
+                            // console.log('* ' + res.data.status)
+                            self.page++;
+                            self.loadMoreMessage = '下拉加载更多';
+                        }
+                    }
+                });
+            } else {
+                return
+            }
+        },
+        // 弹窗
+        alertMsg: function(msg){
+            alert(msg);
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -229,5 +278,13 @@ export default {
             color: #333
     .expand-item:last-child:after
         border 0
+    .loadMore
+        display flex
+        justify-content center
+        align-items center
+        width 100%
+        height 1.25rem
+        background-color #fff
+        font-size fs + 0.0313rem
 </style>
 

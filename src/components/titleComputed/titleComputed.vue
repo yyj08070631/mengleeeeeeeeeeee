@@ -6,30 +6,35 @@
             <span class="rank-title">头衔总收益（元）</span>
             <h1 class="myTitle">{{num(data.total)}}</h1>
         </div>
-        <router-link to="/myTeam" class="get-title indent">
+        <router-link to="/myTeam" class="get-title">
             <span class="title">我的团队</span>
             <div class="link-wrapper">
                 <img class="more" src="./more.png">
             </div>
         </router-link>
-        <a href="javascript:void(0)" class="title-computed border-bottom-1px">
-            <span class="computed">本月</span>
-            <div class="link-wrapper">
-                <span>获得：</span>
-                <span class="number">{{num(data.total_money)}}</span>
-                <span>已到账</span>
-            </div>
-        </a>
         <!-- 晋升收益记录 -->
-        <div class="title-item title-item-empty" v-if="data.uparr.length == 0">本月还没有头衔收益哦:-D</div>
-        <a href="javascript:void(0)" class="title-item" v-for="(val,key) in data.uparr" v-else>
-            <div class="title-msg">
-                <span class="from">{{val.susername}}晋升-{{val.levelName}}</span>
-                <span class="date">{{String(val.ctime).split(' ')[0]}}</span>
+        <div class="title-item-container" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false">
+            <div class="title-item title-item-empty" v-if="!data.list || data.list == ''">本月还没有头衔收益哦:-D</div>
+            <div v-for="(val,key) in data.list" v-else>
+                <div class="line" v-if="val.t_day"></div>
+                <a href="javascript:void(0)" class="title-computed" v-if="val.t_day">
+                    <span class="computed">本月</span>
+                    <div class="link-wrapper">
+                        <span>获得：</span>
+                        <span class="number">￥&nbsp;{{num(val.t_income)}}&nbsp;</span>
+                        <span>已到账</span>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" class="title-item">
+                    <div class="title-msg">
+                        <span class="from">{{val.susername}}晋升-{{val.levelName}}</span>
+                        <span class="date">{{val.time}}</span>
+                    </div>
+                    <span class="get-number">+{{num(val.money)}}</span>
+                </a>
             </div>
-            <span class="get-number">+{{num(val.money)}}</span>
-        </a>
-        <div class="line"></div>
+            <div class="loadMore" v-if="data.list && data.list.length != ''" @click="loadMore()">{{loadMoreMessage}}</div>
+        </div>
     </div>
 </template>
  <script type="ecmascript-6">
@@ -40,26 +45,70 @@ export default {
     },
     data() {
         return {
-            data: []
+            data: [],
+            // 分页页数
+            page: 2,
+            // 加载更多盒子的文字
+            loadMoreMessage: '下拉加载更多',
+            // 是否可以滚动加载
+            canScroll: true
         }
     },
     created() {
         this.getDataFromBackend()
     },
     methods: {
-        getDataFromBackend: function () {
+        getDataFromBackend: function() {
             this.$http({
                 method: 'get',
-                url: global.Domain + '/user/upgradeList?userId===tPtcNLZARXEuvDhRSFGkQX',
+                url: global.Domain + '/user/upgradeList?userId===tPtcNLZARXEuvDhRSFGkQX&p=1',
                 emulateJSON: true
-            }).then(function (response) {
+            }).then(function(response) {
                 let res = response.body;
                 console.log(res);
                 this.data = res.data
             })
         },
+        // 分页相关
+        loadMore: function() {
+            if (this.canScroll) {
+                let self = this;
+                self.loadMoreMessage = '努力加载中....'
+                self.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/upgradeList?userId===tPtcNLZARXEuvDhRSFGkQX&p=' + this.page,
+                    emulateJSON: true
+                }).then(function(response) {
+                    // console.log(2);
+                    let res = response.body;
+                    console.log(res);
+                    if (!res.data.list || res.data.list == '') {
+                        // console.log(2.1);
+                        self.loadMoreMessage = '没有更多了';
+                        self.canScroll = false;
+                    } else {
+                        // console.log(3);
+                        res.data.list.map(function(val, key) {
+                            self.data.list.push(val);
+                        });
+                        if (res.data.status == 0) {
+                            // console.log(3.1);
+                            self.loadMoreMessage = '没有更多了';
+                            self.canScroll = false;
+                        } else {
+                            // console.log(3.2);
+                            // console.log('* ' + res.data.status)
+                            self.page++;
+                            self.loadMoreMessage = '下拉加载更多';
+                        }
+                    }
+                });
+            } else {
+                return
+            }
+        },
         // 1,020.00
-        outputdollars: function (number) {
+        outputdollars: function(number) {
             if (number.length <= 3)
                 return (number == '' ? '0' : number);
             else {
@@ -74,11 +123,11 @@ export default {
                 return (output);
             }
         },
-        outputcents: function (amount) {
+        outputcents: function(amount) {
             amount = Math.round(((amount) - Math.floor(amount)) * 100);
             return (amount < 10 ? '.0' + amount : '.' + amount);
         },
-        num: function (number) {
+        num: function(number) {
             number = String(number).replace(/\,/g, "");
             if (isNaN(number) || number == "") return "";
             number = Math.round(number * 100) / 100;
@@ -104,6 +153,10 @@ span
     background: #f0f0f0
     .header
         headerCss()
+    .line
+        width: 100%
+        height: 0.3125rem
+        background: #f0f0f0
     .title-board
         padding: 0.8438rem 0 0 0.5rem
         width: 9.5rem
@@ -135,9 +188,7 @@ span
             .more
                 margin: 0.375rem 0.375rem 0 0.25rem   
                 width: 0.375rem
-                height: 0.375rem  
-    .indent
-        margin-bottom: 0.3125rem
+                height: 0.375rem
     .title-computed
         display: block
         height: 1.1563rem
@@ -191,5 +242,13 @@ span
         justify-content center
         align-items center
         font-size fs !important
+    .loadMore
+        display flex
+        justify-content center
+        align-items center
+        width 100%
+        height 1.25rem
+        background-color #fff
+        font-size fs + 0.0313rem
 </style>
 
