@@ -13,7 +13,7 @@
                 </div>
             </div>
             <!--团队列表-->
-            <div class="noTeammate" v-if="!data.d_arr || data.d_arr.length == 0">还没有团队成员哦:-D，<a href="history.go(-1)">点击返回上一页</a></div>
+            <div class="noTeammate" v-if="!data.d_arr || data.d_arr.length == 0">还没有团队成员哦:-D，<a href="javascript:history.go(-1);">点击返回上一页</a></div>
             <div class="teammateList" v-else>
                 <!-- 有直属会员 -->
                 <router-link :to="{ path: '/myTeamIndirect', query: { iid: val.id } }" class="oneTeammate" v-for="(val,key) in data.d_arr" v-if="val.count == 1">

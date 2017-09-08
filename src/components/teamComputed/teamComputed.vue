@@ -36,7 +36,7 @@
                         <span class="state stateYi" v-else>已激活</span>
                     </div>
                 </a>
-                <router-link :to="val.subnum > 0 ? { path: '/myTeamIndirect', query: { iid: val.iid } } : '/teamComputed'" class="title-item">
+                <router-link :to="val.subnum > 0 ? { path: '/myTeamIndirect', query: { iid: val.iid } } : '/teamComputed'" class="title-item" v-if="val.iid">
                     <div class="title-msg">
                         <span class="from">{{val.susername}}&nbsp;团队业绩</span>
                         <span class="date">团队人数：{{val.subnum}}人</span>
@@ -95,6 +95,10 @@ export default {
                 let res = response.body;
                 console.log(res);
                 this.data = res.data;
+                if (res.data.status == 0) {
+                    this.loadMoreMessage = '没有更多了';
+                    this.canScroll = false;
+                }
             })
         },
         // 分页相关

@@ -537,8 +537,9 @@ export default {
 		// 在session中存入下单商品列表，然后跳转到下单页面
 		goodsToSession: function() {
 			sessionStorage.setItem('list', JSON.stringify([{ gid: this.detailItemList.gooditem.id, number: this.numBuy }]));
+			sessionStorage.setItem('from', 'goodDetail');
 			// console.log(JSON.parse(sessionStorage.getItem('list')));
-			this.$router.push({ path: '/buyGoods', query: { from: 'goodDetail' } });
+			this.$router.push({ path: '/buyGoods' });
 		},
 		onShow: function() {
 			this.showShareTab = true

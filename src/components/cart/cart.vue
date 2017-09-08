@@ -504,8 +504,9 @@ export default {
                 alert('请选择要结算的商品！');
             } else {
                 sessionStorage.setItem('list', JSON.stringify(this.buyArr));
+                sessionStorage.setItem('from', 'cart');
                 // console.log(JSON.parse(sessionStorage.getItem('list')));
-                this.$router.push({ path: '/buyGoods', query: { from: 'cart' } });
+                this.$router.push({ path: '/buyGoods' });
             }
         },
         // 取消订单方法

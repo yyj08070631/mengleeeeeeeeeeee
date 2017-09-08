@@ -77,6 +77,10 @@ export default {
                 let res = response.body;
                 console.log(res);
                 this.data = res.data
+                if (res.data.status == 0) {
+                    this.loadMoreMessage = '没有更多了';
+                    this.canScroll = false;
+                }
             })
         },
         // 分页相关

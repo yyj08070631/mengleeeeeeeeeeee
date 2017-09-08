@@ -85,6 +85,10 @@ export default {
                 if(res.data.off == 1 && res.data.remind == 1){
                     alert(res.data.msg)
                 }
+                if (res.data.status == 0) {
+                    this.loadMoreMessage = '没有更多了';
+                    this.canScroll = false;
+                }
             })
         },
         // 分页相关

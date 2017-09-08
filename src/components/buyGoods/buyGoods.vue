@@ -206,13 +206,14 @@ export default {
         },
         // 支付接口 !important
         payIt: function () {
+            let sessionFrom = sessionStorage.getItem('from');
             this.$http.post(
                 global.Domain + '/order/pay',
                 {
                     pay: this.payType,
                     gid: this.listFromSession[0].gid,
                     number: this.listFromSession[0].number,
-                    status: this.$route.query.from == 'goodDetail' ? 1 : 3,
+                    status: sessionFrom == 'goodDetail' ? 1 : 3,
                     cid: this.cidFromSession,
                     address: this.locFromSession.addr,
                     name: this.locFromSession.name,
