@@ -14,11 +14,21 @@
         </router-link>
         <!-- 晋升收益记录 -->
         <div class="title-item-container" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false">
+            <!-- list 为空时显示一个标头 -->
+            <div class="line" v-if="!data.list || data.list.length == 0"></div>
+            <a href="javascript:void(0)" class="title-computed" v-if="!data.list || data.list.length == 0">
+                <span class="computed">本月</span>
+                <div class="link-wrapper">
+                    <span>获得：</span>
+                    <span class="number">￥&nbsp;0&nbsp;</span>
+                    <span>已到账</span>
+                </div>
+            </a>
             <div class="title-item title-item-empty" v-if="!data.list || data.list == ''">本月还没有头衔收益哦:-D</div>
             <div v-for="(val,key) in data.list" v-else>
                 <div class="line" v-if="val.t_day"></div>
                 <a href="javascript:void(0)" class="title-computed" v-if="val.t_day">
-                    <span class="computed">本月</span>
+                    <span class="computed">{{val.t_day}}</span>
                     <div class="link-wrapper">
                         <span>获得：</span>
                         <span class="number">￥&nbsp;{{num(val.t_income)}}&nbsp;</span>

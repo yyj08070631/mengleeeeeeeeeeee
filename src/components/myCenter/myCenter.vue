@@ -38,7 +38,7 @@
             <a href="#myWallet" class="item-cls">
                 <p>我的钱包</p>
                 <div>
-                    <span class="num">{{num(data.virtual)}}&nbsp;元</span>
+                    <span class="num">{{num(data.wallet)}}&nbsp;元</span>
                     <img class="more" src="./more.png">
                 </div>
             </a>

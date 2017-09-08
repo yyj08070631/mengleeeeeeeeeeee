@@ -6,11 +6,22 @@
             <span class="rank-title">拓展总收益（元）</span>
             <h1 class="myExpand">{{num(data.total)}}</h1>
         </div>
+        <a href="#myTeam" class="get-expand">
+            <span class="title">我的团队</span>
+            <div class="link-wrapper">
+                <img class="more" src="./more.png">
+            </div>
+        </a>
         <div class="content-wrapper" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false">
-            <a href="#myTeam" class="get-expand">
-                <span class="title">我的团队</span>
-                <div class="link-wrapper">
-                    <img class="more" src="./more.png">
+            <!-- list 为空时显示一个标头 -->
+            <div class="line" v-if="!data.list || data.list.length == 0"></div>
+            <a href="javascript:void(0)" class="expand-computed" v-if="!data.list || data.list.length == 0">
+                <div class="content">
+                    <span class="computed">|&nbsp;本月</span>
+                    <div class="link-wrapper">
+                        <span>获得：</span>
+                        <span class="number">￥0</span>
+                    </div>
                 </div>
             </a>
             <div class="expand-item expand-item-empty" v-if="!data.list || data.list == ''">本月还没有拓展收益哦:-D</div>
@@ -40,10 +51,12 @@
     </div>
 </template>
  <script type="ecmascript-6">
+//  import { Scroller } from 'vux'
 // import header from '../../components/header/header';
 export default {
     components: {
-        // 'v-header': header
+        // 'v-header': header,
+        // Scroller
     },
     data() {
         return {
@@ -171,31 +184,30 @@ export default {
             padding-left .5rem
             font-size fs + 1.1875rem
             color #fff
+    .get-expand
+        display: block
+        position: relative
+        width: 100%
+        height: 1.3438rem
+        line-height: 1.3438rem
+        background: #fff
+        font-size: 0
+        .title
+            float: left 
+            margin-left .5rem
+            font-size: fs
+            color: #333
+        .link-wrapper
+            float: right
+            margin: 0 .5rem 0 0
+            height: 100%
+            .more
+                margin: 0.4688rem 0 0 0.25rem
+                width: 0.375rem
+                height: 0.375rem
     .content-wrapper
         width: 100%
         background: #f0f0f0
-        overflow-x: hidden        
-        .get-expand
-            display: block
-            position: relative
-            padding-left: 0.5rem
-            width: 100%
-            height: 1.3438rem
-            line-height: 1.3438rem
-            background: #fff
-            font-size: 0
-            .title
-                float: left 
-                font-size: fs
-                color: #333
-            .link-wrapper
-                float: right
-                margin: 0 0.875rem 0 0
-                height: 100%
-                .more
-                    margin: 0.375rem 0 0 0.25rem
-                    width: 0.375rem
-                    height: 0.375rem
     .line                     
         width: 100%
         height: 0.3125rem
@@ -203,13 +215,13 @@ export default {
     .expand-computed
         display flex
         flex-direction column
-        padding-left: 0.5rem
         width: 100%
         background: #fff
         .content
             display flex
             justify-content space-between
             height: 1.1563rem
+            margin-left .5rem
             border-bottom 1px solid #e0e0e0
             .computed
                 display flex
@@ -222,7 +234,7 @@ export default {
                 display flex
                 align-items center
                 height: 100%
-                margin-right 1rem
+                margin-right .5rem
                 font-size: fs
                 .number
                     color: #ea68a2
@@ -248,7 +260,6 @@ export default {
         align-items center
         justify-content space-between
         position: relative
-        padding-left: 0.5rem
         width: 100%
         height: 1.6875rem
         line-height: 1.3438rem
@@ -260,7 +271,7 @@ export default {
             flex-direction column
             width: 3.75rem
             height: 100%
-            overflow: hidden
+            margin-left .5rem
             .from
                 margin: -0.1875rem 0 0 0
                 float: left 
@@ -272,7 +283,7 @@ export default {
                 float: left
                 font-size: fs - 0.0625rem
         .get-number
-            padding-right 1rem
+            padding-right .5rem
             line-height: 1.6875rem 
             font-size: fs
             color: #333

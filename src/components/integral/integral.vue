@@ -15,6 +15,16 @@
                 </div>
             </a>
             <!-- 积分获取详情 -->
+            <!-- list 为空时显示一个标头 -->
+            <div class="line" v-if="!data.list || data.list.length == 0"></div>
+            <a href="javascript:void(0)" class="expand-computed" v-if="!data.list || data.list.length == 0">
+                <span class="computed">本月</span>
+                <div class="link-wrapper">
+                    <span>获得：</span>
+                    <span class="number">0</span>
+                    <span>&nbsp;积分</span>
+                </div>
+            </a>
             <div class="expand-item expand-item-empty" v-if="data.list.length == 0">本月还没有积分进账哦:-D</div>
             <div v-else v-for="(val, key) in data.list">
                 <div class="line" v-if="val.t_day"></div>
@@ -29,12 +39,12 @@
                 <a href="javascript:void(0)" class="expand-item">
                     <div class="expand-msg">
                         <span class="from">{{val.type}}</span>
-                        <span class="date">{{val.time}}</span>
+                        <span class="date">{{val.ctime}}</span>
                     </div>
                     <span class="get-number">+{{val.money}}</span>
                 </a>
             </div>
-            <div class="loadMore">{{loadMoreMessage}}</div>
+            <div class="loadMore" v-if="data.list && data.list.length != ''">{{loadMoreMessage}}</div>
         </div>
     </div>
 </template>

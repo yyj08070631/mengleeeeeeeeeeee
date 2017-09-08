@@ -53,6 +53,7 @@ import AMap from 'vue-amap'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
 import { InfiniteScroll } from 'mint-ui';
+import { dateFormat } from 'vux'
 import { WechatPlugin } from 'vux'
 const FastClick = require('fastclick')
 
@@ -397,25 +398,25 @@ router.beforeEach((to, from, next) => {
     // let uriBase = base64.encode(uriSplit[1]);
     // let uriRes = uriSplit[0] + '?surl=' + uriBase;
     // 授权
-    // Vue.http.post(
-    //     global.Domain + '/index/test',
-    //     {
-    //         // uri: uriRes
-    //     },
-    //     {
-    //         emulateJSON: true
-    //     }).then(response => {
-    //         let res = response.data
-    //         // console.log(res);
-    //         // res.app == 0
-    //         if (res.app == 0) {
-    //             // alert(res.url);
-    //             location.href = res.url
-    //             return
-    //         } else {
-    //             store.commit('updateLoadingStatus', {isLoading: false})
-    //         }
-    //     })
+    Vue.http.post(
+        global.Domain + '/index/test',
+        {
+            // uri: uriRes
+        },
+        {
+            emulateJSON: true
+        }).then(response => {
+            let res = response.data
+            // console.log(res);
+            // res.app == 0
+            if (res.app == 0) {
+                // alert(res.url);
+                location.href = res.url
+                return
+            } else {
+                store.commit('updateLoadingStatus', {isLoading: false})
+            }
+        })
     // Vue.http({
     //     method: 'get',
     //     url: global.Domain + '/index/test?uri=' + addURLParam(urlNow, 'logo', '==tPtcNLZARXEuvDhRSFGkQX'),
@@ -510,7 +511,7 @@ new Vue({
 // jssdk config
 Vue.http({
     method: 'get',
-    url: global.Domain + '/Index/sign?url=' + urlNow,
+    url: global.Domain + '/Jssdk/sign?url=' + urlNow,
     emulateJSON: true
 }).then(function(response) {
     let data = response.body
