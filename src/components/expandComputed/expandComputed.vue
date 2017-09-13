@@ -20,18 +20,21 @@
                     <span class="computed">|&nbsp;本月</span>
                     <div class="link-wrapper">
                         <span>获得：</span>
-                        <span class="number">￥0</span>
+                        <span class="number">￥0.00</span>
+                        <span class="state" v-if="data.off == 0" @click="alertTxt = data.last_msg">未激活</span>
+                        <span class="state stateYi" v-else>已激活</span>
                     </div>
                 </div>
             </a>
             <div class="expand-item expand-item-empty" v-if="!data.list || data.list == ''">本月还没有拓展收益哦:-D</div>
+            <!-- 遍历才是正道 -.- -->
             <div v-for="(val,key) in data.list" v-else>
                 <div class="line" v-if="val.t_day"></div>
                 <a href="javascript:void(0)" class="expand-computed" v-if="val.t_day">
                     <div class="content">
                         <span class="computed">|&nbsp;{{val.t_day}}</span>
                         <div class="link-wrapper">
-                            <span>获得：</span>
+                            <span>拓展奖：</span>
                             <span class="number">￥{{num(val.t_income)}}</span>
                             <span class="state" v-if="val.t_activation == 0" @click="key == 0 ? alertMsg(data.msg) : ''">未激活</span>
                             <span class="state stateYi" v-else>已激活</span>

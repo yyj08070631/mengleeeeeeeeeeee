@@ -53,10 +53,27 @@ import AMap from 'vue-amap'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import vuexI18n from 'vuex-i18n';
 import { InfiniteScroll } from 'mint-ui';
-import { dateFormat } from 'vux'
-import { WechatPlugin } from 'vux'
-const FastClick = require('fastclick')
+import { dateFormat } from 'vux';
+import { WechatPlugin } from 'vux';
+import VueViewload from 'vue-viewload';
 
+// 图片懒加载插件
+Vue.use(VueViewload, {
+    defaultPic: 'http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif',
+    errorPic: 'http://a0.att.hudong.com/77/31/20300542906611142174319458811.jpg',
+    threshold: 0,
+    effectFadeIn: true,
+    callback: function(ele, src) {
+        let type = ele.getAttribute('data-yyj-type');
+        if(type == 'img'){
+            ele.style.width = '100%';
+            ele.parentNode.style.height = 'auto';
+        } else if (type == 'swiper'){
+            ele.style.height = '100%';
+        }
+    }
+});
+const FastClick = require('fastclick')
 FastClick.attach(document.body)
 Vue.use(WechatPlugin)
 Vue.use(InfiniteScroll);
@@ -96,16 +113,6 @@ Vue.directive('title', {
     }
 })
 
-// jssdk
-// Vue.wechat.config({
-//     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-//     appId: '', // 必填，公众号的唯一标识
-//     timestamp: , // 必填，生成签名的时间戳
-//     nonceStr: '', // 必填，生成签名的随机串
-//     signature: '',// 必填，签名，见附录1
-//     jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-// });
-
 const routes = [{
         path: '/',
         redirect: '/home'
@@ -139,7 +146,8 @@ const routes = [{
         children: [{
             path: '/orderFrom/evaluate',
             component: evaluate
-        }]
+        }],
+        meta: { title: '我的订单' }
     },
     {
         path: '/header',
@@ -161,7 +169,8 @@ const routes = [{
         path: '/myTeam',
         component: function (resolve) {
             require(['./components/myTeam/myTeam.vue'], resolve)
-        }
+        },
+        meta: { title: '我的团队' }
     },
     {
         path: '/myQRcode',
@@ -173,7 +182,8 @@ const routes = [{
         path: '/integral',
         component: function (resolve) {
             require(['./components/integral/integral.vue'], resolve)
-        }
+        },
+        meta: { title: '我的积分' }
     },
     {
         path: '/goodsData',
@@ -197,19 +207,22 @@ const routes = [{
         path: '/bill',
         component: function (resolve) {
             require(['./components/bill/bill.vue'], resolve)
-        }
+        },
+        meta: { title: '我的账单' }
     },
     {
         path: '/titleComputed',
         component: function (resolve) {
             require(['./components/titleComputed/titleComputed.vue'], resolve)
-        }
+        },
+        meta: { title: '头衔统计' }
     },
     {
         path: '/expandComputed',
         component: function (resolve) {
             require(['./components/expandComputed/expandComputed.vue'], resolve)
-        }
+        },
+        meta: { title: '拓展统计' }
     },
     {
         path: '/imageText',
@@ -233,13 +246,15 @@ const routes = [{
         path: '/teamComputed',
         component: function (resolve) {
             require(['./components/teamComputed/teamComputed.vue'], resolve)
-        }
+        },
+        meta: { title: '团队统计' }
     },
     {
         path: '/subscribe',
         component: function (resolve) {
             require(['./components/subscribe/subscribe.vue'], resolve)
-        }
+        },
+        meta: { title: '我的预约' }
     },
     {
         path: '/subscribeNow',
@@ -261,7 +276,8 @@ const routes = [{
         path: '/myCollect',
         component: function (resolve) {
             require(['./components/myCollect/myCollect.vue'], resolve)
-        }
+        },
+        meta: { title: '我的收藏' }
     },
     {
         path: '/cart',
@@ -308,7 +324,8 @@ const routes = [{
         path: '/myWallet',
         component: function (resolve) {
             require(['./components/myWallet/myWallet.vue'], resolve)
-        }
+        },
+        meta: { title: '我的钱包' }
     },
     {
         path: '/payResult',
@@ -320,7 +337,8 @@ const routes = [{
         path: '/myCenterHelp',
         component: function (resolve) {
             require(['./components/myCenterHelp/myCenterHelp.vue'], resolve)
-        }
+        },
+        meta: { title: '获得帮助' }
     },
     {
         path: '/integralHelp',
@@ -398,25 +416,25 @@ router.beforeEach((to, from, next) => {
     // let uriBase = base64.encode(uriSplit[1]);
     // let uriRes = uriSplit[0] + '?surl=' + uriBase;
     // 授权
-    Vue.http.post(
-        global.Domain + '/index/test',
-        {
-            // uri: uriRes
-        },
-        {
-            emulateJSON: true
-        }).then(response => {
-            let res = response.data
-            // console.log(res);
-            // res.app == 0
-            if (res.app == 0) {
-                // alert(res.url);
-                location.href = res.url
-                return
-            } else {
-                store.commit('updateLoadingStatus', {isLoading: false})
-            }
-        })
+    // Vue.http.post(
+    //     global.Domain + '/index/test',
+    //     {
+    //         // uri: uriRes
+    //     },
+    //     {
+    //         emulateJSON: true
+    //     }).then(response => {
+    //         let res = response.data
+    //         // console.log(res);
+    //         // res.app == 0
+    //         if (res.app == 0) {
+    //             // alert(res.url);
+    //             location.href = res.url
+    //             return
+    //         } else {
+    //             store.commit('updateLoadingStatus', {isLoading: false})
+    //         }
+    //     })
     // Vue.http({
     //     method: 'get',
     //     url: global.Domain + '/index/test?uri=' + addURLParam(urlNow, 'logo', '==tPtcNLZARXEuvDhRSFGkQX'),
@@ -515,6 +533,7 @@ Vue.http({
     emulateJSON: true
 }).then(function(response) {
     let data = response.body
+    // console.log(data)
     Vue.wechat.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
         appId: data.sdkitem.appId, // 必填，公众号的唯一标识

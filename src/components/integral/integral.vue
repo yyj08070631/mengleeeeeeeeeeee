@@ -26,6 +26,7 @@
                 </div>
             </a>
             <div class="expand-item expand-item-empty" v-if="data.list.length == 0">本月还没有积分进账哦:-D</div>
+            <!-- 遍历才是正道 -.- -->
             <div v-else v-for="(val, key) in data.list">
                 <div class="line" v-if="val.t_day"></div>
                 <a href="javascript:void(0)" class="expand-computed" v-if="val.t_day">

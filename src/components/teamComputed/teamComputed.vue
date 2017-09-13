@@ -14,15 +14,18 @@
         </a>
         <div class="title-item-container" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false">
             <!-- list 为空时显示一个标头 -->
-            <div class="line" v-if="!data.list || data.list.length == 0"></div>
-            <a href="javascript:void(0)" class="title-computed" v-if="!data.list || data.list.length == 0">
+            <div class="line" v-if="!data.list || data.list == ''"></div>
+            <a href="javascript:void(0)" class="title-computed" v-if="!data.list || data.list == ''">
                 <span class="computed">本月</span>
                 <div class="link-wrapper">
                     <span>总业绩：</span>
-                    <span class="number">￥0</span>
+                    <span class="number">￥0.00</span>
+                    <span class="state" v-if="data.off == 0" @click="alertTxt = data.last_msg">未激活</span>
+                    <span class="state stateYi" v-else>已激活</span>
                 </div>
             </a>
-            <div class="title-item title-item-empty" v-if="!data.list || data.list.length == 0">本月还没有团队收益哦:-D</div>
+            <div class="title-item title-item-empty" v-if="!data.list || data.list == ''">本月还没有团队收益哦:-D</div>
+            <!-- 遍历才是正道 -.- -->
             <div v-for="(val,key) in data.list" v-else>
                 <div class="line" v-if="val.t_day"></div>
                 <a href="javascript:void(0)" class="title-computed" v-if="val.t_day">
@@ -82,7 +85,7 @@ export default {
             alertTxt: '',
         }
     },
-    created() {
+    mounted() {
         this.getDataFromBackend()
     },
     methods: {
@@ -94,11 +97,11 @@ export default {
             }).then(function (response) {
                 let res = response.body;
                 console.log(res);
-                this.data = res.data;
                 if (res.data.status == 0) {
                     this.loadMoreMessage = '没有更多了';
                     this.canScroll = false;
                 }
+                this.data = res.data;
             })
         },
         // 分页相关
@@ -108,7 +111,7 @@ export default {
                 self.loadMoreMessage = '努力加载中....'
                 self.$http({
                     method: 'get',
-                    url: global.Domain + '/user/groupCountList?userId===tPtcNLZARXEuvDhRSFGkQX&p=' + this.page,
+                    url: global.Domain + '/user/groupCountList?userId===tPtcNLZARXEuvDhRSFGkQX&p=' + this.page ? this.page : 2,
                     emulateJSON: true
                 }).then(function(response) {
                     // console.log(2);

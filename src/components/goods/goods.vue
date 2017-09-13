@@ -29,7 +29,7 @@
             </router-link>
             <hr class="divider dividerThin">
             <!--查找其他项目实体店-->
-            <router-link to="/nearbyStores" class="storeFind">
+            <router-link to="/nearbyStores" class="storeFind" v-if="loadMessageDown != ''">
                 <div class="colLeft">
                     <img src="./images/location.png">
                     <p>查找其他项目实体店</p>
@@ -37,6 +37,15 @@
                 <div class="colRight">
                     <p v-if="locData.length == 0">{{loadMessageDown}}</p>
                     <p v-else>附近有&nbsp;{{locData.number}}&nbsp;家</p>
+                    <img src="./images/arrow_right.png">
+                </div>
+            </router-link>
+            <router-link to="/nearbyStoresAll" class="storeFind" v-else>
+                <div class="colLeft">
+                    <img src="./images/location.png">
+                    <p>查找所有项目实体店</p>
+                </div>
+                <div class="colRight">
                     <img src="./images/arrow_right.png">
                 </div>
             </router-link>

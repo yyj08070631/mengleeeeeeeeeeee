@@ -7,7 +7,7 @@
             <div class="personal">
                 <h2 class="name">{{data.username}}</h2>
                 <span class="mobile">{{data.phone}}</span>
-                <img class="rank" :src="data.levelName">
+                <img class="rank" :src="data.internal = 1 ? require('./images/neibu.png') : data.levelName">
             </div>
             <img class="append" src="./images/append.png" @click="bgChange()"/>
             <img class="QRcode" src="http://dde.dgxinn.cn/dream/index.php/Api/qrcode"/>
@@ -110,7 +110,6 @@ export default {
             margin-bottom: 0.2813rem
         .rank  
             float: left
-            width: 1.125rem
             height: 0.375rem   
         .append
             position: absolute

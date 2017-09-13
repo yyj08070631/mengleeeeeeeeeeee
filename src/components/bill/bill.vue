@@ -19,13 +19,14 @@
                     <span>{{val.time | getDateUp}}</span>
                     <span>{{dateFormatYeah(val.time, 'MM-DD')}}</span>
                 </div>
-                <img class="icon" src="./images/add.png" v-if="val.symbol == '+'">
-                <img class="icon" src="./images/minus.png" v-else>
+                <img class="icon" src="./images/minus.png" v-if="val.c == 1">
+                <img class="icon" src="./images/bao.png" v-else-if="val.c == 4">
+                <img class="icon" src="./images/add.png" v-else>
                 <div class="details">
                     <span class="money">{{val.symbol}}&nbsp;{{val.money | num}}</span>
                     <span v-if="val.c == 1">由&nbsp;{{val.type}}&nbsp;消费</span>
                     <span v-else-if="val.c == 2">{{val.type}}&nbsp;-&nbsp;{{dateFormatYeah(val.time, 'YYYY.MM.DD')}}&nbsp;-&nbsp;收益发放</span>
-                    <span v-else-if="val.c == 3">{{val.type}}&nbsp;-&nbsp;{{dateFormatYeah(val.time, 'YYYY.MM.DD')}}</span>
+                    <span v-else-if="val.c == 3 || val.c == 4">{{val.type}}&nbsp;-&nbsp;{{dateFormatYeah(val.time, 'YYYY.MM.DD')}}</span>
                 </div>
             </div>
             <div class="loadMore" v-if="data.list && data.list != ''" @click="loadMore()">{{loadMoreMessage}}</div>
@@ -73,8 +74,12 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                // console.log(res.data.list);
-                this.data = res.data
+                console.log(res);
+                this.data = res.data;
+                if (res.data.status == 0) {
+                    this.loadMoreMessage = '没有更多了';
+                    this.canScroll = false;
+                }
             });
         },
         // 月份列表

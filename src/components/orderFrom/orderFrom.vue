@@ -18,6 +18,10 @@
                 <p class="noGoods" v-show="orderList.orderitem.length < 1">您还没有订单哦 :)</p>
                 <!-- 首次加载 -->
                 <div class="content-item" v-for="(item,key) in orderList.orderitem">
+                    <div class="orderHead">
+                        <p class="sn">订单号：{{item.sn}}</p>
+                        <p class="ctime">下单时间：{{item.ctime}}</p>
+                    </div>
                     <div class="oneGood" v-for="(val,key) in item.good">
                         <div class="rowUp">
                             <router-link :to="{ path: '/goodDetail', query: { gid: val.gid } }" style="display:block"><img class="product" :src="val.mainmap" /></router-link>
@@ -56,8 +60,8 @@
                             <!-- <router-link v-if="val.status == 1" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" >取消订单</router-link> -->
                             <!-- <router-link v-else-if="val.status == 2" class="link" :to="{ path: goodsTypeArr[val.status].link1, query: { gid: val.id } }" ></router-link> -->
                             <a :href="href(item.sn, item.wname)" v-if="item.status == 3" class="link">查看物流</a>
-                            <router-link v-else-if="item.status == 4" class="link" :to="{ path: '/goods' }" >再次购买</router-link>
-                            <router-link v-else-if="item.status == 5" class="link" :to="{ path: '/goods' }" >再次购买</router-link>
+                            <a href="javascript:void(0)" v-else-if="item.status == 4" class="link" @click="buyAgain(item.sn)">再次购买</a><!--  -->
+                            <a href="javascript:void(0)" v-else-if="item.status == 5" class="link" @click="buyAgain(item.sn)">再次购买</a><!--  -->
                         </div>
                         <div class="rowRight">
                             <p class="totalPrice">总金额：<span>{{num(item.total)}}</span></p>
@@ -250,6 +254,29 @@ export default {
         // 获取物流信息链接
         href: function(code, num){
             return 'https://m.kuaidi100.com/index_all.html?type=' + code + '&postid=' + num
+        },
+        // 再次购买方法
+        buyAgain: function(sn){
+            this.$http.post(
+                global.Domain + '/Order/buyAgain',
+                {
+                    sn: sn
+                },
+                {
+                    emulateJSON: true
+                }).then(response => {
+                    let res = response.data
+                    console.log(res);
+                    if(res.errno == 200){
+                        sessionStorage.setItem('list', sn);
+                        sessionStorage.setItem('from', 'orderFrom');
+                        this.$router.push('buyGoods');
+                    } else if (res.errno == 102 || res.errno == 103 || res.errno == 104 || res.errno == 105){
+                        alert(res.msg);
+                    } else {
+                        alert('再次购买失败');
+                    }
+                })
         },
         // 1,020.00
         outputdollars: function (number) {
@@ -451,6 +478,18 @@ export default {
             width 100%
             height auto
             .content-item
+                // 订单号盒子
+                .orderHead
+                    display flex
+                    align-items center
+                    justify-content space-between
+                    height fs * 2.5
+                    width 9.5rem
+                    padding-left .25rem
+                    padding-right .25rem
+                    border-bottom 1px solid #e0e0e0
+                    font-size fs - 0.0625rem
+                    color #909090
                 &:not(:nth-child(2))
                     border-top 0.3125rem solid #e0e0e0
                 .rowUp
@@ -631,6 +670,5 @@ export default {
     .dirLine
         border 0
         border-top 1px solid #e0e0e0
-        margin-left 0.5rem
 </style>    
 

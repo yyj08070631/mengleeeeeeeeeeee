@@ -55,10 +55,10 @@
                                 <span>.{{val.price | numSmall}}</span>
                             </span>
                             <div class="count" v-if="val.isshow == 1">
-                                <a href="javascript:void(0)" @click="numberSub(val.id)">-</a>
+                                <a href="javascript:void(0)" @click="numberSub(val.id)">－</a>
                                 <input type="text" v-model="number[key].num">
                                 <!-- :placeholder="val.number" -->
-                                <a href="javascript:void(0)" @click="numberPlus(val.id)">+</a>
+                                <a href="javascript:void(0)" @click="numberPlus(val.id)">＋</a>
                             </div>
                             <!-- <div class="num" v-show="showPay">×{{number[key].num}}</div> -->
                         </div>
@@ -69,6 +69,10 @@
             <!-- 一个订单 -->
             <div class="orderList" v-show="mainView == 0">
                 <div class="content-item" v-for="(item,key) in orderList.orderitem">
+                    <div class="orderHead">
+                        <p class="sn">订单号：{{item.sn}}</p>
+                        <p class="ctime">下单时间：{{item.ctime}}</p>
+                    </div>
                     <div class="oneGood" v-for="(val,key) in item.good">
                         <div class="rowUp">
                             <img class="product" :src="val.mainmap" />
@@ -355,6 +359,7 @@ export default {
                 // 将所有商品存入操作提交订单的数组
                 this.selAll(moreComMore.data.list);
                 this.totalPrice = 0;
+                this.discountPrice = 0;
                 for (let i = 0; i < moreComMore.data.list.length; i++) {
                     // 计算总价
                     arr.push({
@@ -695,15 +700,15 @@ span, a, img, input, textarea
     height 1.2813rem
     width 100%
     margin-bottom 0.25rem
-    border .0313rem solid #ff8b00
+    border .0313rem solid #ea68a2
     font-size fs + 0.0625rem
-    color #d54600
+    color #333
     background-color #fff
 .noMargin
     margin-right 0 !important
 .valSel
     color #fff
-    background-color #ff8b00
+    background-color #ea68a2
 // 大选择窗口
 .v-transfer-dom
     .vux-x-dialog
@@ -728,7 +733,7 @@ span, a, img, input, textarea
                     margin 1rem 0 0.4688rem 0
                     font-size fs + 0.0625rem
                     color #fff
-                    background-color #ff8b00
+                    background-color #ea68a2
                 p
                     margin 0.4063rem 0 0.3438rem 0
                     font-size fs
@@ -899,10 +904,10 @@ span, a, img, input, textarea
                         a
                             display flex
                             justify-content center
+                            align-items center
                             width 0.7188rem
                             height 0.6875rem
                             font-size fs + 0.1875rem
-                            line-height fs + 0.2656rem
                             color #333
                         input
                             display flex
@@ -923,8 +928,19 @@ span, a, img, input, textarea
         //  一个订单
         .content-item
             border-bottom 1px solid #e0e0e0
-            border-top 0.3125rem solid #e0e0e0
             background-color #fff
+            // 订单号盒子
+            .orderHead
+                display flex
+                align-items center
+                justify-content space-between
+                height fs * 2.5
+                width 9.5rem
+                padding-left .25rem
+                padding-right .25rem
+                border-bottom 1px solid #e0e0e0
+                font-size fs - 0.0625rem
+                color #909090
             .rowUp
                 overflow hidden
                 .product
@@ -981,6 +997,8 @@ span, a, img, input, textarea
                     color #fff
                     border-radius 0.1563rem
                     background #ea6aa2
+            &:not(:first-child)
+                border-top 0.3125rem solid #e0e0e0
             // 单个订单样式
             .oneGood:not(:last-child)
                 border-bottom 1px solid #e0e0e0

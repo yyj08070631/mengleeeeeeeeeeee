@@ -3,7 +3,7 @@
         <!-- header -->
         <!-- <v-header></v-header> -->
         <!-- 判断session是否有地址，若有则使用，若无才用默认 -->
-        <router-link :to="{ path: '/addrManage', query: { canSel: 1 } }" class="userInfo" v-if="locFromSession.name !== undefined">
+        <router-link :to="{ path: '/addrManage', query: { canSel: 1 } }" class="userInfo" v-if="locFromSession.name">
             <!--  :to="{ path: '/addrManage', query: { group: orderArr() } }" -->
             <div>
                 <img src="./location.png">
@@ -115,9 +115,11 @@ export default {
             showHideOnBlur: false,
             payType: '',
             payResult: [],
+            // 支付用数据
             locFromSession: [],
             listFromSession: [],
-            cidFromSession: this.getCid(),
+            cidFromSession: [],
+            sn: '',
             // 弹窗 & 弹窗文字
             alert: false,
             alertTxt: '',
@@ -134,6 +136,7 @@ export default {
             // for (let key in this.$route.query) {
             //     arr.push(this.$route.query[key]);
             // }
+            let sessionFrom = sessionStorage.getItem('from');
             // 获取订单信息
             this.$http.post(
                 global.Domain + '/order/ordsure',
@@ -145,9 +148,20 @@ export default {
                 }).then(response => {
                     let res = response.body;
                     console.log(res);
+                    if(!res.gooditems){
+                        this.$router.push('orderFrom');
+                    }
                     this.data = res;
                     this.getLoc();
-                    this.getList();
+                    if(sessionFrom == 'goodDetail'){
+                        this.getList();
+                    } else if (sessionFrom == 'cart'){
+                        this.getCid();
+                    } else if (sessionFrom == 'orderFrom'){
+                        this.getSn();
+                    } else {
+                        return
+                    }
                 })
             // 获取支付类型信息
             this.$http({
@@ -211,10 +225,11 @@ export default {
                 global.Domain + '/order/pay',
                 {
                     pay: this.payType,
-                    gid: this.listFromSession[0].gid,
-                    number: this.listFromSession[0].number,
-                    status: sessionFrom == 'goodDetail' ? 1 : 3,
-                    cid: this.cidFromSession,
+                    gid: sessionFrom == 'goodDetail' ? this.listFromSession[0].gid : '',
+                    number: sessionFrom == 'goodDetail' ? this.listFromSession[0].number : '',
+                    status: sessionFrom == 'goodDetail' ? 1 : sessionFrom == 'cart' ? 3 : 4,
+                    cid: sessionFrom == 'cart' ? this.cidFromSession : '',
+                    sn: sessionFrom == 'orderFrom' ? this.sn : '',
                     address: this.locFromSession.addr,
                     name: this.locFromSession.name,
                     phone: this.locFromSession.phone,
@@ -233,7 +248,7 @@ export default {
                         alert('库存不足');
                         this.getDataFromBackend();
                     } else if (res == 3) {
-                        alert('收货信息不正确');
+                        alert('请选择收货地址');
                     } else if (res == 4) {
                         alert('插入记录表失败');
                     } else if (res == 5) {
@@ -242,7 +257,11 @@ export default {
                         alert('更换订单号失败');
                     } else if (res == 7) {
                         alert('您的余额不足');
-                        this.$router.push('orderFrom');
+                        this.$router.push('myWallet');
+                    } else if (res == 9) {
+                        alert('商品已下架');
+                    } else {
+                        alert('支付失败');
                     }
                 })
             this.payType = '';
@@ -258,8 +277,8 @@ export default {
                     // cid: this.data.data[i].id
                 })
             }
-            console.log(resArr)
-            this.listFromSession = resArr
+            console.log(resArr);
+            this.listFromSession = resArr;
         },
         // 从session中获取购物车id: cid
         getCid: function () {
@@ -273,7 +292,11 @@ export default {
                 })
             }
             // console.log(resArr)
-            return JSON.stringify(resArr)
+            this.cidFromSession = JSON.stringify(resArr)
+        },
+        // 从 session 中获取 sn
+        getSn: function(){
+            this.sn = sessionStorage.getItem('list');
         },
         // 从session中获取地址信息：JSON 数组
         getLoc: function () {
@@ -505,7 +528,7 @@ export default {
         width 100%
         margin-top 0.3125rem
         input
-            width 100%
+            width 9.375rem
             padding 0.3125rem
             font-size fs
             outline 0

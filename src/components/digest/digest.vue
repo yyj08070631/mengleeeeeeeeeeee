@@ -2,7 +2,7 @@
     <div class="digest-wrapper">
         <!-- header -->
         <!-- <v-header></v-header> -->
-        <div class="serve"></div>
+        <img class="serve" :src="appData.sericeitem.src">
         <div class="serve-desc">
             <h2 class="desc-title">{{appData.sericeitem.name}}</h2>
             <span class="desc-content">
@@ -163,13 +163,13 @@ img, span, a
     align-items center
     height 1.25rem
     width 2.1875rem
-    border .0313rem solid #ff8b00
+    border .0313rem solid #ea68a2
     font-size fs + 0.0625rem
-    color #d54600
+    color #333
     background-color #fff
 .valueSel
     color #fff
-    background-color #ff8b00
+    background-color #ea68a2
 .valueUnsel:last-child
     margin 0
 .weui-dialog
@@ -192,7 +192,7 @@ img, span, a
                 height 1.25rem
                 font-size fs + 0.0625rem
                 color #fff
-                background-color #ff8b00
+                background-color #ea68a2
             .inCancel
                 color #353535
                 background-color #f0f0f0
@@ -225,7 +225,7 @@ img, span, a
                 height 0.875rem
                 width 100%
                 padding-right 0.2813rem
-                border 1px solid #ff8b00
+                border 1px solid #ea68a2
                 outline 0
                 font-size fs
                 text-align right
@@ -242,10 +242,8 @@ img, span, a
     .route-item
         footerCss()
     .serve
+        display block
         width: 100%
-        height: 6.6875rem
-        background: url(./serve.png)
-        background-size: 100% 6.6875rem
     .serve-desc
         display flex
         flex-direction column

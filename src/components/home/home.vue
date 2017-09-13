@@ -11,17 +11,17 @@
                 <!-- 标题 -->
                 <div class="bannerTitle" v-show="val.name != '-' && val.product.length != 0">{{val.name}}</div>
                 <!-- 主体 -->
-                <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'">
-                    <img :src="val.product[0].src" class="singleImg">
+                <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'" class="imgContainer">
+                    <img v-view="val.product[0].src" class="loading" data-yyj-type="img">
                 </router-link>
-                <router-link :to="{ path: '/offlineInfo', query: { nid: val.product[0].id } }" v-else-if="val.product.length == 1 && val.linkType == 'aid'">
-                    <img :src="val.product[0].src" class="singleImg">
+                <router-link :to="{ path: '/offlineInfo', query: { nid: val.product[0].id } }" v-else-if="val.product.length == 1 && val.linkType == 'aid'" class="imgContainer">
+                    <img v-view="val.product[0].src" class="loading" data-yyj-type="img">
                 </router-link>
                 <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'gid'"></mySwiper>
                 <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'aid'"></mySwiper>
                 <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'nid'"></mySwiper>
-                <router-link to="/home" v-else-if="val.linkType == 'app'">
-                    <img :src="val.product.src" class="singleImg">
+                <router-link to="/home" v-else-if="val.linkType == 'app'" class="imgContainer">
+                    <img v-view="val.product.src" class="loading" data-yyj-type="img">
                 </router-link>
                 <!-- 每个图片区的 footer -->
                 <a class="more-goods" href="#goods" v-if="val.product.length != 0 && (val.groupId == 'newitem' || val.groupId == 'recommitem')">查看更多商品</a>
@@ -163,9 +163,17 @@ export default {
     background: #f0f0f0
     .main
         padding-bottom 1.3594rem
-    .singleImg
-        width 100%
-        // height 10rem
+        .imgContainer
+            display flex
+            justify-content center
+            align-items center
+            height 10rem
+            background-color #fff
+            .singleImg
+                width 100%
+                // height 10rem
+            .loading
+                width 1.5rem
     .route-item
         footerCss()
     .bannerTitle

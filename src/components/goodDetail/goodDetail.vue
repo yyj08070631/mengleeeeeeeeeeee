@@ -1,105 +1,108 @@
 <template>
-	<div class="goodDetail-wrapper" ref="srcoll">
-		<!--  v-infinite-scroll="loadDetail"  infinite-scroll-distance="10"-->
+	<div class="goodDetail-wrapper">
+		<!--   infinite-scroll-distance="10"-->
 		<!-- 头部 -->
 		<!-- <v-header></v-header> -->
-		<!-- 右上角会员价信息 -->
-		<p class="memberPrice" v-if="detailItemList.level != 1"><span></span><i>{{detailItemList.gooditem.userPrice}}</i></p>
-		<!--图片轮播-->
-		<div class="imgShow ifNoImg" v-if="detailItemList.albumitem.length == 0">该商品没有图片:-D</div>
-		<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-else-if="detailItemList.albumitem.length == 1">
-		<swiper :options="swiperOption" ref="mySwiper" v-else>
-			<swiper-slide v-for="(item, index) in detailItemList.albumitem">
-				<img :src="item.src" class="imgShow">
-			</swiper-slide>
-			<!-- 这是轮播的小圆点 -->
-			<div class="swiper-pagination" slot="pagination"></div>
-		</swiper>
-		<!--导航按钮-->
-		<div class="detailNav" :style="detailItemList.albumitem.length == 1 ? borderTop : []">
-			<router-link :to="{path:'/imageText',query:{gid:$route.query.gid}}">图文详情</router-link>
-			<router-link :to="{path:'/goodsData',query:{gid:$route.query.gid}}">商品参数</router-link>
-		</div>
-		<!--粗分割线-->
-		<div class="divider"></div>
-		<!--评论详情-->
-		<div class="comment">
-			<div class="titleUp">
-				<div class="colLeft">
-					<a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem.name}}</a>
-					<div class="rowDown">
-						<p>￥{{detailItemList.gooditem.price}}</p>
-						<p>已有 {{detailItemList.gooditem.sale}} 人购买</p>
-					</div>
-				</div>
-				<div class="colRight" name="share" role="button" @click="showShareTab = true">
-					<img src="./images/share.png">
-					<span>分享</span>
-				</div>
+		<!-- 超级主容器 -->
+		<section class="main" v-infinite-scroll="loadDetail">
+			<!-- 右上角会员价信息 -->
+			<p class="memberPrice" v-if="detailItemList.level != 1"><span></span><i>{{detailItemList.gooditem.userPrice}}</i></p>
+			<!--图片轮播-->
+			<div class="imgShow ifNoImg" v-if="detailItemList.albumitem.length == 0">该商品没有图片:-D</div>
+			<img class="imgShow" :src="item.src" v-for="(item, index) in detailItemList.albumitem" v-else-if="detailItemList.albumitem.length == 1">
+			<swiper :options="swiperOption" ref="mySwiper" v-else>
+				<swiper-slide v-for="(item, index) in detailItemList.albumitem">
+					<img :src="item.src" class="imgShow">
+				</swiper-slide>
+				<!-- 这是轮播的小圆点 -->
+				<div class="swiper-pagination" slot="pagination"></div>
+			</swiper>
+			<!--导航按钮-->
+			<div class="detailNav" :style="detailItemList.albumitem.length == 1 ? borderTop : []">
+				<router-link :to="{path:'/imageText',query:{gid:$route.query.gid}}">图文详情</router-link>
+				<router-link :to="{path:'/goodsData',query:{gid:$route.query.gid}}">商品参数</router-link>
 			</div>
-			<hr class="divider dividerThin">
-			<div class="titleDown">
-				<div class="colLeft">
-					<p>|</p>
-					<p>看看大伙怎么说</p>
-				</div>
-				<div class="colRight">
-					共{{detailItemList.commentitem.count}}个评论
-				</div>
-			</div>
-			<hr class="divider dividerThin">
-			<div class="noComment" v-show="detailItemList.commentitem.comment.length == 0">还没有评论哦:-D</div>
-			<div class="commentDetailContainer" v-for="(val,key) in detailItemList.commentitem.comment">
-				<div class="commentDetail">
+			<!--粗分割线-->
+			<div class="divider"></div>
+			<!--评论详情-->
+			<div class="comment">
+				<div class="titleUp">
 					<div class="colLeft">
-						<img :src="val.headimg">
-					</div>
-					<div class="colRight">
-						<div class="rowUp">
-							<p>{{val.username}}</p>
-							<img :src="val.levsrc">
-						</div>
+						<a href="javascript:void(0)" class="rowUp">{{detailItemList.gooditem.name}}</a>
 						<div class="rowDown">
-							{{val.content}}
+							<p>￥{{detailItemList.gooditem.price}}</p>
+							<p>已有 {{detailItemList.gooditem.sale}} 人购买</p>
 						</div>
 					</div>
-				</div>
-				<div class="divider dividerThin"></div>
-			</div>
-			<div class="commentDetailContainer" v-for="(item,key) in comMoreList">
-				<div class="commentDetail">
-					<div class="colLeft">
-						<img :src="item.headimg">
-					</div>
-					<div class="colRight">
-						<div class="rowUp">
-							<p>{{item.username}}</p>
-							<img :src="item.levsrc">
-						</div>
-						<div class="rowDown">
-							{{item.content}}
-						</div>
+					<div class="colRight" name="share" role="button" @click="showShareTab = true">
+						<img src="./images/share.png">
+						<span>分享</span>
 					</div>
 				</div>
 				<hr class="divider dividerThin">
+				<div class="titleDown">
+					<div class="colLeft">
+						<p>|</p>
+						<p>看看大伙怎么说</p>
+					</div>
+					<div class="colRight">
+						共{{detailItemList.commentitem.count}}个评论
+					</div>
+				</div>
+				<hr class="divider dividerThin">
+				<div class="noComment" v-show="detailItemList.commentitem.comment.length == 0">还没有评论哦:-D</div>
+				<div class="commentDetailContainer" v-for="(val,key) in detailItemList.commentitem.comment">
+					<div class="commentDetail">
+						<div class="colLeft">
+							<img :src="val.headimg">
+						</div>
+						<div class="colRight">
+							<div class="rowUp">
+								<p>{{val.username}}</p>
+								<img :src="val.levsrc">
+							</div>
+							<div class="rowDown">
+								{{val.content}}
+							</div>
+						</div>
+					</div>
+					<div class="divider dividerThin"></div>
+				</div>
+				<div class="commentDetailContainer" v-for="(item,key) in comMoreList">
+					<div class="commentDetail">
+						<div class="colLeft">
+							<img :src="item.headimg">
+						</div>
+						<div class="colRight">
+							<div class="rowUp">
+								<p>{{item.username}}</p>
+								<img :src="item.levsrc">
+							</div>
+							<div class="rowDown">
+								{{item.content}}
+							</div>
+						</div>
+					</div>
+					<hr class="divider dividerThin">
+				</div>
+				<div class="viewMore" v-show="detailItemList.commentitem.comment.length > 0">
+					<span @click="addComMore">{{comNode}}</span>
+				</div>
 			</div>
-			<div class="viewMore" v-show="detailItemList.commentitem.comment.length > 0">
-				<span @click="addComMore">{{comNode}}</span>
+			<!--超粗分割线-->
+			<div class="showImageText" v-if="imageTextList != ''" v-html="unescape(imageTextList.imageitem.content)"></div>
+			<!--继续拖动，查看图文详情-->
+			<!-- <div class="dragHelp" v-show="noDragToView"></div> -->
+			<div class="dragToView" v-show="dragViewMore">
+				<!-- v-show="imageTextList == ''" -->
+				<img src="./images/arrow_up.png">
+				<p>继续拖动，查看图文详情</p>
 			</div>
-		</div>
-		<!--超粗分割线-->
-		<div class="showImageText" v-if="imageTextList!=''" v-html="unescape(imageTextList.imageitem.content)"></div>
-		<!--继续拖动，查看图文详情-->
-		<!-- <div class="dragHelp" v-show="noDragToView"></div> -->
-		<div class="dragToView" v-show="hideLoading" ref="moveTab">
-			<!-- v-show="imageTextList == ''" -->
-			<img src="./images/arrow_up.png">
-			<p>继续拖动，查看图文详情</p>
-		</div>
-		<div class="dragToView" v-show="showLoading">
-			<img src="./images/loading.gif">
-			<p>拼命加载中...</p>
-		</div>
+			<div class="dragToView" v-show="dragLoading">
+				<img src="./images/loading.gif">
+				<p>拼命加载中...</p>
+			</div>
+		</section>
 		<!--脚部-->
 		<footer class="myFooter">
 			<router-link to="/home">
@@ -125,7 +128,7 @@
 					<div>
 						<span>{{detailItemList.gooditem.name}}</span>
 						<span>￥{{detailItemList.gooditem.price}}</span>
-						<span>{{detailItemList.gooditem.userPrice}}</span>
+						<span v-if="detailItemList.level != 1">{{detailItemList.gooditem.userPrice}}</span>
 					</div>
 					<div>
 						<img src="./images/close.png" @click="closeCart">
@@ -156,7 +159,7 @@
 					<div>
 						<span>{{detailItemList.gooditem.name}}</span>
 						<span>￥{{detailItemList.gooditem.price}}</span>
-						<span>{{detailItemList.gooditem.userPrice}}</span>
+						<span v-if="detailItemList.level != 1">{{detailItemList.gooditem.userPrice}}</span>
 					</div>
 					<div>
 						<img src="./images/close.png" @click="showBuy = false">
@@ -218,8 +221,6 @@ export default {
 	},
 	data() {
 		return {
-			showLoading: false,
-			hideLoading: true,
 			detailItemList: [],
 			comNode: '查看更多评论',
 			comMoreList: [],//查看更多评论数组
@@ -255,7 +256,12 @@ export default {
 			},
 			noDragToView: true,
 			// 若只有一张图片没有分页器则加一个上边框
-			borderTop: { 'border-top': '1px solid #e0e0e0' }
+			borderTop: { 'border-top': '1px solid #e0e0e0' },
+			// 两个下拉的提示框是否显示
+			dragViewMore: false,
+			dragLoading: false,
+			// 图文详情是否已加载完成
+			isloadedImageText: false,
 		}
 	},
 	methods: {
@@ -394,60 +400,6 @@ export default {
 				})
 			this.closeCart()
 		},
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		scrollFun: function() {
-			let it = this
-			var i = 0; // 分页值，用于select记录时给limit赋值
-
-			var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
-			//    (containerHeight)
-			var distance = window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
-			// console.log("这是scrollTop"+distance)
-			// console.log(containerHeight)
-			if (distance >= containerHeight - 100) {
-				this.dragToView = true
-				let startY = 0;
-				let endY = 0;
-				this.$refs.moveTab.addEventListener("touchstart", function(e) {
-					e.preventDefault();
-					startY = e.touches[0].pageY
-					// console.log(startY+ "It is in here!")
-				});
-				this.$refs.moveTab.addEventListener("touchmove", function(e) {
-					e.preventDefault();
-					endY = e.touches[0].pageY
-				});
-				this.$refs.moveTab.addEventListener("touchend", function(e) {
-					if (endY - startY < -200) {
-						it.showLoading = true
-						it.hideLoading = false
-						setTimeout(function() {
-							it.showImageDataList()
-						}, 1000)
-
-					} else {
-						distance = distance - 200
-					}
-				});
-
-			}
-		},
-		showImageDataList: function() {
-			this.dragToView = false
-			let it = this
-			var containerHeight = window.innerHeight // 容器高度 + 容器top至文档top的距离
-			//    (containerHeight)
-			var distance = window.innerHeight + document.body.scrollTop; // 视口高度 + 滚动距离
-			console.log("这是scrollTop" + distance)
-			console.log(containerHeight)
-
-			if (distance >= containerHeight) {
-				it.getImageTextData()
-				if (it.imageTextList != '') {
-					containerHeight = containerHeight - 100
-				}
-			}
-		},
 		// 分享链接
 		getShareFn: function() {
 			// config 移到main.js去了
@@ -485,30 +437,20 @@ export default {
 			}).then(function(response) {
 				let res = response.body;
 				// console.log(res);
-				console.log('http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)));
+				// console.log(this.shareVal);
+				// console.log('http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)));
+				// console.log(this.detailItemList.gooditem.mainmap);
 				that.ready(() => {
 					that.onMenuShareAppMessage({
 						title: this.shareVal,
 						desc: '',
 						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
-						imgUrl: this.detailItemList.gooditem.mainmap,
-						success: function(res) {
-							// alert(res)
-						},
-						cancel: function(res) {
-							// console.log(res)
-						}
+						imgUrl: this.detailItemList.gooditem.mainmap
 					});
 					that.onMenuShareTimeline({
 						title: this.shareVal,
 						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
-						imgUrl: this.detailItemList.gooditem.mainmap,
-						success: function(res) {
-							console.log(res)
-						},
-						cancel: function(res) { 
-							// console.log(res)
-						}
+						imgUrl: this.detailItemList.gooditem.mainmap
 					});
 				});
 			})
@@ -522,6 +464,27 @@ export default {
 			url += encodeURIComponent(name) + "=" + encodeURIComponent(value);
 			return url;
 		},
+		// 加载图文详情
+		loadDetail: function(){
+			let self = this;
+			if(this.isloadedImageText == false){
+				if(self.dragViewMore == false && self.dragLoading == false){
+					self.dragViewMore = true;
+				} else {
+					if(self.dragLoading == false){
+						self.dragViewMore = false;
+						self.dragLoading = true;
+						setTimeout(function(){
+							self.getImageTextData()
+						},1500)
+					} else {
+						return
+					}
+				}
+			} else {
+				return
+			}
+		},
 		//获取图文信息
 		getImageTextData: function() {
 			this.$http({
@@ -530,7 +493,9 @@ export default {
 				emulateJSON: true
 			}).then(function(response) {
 				this.imageTextList = response.body
-				this.showLoading = false
+				this.isloadedImageText = true;
+				this.dragLoading = false;
+				this.dragViewMore = false;
 				//console.log(this.imageTextList)                  
 			})
 		},
@@ -560,18 +525,8 @@ export default {
 		},
 	},
 	mounted() {
-		var it = this
-		var fun = null//存储滚动函数
 		this.$nextTick(function() {
 			this.getDataFromBackend()
-
-			window.addEventListener('scroll', function() {
-				if (it.$route.path == '/goodDetail') {
-					fun = it.scrollFun()
-				} else {
-					fun = null
-				}
-			})
 		})
 	},
 	watch: {
@@ -592,6 +547,9 @@ export default {
 	left 0
 	width 100%
 	background #f0f0f0
+	// 超级主容器
+	.main
+		padding-bottom 1.1875rem
 	// 右上角会员价信息
 	.memberPrice
 		position absolute
@@ -613,8 +571,10 @@ export default {
 			background-color #ea68a2
 			z-index -1
 		i
-			display block
-			padding 0.25rem
+			display flex
+			align-items center
+			height 0.7656rem
+			padding 0 .25rem 0 0
 			font-style normal
 	// 最后一个元素撑开footer
 	.lastElem
@@ -808,7 +768,6 @@ export default {
 		justify-content center
 		align-items center
 		height 1.5313rem
-		margin-bottom 1.1875rem
 		background-color #f0f0f0
 		img
 			display block
@@ -1040,7 +999,6 @@ export default {
 			.buyNow
 				background-color #ea6aa2 !important
 	.showImageText
-		margin-bottom 0.9375rem	
 		img
 			width 100%
 </style>

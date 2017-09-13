@@ -3,7 +3,7 @@
          <swiper-slide v-for="(val,key) in dataApp.product">
             <router-link :to="{ path: '/goodDetail', query: { gid: val.id } }" v-if="dataApp.linkType == 'gid'"> 
                 <div class="imgCont">
-                    <img :src="val.src">
+                    <img v-view="val.src" data-yyj-type="swiper">
                 </div>
                 <div class="discribe">
                     <p>{{val.name}}</p>
@@ -15,7 +15,7 @@
             </router-link> -->
             <router-link :to="{ path: '/digest', query: { sid: val.id, nid: val.nid } }" v-else-if="dataApp.linkType == 'nid'">
                 <div class="imgCont">
-                    <img :src="val.src">
+                    <img v-view="val.src" data-yyj-type="swiper">
                 </div>
                 <div class="discribe discribeTriLine">
                     <p>{{val.sname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{val.day_time}}</p>
@@ -128,10 +128,11 @@ img, span, a
         .imgCont
             display flex
             justify-content center
+            align-items center
             width 100%
             height 7.3438rem
             img
-                height 100%
+                height 1.5rem
     .swiper-pagination
         display flex
         width 9.5rem !important

@@ -8,10 +8,10 @@
             <!-- 无值 -->
             <div class="emptyType" v-if="data.length == 0">请添加收货地址:-D</div>
             <!-- 有值且可选 -->
-            <div class="oneAddr" v-for="(val,key) in data" @click.stop="addrToSession(val.name, val.phone, val.province + val.city + val.area + val.address)" v-else-if="data.length != 0 && canSel">
+            <div class="oneAddr" v-for="(val,key) in data" v-else-if="data.length != 0 && canSel">
                 <!--  :to="{ path: '/buyGoods', query: { group: orderArr(), name: val.name, phone: val.phone, addr: val.province + val.city + val.area + val.address } }" -->
                 <div class="rowUp">
-                    <div class="nameAndPhone">
+                    <div class="nameAndPhone" @click="addrToSession(val.name, val.phone, val.province + val.city + val.area + val.address, val.id)">
                         <p class="name">{{val.name}}</p>
                         <div class="phone default" v-if="val.isDefault == 1">{{val.phone}}</div>
                         <div class="phone" v-else>{{val.phone}}</div>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="rowDown">
+                <div class="rowDown" @click="addrToSession(val.name, val.phone, val.province + val.city + val.area + val.address, val.id)">
                     {{val.province + '&nbsp;' + val.city + '&nbsp;' + val.area + '&nbsp;' + val.address}}
                 </div>
                 <!-- 删除询问弹窗 -->
@@ -112,6 +112,7 @@ export default {
         },
         // 删除收件信息
         delReceInfo: function (id) {
+            let loc = JSON.parse(sessionStorage.getItem('loc'));
             this.$http({
                 method: 'get',
                 url: global.Domain + '/user/addressDel?userId===tPtcNLZARXEuvDhRSFGkQX&id=' + id,
@@ -121,6 +122,9 @@ export default {
                 // console.log(res);
                 if (res.code == 200) {
                     this.success = true
+                    if(loc.id == id){
+                        sessionStorage.removeItem('loc');
+                    }
                     this.getDataFromBackend()
                 } else {
                     this.error = true
@@ -133,8 +137,8 @@ export default {
             return this.$route.query.group
         },
         // 地址设置到session中
-        addrToSession: function (name, phone, addr) {
-            sessionStorage.setItem('loc', JSON.stringify({ name: name, phone: phone, addr: addr }));
+        addrToSession: function (name, phone, addr, id) {
+            sessionStorage.setItem('loc', JSON.stringify({ name: name, phone: phone, addr: addr, id: id }));
             this.$router.push('buyGoods');
         },
         onShow: function () {
@@ -170,7 +174,6 @@ span, a, img, input, textarea
        headerCss()
     // 主体
     .main
-        border-top 0.3125rem solid #f0f0f0
         // 无收货地址
         .emptyType
             display flex
@@ -205,6 +208,8 @@ span, a, img, input, textarea
                 z-index 10
                 .nameAndPhone
                     display flex
+                    align-items center
+                    height 100%
                     .name
                         width 1.875rem
                         font-size fs + 0.0313rem

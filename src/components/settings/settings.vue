@@ -9,7 +9,7 @@
             <div class="message">
                 <span class="name">{{data.username}}</span>
                 <span class="mobile">{{data.phone}}</span>
-                <img class="rank" :src="data.levelName">
+                <img class="rank" :src="data.int = 1 ? require('./images/neibu.png') : data.levelName">
             </div>
         </div>
         <div class="content-wrapper">
@@ -509,7 +509,7 @@ export default {
             margin 1rem 0 0.4688rem 0
             font-size fs + 0.1094rem
             color #fff
-            background-color #ff8b00
+            background-color #ea68a2
         p
             margin 0.4063rem 0 0.3438rem 0
             font-size fs + 0.0469rem
@@ -632,7 +632,6 @@ select::-ms-expand {
                 font-size: fs - 0.0156rem
                 color: #909090
             .rank
-                width: 1.125rem
                 height: 0.375rem
                 margin 0 auto
     .content-wrapper
