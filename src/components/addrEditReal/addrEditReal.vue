@@ -67,6 +67,8 @@ export default {
             // 判断是否有数据修改，若无修改则不提交
             if(this.phone == this.data.phone && this.area.join() == [this.data.province, this.data.city, this.data.area].join() && this.street == this.data.address && this.name == this.data.name && this.defaultLoc == (this.data.isDefault == 1 ? true : false)){
                 alert('您没有进行修改！')
+            } else if (!(/^1(3|4|5|7|8)\d{9}$/.test(this.phone))){
+                alert('手机号码格式不正确！');
             } else {
                 this.$http({
                     method: 'get',

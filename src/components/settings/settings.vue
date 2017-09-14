@@ -9,7 +9,7 @@
             <div class="message">
                 <span class="name">{{data.username}}</span>
                 <span class="mobile">{{data.phone}}</span>
-                <img class="rank" :src="data.int = 1 ? require('./images/neibu.png') : data.levelName">
+                <img class="rank" :src="data.internal != 1 ? data.levelSrc : require('./images/neibu.png')">
             </div>
         </div>
         <div class="content-wrapper">
@@ -440,16 +440,20 @@ export default {
         },
         // 获取验证码
         getVer: function(){
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/verification/getCode?userId===tPtcNLZARXEuvDhRSFGkQX&type=info&phone=' + this.phoneNum,
-                emulateJSON: true
-            }).then(function (response) {
-                let res = response.body;
-                // console.log(res);
-                // alert(JSON.parse(res.data[0]).code);
-            })
-            this.countDown();
+            if (!(/^1(3|4|5|7|8)\d{9}$/.test(this.phoneNum))) {
+                alert('手机号码格式不正确！');
+            } else {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/verification/getCode?userId===tPtcNLZARXEuvDhRSFGkQX&type=info&phone=' + this.phoneNum,
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res);
+                    // alert(JSON.parse(res.data[0]).code);
+                })
+                this.countDown();
+            }
         },
         // 提交验证码
         submitVer: function(){

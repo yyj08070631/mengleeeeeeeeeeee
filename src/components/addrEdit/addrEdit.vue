@@ -73,25 +73,29 @@ export default {
         submitInfo: function () {
             console.log(this.phone, this.area, this.street, this.name, Number(this.defaultLoc));
             // -------------------------------------------------------------boolean---------
-            this.$http({
-                method: 'get',
-                url: global.Domain + '/user/addressAdd?userId===tPtcNLZARXEuvDhRSFGkQX&phone=' + this.phone + '&name=' + this.name + '&province=' + this.area[0] + '&city=' + this.area[1] + '&area=' + this.area[2] + '&address=' + this.street + '&isDefault=' + Number(this.defaultLoc),
-                emulateJSON: true
-            }).then(function (response) {
-                let res = response.body;
-                // console.log(res);
-                this.data = res.data;
-                if(res.code == 200){
-                    this.success = true
-                    setTimeout(function(){
-                        //this.$router.push('addrManage');
-                        window.history.back(1)
-                    },1000)
-                    
-                } else {
-                    this.error = true
-                }
-            })
+            if (!(/^1(3|4|5|7|8)\d{9}$/.test(this.phone))) {
+                alert('手机号码格式不正确！');
+            } else {
+                this.$http({
+                    method: 'get',
+                    url: global.Domain + '/user/addressAdd?userId===tPtcNLZARXEuvDhRSFGkQX&phone=' + this.phone + '&name=' + this.name + '&province=' + this.area[0] + '&city=' + this.area[1] + '&area=' + this.area[2] + '&address=' + this.street + '&isDefault=' + Number(this.defaultLoc),
+                    emulateJSON: true
+                }).then(function (response) {
+                    let res = response.body;
+                    // console.log(res);
+                    this.data = res.data;
+                    if(res.code == 200){
+                        this.success = true
+                        setTimeout(function(){
+                            //this.$router.push('addrManage');
+                            window.history.back(1)
+                        },1000)
+                        
+                    } else {
+                        this.error = true
+                    }
+                })
+            }
         },
         // 展示子组件获取的数据 // 此处指vuxAddress传过来的地址字符串
         showMsgFromChild: function(data){

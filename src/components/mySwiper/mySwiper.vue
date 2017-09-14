@@ -3,7 +3,8 @@
          <swiper-slide v-for="(val,key) in dataApp.product">
             <router-link :to="{ path: '/goodDetail', query: { gid: val.id } }" v-if="dataApp.linkType == 'gid'"> 
                 <div class="imgCont">
-                    <img v-view="val.src" data-yyj-type="swiper">
+                    <img :data-src="val.src" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
                 </div>
                 <div class="discribe">
                     <p>{{val.name}}</p>
@@ -15,12 +16,14 @@
             </router-link> -->
             <router-link :to="{ path: '/digest', query: { sid: val.id, nid: val.nid } }" v-else-if="dataApp.linkType == 'nid'">
                 <div class="imgCont">
-                    <img v-view="val.src" data-yyj-type="swiper">
+                    <img :data-src="val.src" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
                 </div>
                 <div class="discribe discribeTriLine">
-                    <p>{{val.sname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{val.day_time}}</p>
-                    <p>{{val.address}}</p>
-                    <p>{{val.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMB&nbsp;{{num(val.price)}}</p>
+                    <p>{{val.sname}}</p>
+                    <p>{{val.day_time}}</p>
+                    <p>{{val.name}}</p>
+                    <p>RMB&nbsp;{{num(val.price)}}</p>
                 </div>
             </router-link>
         </swiper-slide> 
@@ -50,6 +53,9 @@ export default {
                 paginationType: "bullets",
                 pagination: '.swiper-pagination',
                 autoplayDisableOnInteraction : false,
+                // 懒加载
+                lazyLoading: true,
+                lazyLoadingInPrevNext : true,
                 paginationBulletRender: function (swiper, index, className) {
                     // console.log(swiper.bullets ? swiper.bullets.length : 0);
                     let width = ( isFinite(100/(parseInt(swiper.bullets ? swiper.bullets.length : 0))) ? 100/(parseInt(swiper.bullets ? swiper.bullets.length : 0)) : 100 ) + '%';
@@ -124,7 +130,7 @@ img, span, a
             p:not(:first-child)
                 margin-top 0.3125rem
         .discribeTriLine
-            height 3rem
+            height 3.5rem
         .imgCont
             display flex
             justify-content center
@@ -132,7 +138,8 @@ img, span, a
             width 100%
             height 7.3438rem
             img
-                height 1.5rem
+                // height 1.5rem
+                height 100%
     .swiper-pagination
         display flex
         width 9.5rem !important
