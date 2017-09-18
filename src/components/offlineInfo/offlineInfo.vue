@@ -18,7 +18,7 @@
             <div class="offlineInfo">
                 <div class="rowUp">
                     <p>{{data.nearbyitem.name}}</p>
-                    <a href="javascript:void(0)" @click="showShareTab = true">
+                    <a href="javascript:void(0)" @click="shareView = true">
                         <img src="./images/share.png">
                         <span>分享</span>
                     </a>
@@ -124,6 +124,10 @@
                 </div>
             </alert>
         </section>
+		<!-- 分享到朋友圈或分享给朋友 src/commom/img/share.png -->
+		<div class="share" v-show="shareView" @click.stop="shareView = false">
+			<img src="../../commom/img/share.png">
+		</div>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -164,6 +168,8 @@ export default {
             // 分享弹窗
             showShareTab: false,
             shareVal: '',
+			// 分享到朋友圈遮罩图的显示
+			shareView: false
         }
     },
     methods: {
@@ -251,7 +257,9 @@ export default {
 						}
 					});
 				});
-			})
+            })
+            // this.showShareTab = false;
+			// this.shareView = true;
 		},
     },
     //定义这个sweiper对象  
@@ -261,7 +269,8 @@ export default {
         }
     },
     mounted() {
-        this.getDataFromBackend();
+        this.getDataFromBackend()
+        this.todoShare()
     }
 }
 </script>
@@ -305,6 +314,23 @@ img, span, a
         font-size fs + 0.125rem
         color #333
         border-bottom 1px solid #e0e0e0
+    // 分享到朋友圈
+    .share
+        display flex
+        justify-content flex-end
+
+        position fixed
+        right 0
+        top 0
+        z-index 100
+
+        width 100%
+        height 100%
+
+        background-color rgba(0, 0, 0, 0.5)
+        img
+            width 80%
+            height (80 * (488 / 618))%
     // 主体
     .main
         // 分割线

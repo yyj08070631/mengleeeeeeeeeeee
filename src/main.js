@@ -55,26 +55,18 @@ import vuexI18n from 'vuex-i18n';
 import { InfiniteScroll } from 'mint-ui';
 import { dateFormat } from 'vux';
 import { WechatPlugin } from 'vux';
-import VueViewload from 'vue-viewload';
+// import VueViewload from 'vue-viewload';
 
 // 图片懒加载插件
-Vue.use(VueViewload, {
-    defaultPic: 'http://img.zcool.cn/community/01b97c55f131e432f875a132a7fbc6.gif',
-    errorPic: 'http://a0.att.hudong.com/77/31/20300542906611142174319458811.jpg',
-    threshold: 0,
-    effectFadeIn: true,
-    callback: function(ele, src) {
-        // let type = ele.getAttribute('data-yyj-type');
-        // if(type == 'img'){
-        //     ele.style.width = '100%';
-        //     ele.parentNode.style.height = 'auto';
-        // } else if (type == 'swiper'){
-        //     ele.style.height = '100%';
-        // } else {
-        //     return;
-        // }
-    }
-});
+// Vue.use(VueViewload, {
+//     defaultPic: 'http://img.zcool.cn/community/01b97c55f131e432f875a132a7fbc6.gif',
+//     errorPic: 'http://a0.att.hudong.com/77/31/20300542906611142174319458811.jpg',
+//     threshold: 0,
+//     effectFadeIn: true,
+//     callback: function(ele, src) {
+//         console.log('load complete')
+//     }
+// });
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 Vue.use(WechatPlugin)

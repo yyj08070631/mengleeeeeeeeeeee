@@ -19,8 +19,8 @@
 			</swiper>
 			<!--导航按钮-->
 			<div class="detailNav" :style="detailItemList.albumitem.length == 1 ? borderTop : []">
-				<router-link :to="{path:'/imageText',query:{gid:$route.query.gid}}">图文详情</router-link>
-				<router-link :to="{path:'/goodsData',query:{gid:$route.query.gid}}">商品参数</router-link>
+				<router-link :to="{ path: '/imageText', query: { gid: $route.query.gid } }">图文详情</router-link>
+				<router-link :to="{ path: '/goodsData', query: { gid: $route.query.gid } }">商品参数</router-link>
 			</div>
 			<!--粗分割线-->
 			<div class="divider"></div>
@@ -34,7 +34,7 @@
 							<p>已有 {{detailItemList.gooditem.sale}} 人购买</p>
 						</div>
 					</div>
-					<div class="colRight" name="share" role="button" @click="showShareTab = true">
+					<div class="colRight" name="share" role="button" @click="shareView = true">
 						<img src="./images/share.png">
 						<span>分享</span>
 					</div>
@@ -103,6 +103,10 @@
 				<p>拼命加载中...</p>
 			</div>
 		</section>
+		<!-- 分享到朋友圈或分享给朋友 src/commom/img/share.png -->
+		<div class="share" v-show="shareView" @click.stop="shareView = false">
+			<img src="../../commom/img/share.png">
+		</div>
 		<!--脚部-->
 		<footer class="myFooter">
 			<router-link to="/home">
@@ -262,6 +266,8 @@ export default {
 			dragLoading: false,
 			// 图文详情是否已加载完成
 			isloadedImageText: false,
+			// 分享到朋友圈遮罩图的显示
+			shareView: false
 		}
 	},
 	methods: {
@@ -401,33 +407,6 @@ export default {
 			this.closeCart()
 		},
 		// 分享链接
-		getShareFn: function() {
-			// config 移到main.js去了
-			const urlNow = document.location.href;// 当前url
-			// const urlNow = encodeURIComponent(location.href.split('#')[0]);// 当前url
-			console.log(urlNow);
-			this.$http({
-				method: 'get',
-				url: global.Domain + '/Index/sign?url=' + urlNow,
-				emulateJSON: true
-			}).then(function(response) {
-				let data = response.body
-				this.$wechat.config({
-					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
-					appId: data.sdkitem.appId, // 必填，公众号的唯一标识
-					timestamp: data.sdkitem.timestamp, // 必填，生成签名的时间戳
-					nonceStr: data.sdkitem.nonceStr, // 必填，生成签名的随机串data.sdkitem.nonceStr
-					signature: data.sdkitem.signature,// 必填，签名，见附录1
-					jsApiList: [
-						"onMenuShareTimeline",
-						"onMenuShareAppMessage"
-					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-				});
-				this.$wechat.error(function(res) {
-				});
-
-			})
-		},
 		todoShare: function() {
 			let that = this.$wechat;
 			this.$http({
@@ -454,7 +433,8 @@ export default {
 					});
 				});
 			})
-			this.showShareTab = false;
+			// this.showShareTab = false;
+			// this.shareView = true;
 		},
 		// 向现有的URL末尾添加查询字符串
 		addURLParam: function(url, name, value) {
@@ -526,7 +506,8 @@ export default {
 	},
 	mounted() {
 		this.$nextTick(function() {
-			this.getDataFromBackend()
+			this.getDataFromBackend();
+			this.todoShare();
 		})
 	},
 	watch: {
@@ -550,6 +531,23 @@ export default {
 	// 超级主容器
 	.main
 		padding-bottom 1.1875rem
+	// 分享到朋友圈
+	.share
+		display flex
+		justify-content flex-end
+
+		position fixed
+		right 0
+		top 0
+		z-index 100
+
+		width 100%
+		height 100%
+
+		background-color rgba(0, 0, 0, 0.5)
+		img
+			width 80%
+			height (80 * (488 / 618))%
 	// 右上角会员价信息
 	.memberPrice
 		position absolute
