@@ -4,14 +4,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { Group, XAddress, ChinaAddressV3Data, XButton, Cell, Value2nameFilter as value2name } from 'vux';
+import { XAddress, ChinaAddressV3Data, Value2nameFilter as value2name } from 'vux';
 
 export default {
     components: {
-        Group,
-        XAddress,
-        XButton,
-        Cell
+        XAddress
     },
     data() {
         return {
