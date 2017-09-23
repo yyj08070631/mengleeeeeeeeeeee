@@ -411,24 +411,23 @@ export default {
 			let that = this.$wechat;
 			this.$http({
 				method: 'get',
-				url: 'http://dde.dgxinn.cn/dream/index.php/Api/uid/g',
+				url: 'http://go.zs-mmall.com/dream/index.php/Api/uid/g',
 				emulateJSON: true
 			}).then(function(response) {
 				let res = response.body;
 				// console.log(res);
-				// console.log(this.shareVal);
-				// console.log('http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)));
-				// console.log(this.detailItemList.gooditem.mainmap);
+				let shareUrl = base64.encode(this.addURLParam(document.location.href, 'logo', res.logo));
+				// console.log(shareUrl);
 				that.ready(() => {
 					that.onMenuShareAppMessage({
 						title: this.shareVal,
 						desc: '',
-						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
+						link: 'http://go.zs-mmall.com/dream/index.php/Home/Index/test/surl/' + shareUrl,
 						imgUrl: this.detailItemList.gooditem.mainmap
 					});
 					that.onMenuShareTimeline({
 						title: this.shareVal,
-						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
+						link: 'http://go.zs-mmall.com/dream/index.php/Home/Index/test/surl/' + shareUrl,
 						imgUrl: this.detailItemList.gooditem.mainmap
 					});
 				});

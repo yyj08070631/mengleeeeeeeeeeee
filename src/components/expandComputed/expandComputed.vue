@@ -21,8 +21,8 @@
                     <div class="link-wrapper">
                         <span>获得：</span>
                         <span class="number">￥0.00</span>
-                        <span class="state" v-if="data.off == 0" @click="alertTxt = data.last_msg">未激活</span>
-                        <span class="state stateYi" v-else>已激活</span>
+                        <span class="state stateYi" v-if="data.off == 1">已激活</span>
+                        <span class="state" v-else @click="alertMsg(data.msg)">未激活</span>
                     </div>
                 </div>
             </a>

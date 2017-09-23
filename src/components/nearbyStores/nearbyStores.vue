@@ -2,7 +2,7 @@
     <div class="store-wrapper">
         <!-- 头部 -->
         <!-- <v-header></v-header>  -->
-        <div class="loadStore" v-if="data.length == 0">{{loadMessage}}</div>
+        <div class="loadStore" v-if="data.length == 0 && errMsg == ''">{{loadMessage}}</div>
         <div class="store-message" v-else>
             <div href="javascript:void(0)" class="store-computed">
                 <span class="computed">附近的项目实体店</span>
@@ -21,7 +21,7 @@
                 </div>
             </router-link>
             <div class="line"></div>
-            <router-link to="/nearbyStoresAll" class="all-stores" style="margin-bottom:1.3594rem">
+            <router-link to="/nearbyStoresAll" class="all-stores" style="margin-bottom:1.3594rem" v-show="errMsg == 'err'">
                 <p>浏览所有线下项目实体店</p>
                 <img class="more" src="./more.png">
             </router-link>
@@ -43,6 +43,7 @@ export default {
     data() {
         return {
             data: [],
+            errMsg: '',
             gaodeData: this.gaode(),
             loadMessage: '正在加载位置信息....'
         }
@@ -96,6 +97,7 @@ export default {
                                     // console.log(res);
                                     if(res == 'err'){
                                         self.loadMessage = '附近3公里内没有线下门店';
+                                        self.errMsg = res;
                                     } else {
                                         self.data = res.nearbyitem;
                                     }
@@ -119,6 +121,7 @@ export default {
                                             // console.log(res);
                                             if(res == 'err'){
                                                 self.loadMessage = '附近3公里内没有线下门店'
+                                                self.errMsg = res;
                                             } else {
                                                 self.data = res.nearbyitem;
                                                 sessionStorage.setItem('locSession', JSON.stringify({

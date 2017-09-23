@@ -60,19 +60,23 @@ export default {
 				// 判断路由来决定显示图片
 				this.iconHome = {
 					'background-image': this.$route.path == '/home' ? `url(${nav.foot[0].on})` : `url(${nav.foot[0].over})`,
-					'background-size': '0.625rem 0.625rem'
+					'background-size': '0.625rem 0.625rem',
+					'opacity': '.95'
 				};
 				this.iconGoods = {
 					'background-image': this.$route.path == '/goods' ? `url(${nav.foot[1].on})` : `url(${nav.foot[1].over})`,
-					'background-size': '0.625rem 0.625rem'
+					'background-size': '0.625rem 0.625rem',
+					'opacity': '.95'
 				};
 				this.iconMyCenter = {
 					'background-image': this.$route.path == '/myCenter' ? `url(${nav.foot[2].on})` : `url(${nav.foot[2].over})`,
-					'background-size': '0.625rem 0.625rem'
+					'background-size': '0.625rem 0.625rem',
+					'opacity': '.95'
 				};
 				this.iconCart = {
 					'background-image': this.$route.path == '/cart' ? `url(${nav.foot[3].on})` : `url(${nav.foot[3].over})`,
-					'background-size': '0.625rem 0.625rem'
+					'background-size': '0.625rem 0.625rem',
+					'opacity': '.95'
 				};
 				// 修改显示文字
 				this.iconHomeTxt = nav.foot[0].title;
@@ -81,7 +85,7 @@ export default {
 				this.iconCartTxt = nav.foot[3].title;
 			} else {
 				this.$http.post(
-					'http://dde.dgxinn.cn/dream/index.php/Api/nav',
+					'http://go.zs-mmall.com/dream/index.php/Api/nav',
 					{
 						
 					},
@@ -99,19 +103,23 @@ export default {
 						// 判断路由来决定显示图片
 						this.iconHome = {
 							'background-image': this.$route.path == '/home' ? `url(${res[0].on})` : `url(${res[0].over})`,
-							'background-size': '0.625rem 0.625rem'
+							'background-size': '0.625rem 0.625rem',
+							'opacity': '.95'
 						};
 						this.iconGoods = {
-							'background-image': (this.$route.path == '/goods' || this.$route.path == '/nearbyStores' || this.$route.path == '/digest' || this.$route.path == '/goodsClassify') ? `url(${res[1].on})` : `url(${res[1].over})`,
-							'background-size': '0.625rem 0.625rem'
+							'background-image': this.$route.path == '/goods' ? `url(${res[1].on})` : `url(${res[1].over})`,
+							'background-size': '0.625rem 0.625rem',
+							'opacity': '.95'
 						};
 						this.iconMyCenter = {
-							'background-image': (this.$route.path == '/myCenter' || this.$route.path == '/subscribe' || this.$route.path == '/subscribeNow') ? `url(${res[2].on})` : `url(${res[2].over})`,
-							'background-size': '0.625rem 0.625rem'
+							'background-image': this.$route.path == '/myCenter' ? `url(${res[2].on})` : `url(${res[2].over})`,
+							'background-size': '0.625rem 0.625rem',
+							'opacity': '.95'
 						};
 						this.iconCart = {
 							'background-image': this.$route.path == '/cart' ? `url(${res[3].on})` : `url(${res[3].over})`,
-							'background-size': '0.625rem 0.625rem'
+							'background-size': '0.625rem 0.625rem',
+							'opacity': '.95'
 						};
 						// 修改显示文字
 						this.iconHomeTxt = res[0].title;
@@ -127,24 +135,23 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-	active-color = #ea68a2 
-		.menu-tag
-			display: flex
-			width: 100%
-			height: 1.3438rem
-			font-size: 0
-			border-top 1px solid #e0e0e0
-			background: rgba(255,255,255,0.95)
-		.tag-list
-			flex: 1
-			font-size: fs - 0.0938rem
-			text-align: center           
-			.bg-container
-				margin: 0.1563rem auto 0.1563rem auto
-				width: 0.625rem
-				height: 0.625rem
-				background: #909090
+.menu-tag
+	display flex
+	width: 100%
+	height: 1.3438rem
+	font-size: 0
+	border-top 1px solid #e0e0e0
+	background rgba(255, 255, 255, .95)
+	footerCss()
+	.tag-list
+		flex: 1
+		font-size: fs - 0.0938rem
+		text-align: center
+		.bg-container
+			margin: 0.1563rem auto 0.1563rem auto
+			width: 0.625rem
+			height: 0.625rem
 		a
-			display: inline-block
+			display inline-block
+			color rgba(0, 0, 0, .6)
 </style>
-

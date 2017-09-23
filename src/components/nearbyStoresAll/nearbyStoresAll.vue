@@ -115,7 +115,7 @@ export default {
                                     let res = response.body;
                                     // console.log(res);
                                     if(res == 'err'){
-                                        self.loadMessage = '附近3公里内没有线下门店';
+                                        self.loadMessage = '暂无线下实体店';
                                     } else {
                                         self.data = res.nearbyitem;
                                         this.isStartLoc = true;
@@ -139,7 +139,7 @@ export default {
                                             let res = response.body;
                                             // console.log(res);
                                             if(res == 'err'){
-                                                self.loadMessage = '附近3公里内没有线下门店'
+                                                self.loadMessage = '暂无线下实体店'
                                             } else {
                                                 self.data = res.nearbyitem;
                                                 sessionStorage.setItem('locSession', JSON.stringify({
@@ -180,7 +180,7 @@ export default {
                         console.log(res);
                         if(res.nearbyitem.length == 0){
                             // console.log(2.1);
-                            self.loadMoreMessage = '没有线下门店';
+                            self.loadMoreMessage = '没有更多线下门店';
                         } else {
                             // console.log(3);
                             res.nearbyitem.map(function(val, key){

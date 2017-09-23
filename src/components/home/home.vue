@@ -11,21 +11,36 @@
                 <!-- 标题 -->
                 <div class="bannerTitle" v-if="val.name != '-' && val.product.length != 0">{{val.name}}</div>
                 <!-- 主体 -->
+                    <!-- 单图 -->
                 <router-link :to="{ path: '/goodDetail', query: { gid: val.product[0].id } }" v-if="val.product.length == 1 && val.linkType == 'gid'" class="imgContainer">
-                    <!-- <img v-view="val.product[0].src" class="singleImg" data-yyj-type="img"> -->
                     <x-img :src="val.product[0].src" class="singleImg" default-src="http://img.zcool.cn/community/01b97c55f131e432f875a132a7fbc6.gif" container=".main" :offset="-100"></x-img>
+                    <div class="discribe" v-if="val.groupId == 'sgooditem'">
+                        <p>{{val.product[0].name}}</p>
+                        <p>RMB&nbsp;{{val.product[0].price}}</p>
+                    </div>
                 </router-link>
                 <router-link :to="{ path: '/offlineInfo', query: { nid: val.product[0].id } }" v-else-if="val.product.length == 1 && val.linkType == 'aid'" class="imgContainer">
-                    <!-- <img v-view="val.product[0].src" class="singleImg" data-yyj-type="img"> -->
                     <x-img :src="val.product[0].src" class="singleImg" default-src="http://img.zcool.cn/community/01b97c55f131e432f875a132a7fbc6.gif" container=".main" :offset="-100"></x-img>
+                    <div class="discribe" v-if="val.groupId == 'newitem'">
+                        <p>{{val.product[0].name}}</p>
+                        <p>RMB&nbsp;{{val.product[0].price}}</p>
+                    </div>
                 </router-link>
-                <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'gid'"></mySwiper>
-                <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'aid'"></mySwiper>
-                <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1 && val.linkType == 'nid'"></mySwiper>
-                <router-link to="/home" v-else-if="val.linkType == 'app'" class="imgContainer">
-                    <!-- <img v-view="val.product.src" class="singleImg" data-yyj-type="img"> -->
+                <router-link :to="{ path: '/digest', query: { sid: val.product[0].id, nid: val.product[0].nid } }" v-else-if="val.product.length == 1 && val.linkType == 'nid'" class="imgContainer">
+                    <x-img :src="val.product[0].src" class="singleImg" default-src="http://img.zcool.cn/community/01b97c55f131e432f875a132a7fbc6.gif" container=".main" :offset="-100"></x-img>
+                    <div class="discribe discribeTriLine">
+                        <p>{{val.product[0].sname}}</p>
+                        <p>{{val.product[0].day_time}}</p>
+                        <p>{{val.product[0].name}}</p>
+                        <p>RMB&nbsp;{{val.product[0].price}}</p>
+                    </div>
+                </router-link>
+                    <!-- 多图 -->
+                <mySwiper class="mySwiper" :dataApp="val" v-else-if="val.product.length > 1"></mySwiper>
+                    <!-- appitem -->
+                <a :href="val.product.link" v-else-if="val.linkType == 'app'" class="imgContainer">
                     <x-img :src="val.product.src" class="singleImg" default-src="http://img.zcool.cn/community/01b97c55f131e432f875a132a7fbc6.gif" container=".main" :offset="-100"></x-img>
-                </router-link>
+                </a>
                 <!-- 每个图片区的 footer -->
                 <a class="more-goods" href="#goods" v-if="val.product.length != 0 && (val.groupId == 'newitem' || val.groupId == 'recommitem')">查看更多商品</a>
                 <a class="more-goods" href="#myCollect" v-else-if="val.product.length != 0 && val.groupId == 'sgooditem'">查看更多收藏</a>
@@ -116,7 +131,8 @@ export default {
                             linkType: 'app',
                             name: '-',
                             product: {
-                                src: res[key].src
+                                src: res[key].src,
+                                link: res[key].link
                             }
                         });
                     // smallitem
@@ -155,7 +171,6 @@ export default {
         }
     }
 }
-
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -174,16 +189,24 @@ export default {
     .main
         padding-bottom 1.3594rem
         .imgContainer
-            display flex
-            justify-content center
-            align-items center
-            // height 10rem
             background-color #fff
             .singleImg
                 width 100%
-                // height 10rem
-            // .loading
-            //     width 1.5rem
+            .discribe
+                display flex
+                align-items center
+                justify-content center
+                flex-direction column
+                width 100%
+                height 2.5rem
+                border-bottom 1px solid #e0e0e0
+                font-size fs + 0.0313rem
+                color #333
+                background-color #fff
+                p:not(:first-child)
+                    margin-top 0.3125rem
+            .discribeTriLine
+                height 3.5rem
     .route-item
         footerCss()
     .bannerTitle

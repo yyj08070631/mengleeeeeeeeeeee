@@ -151,13 +151,15 @@ const routes = [{
         path: '/goodDetail',
         component: function (resolve) {
             require(['./components/goodDetail/goodDetail.vue'], resolve)
-        }
+        },
+        meta: { title: '商品详情' }
     },
     {
         path: '/settings',
         component: function (resolve) {
             require(['./components/settings/settings.vue'], resolve)
-        }
+        },
+        meta: { title: '个人设置' }
     },
     {
         path: '/myTeam',
@@ -170,7 +172,8 @@ const routes = [{
         path: '/myQRcode',
         component: function (resolve) {
             require(['./components/myQRcode/myQRcode.vue'], resolve)
-        }
+        },
+        meta: { title: '我的二维码' }
     },
     {
         path: '/integral',
@@ -183,19 +186,22 @@ const routes = [{
         path: '/goodsData',
         component: function (resolve) {
             require(['./components/goodsData/goodsData.vue'], resolve)
-        }
+        },
+        meta: { title: '商品参数' }
     },
     {
         path: '/offlineInfo',
         component: function (resolve) {
             require(['./components/offlineInfo/offlineInfo.vue'], resolve)
-        }
+        },
+        meta: { title: '门店信息' }
     },
     {
         path: '/digest',
         component: function (resolve) {
             require(['./components/digest/digest.vue'], resolve)
-        }
+        },
+        meta: { title: '服务信息' }
     },
     {
         path: '/bill',
@@ -222,19 +228,22 @@ const routes = [{
         path: '/imageText',
         component: function (resolve) {
             require(['./components/imageText/imageText.vue'], resolve)
-        }
+        },
+        meta: { title: '图文详情' }
     },
     {
         path: '/nearbyStores',
         component: function (resolve) {
             require(['./components/nearbyStores/nearbyStores.vue'], resolve)
-        }
+        },
+        meta: { title: '附近门店' }
     },
     {
         path: '/goodsClassify',
         component: function (resolve) {
             require(['./components/goodsClassify/goodsClassify.vue'], resolve)
-        }
+        },
+        meta: { title: '商品列表' }
     },
     {
         path: '/teamComputed',
@@ -254,7 +263,8 @@ const routes = [{
         path: '/subscribeNow',
         component: function (resolve) {
             require(['./components/subscribeNow/subscribeNow.vue'], resolve)
-        }
+        },
+        meta: { title: '预约详情' }
     },
     // {
     //     path: '/search',
@@ -264,7 +274,8 @@ const routes = [{
         path: '/buyGoods',
         component: function (resolve) {
             require(['./components/buyGoods/buyGoods.vue'], resolve)
-        }
+        },
+        meta: { title: '订单确认' }
     },
     {
         path: '/myCollect',
@@ -284,19 +295,22 @@ const routes = [{
         path: '/addrManage',
         component: function (resolve) {
             require(['./components/addrManage/addrManage.vue'], resolve)
-        }
+        },
+        meta: { title: '收件信息' }
     },
     {
         path: '/addrEdit',
         component: function (resolve) {
             require(['./components/addrEdit/addrEdit.vue'], resolve)
-        }
+        },
+        meta: { title: '新建收货地址' }
     },
     {
         path: '/addrEditReal',
         component: function (resolve) {
             require(['./components/addrEditReal/addrEditReal.vue'], resolve)
-        }
+        },
+        meta: { title: '编辑收货地址' }
     },
     // {
     //     path: '/allOrder',
@@ -306,7 +320,8 @@ const routes = [{
         path: '/nearbyStoresAll',
         component: function (resolve) {
             require(['./components/nearbyStoresAll/nearbyStoresAll.vue'], resolve)
-        }
+        },
+        meta: { title: '所有门店' }
     },
     {
         path: '/myLoading',
@@ -325,7 +340,8 @@ const routes = [{
         path: '/payResult',
         component: function (resolve) {
             require(['./components/payResult/payResult.vue'], resolve)
-        }
+        },
+        meta: { title: '支付结果' }
     },
     {
         path: '/myCenterHelp',
@@ -338,19 +354,22 @@ const routes = [{
         path: '/integralHelp',
         component: function (resolve) {
             require(['./components/integralHelp/integralHelp.vue'], resolve)
-        }
+        },
+        meta: { title: '等级特权' }
     },
     {
         path: '/offlineInfoMap',
         component: function (resolve) {
             require(['./components/offlineInfoMap/offlineInfoMap.vue'], resolve)
-        }
+        },
+        meta: { title: '门店定位' }
     },
     {
         path: '/searchResult',
         component: function (resolve) {
             require(['./components/searchResult/searchResult.vue'], resolve)
-        }
+        },
+        meta: { title: '搜索结果' }
     },
     // {
     //     path: '/offlineMapSilence',
@@ -366,7 +385,8 @@ const routes = [{
         path: '/myTeamIndirect',
         component: function (resolve) {
             require(['./components/myTeamIndirect/myTeamIndirect.vue'], resolve)
-        }
+        },
+        meta: { title: '直属会员' }
     }
 ];
 
@@ -448,7 +468,7 @@ router.beforeEach((to, from, next) => {
     // console.log(store.state.isLoading)
     Vue.http({
         method: 'get',
-        url: 'http://dde.dgxinn.cn/dream/index.php/Api/uid',
+        url: 'http://go.zs-mmall.com/dream/index.php/Api/uid',
         emulateJSON: true
     }).then(function(response) {
         let res = response.body;
@@ -457,7 +477,7 @@ router.beforeEach((to, from, next) => {
             Vue.wechat.onMenuShareAppMessage({
                 title: '梦乐城',
                 desc: '',
-                link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(addURLParam(document.location.href, 'logo', res.logo)),
+                link: 'http://go.zs-mmall.com/dream/index.php/Home/Index/test/surl/' + base64.encode(addURLParam(document.location.href, 'logo', res.logo)),
                 imgUrl: res.img,
                 success: function(res) {
                     // console.log(res)
@@ -468,7 +488,7 @@ router.beforeEach((to, from, next) => {
             });
             Vue.wechat.onMenuShareTimeline({
                 title: '梦乐城',
-                link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(addURLParam(document.location.href, 'logo', res.logo)),
+                link: 'http://go.zs-mmall.com/dream/index.php/Home/Index/test/surl/' + base64.encode(addURLParam(document.location.href, 'logo', res.logo)),
                 imgUrl: res.img,
                 success: function(res) {
                     // console.log(res)
@@ -510,7 +530,7 @@ router.afterEach((to, from, next) => {
 })
 
 // 定义全局变量
-global.Domain = 'http://dde.dgxinn.cn/dream/index.php/Home'
+global.Domain = 'http://go.zs-mmall.com/dream/index.php/Home'
 
 new Vue({
     el: '#app',

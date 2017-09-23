@@ -26,7 +26,7 @@
                     <p>RMB&nbsp;{{num(val.price)}}</p>
                 </div>
             </router-link>
-        </swiper-slide> 
+        </swiper-slide>
         <!-- 这是轮播的小圆点 -->
         <div class="swiper-pagination" slot="pagination"></div>
     </swiper>

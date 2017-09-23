@@ -14,9 +14,10 @@
                     </div>
                     <div class="content">
                         <p>{{val.servname}}</p>
-                        <p>{{val.atime}}</p>
-                        <p>{{val.nearname}}</p>
-                    </div>    
+                        <p>门店名：{{val.nearname}}</p>
+                        <p class="rowEllipsis">门店地址：{{val.nearaddress}}</p>
+                        <p>到店时间：{{val.atime}}</p>
+                    </div>
                 </router-link>
                 <div class="info">
                     <!-- 左边 -->
@@ -109,6 +110,11 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
 
+// 单行省略
+.rowEllipsis
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
 // 大选择窗口
 .v-transfer-dom
     .vux-x-dialog
@@ -185,27 +191,28 @@ export default {
                 width: 100%
                 height: 2.75rem
                 .picture
-                    margin: 0.4688rem 0.3125rem 0.4688rem 0
+                    margin: 0.4688rem 0.3125rem 0 0
                     img
-                        width: 2.0938rem
-                        height: 2.0938rem
+                        width 2.9688rem
+                        height 2.9688rem
                 .content
                     width: 100%
                     margin-top: 0.4688rem
                     margin-right: 0.4375rem
                     p:first-child
-                        margin-bottom: 0.375rem
-                        font-size: fs
-                        color: #333
-                        width: 90%
-                        height: 0.5rem
-                        white-space: nowrap
-                        overflow: hidden
+                        margin-bottom 0.25rem
+                        font-size fs
+                        color #333
+                        width 90%
+                        height 0.5rem
+                        white-space nowrap
+                        overflow hidden
                         text-overflow: ellipsis
                     p
+                        width 5.625rem
                         line-height: 0.5625rem
                         font-size: fs
-                        color: #909090                          
+                        color: #909090                       
                     div
                         margin-bottom:  -0.0781rem
                         width: 1.5625rem
@@ -243,7 +250,6 @@ export default {
                         background: #ea68a2
                         border-radius: 0.1563rem
             .line
-                margin-left: 0.4375rem
                 width: 100%
                 height: 1px  
                 background: #e0e0e0

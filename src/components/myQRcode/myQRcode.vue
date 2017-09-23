@@ -10,7 +10,7 @@
                 <img class="rank" :src="data.internal == 1 ? require('./images/neibu.png') : data.levelName">
             </div>
             <img class="append" src="./images/append.png" @click="bgChange()"/>
-            <img class="QRcode" src="http://dde.dgxinn.cn/dream/index.php/Api/qrcode"/>
+            <img class="QRcode" src="http://go.zs-mmall.com/dream/index.php/Api/qrcode"/>
             <p class="desc">识别二维码，加入我的梦乐城</p>
             <!-- <img class="avatorOver" :src="data.headimg"> -->
         </div>
@@ -26,7 +26,7 @@ export default {
         return {
             data: [],
             bgStyle: {
-                'background-image': 'url(http://dde.dgxinn.cn/dream/index.php/Api/code/img)'
+                'background-image': 'url(http://go.zs-mmall.com/dream/index.php/Api/code/img)'
             }
         }
     },
@@ -47,7 +47,7 @@ export default {
         },
         bgChange: function(){
             this.bgStyle = {
-                'background-image': 'url(http://dde.dgxinn.cn/dream/index.php/Api/code/img?v' + parseInt(Math.random() * 1000000) + ')'
+                'background-image': 'url(http://go.zs-mmall.com/dream/index.php/Api/code/img?v' + parseInt(Math.random() * 1000000) + ')'
             }
         }
     }
@@ -62,11 +62,7 @@ export default {
     align-items center
     width 100%
     height 100%
-    // 刷新背景
-    // .bg1
-    //     background-image url(http://dde.dgxinn.cn/dream/index.php/Api/code/img?v123)
-    // .bg2
-    //     background-image url(http://dde.dgxinn.cn/dream/index.php/Api/code/img?v321)
+    background-color #f0f0f0
     // 盖在最上面的头像
     .avatorOver
         position absolute
@@ -83,7 +79,6 @@ export default {
         position: relative
         width 9.0625rem
         height 14.0625rem
-        // background: url(http://dde.dgxinn.cn/dream/index.php/Api/code/img)
         background-repeat no-repeat
         background-size 12.1875rem 14.0625rem
         background-position 0 0

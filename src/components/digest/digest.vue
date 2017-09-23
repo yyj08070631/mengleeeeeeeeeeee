@@ -2,45 +2,45 @@
     <div class="digest-wrapper">
         <!-- header -->
         <!-- <v-header></v-header> -->
-        <img class="serve" :src="appData.sericeitem.src">
-        <div class="serve-desc">
-            <h2 class="desc-title">{{appData.sericeitem.name}}</h2>
-            <span class="desc-content">
-                {{appData.sericeitem.descript}}
-            </span>
-        </div>
-        <div class="divider"></div>
-        <div class="serve-date-address">
-            <span class="date">时间</span>
-            <div class="details">
-                <span>{{appData.timeitem.name}}</span>
-                <span class="mg-top">{{appData.timeitem.tip}}</span> 
+        <section class="main">
+            <img class="serve" :src="appData.sericeitem.src">
+            <div class="serve-desc">
+                <h2 class="desc-title">{{appData.sericeitem.name}}</h2>
+                <span class="desc-content">
+                    {{appData.sericeitem.descript}}
+                </span>
             </div>
-        </div>
-        <div class="divider dividerShort"></div>
-        <div class="serve-date-address">
-            <span class="date">地址</span>
-            <div class="details">
-                <span>{{appData.nearbyitem.name}}</span>
-            <span class="mg-top">{{appData.nearbyitem.address}}</span>
+            <div class="divider"></div>
+            <div class="serve-date-address">
+                <span class="date">时间</span>
+                <div class="details">
+                    <span>{{appData.timeitem.name}}</span>
+                    <span class="mg-top">{{appData.timeitem.tip}}</span> 
+                </div>
             </div>
-        </div>
-        <div class="divider"></div>
-        <a href="javascript:void(0)" class="link" @click="editInfo = true">我要预约</a>
-        <!-- footer -->
-        <v-view class="route-item"></v-view>
+            <div class="divider dividerShort"></div>
+            <div class="serve-date-address">
+                <span class="date">地址</span>
+                <div class="details">
+                    <span>{{appData.nearbyitem.name}}</span>
+                <span class="mg-top">{{appData.nearbyitem.address}}</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <a href="javascript:void(0)" class="link" @click="editInfo = true">我要预约</a>
+        </section>
         <!-- 遮罩：填写预约信息 -->
         <div v-transfer-dom>
             <x-dialog v-model="editInfo" class="dialog-demo" hide-on-blur>
                 <div class="chooseValue">
                     <p>预约信息编辑</p>
                     <label class="inputBox">
-                        <span>预约人：</span>
-                        <input type="text" placeholder="请填写预约人" v-model="name" maxlength="4">
+                        <span class="digestTitle">预约人：</span>
+                        <input type="text" class="digestContent" placeholder="请填写预约人" v-model="name" maxlength="4">
                     </label>
                     <label class="inputBox">
-                        <span>电话：</span>
-                        <input type="text" placeholder="请填写电话" v-model="telphone" maxlength="11">
+                        <span class="digestTitle">电话：</span>
+                        <input type="text" class="digestContent" placeholder="请填写电话" v-model="telphone" maxlength="11">
                     </label>
                     <div class="checkLabel">
                         <span class="checkTitle">性别：</span>
@@ -60,12 +60,14 @@
                 </div>
             </x-dialog>
         </div>
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
 import view from '../../components/view/view';
-import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
-import { Checker, CheckerItem, Popup } from 'vux'
+import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux';
+import { Checker, CheckerItem, Popup } from 'vux';
 // import header from '../../components/header/header';
 export default {
     directives: {
@@ -109,6 +111,8 @@ export default {
                 alert('请输入预约电话');
             } else if (this.gender == ''){
                 alert('请选择性别');
+            } else if (!(/^1(3|4|5|7|8)\d{9}$/.test(this.telphone))){
+                alert('手机号码格式不正确！');
             } else {
                 // alert(this.name + this.telphone + this.gender);
                 this.$http({
@@ -216,71 +220,71 @@ img, span, a
         .inputBox
             display flex
             margin-bottom 0.5625rem
-            span
+            .digestTitle
                 display flex
                 align-items center
                 width 3rem
                 font-size fs + 0.0469rem
-            input
+            .digestContent
                 height 0.875rem
                 width 100%
                 padding-right 0.2813rem
                 border 1px solid #ea68a2
                 outline 0
-                font-size fs
+                font-size fs + 0.0469rem
                 text-align right
 // 主体
 .digest-wrapper
-    margin-bottom: 1.3438rem
     width: 100%
     height: 100%
     background-color #fff
-    .divider
-        border-top 1px solid #e0e0e0
-    .dividerShort
-        margin-left 3.8125rem
-    .route-item
-        footerCss()
-    .serve
-        display block
-        width: 100%
-    .serve-desc
-        display flex
-        flex-direction column
-        justify-content center
-        margin 0 0.5rem
-        .desc-title
-            margin 0.5625rem 0 0.4375rem 0
-            font-size fs + 0.0156rem
-            color #333
-        .desc-content
-            margin-bottom 0.4688rem
-            font-size fs
-            color #909090
-            line-height 0.4688rem
-            text-align justify
-    .serve-date-address
-        display flex
-        .date
-            width 3.3125rem
-            margin 0.5313rem 0 0 0.5rem
-            font-size fs
-            color #909090
-        .details
-            height 1.9688rem
-            width 5.6875rem
-            margin-top 0.5313rem
-            font-size fs
-            color #333
-            .mg-top
-                margin-top 0.3125rem
+    // 主体
+    .main
+        padding-bottom: 1.3438rem
+        .divider
+            border-top 1px solid #e0e0e0
+        .dividerShort
+            margin-left 3.8125rem
+        .serve
+            display block
+            width: 100%
+        .serve-desc
+            display flex
+            flex-direction column
+            justify-content center
+            margin 0 0.5rem
+            .desc-title
+                margin 0.5625rem 0 0.4375rem 0
+                font-size fs + 0.0156rem
+                color #333
+            .desc-content
+                margin-bottom 0.4688rem
+                font-size fs
+                color #909090
                 line-height 0.4688rem
                 text-align justify
-    .link
-        display flex
-        justify-content center
-        height 1.4375rem
-        padding-top 0.4375rem
-        font-size fs + 0.0156rem
-        color #ea68a2
+        .serve-date-address
+            display flex
+            .date
+                width 3.3125rem
+                margin 0.5313rem 0 0 0.5rem
+                font-size fs
+                color #909090
+            .details
+                height 1.9688rem
+                width 5.6875rem
+                margin-top 0.5313rem
+                font-size fs
+                color #333
+                .mg-top
+                    margin-top 0.3125rem
+                    line-height 0.4688rem
+                    text-align justify
+        .link
+            display flex
+            justify-content center
+            height 1.4375rem
+            padding-top 0.4375rem
+            font-size fs + 0.0156rem
+            color #ea68a2
 </style>

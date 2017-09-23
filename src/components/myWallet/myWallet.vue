@@ -105,9 +105,12 @@
                 </div>
             </x-dialog>
         </div>
+        <!-- footer -->
+        <v-view class="route-item"></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 import { XDialog, XButton, TransferDomDirective as TransferDom } from 'vux'
 import { Checker, CheckerItem, Popup } from 'vux'
 // import header from '../../components/header/header';
@@ -117,6 +120,7 @@ export default {
         TransferDom
     },
     components: {
+        'v-view': view,
         XDialog,
         XButton,
         Checker,
@@ -365,6 +369,9 @@ img, span, a
     width 100%
     height 100%
     background #f0f0f0
+    // footer
+    .route-item
+        footerCss()
     // 主体
     .main
         background-color #f0f0f0

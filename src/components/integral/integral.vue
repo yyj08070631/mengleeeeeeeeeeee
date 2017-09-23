@@ -3,7 +3,7 @@
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
         <div class="integral-board">
-            <span class="rank-title">皇冠会员</span>
+            <span class="rank-title">{{data.grade}}会员</span>
             <a href="#integralHelp" class="rank-question">等级特权?</a>
             <h1 class="myIntegral">{{outputdollars(data.total)}}</h1>
         </div>
@@ -75,7 +75,7 @@ export default {
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                // console.log(res);
+                console.log(res);
                 this.data = res.data;
                 if (res.data.status == 0) {
                     this.loadMoreMessage = '没有更多了';

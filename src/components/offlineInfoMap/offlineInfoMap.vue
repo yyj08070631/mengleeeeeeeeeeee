@@ -73,12 +73,12 @@ export default {
                                     self.loaded = true;
                                     self.$nextTick();
                                     // 传坐标到后台
-                                    const userLoc = self.lng + ',' + self.lat;
-                                    const shopLoc = self.$route.query.loc;
-                                    const shopName = self.$route.query.name;
+                                    let userLoc = self.lng + ',' + self.lat;
+                                    let shopLoc = self.$route.query.loc;
+                                    let shopName = self.$route.query.name;
                                     self.$http({
                                         method: 'get',
-                                        url: 'http://dde.dgxinn.cn/dream/index.php/Api/address/' + userLoc + '/' + shopLoc + '/' + shopName + '/1',
+                                        url: 'http://go.zs-mmall.com/dream/index.php/Api/address/' + userLoc + '/' + shopLoc + '/' + shopName + '/1',
                                         emulateJSON: true
                                     }).then(function (response) {
                                         let res = response.body;
@@ -94,7 +94,7 @@ export default {
                     }
                 }]
             };
-            // console.log(obj);
+            console.log(obj);
             return obj
         }
     }

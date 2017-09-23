@@ -1,7 +1,6 @@
 <template>
     <div class="myCenterHelp-wrapper">
-        <div class="noGoods" v-if="data == ''">暂无商品信息&nbsp;:)</div>
-        <div v-html="data" v-else></div>
+        <div v-html="data" v-show="data != ''"></div>
     </div>
 </template>
 <script type="ecmascript-6">
@@ -22,11 +21,11 @@ export default {
         getDataFromBackend() {
             this.$http({
                 method: 'get',
-                url: 'http://dde.dgxinn.cn/dream/index.php/Api/aid/2'
+                url: 'http://go.zs-mmall.com/dream/index.php/Api/aid/2'
                 // emulateJSON: true
             }).then(function (response) {
                 let res = response.body;
-                console.log(res);
+                // console.log(res);
                 this.data = res;
             })
         }

@@ -22,7 +22,7 @@ export default {
             const screen = document.body.clientWidth + '*' + document.body.clientHeight
             this.$http({
                 method: 'get',
-                url: 'http://dde.dgxinn.cn/dream/index.php/Api/static/' + this.$route.query.loc + '/' + this.$route.query.scale + '/' + screen + '2',
+                url: 'http://go.zs-mmall.com/dream/index.php/Api/static/' + this.$route.query.loc + '/' + this.$route.query.scale + '/' + screen + '2',
                 emulateJSON: true
             }).then(function (response) {
                 let res = response.body;

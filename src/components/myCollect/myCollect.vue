@@ -301,7 +301,7 @@ export default {
                     align-items flex-end
                     justify-content flex-end
                     width 5.75rem
-                    padding 0 0 0.9688rem 0
+                    padding 0 0 0.5313rem 0
                     color #ea68a2
                     span
                         font-size fs + 0.0313rem

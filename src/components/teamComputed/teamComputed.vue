@@ -20,8 +20,8 @@
                 <div class="link-wrapper">
                     <span>总业绩：</span>
                     <span class="number">￥0.00</span>
-                    <span class="state" v-if="data.off == 0" @click="alertTxt = data.last_msg">未激活</span>
-                    <span class="state stateYi" v-else>已激活</span>
+                    <span class="state stateYi" v-if="data.off == 1">已激活</span>
+                    <span class="state" v-else @click="alertTxt = data.last_msg">未激活</span>
                 </div>
             </a>
             <div class="title-item title-item-empty" v-if="!data.list || data.list == ''">本月还没有团队收益哦:-D</div>
@@ -102,6 +102,10 @@ export default {
                     this.canScroll = false;
                 }
                 this.data = res.data;
+                // --表示当月已激活团队奖励--------------------
+                if (res.data.off == 1 && res.data.bool == 1) {
+                    alert(res.data.msg);
+                }
             })
         },
         // 分页相关

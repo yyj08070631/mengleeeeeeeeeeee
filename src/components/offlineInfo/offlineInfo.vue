@@ -31,7 +31,7 @@
                     </p>
                 </div>
                 <hr class="divider dividerMargin">
-                <router-link class="rowDown" :to="{ path: '/offlineInfoMap', query: { loc: '113.384129,22.937244', name: data.nearbyitem.name, scale: '16' } }">
+                <router-link class="rowDown" :to="{ path: '/offlineInfoMap', query: { loc: data.nearbyitem.coordinate, name: data.nearbyitem.name, scale: '16' } }">
                     <div class="colLeft">
                         <p class="loc">{{data.nearbyitem.address}}</p>
                         <p class="dis">
@@ -58,7 +58,7 @@
                 <div class="noOffService" v-if="data.sericeitem.length == 0">对不起，该店尚无线下服务:-D</div>
                 <router-link :to="{ path: '/digest', query: { sid: val.id,nid: $route.query.nid } }" v-for="(val,key) in data.sericeitem" v-else>
                     <span>{{val.name}}</span>
-                    <span>￥{{parseFloat(val.price).toFixed(2)}}</span>
+                    <span>￥{{val.price}}</span>
                 </router-link>
             </div>
             <!--粗分割线-->
@@ -128,15 +128,19 @@
 		<div class="share" v-show="shareView" @click.stop="shareView = false">
 			<img src="../../commom/img/share.png">
 		</div>
+        <!-- footer -->
+        <v-view></v-view>
     </div>
 </template>
 <script type="ecmascript-6">
+import view from '../../components/view/view';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import { Alert } from 'vux';
 import { base64 } from 'vux';
 // import header from '../../components/header/header';
 export default {
     components: {
+        'v-view': view,
         swiper,
         swiperSlide,
 		Alert,
@@ -227,7 +231,7 @@ export default {
 			let that = this.$wechat;
 			this.$http({
 				method: 'get',
-				url: 'http://dde.dgxinn.cn/dream/index.php/Api/uid/g',
+				url: 'http://go.zs-mmall.com/dream/index.php/Api/uid/g',
 				emulateJSON: true
 			}).then(function(response) {
 				let res = response.body;
@@ -236,7 +240,7 @@ export default {
 					that.onMenuShareAppMessage({
 						title: this.shareVal,
 						desc: '',
-						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
+						link: 'http://go.zs-mmall.com/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
 						imgUrl: this.data.nearbyitem.mainmap[0].src,
 						success: function(res) {
 							// console.log(res)
@@ -247,7 +251,7 @@ export default {
 					});
 					that.onMenuShareTimeline({
 						title: this.shareVal,
-						link: 'http://dde.dgxinn.cn/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
+						link: 'http://go.zs-mmall.com/dream/index.php/Home/Index/test/surl/' + base64.encode(this.addURLParam(document.location.href, 'logo', res.logo)),
 						imgUrl: this.data.nearbyitem.mainmap[0].src,
 						success: function(res) {
 							// console.log(res)
@@ -333,6 +337,7 @@ img, span, a
             height (80 * (488 / 618))%
     // 主体
     .main
+        margin-bottom 1.3594rem
         // 分割线
         .divider
             margin 0
