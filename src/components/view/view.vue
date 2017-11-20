@@ -93,7 +93,7 @@ export default {
 						emulateJSON: true
 					}).then(response => {
 						let res = response.body;
-						console.log(res);
+						// console.log(res);
 						this.data = res;
 						// 缓存footer的信息（与时间戳）
 						sessionStorage.nav = JSON.stringify({

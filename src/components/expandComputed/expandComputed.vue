@@ -2,7 +2,7 @@
     <div class="expandComput-wrapper">
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
-        <div class="expand-board">
+        <div class="expand-board" style="background-image:url('http://go.zs-mmall.com/dream/index.php/Api/bg/expand')">
             <span class="rank-title">拓展总收益（元）</span>
             <h1 class="myExpand">{{num(data.total)}}</h1>
         </div>
@@ -181,7 +181,8 @@ export default {
     background: #f0f0f0
     .expand-board
         height 4.375rem
-        background-color #ea68a2
+        background-color #fff
+        background-size 10rem 4.375rem
         .rank-title
             display block 
             padding .8438rem 0 .75rem .5rem

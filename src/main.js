@@ -433,7 +433,7 @@ router.beforeEach((to, from, next) => {
     Vue.http.post(
         global.Domain + '/index/test',
         {
-            // uri: uriRes
+            uri: base64.encode(document.location.href)
         },
         {
             emulateJSON: true

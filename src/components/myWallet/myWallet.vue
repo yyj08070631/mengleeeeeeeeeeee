@@ -6,7 +6,7 @@
         <section class="main">
             <!-- 乐宝余额 -->
             <div class="onePanel">
-                <div class="dataBox">
+                <div class="dataBox" style="background-image:url('http://go.zs-mmall.com/dream/index.php/Api/bg/virtual')">
                     <p>乐宝余额（点）</p>
                     <span>{{num(data.virtual)}}</span>
                 </div>
@@ -23,7 +23,7 @@
             <div class="divider"></div>
             <!-- 可提现金额 -->
             <div class="onePanel bluePanel">
-                <div class="dataBox">
+                <div class="dataBox" style="background-image:url('http://go.zs-mmall.com/dream/index.php/Api/bg/withdraw')">
                     <p>可提现金额（元）</p>
                     <span>{{num(data.wallet)}}</span>
                 </div>
@@ -47,8 +47,8 @@
         <div v-transfer-dom>
             <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
                 <div class="chooseValue">
-                    <p>选择面额</p>
-                    <checker v-model="moneyValue" default-item-class="valueUnsel" selected-item-class="valueSel">
+                    <p class="title">我要充值</p>
+                    <!-- <checker v-model="moneyValue" default-item-class="valueUnsel" selected-item-class="valueSel">
                         <checker-item value="5">
                             5元
                         </checker-item>
@@ -67,9 +67,13 @@
                         <checker-item value="200" class="noMargin">
                             200元
                         </checker-item>
-                    </checker>
+                    </checker> -->
+                    <a href="javascript:void(0)" class="chongzhi-580" type="button" @click="moneyValue = 580; chongZhi()">
+                        <p>立即成为会员，享受会员特权</p>
+                        <p>580元乐宝</p>
+                    </a>
                     <div class="inputChongzhi">
-                        <input type="text" v-model="moneyValueInput" placeholder="填写充值金额">
+                        <input type="text" v-model="moneyValueInput" placeholder="或填写充值金额">
                     </div>
                     <div class="btnCont">
                         <div class="inSubmit" @click="chongZhi()">确定充值</div>
@@ -169,6 +173,7 @@ export default {
                     console.log(res)
                     if(res.code == 200){
                         location.href = res.url;
+                        this.moneyValueInput = '';
                     } else {
                         alert(res.msg);
                     }
@@ -184,6 +189,7 @@ export default {
                     console.log(res)
                     if(res.code == 200){
                         location.href = res.url;
+                        this.moneyValue = '';
                     } else {
                         alert(res.msg);
                     }
@@ -251,6 +257,16 @@ export default {
                 return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
         }
     },
+    beforeRouteEnter (to, from, next) {
+        // 首页跳入
+        if (from.fullPath == '/home') {
+            next(vm => {
+                vm.showHideOnBlur = true;
+            })
+        } else {
+            next()
+        }
+    },
     computed: {
 
     },
@@ -301,6 +317,28 @@ img, span, a
     .chooseValue
         width 8.2813rem
         padding 0 0.4375rem
+        // 充值580直接变会员
+        .chongzhi-580
+            display flex
+            flex-direction column
+            justify-content center
+            align-items center
+            width 100%
+            height 3.125rem
+            margin-bottom 0.3125rem
+            background-color #ea68a2
+            p
+                color #fff !important
+                margin-top 0.1563rem !important
+                margin-bottom 0 !important
+            p:first-child
+                margin-top 0 !important
+                font-size 0.375rem
+                font-weight 600
+            p:last-child
+                font-size 1rem
+                letter-spacing 0.0313rem
+                font-weight bold
         // 充值金额
         .vux-checker-box
             display flex
@@ -318,7 +356,7 @@ img, span, a
                 outline 0
         .btnCont
             display flex
-            margin 1rem 0 0.4688rem 0
+            margin .6rem 0 .4688rem 0
             .inSubmit
                 display flex
                 justify-content center
@@ -331,7 +369,7 @@ img, span, a
             .inCancel
                 color #353535
                 background-color #f0f0f0
-        p
+        .title
             margin 0.4063rem 0 0.3438rem 0
             font-size fs
             color #555
@@ -381,8 +419,10 @@ img, span, a
         // 一个面板
         .onePanel
             .dataBox
+                position relative
                 height 4.375rem
-                background-color #ea68a2
+                background-color #fff
+                background-size 10rem 4.375rem
                 p
                     padding .8438rem 0 .75rem .5rem
                     font-size fs - 0.0313rem
@@ -391,6 +431,12 @@ img, span, a
                     padding-left .5rem
                     font-size fs + 1.1875rem
                     color #fff
+                img
+                    position absolute
+                    left 0
+                    top 0
+                    width 10rem
+                    height 4.375rem
             .operatList
                 .operatItem
                     height 1.3438rem

@@ -2,7 +2,7 @@
     <div class="title-wrapper">
         <!--头部  -->
         <!-- <v-header></v-header> -->
-        <div class="title-board">
+        <div class="title-board" style="background-image:url('http://go.zs-mmall.com/dream/index.php/Api/bg/title')">
             <span class="rank-title">头衔总收益（元）</span>
             <h1 class="myTitle">{{num(data.total)}}</h1>
         </div>
@@ -176,7 +176,8 @@ span
         padding: 0.8438rem 0 0 0.5rem
         width: 9.5rem
         height: 3.5313rem
-        background: #ea6aa2
+        background-color #ffffff
+        background-size 10rem 4.375rem
         color: #fff
         .rank-title
             font-size: fs

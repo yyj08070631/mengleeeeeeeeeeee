@@ -2,7 +2,7 @@
     <div class="team-wrapper">
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
-        <div class="title-board">
+        <div class="title-board" style="background-image:url('http://go.zs-mmall.com/dream/index.php/Api/bg/team')">
             <span class="rank-title">团队总收益（元）</span>
             <h1 class="myTitle">{{num(data.total)}}</h1>
         </div>
@@ -211,7 +211,8 @@ export default {
         background: #f0f0f0
     .title-board
         height 4.375rem
-        background-color #ea68a2
+        background-color #fff
+        background-size 10rem 4.375rem
         .rank-title
             display block !important
             padding .8438rem 0 .75rem .5rem

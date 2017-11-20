@@ -2,7 +2,7 @@
     <div class="integral-wrapper">
         <!-- 头部 -->
         <!-- <v-header></v-header> -->
-        <div class="integral-board">
+        <div class="integral-board" style="background-image:url('http://go.zs-mmall.com/dream/index.php/Api/bg/integral')">
             <span class="rank-title">{{data.grade}}会员</span>
             <a href="#integralHelp" class="rank-question">等级特权?</a>
             <h1 class="myIntegral">{{outputdollars(data.total)}}</h1>
@@ -176,7 +176,8 @@ span
         padding: 0.75rem 0 0 0.5rem
         width: 9.5rem
         height: 3.5rem
-        background: #ea6aa2
+        background-color #fff
+        background-size 10rem 4.375rem
         color: #fff
         .rank-title
             float: left    
